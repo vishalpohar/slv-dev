@@ -10,7 +10,6 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
-import { Route as ProjectsRouteImport } from './routes/projects'
 import { Route as EmiCalculatorRouteImport } from './routes/emi-calculator'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CompareRouteImport } from './routes/compare'
@@ -18,16 +17,12 @@ import { Route as CareersRouteImport } from './routes/careers'
 import { Route as BuyersGuideRouteImport } from './routes/buyers-guide'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ProjectsIndexRouteImport } from './routes/projects.index'
 import { Route as ProjectsSlugRouteImport } from './routes/projects.$slug'
 
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ProjectsRoute = ProjectsRouteImport.update({
-  id: '/projects',
-  path: '/projects',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EmiCalculatorRoute = EmiCalculatorRouteImport.update({
@@ -65,10 +60,15 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProjectsIndexRoute = ProjectsIndexRouteImport.update({
+  id: '/projects/',
+  path: '/projects/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ProjectsSlugRoute = ProjectsSlugRouteImport.update({
-  id: '/$slug',
-  path: '/$slug',
-  getParentRoute: () => ProjectsRoute,
+  id: '/projects/$slug',
+  path: '/projects/$slug',
+  getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
@@ -79,9 +79,9 @@ export interface FileRoutesByFullPath {
   '/compare': typeof CompareRoute
   '/contact': typeof ContactRoute
   '/emi-calculator': typeof EmiCalculatorRoute
-  '/projects': typeof ProjectsRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/projects/$slug': typeof ProjectsSlugRoute
+  '/projects/': typeof ProjectsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -91,9 +91,9 @@ export interface FileRoutesByTo {
   '/compare': typeof CompareRoute
   '/contact': typeof ContactRoute
   '/emi-calculator': typeof EmiCalculatorRoute
-  '/projects': typeof ProjectsRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/projects/$slug': typeof ProjectsSlugRoute
+  '/projects': typeof ProjectsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -104,9 +104,9 @@ export interface FileRoutesById {
   '/compare': typeof CompareRoute
   '/contact': typeof ContactRoute
   '/emi-calculator': typeof EmiCalculatorRoute
-  '/projects': typeof ProjectsRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/projects/$slug': typeof ProjectsSlugRoute
+  '/projects/': typeof ProjectsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -118,9 +118,9 @@ export interface FileRouteTypes {
     | '/compare'
     | '/contact'
     | '/emi-calculator'
-    | '/projects'
     | '/sitemap.xml'
     | '/projects/$slug'
+    | '/projects/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -130,9 +130,9 @@ export interface FileRouteTypes {
     | '/compare'
     | '/contact'
     | '/emi-calculator'
-    | '/projects'
     | '/sitemap.xml'
     | '/projects/$slug'
+    | '/projects'
   id:
     | '__root__'
     | '/'
@@ -142,9 +142,9 @@ export interface FileRouteTypes {
     | '/compare'
     | '/contact'
     | '/emi-calculator'
-    | '/projects'
     | '/sitemap.xml'
     | '/projects/$slug'
+    | '/projects/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -155,8 +155,9 @@ export interface RootRouteChildren {
   CompareRoute: typeof CompareRoute
   ContactRoute: typeof ContactRoute
   EmiCalculatorRoute: typeof EmiCalculatorRoute
-  ProjectsRoute: typeof ProjectsRouteWithChildren
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  ProjectsSlugRoute: typeof ProjectsSlugRoute
+  ProjectsIndexRoute: typeof ProjectsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -166,13 +167,6 @@ declare module '@tanstack/react-router' {
       path: '/sitemap.xml'
       fullPath: '/sitemap.xml'
       preLoaderRoute: typeof SitemapDotxmlRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/projects': {
-      id: '/projects'
-      path: '/projects'
-      fullPath: '/projects'
-      preLoaderRoute: typeof ProjectsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/emi-calculator': {
@@ -224,27 +218,22 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/projects/': {
+      id: '/projects/'
+      path: '/projects'
+      fullPath: '/projects/'
+      preLoaderRoute: typeof ProjectsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/projects/$slug': {
       id: '/projects/$slug'
-      path: '/$slug'
+      path: '/projects/$slug'
       fullPath: '/projects/$slug'
       preLoaderRoute: typeof ProjectsSlugRouteImport
-      parentRoute: typeof ProjectsRoute
+      parentRoute: typeof rootRouteImport
     }
   }
 }
-
-interface ProjectsRouteChildren {
-  ProjectsSlugRoute: typeof ProjectsSlugRoute
-}
-
-const ProjectsRouteChildren: ProjectsRouteChildren = {
-  ProjectsSlugRoute: ProjectsSlugRoute,
-}
-
-const ProjectsRouteWithChildren = ProjectsRoute._addFileChildren(
-  ProjectsRouteChildren,
-)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
@@ -254,8 +243,9 @@ const rootRouteChildren: RootRouteChildren = {
   CompareRoute: CompareRoute,
   ContactRoute: ContactRoute,
   EmiCalculatorRoute: EmiCalculatorRoute,
-  ProjectsRoute: ProjectsRouteWithChildren,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  ProjectsSlugRoute: ProjectsSlugRoute,
+  ProjectsIndexRoute: ProjectsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
