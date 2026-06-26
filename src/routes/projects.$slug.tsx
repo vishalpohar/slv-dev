@@ -79,7 +79,7 @@ function ProjectDetails() {
             </span>
           </button>
           <div className="grid grid-cols-3 gap-3 lg:grid-cols-1">
-            {project.gallery.map((g, i) => (
+            {project.gallery.map((g: string, i: number) => (
               <button
                 key={i}
                 onClick={() => setActiveImg(i)}
@@ -178,7 +178,7 @@ function ProjectDetails() {
                     <Navigation className="h-5 w-5 text-gold" /> Geo-Spatial Insights
                   </h3>
                   <div className="mt-5 grid gap-4 sm:grid-cols-2">
-                    {project.proximity.map((pr) => (
+                    {project.proximity.map((pr: { label: string; distance: string }) => (
                       <div key={pr.label} className="flex items-center justify-between rounded-xl bg-background px-4 py-3 neu-sm">
                         <span className="text-sm text-muted-foreground">{pr.label}</span>
                         <span className="font-display text-base font-semibold text-gold-foreground">{pr.distance}</span>
@@ -211,7 +211,7 @@ function ProjectDetails() {
               <div>
                 <h2 className="font-display text-2xl font-semibold text-foreground">Amenities</h2>
                 <div className="mt-5 grid grid-cols-2 gap-3">
-                  {project.amenities.map((a) => (
+                  {project.amenities.map((a: string) => (
                     <div key={a} className="flex items-center gap-2 rounded-2xl glass p-4 text-sm">
                       <span className="flex h-6 w-6 items-center justify-center rounded-full bg-gradient-gold text-gold-foreground">
                         <Check className="h-3.5 w-3.5" />
@@ -224,7 +224,7 @@ function ProjectDetails() {
               <div>
                 <h2 className="font-display text-2xl font-semibold text-foreground">Specifications</h2>
                 <div className="mt-5 space-y-3">
-                  {project.specifications.map((s) => (
+                  {project.specifications.map((s: { label: string; value: string }) => (
                     <div key={s.label} className="rounded-2xl bg-card p-5 neu-sm">
                       <p className="text-xs uppercase tracking-wider text-gold-foreground">{s.label}</p>
                       <p className="mt-1 text-foreground">{s.value}</p>
@@ -238,7 +238,7 @@ function ProjectDetails() {
           {tab === "Floor Plans" && (
             <div>
               <div className="inline-flex gap-2 rounded-2xl bg-background p-2 neu-pressed">
-                {project.floorPlans.map((fp, i) => (
+                {project.floorPlans.map((fp: { type: string; sqft: number; image: string }, i: number) => (
                   <button
                     key={fp.type}
                     onClick={() => setPlan(i)}
