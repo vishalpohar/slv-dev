@@ -16,6 +16,7 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { ComparisonBar } from "@/components/ComparisonBar";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
+import { Toaster } from "@/components/ui/sonner";
 
 function NotFoundComponent() {
   return (
