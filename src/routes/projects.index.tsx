@@ -5,7 +5,7 @@ import { PropertyCard } from "@/components/PropertyCard";
 import { projects, type ProjectCategory, type ProjectStatus } from "@/data/projects";
 import { cn } from "@/lib/utils";
 
-export const Route = createFileRoute("/projects")({
+export const Route = createFileRoute("/projects/")({
   head: () => ({
     meta: [
       { title: "Projects — SLV Builders & Developers" },
