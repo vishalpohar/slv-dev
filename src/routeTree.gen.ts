@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ProjectsRouteImport } from './routes/projects'
 import { Route as EmiCalculatorRouteImport } from './routes/emi-calculator'
+import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CompareRouteImport } from './routes/compare'
 import { Route as CareersRouteImport } from './routes/careers'
 import { Route as BuyersGuideRouteImport } from './routes/buyers-guide'
@@ -26,6 +27,11 @@ const ProjectsRoute = ProjectsRouteImport.update({
 const EmiCalculatorRoute = EmiCalculatorRouteImport.update({
   id: '/emi-calculator',
   path: '/emi-calculator',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CompareRoute = CompareRouteImport.update({
@@ -65,6 +71,7 @@ export interface FileRoutesByFullPath {
   '/buyers-guide': typeof BuyersGuideRoute
   '/careers': typeof CareersRoute
   '/compare': typeof CompareRoute
+  '/contact': typeof ContactRoute
   '/emi-calculator': typeof EmiCalculatorRoute
   '/projects': typeof ProjectsRouteWithChildren
   '/projects/$slug': typeof ProjectsSlugRoute
@@ -75,6 +82,7 @@ export interface FileRoutesByTo {
   '/buyers-guide': typeof BuyersGuideRoute
   '/careers': typeof CareersRoute
   '/compare': typeof CompareRoute
+  '/contact': typeof ContactRoute
   '/emi-calculator': typeof EmiCalculatorRoute
   '/projects': typeof ProjectsRouteWithChildren
   '/projects/$slug': typeof ProjectsSlugRoute
@@ -86,6 +94,7 @@ export interface FileRoutesById {
   '/buyers-guide': typeof BuyersGuideRoute
   '/careers': typeof CareersRoute
   '/compare': typeof CompareRoute
+  '/contact': typeof ContactRoute
   '/emi-calculator': typeof EmiCalculatorRoute
   '/projects': typeof ProjectsRouteWithChildren
   '/projects/$slug': typeof ProjectsSlugRoute
@@ -98,6 +107,7 @@ export interface FileRouteTypes {
     | '/buyers-guide'
     | '/careers'
     | '/compare'
+    | '/contact'
     | '/emi-calculator'
     | '/projects'
     | '/projects/$slug'
@@ -108,6 +118,7 @@ export interface FileRouteTypes {
     | '/buyers-guide'
     | '/careers'
     | '/compare'
+    | '/contact'
     | '/emi-calculator'
     | '/projects'
     | '/projects/$slug'
@@ -118,6 +129,7 @@ export interface FileRouteTypes {
     | '/buyers-guide'
     | '/careers'
     | '/compare'
+    | '/contact'
     | '/emi-calculator'
     | '/projects'
     | '/projects/$slug'
@@ -129,6 +141,7 @@ export interface RootRouteChildren {
   BuyersGuideRoute: typeof BuyersGuideRoute
   CareersRoute: typeof CareersRoute
   CompareRoute: typeof CompareRoute
+  ContactRoute: typeof ContactRoute
   EmiCalculatorRoute: typeof EmiCalculatorRoute
   ProjectsRoute: typeof ProjectsRouteWithChildren
 }
@@ -147,6 +160,13 @@ declare module '@tanstack/react-router' {
       path: '/emi-calculator'
       fullPath: '/emi-calculator'
       preLoaderRoute: typeof EmiCalculatorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/compare': {
@@ -212,6 +232,7 @@ const rootRouteChildren: RootRouteChildren = {
   BuyersGuideRoute: BuyersGuideRoute,
   CareersRoute: CareersRoute,
   CompareRoute: CompareRoute,
+  ContactRoute: ContactRoute,
   EmiCalculatorRoute: EmiCalculatorRoute,
   ProjectsRoute: ProjectsRouteWithChildren,
 }
