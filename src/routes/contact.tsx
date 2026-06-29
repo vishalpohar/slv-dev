@@ -66,7 +66,7 @@ function ContactPage() {
             <div className="overflow-hidden rounded-3xl neu-sm">
               <iframe
                 title="SLV Builders Office Location"
-                src="https://www.google.com/maps?q=Gachibowli,Hyderabad&output=embed"
+                src="https://www.google.com/maps?q=Ramavarappadu,Vijayawada&output=embed"
                 className="h-64 w-full border-0"
                 loading="lazy"
               />
