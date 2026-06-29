@@ -1,9 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, ShieldCheck, Gem, Building, HeartHandshake, Quote, Star, Award } from "lucide-react";
+import { ArrowRight, ShieldCheck, Gem, Building, HeartHandshake, Quote, Star, Award, CheckCircle2 } from "lucide-react";
 import { HeroSection } from "@/components/home/HeroSection";
 import { PropertyCard } from "@/components/PropertyCard";
 import { Reveal } from "@/components/Reveal";
 import { projects, testimonials } from "@/data/projects";
+import aboutImage from "@/assets/project-1.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -58,6 +59,66 @@ function Index() {
           </div>
         </div>
       </section>
+
+      {/* About SLV intro */}
+      <section className="mx-auto max-w-7xl px-6 py-24">
+        <div className="grid items-center gap-12 lg:grid-cols-2">
+          <Reveal>
+            <div className="relative">
+              <div className="absolute -inset-4 rounded-[2.5rem] bg-gradient-gold opacity-10 blur-2xl" />
+              <img
+                src={aboutImage}
+                alt="An SLV Builders gated community in the Vijayawada–Amaravati region"
+                loading="lazy"
+                className="relative aspect-[4/3] w-full rounded-[2rem] object-cover neu"
+              />
+              <div className="absolute bottom-6 left-6 rounded-2xl glass px-6 py-4 text-background">
+                <p className="font-display text-3xl font-bold text-gold">2007</p>
+                <p className="text-xs uppercase tracking-wider text-background/80">Building trust since</p>
+              </div>
+            </div>
+          </Reveal>
+
+          <Reveal delay={120}>
+            <p className="section-label text-gold">About SLV Developers</p>
+            <h2 className="mt-3 font-display text-3xl font-bold leading-tight text-foreground sm:text-4xl">
+              Affordable, Quality Homes — <span className="text-gradient-gold">Crafted with Trust</span>
+            </h2>
+            <p className="mt-6 leading-relaxed text-muted-foreground">
+              SLV Group began in 2007 in Bhimavaram with a simple intent — providing affordable housing
+              and lands. After building a strong brand over a decade, SLV entered Vijayawada in 2015 with
+              <span className="font-medium text-foreground"> SLV Anjani Heights</span>, the capital city's
+              first gated community of its kind.
+            </p>
+            <p className="mt-4 leading-relaxed text-muted-foreground">
+              Guided by founder Sri Penmetsa Srinivasa Raju and the patronage of loyal clients, SLV has
+              grown to deliver 20 residential projects, 2 commercial projects, and an educational
+              institute across the Amaravati capital region.
+            </p>
+            <ul className="mt-6 grid gap-3 sm:grid-cols-2">
+              {[
+                "20+ Residential Projects",
+                "2 Commercial Projects",
+                "RERA-Approved & Clear Titles",
+                "On-Time, Trusted Delivery",
+              ].map((point) => (
+                <li key={point} className="flex items-center gap-2.5 text-sm font-medium text-foreground">
+                  <CheckCircle2 className="h-5 w-5 shrink-0 text-gold" />
+                  {point}
+                </li>
+              ))}
+            </ul>
+            <Link
+              to="/about"
+              className="group mt-8 inline-flex items-center gap-2 rounded-xl bg-gradient-gold px-6 py-3.5 text-sm font-semibold text-gold-foreground transition-transform hover:scale-[1.03]"
+            >
+              Know More
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </Link>
+          </Reveal>
+        </div>
+      </section>
+
 
       {/* Featured projects */}
       <section className="mx-auto max-w-7xl px-6 py-24">
