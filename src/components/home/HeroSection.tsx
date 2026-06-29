@@ -113,7 +113,9 @@ export function HeroSection() {
               <p className="text-xs uppercase tracking-wider text-background/60">{l}</p>
             </div>
           ))}
+        </div>
       </div>
+
 
       {/* Scroll indicator */}
       <div className="absolute bottom-8 left-1/2 z-10 hidden -translate-x-1/2 animate-bounce sm:block">
