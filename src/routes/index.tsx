@@ -25,10 +25,10 @@ export const Route = createFileRoute("/")({
 });
 
 const whyChooseUs = [
-  { icon: Gem, title: "Uncompromising Craft", desc: "Italian marble, smart automation, and finishes sourced from the world's best ateliers." },
-  { icon: ShieldCheck, title: "RERA Transparency", desc: "Every project fully registered with clear titles, timelines, and trusted documentation." },
-  { icon: Building, title: "Landmark Locations", desc: "Addresses in the most sought-after corridors with unbeatable connectivity." },
-  { icon: HeartHandshake, title: "Lifetime Relationship", desc: "Dedicated relationship managers from your first visit through generations." },
+  { icon: Gem, title: "Quality Construction", desc: "Premium materials, modern engineering, and finishes built to last for generations." },
+  { icon: ShieldCheck, title: "Clear & Legal Titles", desc: "RERA-approved projects with transparent pricing and fully verified documentation." },
+  { icon: Building, title: "Prime Locations", desc: "Gated communities along Vijayawada and Amaravati's fastest-growing corridors." },
+  { icon: HeartHandshake, title: "On-Time Delivery", desc: "A trusted track record since 2007 of handing over homes as promised." },
 ];
 
 const accolades = [
