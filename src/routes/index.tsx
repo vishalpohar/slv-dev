@@ -8,7 +8,7 @@ import { projects, testimonials } from "@/data/projects";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "SLV Builders & Developers — Luxury Real Estate in Hyderabad" },
+      { title: "SLV Builders & Developers — Premium Homes in Vijayawada & Amaravati" },
       {
         name: "description",
         content:
