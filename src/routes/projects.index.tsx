@@ -22,7 +22,7 @@ export const Route = createFileRoute("/projects/")({
 });
 
 const statusFilters: (ProjectStatus | "All")[] = ["All", "Ongoing", "Completed", "Upcoming"];
-const categoryFilters: (ProjectCategory | "All")[] = ["All", "Villa", "Penthouse", "Apartment"];
+const categoryFilters: (ProjectCategory | "All")[] = ["All", "Apartment", "Villa", "Plots"];
 
 function ProjectsPage() {
   const [status, setStatus] = useState<(typeof statusFilters)[number]>("All");
