@@ -103,10 +103,10 @@ export function HeroSection() {
 
         <div className="mt-12 flex flex-wrap items-center justify-center gap-x-10 gap-y-4 text-background/80 animate-fade-up">
           {[
-            ["25+", "Years of Legacy"],
-            ["40+", "Landmark Projects"],
-            ["3.2M", "Sq.ft Delivered"],
-            ["98%", "Happy Families"],
+            ["18+", "Years of Legacy"],
+            ["20+", "Residential Projects"],
+            ["2", "Commercial Projects"],
+            ["5000+", "Happy Families"],
           ].map(([n, l]) => (
             <div key={l} className="text-center">
               <p className="font-display text-3xl font-bold text-gold">{n}</p>
