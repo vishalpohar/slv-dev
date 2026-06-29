@@ -80,7 +80,7 @@ export function HeroSection() {
         {/* Search panel */}
         <div className="mx-auto mt-10 max-w-4xl animate-fade-up rounded-3xl glass p-3 text-left sm:p-4">
           <div className="grid grid-cols-2 gap-1 sm:grid-cols-4">
-            <SelectChip icon={MapPin} label="Location" options={["All Cities", "Hyderabad", "Bengaluru"]} />
+            <SelectChip icon={MapPin} label="Location" options={["All Cities", "Vijayawada", "Amaravati"]} />
             <SelectChip icon={Building2} label="Property Type" options={propertyTypes} />
             <SelectChip icon={Wallet} label="Budget" options={budgets} />
             <SelectChip icon={Activity} label="Status" options={statuses} />
