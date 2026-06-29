@@ -4,8 +4,8 @@ import { Search, Sparkles, MapPin, Building2, Wallet, Activity, X, Send } from "
 import heroImg from "@/assets/hero-1.jpg";
 import { cn } from "@/lib/utils";
 
-const propertyTypes = ["Any Type", "Villa", "Penthouse", "Apartment"];
-const budgets = ["Any Budget", "₹1 - 3 Cr", "₹3 - 5 Cr", "₹5 Cr +"];
+const propertyTypes = ["Any Type", "Apartment", "Villa", "Plots"];
+const budgets = ["Any Budget", "₹30 - 60 L", "₹60 L - 1 Cr", "₹1 Cr +"];
 const statuses = ["Any Status", "Ongoing", "Completed", "Upcoming"];
 
 function SelectChip({
