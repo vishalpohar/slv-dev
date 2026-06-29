@@ -18,15 +18,15 @@ export const Route = createFileRoute("/about")({
 });
 
 const values = [
-  { icon: Target, title: "Our Mission", desc: "To create homes that elevate everyday living through thoughtful design and uncompromising quality." },
-  { icon: Eye, title: "Our Vision", desc: "To be India's most trusted name in luxury real estate, setting benchmarks others aspire to." },
-  { icon: Award, title: "Our Promise", desc: "Transparency, on-time delivery, and finishes that stand the test of time — every single project." },
+  { icon: Target, title: "Our Mission", desc: "To provide affordable, high-quality homes and gated communities that families are proud to own for generations." },
+  { icon: Eye, title: "Our Vision", desc: "To be the most trusted name in real estate across Vijayawada and the Amaravati capital region." },
+  { icon: Award, title: "Our Promise", desc: "Transparent dealings, clear titles, and on-time delivery — on every single project." },
 ];
 
 const stats = [
-  ["25+", "Years of Legacy"],
-  ["40+", "Projects Delivered"],
-  ["3.2M", "Sq.ft Constructed"],
+  ["2007", "Founded in Bhimavaram"],
+  ["20+", "Residential Projects"],
+  ["2", "Commercial Projects"],
   ["5,000+", "Happy Families"],
 ];
 
