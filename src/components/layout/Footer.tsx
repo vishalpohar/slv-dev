@@ -11,8 +11,8 @@ const quickLinks = [
 ] as const;
 
 const offices = [
-  { city: "Hyderabad (HQ)", line: "Knowledge City, Gachibowli" },
-  { city: "Bengaluru", line: "UB City, Vittal Mallya Road" },
+  { city: "Vijayawada (Head Office)", line: "Ramavarappadu Ring, Vijayawada" },
+  { city: "Bhimavaram", line: "Where the SLV journey began" },
 ];
 
 export function Footer() {
