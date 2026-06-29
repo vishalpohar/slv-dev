@@ -4,8 +4,8 @@ import { Search, Sparkles, MapPin, Building2, Wallet, Activity, X, Send } from "
 import heroImg from "@/assets/hero-1.jpg";
 import { cn } from "@/lib/utils";
 
-const propertyTypes = ["Any Type", "Villa", "Penthouse", "Apartment"];
-const budgets = ["Any Budget", "₹1 - 3 Cr", "₹3 - 5 Cr", "₹5 Cr +"];
+const propertyTypes = ["Any Type", "Apartment", "Villa", "Plots"];
+const budgets = ["Any Budget", "₹30 - 60 L", "₹60 L - 1 Cr", "₹1 Cr +"];
 const statuses = ["Any Status", "Ongoing", "Completed", "Upcoming"];
 
 function SelectChip({
@@ -67,20 +67,20 @@ export function HeroSection() {
       <div className="absolute inset-0 bg-gradient-to-b from-obsidian/70 via-obsidian/40 to-obsidian/85" />
 
       <div className="relative z-10 mx-auto w-full max-w-6xl px-6 pt-28 text-center text-background">
-        <p className="section-label mx-auto text-gold animate-fade-up">SLV Builders & Developers</p>
+        <p className="section-label mx-auto text-gold animate-fade-up">SLV Builders &amp; Developers Pvt Ltd</p>
         <h1 className="mx-auto mt-5 max-w-4xl font-display text-4xl font-bold leading-[1.08] animate-fade-up sm:text-6xl lg:text-7xl">
-          Where Architecture Becomes a{" "}
-          <span className="text-gradient-gold">Way of Living</span>
+          Luxury Living{" "}
+          <span className="text-gradient-gold">Starts Here</span>
         </h1>
         <p className="mx-auto mt-6 max-w-2xl text-base text-background/75 animate-fade-up sm:text-lg">
-          Discover a curated portfolio of luxury villas, penthouses, and residences crafted for those
-          who expect nothing less than extraordinary.
+          Premium gated communities crafted for modern lifestyles across Vijayawada and the
+          Amaravati capital region — trusted homes since 2007.
         </p>
 
         {/* Search panel */}
         <div className="mx-auto mt-10 max-w-4xl animate-fade-up rounded-3xl glass p-3 text-left sm:p-4">
           <div className="grid grid-cols-2 gap-1 sm:grid-cols-4">
-            <SelectChip icon={MapPin} label="Location" options={["All Cities", "Hyderabad", "Bengaluru"]} />
+            <SelectChip icon={MapPin} label="Location" options={["All Cities", "Vijayawada", "Amaravati"]} />
             <SelectChip icon={Building2} label="Property Type" options={propertyTypes} />
             <SelectChip icon={Wallet} label="Budget" options={budgets} />
             <SelectChip icon={Activity} label="Status" options={statuses} />
@@ -103,10 +103,10 @@ export function HeroSection() {
 
         <div className="mt-12 flex flex-wrap items-center justify-center gap-x-10 gap-y-4 text-background/80 animate-fade-up">
           {[
-            ["25+", "Years of Legacy"],
-            ["40+", "Landmark Projects"],
-            ["3.2M", "Sq.ft Delivered"],
-            ["98%", "Happy Families"],
+            ["18+", "Years of Legacy"],
+            ["20+", "Residential Projects"],
+            ["2", "Commercial Projects"],
+            ["5000+", "Happy Families"],
           ].map(([n, l]) => (
             <div key={l} className="text-center">
               <p className="font-display text-3xl font-bold text-gold">{n}</p>
@@ -139,9 +139,9 @@ export function HeroSection() {
             </div>
             <div className="flex flex-wrap gap-2">
               {[
-                "3BHK villa with a private pool",
-                "Penthouse near tech hubs",
-                "Ready-to-move apartment under ₹3 Cr",
+                "3 BHK gated apartment in Vijayawada",
+                "Independent villa near Penamaluru",
+                "Gated villa plot near Gannavaram Airport",
               ].map((s) => (
                 <button
                   key={s}

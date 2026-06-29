@@ -8,25 +8,25 @@ export const Route = createFileRoute("/about")({
       {
         name: "description",
         content:
-          "For over 25 years, SLV Builders & Developers has crafted landmark residences defined by integrity, craftsmanship, and timeless design.",
+          "Since 2007, SLV Builders & Developers has crafted trusted homes across Bhimavaram, Vijayawada, and the Amaravati region — built on integrity, quality, and timely delivery.",
       },
       { property: "og:title", content: "About SLV Builders & Developers" },
-      { property: "og:description", content: "25+ years of crafting landmark luxury residences." },
+      { property: "og:description", content: "18+ years of building trusted homes across Andhra Pradesh." },
     ],
   }),
   component: AboutPage,
 });
 
 const values = [
-  { icon: Target, title: "Our Mission", desc: "To create homes that elevate everyday living through thoughtful design and uncompromising quality." },
-  { icon: Eye, title: "Our Vision", desc: "To be India's most trusted name in luxury real estate, setting benchmarks others aspire to." },
-  { icon: Award, title: "Our Promise", desc: "Transparency, on-time delivery, and finishes that stand the test of time — every single project." },
+  { icon: Target, title: "Our Mission", desc: "To provide affordable, high-quality homes and gated communities that families are proud to own for generations." },
+  { icon: Eye, title: "Our Vision", desc: "To be the most trusted name in real estate across Vijayawada and the Amaravati capital region." },
+  { icon: Award, title: "Our Promise", desc: "Transparent dealings, clear titles, and on-time delivery — on every single project." },
 ];
 
 const stats = [
-  ["25+", "Years of Legacy"],
-  ["40+", "Projects Delivered"],
-  ["3.2M", "Sq.ft Constructed"],
+  ["2007", "Founded in Bhimavaram"],
+  ["20+", "Residential Projects"],
+  ["2", "Commercial Projects"],
   ["5,000+", "Happy Families"],
 ];
 
@@ -39,8 +39,9 @@ function AboutPage() {
           Building Legacies, <span className="text-gradient-gold">Not Just Buildings</span>
         </h1>
         <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground">
-          Since 1999, SLV Builders & Developers Pvt Ltd has shaped skylines and communities with a singular
-          obsession — crafting residences that families are proud to call home for generations.
+          SLV Group began in 2007 in Bhimavaram with a simple intent — affordable, quality housing.
+          In 2015 we entered Vijayawada with Anjani Heights, the city's first gated community of its
+          kind, and have since grown into a trusted name across the Amaravati capital region.
         </p>
       </div>
 

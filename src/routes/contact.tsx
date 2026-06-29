@@ -9,7 +9,7 @@ export const Route = createFileRoute("/contact")({
       {
         name: "description",
         content:
-          "Get in touch with SLV Builders & Developers. Book a private viewing, call us, or message us on WhatsApp. HQ in Hyderabad.",
+          "Get in touch with SLV Builders & Developers. Book a site visit, call us, or message us on WhatsApp. Office in Vijayawada, Andhra Pradesh.",
       },
       { property: "og:title", content: "Contact SLV Builders & Developers" },
       { property: "og:description", content: "Book a private viewing or reach our relationship team." },
@@ -19,9 +19,9 @@ export const Route = createFileRoute("/contact")({
 });
 
 const info = [
-  { icon: MapPin, label: "Visit Us", value: "Knowledge City, Gachibowli, Hyderabad 500081" },
+  { icon: MapPin, label: "Visit Us", value: "Ramavarappadu Ring, Vijayawada, Andhra Pradesh 520010" },
   { icon: Phone, label: "Call Us", value: "+91 90000 00000", href: "tel:+919000000000" },
-  { icon: Mail, label: "Email Us", value: "hello@slvbuilders.com", href: "mailto:hello@slvbuilders.com" },
+  { icon: Mail, label: "Email Us", value: "info@slvdevelopers.in", href: "mailto:info@slvdevelopers.in" },
   { icon: Clock, label: "Office Hours", value: "Mon – Sat · 9:30 AM to 7:00 PM" },
 ];
 
@@ -66,7 +66,7 @@ function ContactPage() {
             <div className="overflow-hidden rounded-3xl neu-sm">
               <iframe
                 title="SLV Builders Office Location"
-                src="https://www.google.com/maps?q=Gachibowli,Hyderabad&output=embed"
+                src="https://www.google.com/maps?q=Ramavarappadu,Vijayawada&output=embed"
                 className="h-64 w-full border-0"
                 loading="lazy"
               />
