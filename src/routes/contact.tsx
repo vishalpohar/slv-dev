@@ -19,9 +19,9 @@ export const Route = createFileRoute("/contact")({
 });
 
 const info = [
-  { icon: MapPin, label: "Visit Us", value: "Knowledge City, Gachibowli, Hyderabad 500081" },
+  { icon: MapPin, label: "Visit Us", value: "Ramavarappadu Ring, Vijayawada, Andhra Pradesh 520010" },
   { icon: Phone, label: "Call Us", value: "+91 90000 00000", href: "tel:+919000000000" },
-  { icon: Mail, label: "Email Us", value: "hello@slvbuilders.com", href: "mailto:hello@slvbuilders.com" },
+  { icon: Mail, label: "Email Us", value: "info@slvdevelopers.in", href: "mailto:info@slvdevelopers.in" },
   { icon: Clock, label: "Office Hours", value: "Mon – Sat · 9:30 AM to 7:00 PM" },
 ];
 
