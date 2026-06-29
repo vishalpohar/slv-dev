@@ -139,9 +139,9 @@ export function HeroSection() {
             </div>
             <div className="flex flex-wrap gap-2">
               {[
-                "3BHK villa with a private pool",
-                "Penthouse near tech hubs",
-                "Ready-to-move apartment under ₹3 Cr",
+                "3 BHK gated apartment in Vijayawada",
+                "Independent villa near Penamaluru",
+                "Gated villa plot near Gannavaram Airport",
               ].map((s) => (
                 <button
                   key={s}
