@@ -8,10 +8,10 @@ export const Route = createFileRoute("/about")({
       {
         name: "description",
         content:
-          "For over 25 years, SLV Builders & Developers has crafted landmark residences defined by integrity, craftsmanship, and timeless design.",
+          "Since 2007, SLV Builders & Developers has crafted trusted homes across Bhimavaram, Vijayawada, and the Amaravati region — built on integrity, quality, and timely delivery.",
       },
       { property: "og:title", content: "About SLV Builders & Developers" },
-      { property: "og:description", content: "25+ years of crafting landmark luxury residences." },
+      { property: "og:description", content: "18+ years of building trusted homes across Andhra Pradesh." },
     ],
   }),
   component: AboutPage,
