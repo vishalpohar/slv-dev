@@ -39,8 +39,9 @@ function AboutPage() {
           Building Legacies, <span className="text-gradient-gold">Not Just Buildings</span>
         </h1>
         <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground">
-          Since 1999, SLV Builders & Developers Pvt Ltd has shaped skylines and communities with a singular
-          obsession — crafting residences that families are proud to call home for generations.
+          SLV Group began in 2007 in Bhimavaram with a simple intent — affordable, quality housing.
+          In 2015 we entered Vijayawada with Anjani Heights, the city's first gated community of its
+          kind, and have since grown into a trusted name across the Amaravati capital region.
         </p>
       </div>
 
