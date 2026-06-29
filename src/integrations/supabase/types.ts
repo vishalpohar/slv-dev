@@ -14,16 +14,481 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      blog_posts: {
+        Row: {
+          author: string | null
+          body: string | null
+          cover_image: string | null
+          created_at: string
+          excerpt: string | null
+          id: string
+          is_published: boolean
+          published_at: string | null
+          slug: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          author?: string | null
+          body?: string | null
+          cover_image?: string | null
+          created_at?: string
+          excerpt?: string | null
+          id?: string
+          is_published?: boolean
+          published_at?: string | null
+          slug: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          author?: string | null
+          body?: string | null
+          cover_image?: string | null
+          created_at?: string
+          excerpt?: string | null
+          id?: string
+          is_published?: boolean
+          published_at?: string | null
+          slug?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      buyers_guide: {
+        Row: {
+          body: string | null
+          category: string | null
+          created_at: string
+          id: string
+          is_published: boolean
+          slug: string
+          sort_order: number
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          body?: string | null
+          category?: string | null
+          created_at?: string
+          id?: string
+          is_published?: boolean
+          slug: string
+          sort_order?: number
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          body?: string | null
+          category?: string | null
+          created_at?: string
+          id?: string
+          is_published?: boolean
+          slug?: string
+          sort_order?: number
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      gallery: {
+        Row: {
+          category: string | null
+          created_at: string
+          id: string
+          image_url: string
+          is_published: boolean
+          project_id: string | null
+          sort_order: number
+          title: string | null
+        }
+        Insert: {
+          category?: string | null
+          created_at?: string
+          id?: string
+          image_url: string
+          is_published?: boolean
+          project_id?: string | null
+          sort_order?: number
+          title?: string | null
+        }
+        Update: {
+          category?: string | null
+          created_at?: string
+          id?: string
+          image_url?: string
+          is_published?: boolean
+          project_id?: string | null
+          sort_order?: number
+          title?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "gallery_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      job_applications: {
+        Row: {
+          cover_note: string | null
+          created_at: string
+          email: string
+          full_name: string
+          id: string
+          job_id: string | null
+          phone: string | null
+          resume_url: string | null
+          status: string
+        }
+        Insert: {
+          cover_note?: string | null
+          created_at?: string
+          email: string
+          full_name: string
+          id?: string
+          job_id?: string | null
+          phone?: string | null
+          resume_url?: string | null
+          status?: string
+        }
+        Update: {
+          cover_note?: string | null
+          created_at?: string
+          email?: string
+          full_name?: string
+          id?: string
+          job_id?: string | null
+          phone?: string | null
+          resume_url?: string | null
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "job_applications_job_id_fkey"
+            columns: ["job_id"]
+            isOneToOne: false
+            referencedRelation: "job_openings"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      job_openings: {
+        Row: {
+          created_at: string
+          department: string | null
+          description: string | null
+          employment_type: string | null
+          experience: string | null
+          id: string
+          is_open: boolean
+          location: string | null
+          title: string
+        }
+        Insert: {
+          created_at?: string
+          department?: string | null
+          description?: string | null
+          employment_type?: string | null
+          experience?: string | null
+          id?: string
+          is_open?: boolean
+          location?: string | null
+          title: string
+        }
+        Update: {
+          created_at?: string
+          department?: string | null
+          description?: string | null
+          employment_type?: string | null
+          experience?: string | null
+          id?: string
+          is_open?: boolean
+          location?: string | null
+          title?: string
+        }
+        Relationships: []
+      }
+      leads: {
+        Row: {
+          created_at: string
+          email: string | null
+          id: string
+          message: string | null
+          name: string
+          notes: string | null
+          phone: string | null
+          project_id: string | null
+          source: Database["public"]["Enums"]["lead_source"]
+          status: Database["public"]["Enums"]["lead_status"]
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          email?: string | null
+          id?: string
+          message?: string | null
+          name: string
+          notes?: string | null
+          phone?: string | null
+          project_id?: string | null
+          source?: Database["public"]["Enums"]["lead_source"]
+          status?: Database["public"]["Enums"]["lead_status"]
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          email?: string | null
+          id?: string
+          message?: string | null
+          name?: string
+          notes?: string | null
+          phone?: string | null
+          project_id?: string | null
+          source?: Database["public"]["Enums"]["lead_source"]
+          status?: Database["public"]["Enums"]["lead_status"]
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "leads_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          created_at: string
+          email: string | null
+          full_name: string | null
+          id: string
+          updated_at: string
+        }
+        Insert: {
+          avatar_url?: string | null
+          created_at?: string
+          email?: string | null
+          full_name?: string | null
+          id: string
+          updated_at?: string
+        }
+        Update: {
+          avatar_url?: string | null
+          created_at?: string
+          email?: string | null
+          full_name?: string | null
+          id?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      projects: {
+        Row: {
+          amenities: Json
+          bedrooms: string | null
+          brochure_url: string | null
+          category: string | null
+          city: string | null
+          cover_image: string | null
+          created_at: string
+          description: string | null
+          floor_plans: Json
+          gallery: Json
+          id: string
+          is_featured: boolean
+          is_published: boolean
+          location: string | null
+          map_embed: string | null
+          name: string
+          nearby: Json
+          price_from: number | null
+          rera_number: string | null
+          slug: string
+          sort_order: number
+          specifications: Json
+          sqft_from: number | null
+          status: Database["public"]["Enums"]["project_status"]
+          tagline: string | null
+          updated_at: string
+        }
+        Insert: {
+          amenities?: Json
+          bedrooms?: string | null
+          brochure_url?: string | null
+          category?: string | null
+          city?: string | null
+          cover_image?: string | null
+          created_at?: string
+          description?: string | null
+          floor_plans?: Json
+          gallery?: Json
+          id?: string
+          is_featured?: boolean
+          is_published?: boolean
+          location?: string | null
+          map_embed?: string | null
+          name: string
+          nearby?: Json
+          price_from?: number | null
+          rera_number?: string | null
+          slug: string
+          sort_order?: number
+          specifications?: Json
+          sqft_from?: number | null
+          status?: Database["public"]["Enums"]["project_status"]
+          tagline?: string | null
+          updated_at?: string
+        }
+        Update: {
+          amenities?: Json
+          bedrooms?: string | null
+          brochure_url?: string | null
+          category?: string | null
+          city?: string | null
+          cover_image?: string | null
+          created_at?: string
+          description?: string | null
+          floor_plans?: Json
+          gallery?: Json
+          id?: string
+          is_featured?: boolean
+          is_published?: boolean
+          location?: string | null
+          map_embed?: string | null
+          name?: string
+          nearby?: Json
+          price_from?: number | null
+          rera_number?: string | null
+          slug?: string
+          sort_order?: number
+          specifications?: Json
+          sqft_from?: number | null
+          status?: Database["public"]["Enums"]["project_status"]
+          tagline?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      seo_metadata: {
+        Row: {
+          description: string | null
+          id: string
+          keywords: string | null
+          og_image: string | null
+          path: string
+          title: string | null
+          updated_at: string
+        }
+        Insert: {
+          description?: string | null
+          id?: string
+          keywords?: string | null
+          og_image?: string | null
+          path: string
+          title?: string | null
+          updated_at?: string
+        }
+        Update: {
+          description?: string | null
+          id?: string
+          keywords?: string | null
+          og_image?: string | null
+          path?: string
+          title?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      testimonials: {
+        Row: {
+          avatar_url: string | null
+          created_at: string
+          id: string
+          is_published: boolean
+          name: string
+          quote: string
+          rating: number
+          role: string | null
+          sort_order: number
+        }
+        Insert: {
+          avatar_url?: string | null
+          created_at?: string
+          id?: string
+          is_published?: boolean
+          name: string
+          quote: string
+          rating?: number
+          role?: string | null
+          sort_order?: number
+        }
+        Update: {
+          avatar_url?: string | null
+          created_at?: string
+          id?: string
+          is_published?: boolean
+          name?: string
+          quote?: string
+          rating?: number
+          role?: string | null
+          sort_order?: number
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
+      is_staff: { Args: { _user_id: string }; Returns: boolean }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "editor" | "viewer"
+      lead_source:
+        | "hero"
+        | "project_enquiry"
+        | "brochure"
+        | "contact"
+        | "careers"
+        | "site_visit"
+      lead_status: "new" | "contacted" | "qualified" | "won" | "lost"
+      project_status: "Ongoing" | "Completed" | "Upcoming"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +615,18 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "editor", "viewer"],
+      lead_source: [
+        "hero",
+        "project_enquiry",
+        "brochure",
+        "contact",
+        "careers",
+        "site_visit",
+      ],
+      lead_status: ["new", "contacted", "qualified", "won", "lost"],
+      project_status: ["Ongoing", "Completed", "Upcoming"],
+    },
   },
 } as const
