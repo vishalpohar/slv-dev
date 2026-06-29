@@ -67,14 +67,14 @@ export function HeroSection() {
       <div className="absolute inset-0 bg-gradient-to-b from-obsidian/70 via-obsidian/40 to-obsidian/85" />
 
       <div className="relative z-10 mx-auto w-full max-w-6xl px-6 pt-28 text-center text-background">
-        <p className="section-label mx-auto text-gold animate-fade-up">SLV Builders & Developers</p>
+        <p className="section-label mx-auto text-gold animate-fade-up">SLV Builders &amp; Developers Pvt Ltd</p>
         <h1 className="mx-auto mt-5 max-w-4xl font-display text-4xl font-bold leading-[1.08] animate-fade-up sm:text-6xl lg:text-7xl">
-          Where Architecture Becomes a{" "}
-          <span className="text-gradient-gold">Way of Living</span>
+          Luxury Living{" "}
+          <span className="text-gradient-gold">Starts Here</span>
         </h1>
         <p className="mx-auto mt-6 max-w-2xl text-base text-background/75 animate-fade-up sm:text-lg">
-          Discover a curated portfolio of luxury villas, penthouses, and residences crafted for those
-          who expect nothing less than extraordinary.
+          Premium gated communities crafted for modern lifestyles across Vijayawada and the
+          Amaravati capital region — trusted homes since 2007.
         </p>
 
         {/* Search panel */}
