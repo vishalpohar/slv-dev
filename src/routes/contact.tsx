@@ -9,7 +9,7 @@ export const Route = createFileRoute("/contact")({
       {
         name: "description",
         content:
-          "Get in touch with SLV Builders & Developers. Book a private viewing, call us, or message us on WhatsApp. HQ in Hyderabad.",
+          "Get in touch with SLV Builders & Developers. Book a site visit, call us, or message us on WhatsApp. Office in Vijayawada, Andhra Pradesh.",
       },
       { property: "og:title", content: "Contact SLV Builders & Developers" },
       { property: "og:description", content: "Book a private viewing or reach our relationship team." },
