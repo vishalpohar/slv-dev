@@ -69,12 +69,12 @@ function AboutPage() {
         <div className="grid items-center gap-12 lg:grid-cols-[0.9fr_1.1fr]">
           <Reveal>
             <p className="section-label text-gold">About SLV Developers</p>
-            <h1 className="mt-6 font-display leading-[0.8] text-foreground">
-              <span className="flex items-end gap-2">
-                <span className="text-[7rem] font-bold text-gradient-gold drop-shadow-[0_4px_30px_rgba(212,175,55,0.35)] sm:text-[11rem]">19</span>
-                <span className="mb-6 text-3xl font-bold text-gold sm:mb-10 sm:text-5xl">+</span>
+            <h1 className="mt-6 font-display leading-tight text-foreground">
+              <span className="inline-flex items-start overflow-visible pb-3 pt-2 sm:pb-5">
+                <span className="block text-[7rem] font-bold leading-none text-gradient-gold drop-shadow-[0_6px_34px_rgba(212,175,55,0.42)] sm:text-[10rem] lg:text-[11rem]">19</span>
+                <span className="ml-2 mt-5 block text-4xl font-bold leading-none text-gold drop-shadow-[0_4px_18px_rgba(212,175,55,0.35)] sm:mt-8 sm:text-6xl">+</span>
               </span>
-              <span className="mt-3 block text-2xl italic sm:text-4xl">years of</span>
+              <span className="block text-2xl italic leading-tight sm:text-4xl">years of</span>
               <span className="block text-4xl font-bold uppercase tracking-tight sm:text-6xl">
                 Trusted Legacy
               </span>
