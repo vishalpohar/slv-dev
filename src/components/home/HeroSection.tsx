@@ -103,7 +103,7 @@ export function HeroSection() {
 
         <div className="mt-12 flex flex-wrap items-center justify-center gap-x-10 gap-y-4 text-background/80 animate-fade-up">
           {[
-            ["18+", "Years of Legacy"],
+            ["19+", "Years of Legacy"],
             ["20+", "Residential Projects"],
             ["2", "Commercial Projects"],
             ["5000+", "Happy Families"],
