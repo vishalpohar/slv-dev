@@ -38,15 +38,11 @@ export function Navbar() {
         )}
       >
         <Link to="/" className="flex items-center gap-2.5">
-          <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-obsidian font-display text-base font-bold text-gold">
-            S
-          </span>
-          <span className="flex flex-col leading-none">
-            <span className="font-display text-lg font-bold tracking-tight text-foreground">SLV</span>
-            <span className="text-[0.6rem] font-medium uppercase tracking-[0.25em] text-muted-foreground">
-              Builders
-            </span>
-          </span>
+          <img
+            src={slvLogo}
+            alt="SLV Builders & Developers"
+            className="h-9 w-auto sm:h-10"
+          />
         </Link>
 
         <div className="hidden items-center gap-1 lg:flex">
