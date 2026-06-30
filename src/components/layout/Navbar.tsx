@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useRouterState } from "@tanstack/react-router";
 import { Menu, X, Phone } from "lucide-react";
 import { cn } from "@/lib/utils";
+import slvLogo from "@/assets/slv-logo.png";
 
 const links = [
   { label: "Home", to: "/" },
