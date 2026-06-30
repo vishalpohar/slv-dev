@@ -44,7 +44,7 @@ const philosophy = [
   },
 ];
 
-const accolades = ["18+ Years of Trust", "ISO 9001:2015 Certified", "5000+ Happy Families", "CREDAI Member"];
+const accolades = ["19+ Years of Trust", "ISO 9001:2015 Certified", "5000+ Happy Families", "CREDAI Member"];
 
 function Index() {
   const featured = testimonials[0];

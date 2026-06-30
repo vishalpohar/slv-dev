@@ -18,7 +18,7 @@ export const Route = createFileRoute("/about")({
       { property: "og:title", content: "About SLV Builders & Developers" },
       {
         property: "og:description",
-        content: "18 years of building trusted homes across Andhra Pradesh.",
+        content: "19 years of building trusted homes across Andhra Pradesh.",
       },
       { property: "og:image", content: heroImage },
     ],
@@ -70,7 +70,7 @@ function AboutPage() {
           <Reveal>
             <p className="section-label text-gold">About SLV Developers</p>
             <h1 className="mt-6 font-display leading-[0.85] text-foreground">
-              <span className="block text-[7rem] font-bold text-gradient-gold sm:text-[10rem]">18</span>
+              <span className="block text-[7rem] font-bold text-gradient-gold sm:text-[10rem]">19</span>
               <span className="mt-2 block text-2xl italic sm:text-4xl">years of</span>
               <span className="block text-4xl font-bold uppercase tracking-tight sm:text-6xl">
                 Trusted Legacy
