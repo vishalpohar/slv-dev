@@ -53,8 +53,7 @@ function SelectChip({
 }
 
 export function HeroSection() {
-  const [aiOpen, setAiOpen] = useState(false);
-  const [prompt, setPrompt] = useState("");
+
 
   return (
     <section className="relative flex min-h-[100svh] items-center justify-center overflow-hidden">
