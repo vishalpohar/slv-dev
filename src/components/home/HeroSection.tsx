@@ -93,7 +93,7 @@ export function HeroSection() {
               <Search className="h-4 w-4" /> Search Residences
             </Link>
             <button
-              onClick={() => setAiOpen(true)}
+              onClick={() => window.dispatchEvent(new Event(OPEN_AI_ASSISTANT_EVENT))}
               className="flex items-center justify-center gap-2 rounded-xl border border-gold/40 bg-obsidian/40 px-5 py-3.5 text-sm font-semibold text-gold backdrop-blur-md transition-colors hover:bg-obsidian/60"
             >
               <Sparkles className="h-4 w-4" /> Ask AI Assistant
