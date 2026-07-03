@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { Search, Sparkles, MapPin, Building2, Wallet, Activity, X, Send } from "lucide-react";
+import { Search, Sparkles, MapPin, Building2, Wallet, Activity } from "lucide-react";
 import heroImg from "@/assets/hero-1.jpg";
+import { OPEN_AI_ASSISTANT_EVENT } from "@/components/AIAssistant";
 import { cn } from "@/lib/utils";
 
 const propertyTypes = ["Any Type", "Apartment", "Villa", "Plots"];
