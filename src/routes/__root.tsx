@@ -144,6 +144,7 @@ function RootComponent() {
         <Footer />
         <ComparisonBar />
         <WhatsAppButton />
+        <AIAssistant />
         <Toaster position="top-center" richColors />
       </StoreProvider>
     </QueryClientProvider>
