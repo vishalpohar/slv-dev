@@ -122,65 +122,6 @@ export function HeroSection() {
         <div className="h-12 w-px bg-gradient-to-b from-gold to-transparent" />
       </div>
 
-
-      {/* AI Assistant drawer */}
-      <div
-        className={cn(
-          "fixed inset-y-0 right-0 z-[60] w-full max-w-md transform transition-transform duration-500 sm:p-4",
-          aiOpen ? "translate-x-0" : "translate-x-full",
-        )}
-      >
-        <div className="flex h-full flex-col glass-dark text-background sm:rounded-3xl">
-          <div className="flex items-center justify-between border-b border-white/10 p-5">
-            <div className="flex items-center gap-2">
-              <Sparkles className="h-5 w-5 text-gold" />
-              <span className="font-display text-lg font-semibold">AI Property Assistant</span>
-            </div>
-            <button onClick={() => setAiOpen(false)} aria-label="Close" className="text-background/70 hover:text-background">
-              <X className="h-5 w-5" />
-            </button>
-          </div>
-          <div className="flex-1 space-y-4 overflow-y-auto p-5">
-            <div className="max-w-[85%] rounded-2xl rounded-tl-sm bg-white/10 p-4 text-sm text-background/90">
-              Hello! Tell me what you're looking for in natural language and I'll find your ideal home.
-            </div>
-            <div className="flex flex-wrap gap-2">
-              {[
-                "3 BHK gated apartment in Vijayawada",
-                "Independent villa near Penamaluru",
-                "Gated villa plot near Gannavaram Airport",
-              ].map((s) => (
-                <button
-                  key={s}
-                  onClick={() => setPrompt(s)}
-                  className="rounded-full border border-gold/30 px-3 py-1.5 text-xs text-gold hover:bg-gold/10"
-                >
-                  {s}
-                </button>
-              ))}
-            </div>
-          </div>
-          <div className="border-t border-white/10 p-4">
-            <div className="flex items-center gap-2 rounded-2xl bg-white/10 p-2 pl-4">
-              <input
-                value={prompt}
-                onChange={(e) => setPrompt(e.target.value)}
-                placeholder="Find a 3BHK villa near hi-tech zones..."
-                className="flex-1 bg-transparent text-sm text-background placeholder:text-background/50 focus:outline-none"
-              />
-              <button className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-gold text-gold-foreground">
-                <Send className="h-4 w-4" />
-              </button>
-            </div>
-            <p className="mt-2 text-center text-[0.65rem] text-background/40">
-              AI suggestions are illustrative — connect Lovable Cloud to enable live search.
-            </p>
-          </div>
-        </div>
-      </div>
-      {aiOpen && (
-        <div className="fixed inset-0 z-50 bg-obsidian/50 backdrop-blur-sm" onClick={() => setAiOpen(false)} />
-      )}
     </section>
   );
 }
