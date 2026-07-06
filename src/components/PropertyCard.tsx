@@ -1,11 +1,11 @@
 import { Link } from "@tanstack/react-router";
-import { Heart, MapPin, Maximize, BedDouble, Scale } from "lucide-react";
+import { Heart, MapPin, Maximize, BedDouble, Scale, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useStore } from "@/store/useStore";
 import { formatPrice, type Project } from "@/data/projects";
 
 const statusStyles: Record<string, string> = {
-  Ongoing: "bg-gold/20 text-gold-foreground border-gold/40",
+  Ongoing: "bg-gold/20 text-amber-700 border-gold/40",
   Completed: "bg-emerald-500/15 text-emerald-700 border-emerald-500/30",
   Upcoming: "bg-blue-500/15 text-blue-700 border-blue-500/30",
 };
@@ -16,7 +16,16 @@ export function PropertyCard({ project }: { project: Project }) {
   const comparing = isComparing(project.id);
 
   return (
-    <article className="group overflow-hidden rounded-3xl bg-card neu transition-transform duration-300 hover:-translate-y-1">
+    <article className="group relative overflow-hidden rounded-3xl bg-card transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_24px_64px_rgba(0,0,0,0.14)]"
+      style={{ border: "1px solid color-mix(in oklab, var(--color-gold) 12%, var(--color-border))" }}
+    >
+      {/* Gold corner ornaments */}
+      <span aria-hidden className="pointer-events-none absolute left-3 top-3 z-20 h-4 w-4 border-l border-t opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+        style={{ borderColor: "var(--color-gold)" }} />
+      <span aria-hidden className="pointer-events-none absolute right-3 bottom-3 z-20 h-4 w-4 border-r border-b opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+        style={{ borderColor: "var(--color-gold)" }} />
+
+      {/* Image area */}
       <div className="relative aspect-[4/3] overflow-hidden">
         <img
           src={project.image}
@@ -24,69 +33,96 @@ export function PropertyCard({ project }: { project: Project }) {
           loading="lazy"
           width={1024}
           height={768}
-          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-108"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-obsidian/60 via-transparent to-transparent" />
+        {/* Multi-layer gradient */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent" />
+        <div className="absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+          style={{ background: "linear-gradient(to top, rgba(0,0,0,0.6), rgba(180,130,30,0.04), transparent)" }} />
 
+        {/* Status badge */}
         <span
           className={cn(
-            "absolute left-4 top-4 rounded-full border px-3 py-1 text-xs font-semibold backdrop-blur-md",
+            "absolute left-4 top-4 rounded-full border px-3 py-1 text-xs font-bold uppercase tracking-widest backdrop-blur-md",
             statusStyles[project.status],
           )}
         >
           {project.status}
         </span>
 
+        {/* Wishlist */}
         <button
           onClick={() => toggleWishlist(project.id)}
           aria-label="Toggle wishlist"
           className={cn(
-            "absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full transition-all",
-            wished ? "neu-pressed text-rose-500" : "glass text-foreground hover:text-rose-500",
+            "absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full transition-all duration-300",
+            wished
+              ? "bg-rose-500 text-white shadow-lg shadow-rose-500/30"
+              : "glass border-white/30 text-white hover:bg-rose-500/20 hover:text-rose-300",
           )}
         >
-          <Heart className={cn("h-5 w-5", wished && "fill-rose-500")} />
+          <Heart className={cn("h-4 w-4 transition-transform duration-200", wished && "fill-white scale-110")} />
         </button>
 
-        <div className="absolute bottom-4 left-4 text-background">
-          <p className="text-xs uppercase tracking-widest text-background/80">{project.category}</p>
-          <p className="font-display text-2xl font-semibold">{formatPrice(project.priceFrom)}+</p>
+        {/* Price overlay */}
+        <div className="absolute bottom-0 left-0 right-0 px-4 pb-4 pt-8">
+          <p className="text-[0.6rem] uppercase tracking-[0.25em] text-white/60">{project.category}</p>
+          <p className="font-display text-2xl font-semibold text-white">
+            {formatPrice(project.priceFrom)}
+            <span className="text-base font-light text-white/60">+</span>
+          </p>
         </div>
       </div>
 
-      <div className="p-5">
-        <h3 className="font-display text-xl font-semibold text-foreground">{project.name}</h3>
-        <p className="mt-1 flex items-center gap-1.5 text-sm text-muted-foreground">
-          <MapPin className="h-3.5 w-3.5 text-gold" />
+      {/* Card body */}
+      <div className="relative p-5">
+        {/* Inner gold hairline at top */}
+        <div className="absolute inset-x-5 top-0 h-px"
+          style={{ background: "linear-gradient(90deg, transparent, color-mix(in oklab, var(--color-gold) 30%, transparent), transparent)" }} />
+
+        <h3 className="font-display text-xl font-semibold text-foreground group-hover:text-gradient-gold transition-all duration-300">
+          {project.name}
+        </h3>
+        <p className="mt-1.5 flex items-center gap-1.5 text-sm text-muted-foreground">
+          <MapPin className="h-3.5 w-3.5 shrink-0" style={{ color: "var(--color-gold)" }} />
           {project.location}, {project.city}
         </p>
 
-        <div className="mt-4 flex items-center justify-between border-t border-border pt-4 text-xs text-muted-foreground">
-          <span className="flex items-center gap-1.5">
-            <BedDouble className="h-4 w-4 text-gold" /> {project.bedrooms}
-          </span>
-          <span className="flex items-center gap-1.5">
-            <Maximize className="h-4 w-4 text-gold" /> {project.sqftFrom.toLocaleString()}+ sqft
-          </span>
+        {/* Specs */}
+        <div className="mt-4 grid grid-cols-2 gap-3">
+          <div className="flex items-center gap-2 rounded-xl bg-secondary/50 px-3 py-2.5 text-xs text-muted-foreground">
+            <BedDouble className="h-3.5 w-3.5 shrink-0" style={{ color: "var(--color-gold)" }} />
+            <span className="font-medium">{project.bedrooms}</span>
+          </div>
+          <div className="flex items-center gap-2 rounded-xl bg-secondary/50 px-3 py-2.5 text-xs text-muted-foreground">
+            <Maximize className="h-3.5 w-3.5 shrink-0" style={{ color: "var(--color-gold)" }} />
+            <span className="font-medium">{project.sqftFrom.toLocaleString()}+ sqft</span>
+          </div>
         </div>
 
-        <div className="mt-5 flex gap-2">
+        {/* Actions */}
+        <div className="mt-4 flex gap-2">
           <Link
             to="/projects/$slug"
             params={{ slug: project.slug }}
-            className="flex-1 rounded-xl bg-gradient-obsidian py-2.5 text-center text-sm font-semibold text-background transition-transform hover:scale-[1.02]"
+            className="group/btn flex flex-1 items-center justify-center gap-2 rounded-2xl py-3 text-sm font-bold text-gold-foreground shadow-sm transition-all duration-300 hover:scale-[1.02] hover:shadow-md"
+            style={{ background: "var(--gradient-gold)" }}
           >
             View Details
+            <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover/btn:translate-x-1" />
           </Link>
           <button
             onClick={() => toggleCompare(project.id)}
             aria-label="Add to compare"
             className={cn(
-              "flex h-11 w-11 items-center justify-center rounded-xl transition-all",
-              comparing ? "neu-pressed text-gold-foreground" : "neu-sm text-muted-foreground hover:text-foreground",
+              "flex h-12 w-12 items-center justify-center rounded-2xl transition-all duration-300",
+              comparing
+                ? "shadow-inner text-gold"
+                : "neu-sm text-muted-foreground hover:text-foreground hover:scale-105",
             )}
+            style={comparing ? { background: "var(--gradient-gold)", color: "var(--color-gold-foreground)" } : {}}
           >
-            <Scale className="h-5 w-5" />
+            <Scale className="h-4.5 w-4.5" />
           </button>
         </div>
       </div>
