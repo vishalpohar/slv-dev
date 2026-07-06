@@ -1380,7 +1380,7 @@ export const projects: Project[] = [
     image: img(1),
     gallery: gallery(1),
     description:
-      "SLV Elite Spaces — the most ambitious residential project in SLV's history. 250 ultra-premium residences at Bhavanipuram, Vijayawada across a grand 9,00,000 sq ft. Currently under construction, Elite Spaces will set an entirely new benchmark for luxury apartment living in Vijayawada.",
+      "SLV Elite Spaces — the most ambitious residential project in SLV's history. 250 ultra-premium residences at Bhavanipuram, Vijayawada across a grand 9,0,000 sq ft. Currently under construction, Elite Spaces will set an entirely new benchmark for luxury apartment living in Vijayawada.",
     amenities: [
       "Grand Clubhouse",
       "Olympic Pool",
