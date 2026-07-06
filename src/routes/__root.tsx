@@ -16,6 +16,7 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { ComparisonBar } from "@/components/ComparisonBar";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
+import { AIAssistant } from "@/components/AIAssistant";
 import { Toaster } from "@/components/ui/sonner";
 
 function NotFoundComponent() {
@@ -143,6 +144,7 @@ function RootComponent() {
         <Footer />
         <ComparisonBar />
         <WhatsAppButton />
+        <AIAssistant />
         <Toaster position="top-center" richColors />
       </StoreProvider>
     </QueryClientProvider>

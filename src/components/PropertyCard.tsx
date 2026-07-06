@@ -5,9 +5,9 @@ import { useStore } from "@/store/useStore";
 import { formatPrice, type Project } from "@/data/projects";
 
 const statusStyles: Record<string, string> = {
-  Ongoing: "bg-gold/20 text-amber-700 border-gold/40",
-  Completed: "bg-emerald-500/15 text-emerald-700 border-emerald-500/30",
-  Upcoming: "bg-blue-500/15 text-blue-700 border-blue-500/30",
+  Ongoing: "bg-gold/20 text-gold-foreground border-gold/40",
+  Completed: "bg-emerald-500/15 text-gold-foreground border-emerald-500/30",
+  Upcoming: "bg-blue-500/15 text-gold-foreground border-blue-500/30",
 };
 
 export function PropertyCard({ project }: { project: Project }) {

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { Search, Sparkles, MapPin, Building2, Wallet, Activity, X, Send, ChevronDown } from "lucide-react";
 import heroImg from "@/assets/hero-1.jpg";
-import { cn } from "@/lib/utils";
+import { OPEN_AI_ASSISTANT_EVENT } from "@/components/AIAssistant";
 
 const propertyTypes = ["Any Type", "Apartment", "Villa", "Plots"];
 const budgets = ["Any Budget", "₹30 - 60 L", "₹60 L - 1 Cr", "₹1 Cr +"];
@@ -60,8 +60,7 @@ function SelectChip({
 }
 
 export function HeroSection() {
-  const [aiOpen, setAiOpen] = useState(false);
-  const [prompt, setPrompt] = useState("");
+
 
   return (
     <section className="relative flex min-h-[100svh] items-center justify-center overflow-hidden">
