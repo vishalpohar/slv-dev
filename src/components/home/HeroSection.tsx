@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { Search, Sparkles, MapPin, Building2, Wallet, Activity } from "lucide-react";
+import { Search, Sparkles, MapPin, Building2, Wallet, Activity, X, Send, ChevronDown } from "lucide-react";
 import heroImg from "@/assets/hero-1.jpg";
 import { OPEN_AI_ASSISTANT_EVENT } from "@/components/AIAssistant";
 import { cn } from "@/lib/utils";
@@ -29,7 +29,7 @@ function WordReveal({ text, baseDelay = 500 }: { text: string; baseDelay?: numbe
 }
 
 /* ── Animated stat counter ───────────────────────────────── */
-function AnimatedStat({ value, label, delay }: { value: string; label: string; delay: number }) {
+function AnimatedStat({ value, label, delay, index }: { value: string; label: string; delay: number; index: number }) {
   const ref = useRef<HTMLDivElement>(null);
   const [shown, setShown] = useState(false);
 
@@ -45,17 +45,27 @@ function AnimatedStat({ value, label, delay }: { value: string; label: string; d
   }, []);
 
   return (
-    <div ref={ref} className="text-center overflow-hidden">
+    <div ref={ref} className="group relative text-center cursor-default overflow-hidden">
+      {index > 0 && (
+        <div className="absolute -left-6 top-1/2 h-8 w-px -translate-y-1/2 opacity-30"
+          style={{ background: "var(--gradient-gold)" }} />
+      )}
       <p
         className={cn(
-          "font-display text-3xl font-bold text-gold transition-all duration-700",
+          "font-display text-4xl font-bold sm:text-5xl transition-all duration-700",
           shown ? "animate-count-up" : "opacity-0 translate-y-full",
         )}
-        style={{ animationDelay: `${delay}ms` }}
+        style={{
+          animationDelay: `${delay}ms`,
+          background: "var(--gradient-gold)",
+          WebkitBackgroundClip: "text",
+          backgroundClip: "text",
+          color: "transparent",
+        }}
       >
         {value}
       </p>
-      <p className="text-xs uppercase tracking-wider text-background/60 mt-1">{label}</p>
+      <p className="mt-1 text-[0.65rem] font-semibold uppercase tracking-[0.25em] text-white/55">{label}</p>
     </div>
   );
 }
@@ -76,21 +86,32 @@ function SelectChip({
     <div className="relative">
       <button
         onClick={() => setOpen((o) => !o)}
-        className="flex w-full items-center gap-2.5 rounded-xl px-3 py-3 text-left text-sm text-foreground transition-colors hover:bg-secondary/60"
+        className="group flex w-full items-center gap-3 rounded-xl px-4 py-3.5 text-left text-sm transition-all duration-200 hover:bg-secondary/50"
       >
-        <Icon className="h-4 w-4 shrink-0 text-gold" />
-        <span className="flex flex-col">
-          <span className="text-[0.65rem] uppercase tracking-wider text-muted-foreground">{label}</span>
-          <span className="font-medium">{value}</span>
+        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-gradient-gold shadow-sm">
+          <Icon className="h-3.5 w-3.5 text-gold-foreground" />
         </span>
+        <span className="flex flex-1 flex-col">
+          <span className="text-[0.63rem] font-semibold uppercase tracking-widest text-muted-foreground">{label}</span>
+          <span className="font-medium text-foreground">{value}</span>
+        </span>
+        <ChevronDown className={cn("h-3.5 w-3.5 text-muted-foreground transition-transform duration-200", open && "rotate-180")} />
       </button>
       {open && (
-        <div className="absolute left-0 top-full z-20 mt-2 w-44 animate-fade-up rounded-xl glass p-1.5">
+        <div className="absolute left-0 top-full z-20 mt-2 w-48 animate-fade-up rounded-2xl glass shadow-2xl border border-white/50 p-1.5">
           {options.map((o) => (
             <button
               key={o}
-              onClick={() => { setValue(o); setOpen(false); }}
-              className="block w-full rounded-lg px-3 py-2 text-left text-sm text-foreground hover:bg-secondary"
+              onClick={() => {
+                setValue(o);
+                setOpen(false);
+              }}
+              className={cn(
+                "block w-full rounded-xl px-4 py-2.5 text-left text-sm transition-all duration-200",
+                value === o
+                  ? "bg-gradient-gold text-gold-foreground font-semibold"
+                  : "text-foreground hover:bg-secondary",
+              )}
             >
               {o}
             </button>
@@ -103,6 +124,9 @@ function SelectChip({
 
 /* ── Hero Section ────────────────────────────────────────── */
 export function HeroSection() {
+  const [aiOpen, setAiOpen] = useState(false);
+  const [prompt, setPrompt] = useState("");
+
   return (
     <section className="relative flex min-h-[100svh] items-center justify-center overflow-hidden">
       {/* Background — cinematic scale-down */}
@@ -113,77 +137,192 @@ export function HeroSection() {
         height={1280}
         className="absolute inset-0 h-full w-full animate-ken-burns-down object-cover"
       />
-      <div className="absolute inset-0 bg-gradient-to-b from-obsidian/70 via-obsidian/40 to-obsidian/85" />
 
-      <div className="relative z-10 mx-auto w-full max-w-6xl px-6 pt-28 text-center text-background">
+      {/* Multi-layer gradient overlay for depth */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/75 via-black/35 to-black/80" />
+      <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse at 60% 40%, rgba(180,140,40,0.12) 0%, transparent 65%)" }} />
 
-        {/* Label — slides in from left */}
-        <p className="section-label mx-auto text-gold animate-slide-left delay-300">
-          Crafting Excellence Since 2007
-        </p>
+      {/* Subtle animated particle lines */}
+      <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div className="absolute left-[10%] top-[15%] h-px w-48 opacity-20" style={{ background: "var(--gradient-gold)" }} />
+        <div className="absolute right-[8%] bottom-[30%] h-px w-32 opacity-15" style={{ background: "var(--gradient-gold)" }} />
+        <div className="absolute left-[55%] top-[8%] h-24 w-px opacity-15" style={{ background: "linear-gradient(to bottom, var(--color-gold), transparent)" }} />
+      </div>
 
-        {/* H1 — word-by-word reveal */}
-        <h1 className="mx-auto mt-5 max-w-4xl font-display text-4xl font-bold leading-[1.1] sm:text-6xl lg:text-7xl"
+      {/* Main content */}
+      <div className="relative z-10 mx-auto w-full max-w-6xl px-6 pt-28 text-center text-white">
+
+        {/* Royal badge */}
+        <div className="animate-fade-up stagger-1 mx-auto inline-flex items-center gap-2.5 rounded-full border border-gold/30 bg-black/30 px-5 py-2 backdrop-blur-md">
+          <span className="h-1.5 w-1.5 rounded-full bg-gold animate-gold-pulse" />
+          <span className="section-label text-gold tracking-[0.35em]">Crafting Excellence Since 2007</span>
+          <span className="h-1.5 w-1.5 rounded-full bg-gold animate-gold-pulse" />
+        </div>
+
+        {/* Headline with word-by-word reveal and shimmer gold */}
+        <h1 className="mx-auto mt-7 max-w-5xl font-display text-5xl font-bold leading-[1.06] sm:text-6xl lg:text-8xl"
             style={{ perspective: "600px" }}>
           <WordReveal text="Elegance in" baseDelay={500} />{" "}
-          <span className="italic font-normal text-gradient-gold">
+          <span className="animate-gold-shimmer not-italic">
             <WordReveal text="Every Square Foot" baseDelay={700} />
           </span>
         </h1>
 
-        {/* Subtitle */}
-        <p className="mx-auto mt-6 max-w-2xl text-base text-background/75 animate-fade-up delay-800 sm:text-lg">
+        {/* Sub-headline */}
+        <p className="animate-fade-up stagger-3 mx-auto mt-7 max-w-2xl text-base leading-relaxed text-white/70 sm:text-lg">
           Premium gated communities crafted for modern lifestyles across Vijayawada and the
           Amaravati capital region — trusted homes since 2007.
         </p>
 
-        {/* Search panel */}
-        <div className="mx-auto mt-10 max-w-4xl animate-fade-up delay-1000 rounded-3xl glass p-3 text-left sm:p-4">
-          <div className="grid grid-cols-2 gap-1 sm:grid-cols-4">
+        {/* Gold divider ornament */}
+        <div className="animate-fade-up stagger-3 mx-auto mt-10 flex items-center justify-center gap-4">
+          <div className="h-px w-16" style={{ background: "linear-gradient(to right, transparent, var(--color-gold))" }} />
+          <div className="h-1.5 w-1.5 rotate-45 bg-gold" />
+          <div className="h-px w-16" style={{ background: "linear-gradient(to left, transparent, var(--color-gold))" }} />
+        </div>
+
+        {/* Search panel — luxury glass card */}
+        <div className="animate-fade-up stagger-4 mx-auto mt-10 max-w-4xl rounded-3xl text-left shadow-[0_20px_60px_rgba(0,0,0,0.4)]"
+          style={{
+            background: "rgba(255,255,255,0.12)",
+            backdropFilter: "blur(24px) saturate(160%)",
+            WebkitBackdropFilter: "blur(24px) saturate(160%)",
+            border: "1px solid rgba(255,255,255,0.22)",
+          }}
+        >
+          <div className="grid grid-cols-2 gap-0 divide-x divide-white/10 sm:grid-cols-4">
             <SelectChip icon={MapPin}     label="Location"      options={["All Cities", "Vijayawada", "Amaravati"]} />
             <SelectChip icon={Building2}  label="Property Type" options={propertyTypes} />
             <SelectChip icon={Wallet}     label="Budget"        options={budgets} />
             <SelectChip icon={Activity}   label="Status"        options={statuses} />
           </div>
-          <div className="mt-3 flex flex-col gap-2 sm:flex-row">
+          <div className="border-t border-white/10 p-3 flex flex-col gap-2.5 sm:flex-row">
             <Link
               to="/projects"
-              className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-gradient-gold py-3.5 text-sm font-semibold text-gold-foreground transition-transform hover:scale-[1.02] animate-gold-pulse relative overflow-hidden group"
+              className="group flex flex-1 items-center justify-center gap-2.5 rounded-2xl py-4 text-sm font-bold tracking-wide text-gold-foreground shadow-lg transition-all duration-300 hover:scale-[1.02] hover:shadow-xl animate-gold-pulse relative overflow-hidden"
+              style={{ background: "var(--gradient-gold)" }}
             >
               <span className="absolute inset-0 opacity-0 group-hover:opacity-100 animate-shimmer transition-opacity duration-300" />
-              <Search className="h-4 w-4 relative" />
-              <span className="relative">Search Residences</span>
+              <span className="relative flex items-center justify-center gap-2.5">
+                <Search className="h-4 w-4 transition-transform duration-300 group-hover:scale-110" />
+                Search Residences
+              </span>
             </Link>
             <button
-              onClick={() => window.dispatchEvent(new Event(OPEN_AI_ASSISTANT_EVENT))}
-              className="flex items-center justify-center gap-2 rounded-xl border border-gold/40 bg-obsidian/40 px-5 py-3.5 text-sm font-semibold text-gold backdrop-blur-md transition-colors hover:bg-obsidian/60"
+              onClick={() => setAiOpen(true)}
+              className="flex items-center justify-center gap-2.5 rounded-2xl border border-gold/35 bg-white/10 px-6 py-4 text-sm font-bold tracking-wide text-gold backdrop-blur-md transition-all duration-300 hover:bg-white/20 hover:border-gold/60"
             >
-              <Sparkles className="h-4 w-4" /> Ask AI Assistant
+              <Sparkles className="h-4 w-4 animate-float" />
+              Ask AI Assistant
             </button>
           </div>
         </div>
 
         {/* Stats — animated counters */}
-        <div className="mt-12 flex flex-wrap items-center justify-center gap-x-10 gap-y-4 text-background/80">
+        <div className="animate-fade-up stagger-5 mx-auto mt-14 flex flex-wrap items-center justify-center gap-x-12 gap-y-6">
           {[
             { value: "19+",   label: "Years of Legacy",      delay: 0   },
             { value: "34",    label: "Projects Delivered",   delay: 150 },
             { value: "2",     label: "Commercial Projects",  delay: 300 },
             { value: "5000+", label: "Happy Families",       delay: 450 },
-          ].map((s) => (
-            <AnimatedStat key={s.label} {...s} />
+          ].map((s, idx) => (
+            <AnimatedStat key={s.label} index={idx} {...s} />
           ))}
         </div>
       </div>
 
-      {/* Scroll indicator — premium */}
-      <div className="absolute bottom-8 left-1/2 z-10 hidden -translate-x-1/2 sm:flex flex-col items-center gap-2 animate-fade-up delay-1000">
-        <span className="text-[0.6rem] uppercase tracking-[0.3em] text-background/50">Scroll</span>
+      {/* Scroll indicator */}
+      <div className="absolute bottom-10 left-1/2 z-10 hidden -translate-x-1/2 flex-col items-center gap-2 sm:flex animate-fade-up delay-1000">
+        <span className="section-label text-white/40 text-[0.6rem]">Scroll</span>
         <div className="relative h-14 w-px overflow-hidden">
-          <div className="absolute inset-0 bg-gold/20" />
-          <div className="absolute top-0 h-1/2 w-full bg-gradient-to-b from-gold to-transparent animate-scroll-bounce" />
+          <div className="absolute inset-0 w-full animate-scroll-line rounded-full" style={{ background: "linear-gradient(to bottom, var(--color-gold), transparent)" }} />
         </div>
       </div>
+
+      {/* AI Assistant drawer */}
+      <div
+        className={cn(
+          "fixed inset-y-0 right-0 z-[60] w-full max-w-md transform transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] sm:p-4",
+          aiOpen ? "translate-x-0" : "translate-x-full",
+        )}
+      >
+        <div className="flex h-full flex-col text-white sm:rounded-3xl overflow-hidden"
+          style={{
+            background: "linear-gradient(160deg, rgba(18,16,22,0.97) 0%, rgba(12,10,16,0.99) 100%)",
+            backdropFilter: "blur(24px)",
+            border: "1px solid rgba(255,255,255,0.08)",
+            boxShadow: "-12px 0 60px rgba(0,0,0,0.5)",
+          }}
+        >
+          {/* Header */}
+          <div className="flex items-center justify-between p-5" style={{ borderBottom: "1px solid rgba(255,255,255,0.08)" }}>
+            <div className="flex items-center gap-3">
+              <span className="flex h-9 w-9 items-center justify-center rounded-xl" style={{ background: "var(--gradient-gold)" }}>
+                <Sparkles className="h-4 w-4 text-gold-foreground" />
+              </span>
+              <div>
+                <span className="font-display text-base font-semibold">AI Property Assistant</span>
+                <p className="text-[0.65rem] text-white/40 uppercase tracking-widest">Powered by SLV Intelligence</p>
+              </div>
+            </div>
+            <button onClick={() => setAiOpen(false)} aria-label="Close" className="flex h-8 w-8 items-center justify-center rounded-lg text-white/50 transition-colors hover:bg-white/10 hover:text-white">
+              <X className="h-4 w-4" />
+            </button>
+          </div>
+
+          {/* Body */}
+          <div className="flex-1 space-y-4 overflow-y-auto p-5">
+            <div className="max-w-[85%] rounded-2xl rounded-tl-sm p-4 text-sm leading-relaxed text-white/85"
+              style={{ background: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.08)" }}
+            >
+              Hello! Tell me what you're looking for in natural language and I'll find your ideal home. 🏡
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {[
+                "3 BHK gated apartment in Vijayawada",
+                "Independent villa near Penamaluru",
+                "Gated villa plot near Gannavaram Airport",
+              ].map((s) => (
+                <button
+                  key={s}
+                  onClick={() => setPrompt(s)}
+                  className="rounded-full border px-3 py-1.5 text-xs text-gold transition-all duration-200 hover:bg-gold/10"
+                  style={{ borderColor: "rgba(212,175,55,0.3)" }}
+                >
+                  {s}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Input */}
+          <div className="p-4" style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}>
+            <div className="flex items-center gap-2 rounded-2xl p-2 pl-4"
+              style={{ background: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.1)" }}
+            >
+              <input
+                value={prompt}
+                onChange={(e) => setPrompt(e.target.value)}
+                placeholder="Find a 3BHK villa near hi-tech zones..."
+                className="flex-1 bg-transparent text-sm text-white placeholder:text-white/35 focus:outline-none"
+              />
+              <button className="flex h-9 w-9 items-center justify-center rounded-xl text-gold-foreground transition-transform hover:scale-110"
+                style={{ background: "var(--gradient-gold)" }}
+              >
+                <Send className="h-4 w-4" />
+              </button>
+            </div>
+            <p className="mt-2 text-center text-[0.6rem] text-white/30">
+              AI suggestions are illustrative — connect Lovable Cloud to enable live search.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {aiOpen && (
+        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm" onClick={() => setAiOpen(false)} />
+      )}
+>>>>>>> origin/main
     </section>
   );
 }

@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Quote } from "lucide-react";
+import { ArrowRight, Quote, Crown, Award, Shield, TrendingUp } from "lucide-react";
 import { HeroSection } from "@/components/home/HeroSection";
 import { PropertyCard } from "@/components/PropertyCard";
 import { Reveal } from "@/components/Reveal";
@@ -29,22 +29,30 @@ export const Route = createFileRoute("/")({
 const philosophy = [
   {
     no: "01",
+    icon: Award,
     title: "Unrivaled Quality",
     desc: "Premium-grade materials and industry-leading techniques ensure durability that spans generations.",
   },
   {
     no: "02",
+    icon: TrendingUp,
     title: "Strategic Locations",
     desc: "Projects sit on the fastest-growing corridors of Vijayawada and Amaravati for maximum value appreciation.",
   },
   {
     no: "03",
+    icon: Shield,
     title: "Absolute Transparency",
     desc: "RERA-approved projects, clear titles, and honest pricing have been our hallmark since 2007.",
   },
 ];
 
-const accolades = ["19+ Years of Trust", "ISO 9001:2015 Certified", "5000+ Happy Families", "CREDAI Member"];
+const accolades = [
+  { text: "19+ Years of Trust", icon: Crown },
+  { text: "ISO 9001:2015 Certified", icon: Award },
+  { text: "5000+ Happy Families", icon: Shield },
+  { text: "CREDAI Member", icon: TrendingUp },
+];
 
 function Index() {
   const featured = testimonials[0];
@@ -53,48 +61,79 @@ function Index() {
     <>
       <HeroSection />
 
-      {/* Accolades strip */}
-      <section className="border-b border-border bg-card py-6 overflow-hidden">
-        <div className="flex w-max animate-marquee items-center gap-16 whitespace-nowrap">
-          {[...accolades, ...accolades, ...accolades, ...accolades].map((a, i) => (
-            <div key={i} className="flex items-center gap-4 text-[10px] font-semibold uppercase tracking-[0.3em] text-muted-foreground">
-              <span className="text-xl text-gold">◆</span>
-              {a}
-            </div>
-          ))}
+      {/* ── Accolades marquee strip ── */}
+      <section className="relative overflow-hidden border-b border-border/60 bg-card py-0">
+        {/* Gold accent lines */}
+        <div className="absolute inset-x-0 top-0 h-px hairline-gold opacity-70" />
+        <div className="absolute inset-x-0 bottom-0 h-px hairline-gold opacity-70" />
+
+        <div className="flex overflow-hidden py-4">
+          <div className="animate-marquee flex shrink-0 items-center gap-0 whitespace-nowrap">
+            {[...accolades, ...accolades, ...accolades, ...accolades].map((a, i) => (
+              <span key={i} className="flex items-center gap-3 px-8 text-[0.72rem] font-bold uppercase tracking-[0.3em] text-muted-foreground">
+                <a.icon className="h-3.5 w-3.5 text-gold shrink-0" />
+                {a.text}
+                <span className="ml-4 h-px w-8 opacity-30" style={{ background: "var(--gradient-gold)" }} />
+              </span>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* About SLV intro — staggered images */}
-      <section className="mx-auto grid max-w-7xl items-center gap-16 px-6 py-28 lg:grid-cols-2 lg:gap-24">
+      {/* ── About SLV — staggered images ── */}
+      <section className="mx-auto grid max-w-7xl items-center gap-16 px-6 py-32 lg:grid-cols-2 lg:gap-24">
         <Reveal>
-          <div className="relative flex gap-4">
-            <div className="absolute -left-8 -top-8 -z-10 h-40 w-40 border-l border-t border-gold/30" />
-            <div className="w-2/3 overflow-hidden rounded-sm shadow-2xl">
+          <div className="relative flex gap-5">
+            {/* Ornamental frame lines */}
+            <div className="absolute -left-6 -top-6 -z-10 h-36 w-36 border-l border-t opacity-40"
+              style={{ borderColor: "var(--color-gold)" }} />
+            <div className="absolute -bottom-6 -right-6 -z-10 h-24 w-24 border-r border-b opacity-30"
+              style={{ borderColor: "var(--color-gold)" }} />
+
+            <div className="w-2/3 overflow-hidden rounded-2xl shadow-2xl">
               <img
                 src={aboutImage}
                 alt="An SLV Builders gated community in the Vijayawada–Amaravati region"
                 loading="lazy"
-                className="aspect-[3/4] w-full object-cover"
+                className="aspect-[3/4] w-full object-cover transition-transform duration-700 hover:scale-105"
               />
             </div>
-            <div className="mt-20 w-1/3 overflow-hidden rounded-sm shadow-xl">
+            <div className="mt-20 w-1/3 overflow-hidden rounded-2xl shadow-xl">
               <img
                 src={aboutImage2}
                 alt="Interior detail of an SLV residence"
                 loading="lazy"
-                className="aspect-[3/5] w-full object-cover"
+                className="aspect-[3/5] w-full object-cover transition-transform duration-700 hover:scale-105"
               />
+            </div>
+
+            {/* Floating badge */}
+            <div className="absolute -bottom-6 left-8 z-10 rounded-2xl px-5 py-3.5 shadow-2xl backdrop-blur-xl"
+              style={{
+                background: "var(--gradient-royal)",
+                border: "1px solid rgba(255,255,255,0.08)",
+              }}
+            >
+              <p className="font-display text-2xl font-bold text-white">19+</p>
+              <p className="text-[0.65rem] uppercase tracking-widest text-white/60">Years Legacy</p>
             </div>
           </div>
         </Reveal>
 
-        <Reveal delay={120} className="lg:pl-8">
+        <Reveal delay={120} className="lg:pl-6">
           <p className="section-label text-gold">Our Heritage</p>
-          <h2 className="mt-4 font-display text-4xl font-bold leading-tight text-foreground sm:text-5xl">
-            Building Legacies Since 2007
+          <h2 className="mt-5 font-display text-4xl font-bold leading-tight text-foreground sm:text-5xl lg:text-6xl">
+            Building Legacies{" "}
+            <span className="italic font-normal text-gradient-gold">Since 2007</span>
           </h2>
-          <p className="mt-8 text-lg font-light leading-relaxed text-muted-foreground">
+
+          {/* Hairline ornament */}
+          <div className="mt-8 flex items-center gap-3">
+            <div className="h-px flex-1 max-w-[60px]" style={{ background: "var(--gradient-gold)" }} />
+            <div className="h-1 w-1 rotate-45 bg-gold" />
+          </div>
+
+          <p className="mt-6 text-lg font-light leading-relaxed text-muted-foreground">
             At SLV Builders &amp; Developers Pvt Ltd, we don't just build structures — we curate lifestyles.
             Beginning in Bhimavaram in 2007 and entering Vijayawada in 2015 with SLV Anjani Heights, we have
             redefined the skyline of the Amaravati capital region with architectural brilliance and structural
@@ -104,38 +143,60 @@ function Index() {
             Guided by founder Sri Penmetsa Srinivasa Raju, SLV has delivered 20 residential projects, 2 commercial
             projects, and an educational institute — all built on trust.
           </p>
+
+          {/* Stats row */}
+          <div className="mt-8 grid grid-cols-3 gap-4">
+            {[["20+", "Projects"], ["5000+", "Families"], ["2", "Commercial"]].map(([n, l]) => (
+              <div key={l} className="rounded-2xl bg-secondary/60 p-4 text-center">
+                <p className="font-display text-2xl font-bold text-gradient-gold">{n}</p>
+                <p className="mt-0.5 text-xs font-medium uppercase tracking-wider text-muted-foreground">{l}</p>
+              </div>
+            ))}
+          </div>
+
           <Link
             to="/about"
-            className="group mt-10 inline-flex items-center gap-6 text-xs font-bold uppercase tracking-widest text-foreground"
+            className="group mt-10 inline-flex items-center gap-4 text-xs font-bold uppercase tracking-[0.2em] text-foreground hover-gold-line"
           >
-            <span className="border-b-2 border-gold pb-1">Discover Our Story</span>
-            <span className="h-px w-10 bg-gold transition-all duration-500 group-hover:w-16" />
+            <span>Discover Our Story</span>
+            <span className="flex h-8 w-8 items-center justify-center rounded-full border border-gold/30 text-gold transition-all duration-300 group-hover:bg-gradient-gold group-hover:text-gold-foreground group-hover:border-transparent">
+              <ArrowRight className="h-3.5 w-3.5" />
+            </span>
           </Link>
         </Reveal>
       </section>
 
-      {/* Featured projects — Curated Spaces */}
-      <section className="bg-secondary/40 py-28">
-        <div className="mx-auto max-w-7xl px-6">
+      {/* ── Featured projects ── */}
+      <section className="relative overflow-hidden py-32"
+        style={{ background: "linear-gradient(180deg, var(--color-secondary) 0%, var(--color-background) 100%)" }}
+      >
+        {/* Decorative background pattern */}
+        <div aria-hidden className="pointer-events-none absolute inset-0 opacity-[0.025]"
+          style={{ backgroundImage: "radial-gradient(circle, var(--color-gold) 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
+
+        <div className="relative mx-auto max-w-7xl px-6">
           <Reveal className="mb-16 flex flex-col items-baseline justify-between gap-6 sm:flex-row">
             <div>
-              <h2 className="font-display text-4xl font-bold text-foreground sm:text-5xl">Curated Spaces</h2>
-              <p className="mt-4 text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+              <p className="section-label text-gold">Portfolio</p>
+              <h2 className="mt-4 font-display text-5xl font-bold text-foreground sm:text-6xl">
+                Curated Spaces
+              </h2>
+              <p className="mt-3 text-sm font-medium text-muted-foreground">
                 Exquisite residences in prime locations
               </p>
             </div>
             <Link
               to="/projects"
-              className="group flex items-center gap-2 text-sm font-semibold text-foreground"
+              className="group flex items-center gap-2 rounded-full border border-gold/30 px-5 py-2.5 text-sm font-bold text-foreground transition-all duration-300 hover:border-gold hover:bg-gradient-gold hover:text-gold-foreground"
             >
               View All Projects
-              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
             </Link>
           </Reveal>
 
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             {projects.slice(0, 3).map((p, i) => (
-              <Reveal key={p.id} delay={i * 90}>
+              <Reveal key={p.id} delay={i * 100}>
                 <PropertyCard project={p} />
               </Reveal>
             ))}
@@ -143,60 +204,121 @@ function Index() {
         </div>
       </section>
 
-      {/* The SLV Philosophy */}
-      <section className="relative overflow-hidden bg-gradient-obsidian py-28 text-background">
-        <div className="absolute right-0 top-0 h-full w-1/3 bg-gold/5 blur-[120px]" />
+      {/* ── The SLV Philosophy — dark royal ── */}
+      <section className="relative overflow-hidden py-32 text-white" style={{ background: "var(--gradient-royal)" }}>
+        {/* Background glow orbs */}
+        <div aria-hidden className="pointer-events-none absolute right-0 top-0 h-[500px] w-[500px] rounded-full opacity-20 blur-[120px]"
+          style={{ background: "var(--color-gold)" }} />
+        <div aria-hidden className="pointer-events-none absolute -left-32 bottom-0 h-[400px] w-[400px] rounded-full opacity-10 blur-[100px]"
+          style={{ background: "var(--color-gold)" }} />
+
         <div className="relative mx-auto max-w-7xl px-6">
           <Reveal className="mb-20 text-center">
-            <h2 className="font-display text-4xl font-bold sm:text-5xl">The SLV Philosophy</h2>
-            <div className="mx-auto mt-8 h-0.5 w-20 bg-gold" />
+            <p className="section-label text-gold tracking-[0.35em]">Our Principles</p>
+            <h2 className="mt-5 font-display text-5xl font-bold sm:text-6xl">The SLV Philosophy</h2>
+            <div className="mx-auto mt-8 flex items-center justify-center gap-4">
+              <div className="h-px w-12 opacity-50" style={{ background: "var(--gradient-gold)" }} />
+              <div className="h-1.5 w-1.5 rotate-45 bg-gold opacity-70" />
+              <div className="h-px w-12 opacity-50" style={{ background: "var(--gradient-gold)" }} />
+            </div>
           </Reveal>
-          <div className="grid gap-16 md:grid-cols-3">
+
+          <div className="grid gap-8 md:grid-cols-3">
             {philosophy.map((f, i) => (
-              <Reveal key={f.title} delay={i * 90} className="text-center">
-                <div className="font-display text-4xl italic text-gold/30">{f.no}</div>
-                <h3 className="mt-8 text-xl font-bold uppercase tracking-wide">{f.title}</h3>
-                <p className="mt-4 font-light leading-relaxed text-background/65">{f.desc}</p>
+              <Reveal key={f.title} delay={i * 100}>
+                <div className="group relative h-full rounded-3xl p-8 transition-all duration-500 hover:-translate-y-1"
+                  style={{
+                    background: "rgba(255,255,255,0.04)",
+                    border: "1px solid rgba(255,255,255,0.08)",
+                  }}
+                >
+                  {/* Hover gold glow */}
+                  <div className="pointer-events-none absolute inset-0 rounded-3xl opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+                    style={{ background: "linear-gradient(135deg, rgba(212,175,55,0.06), transparent)" }} />
+
+                  <div className="relative">
+                    {/* Icon */}
+                    <div className="flex h-14 w-14 items-center justify-center rounded-2xl"
+                      style={{ background: "rgba(212,175,55,0.12)", border: "1px solid rgba(212,175,55,0.2)" }}
+                    >
+                      <f.icon className="h-6 w-6 text-gold" />
+                    </div>
+                    <div className="mt-6 font-display text-6xl italic font-bold text-gold/15">{f.no}</div>
+                    <h3 className="mt-2 text-xl font-bold tracking-wide uppercase">{f.title}</h3>
+                    <div className="mt-4 h-px w-12 opacity-40" style={{ background: "var(--gradient-gold)" }} />
+                    <p className="mt-4 font-light leading-relaxed text-white/60">{f.desc}</p>
+                  </div>
+                </div>
               </Reveal>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Testimonial — editorial */}
-      <section className="mx-auto max-w-4xl px-6 py-28 text-center">
+      {/* ── Testimonial — editorial ── */}
+      <section className="relative overflow-hidden mx-auto max-w-5xl px-6 py-32 text-center">
         <Reveal>
-          <Quote className="mx-auto h-10 w-10 text-gold" />
-          <blockquote className="mt-8 font-display text-2xl leading-snug text-foreground sm:text-4xl">
+          {/* Decorative quote mark */}
+          <div className="relative inline-block">
+            <Quote className="mx-auto h-12 w-12 text-gold opacity-90" />
+            <div className="absolute inset-0 blur-xl opacity-30" style={{ background: "var(--color-gold)" }} />
+          </div>
+
+          {/* Gold ornament */}
+          <div className="mx-auto mt-6 flex items-center justify-center gap-4">
+            <div className="h-px w-16 opacity-40" style={{ background: "var(--gradient-gold)" }} />
+            <div className="h-1 w-1 rotate-45 bg-gold opacity-60" />
+            <div className="h-px w-16 opacity-40" style={{ background: "var(--gradient-gold)" }} />
+          </div>
+
+          <blockquote className="mt-10 font-display text-2xl font-semibold italic leading-snug text-foreground sm:text-4xl lg:text-5xl">
             "{featured.quote}"
           </blockquote>
+
           <div className="mt-12">
-            <p className="text-xs font-bold uppercase tracking-widest text-foreground">{featured.name}</p>
-            <p className="mt-1 text-[10px] uppercase tracking-widest text-muted-foreground">{featured.role}</p>
+            <div className="mx-auto h-10 w-10 rounded-full" style={{ background: "var(--gradient-gold)", opacity: 0.3 }} />
+            <p className="mt-4 text-xs font-bold uppercase tracking-[0.3em] text-foreground">{featured.name}</p>
+            <p className="mt-1.5 text-[0.65rem] uppercase tracking-[0.25em] text-muted-foreground">{featured.role}</p>
           </div>
         </Reveal>
       </section>
 
-      {/* Final CTA — split */}
+      {/* ── Final CTA — split royal ── */}
       <section className="px-6 pb-24">
-        <Reveal className="relative mx-auto flex max-w-7xl flex-col items-center justify-between gap-12 overflow-hidden rounded-sm bg-gradient-obsidian px-10 py-20 text-background md:flex-row md:px-24">
-          <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-gold/20 blur-3xl" />
+        <Reveal className="relative mx-auto flex max-w-7xl flex-col items-center justify-between gap-12 overflow-hidden rounded-3xl px-10 py-24 text-white md:flex-row md:px-24"
+          style={{ background: "var(--gradient-royal)", border: "1px solid rgba(255,255,255,0.07)" }}
+        >
+          {/* Background glows */}
+          <div aria-hidden className="pointer-events-none absolute -right-20 -top-20 h-72 w-72 rounded-full blur-3xl opacity-25"
+            style={{ background: "var(--color-gold)" }} />
+          <div aria-hidden className="pointer-events-none absolute -left-20 -bottom-20 h-48 w-48 rounded-full blur-3xl opacity-10"
+            style={{ background: "var(--color-gold)" }} />
+
+          {/* Ornamental corners */}
+          <div aria-hidden className="pointer-events-none absolute left-8 top-8 h-8 w-8 border-l border-t opacity-30"
+            style={{ borderColor: "var(--color-gold)" }} />
+          <div aria-hidden className="pointer-events-none absolute right-8 bottom-8 h-8 w-8 border-r border-b opacity-30"
+            style={{ borderColor: "var(--color-gold)" }} />
+
           <div className="relative z-10 max-w-2xl text-center md:text-left">
-            <h2 className="font-display text-4xl font-bold sm:text-6xl">Your Future Awaits</h2>
-            <p className="mt-6 text-lg font-light text-background/70">
+            <p className="section-label text-gold tracking-[0.3em]">Begin Your Journey</p>
+            <h2 className="mt-5 font-display text-5xl font-bold sm:text-6xl lg:text-7xl">Your Future Awaits</h2>
+            <p className="mt-6 text-lg font-light leading-relaxed text-white/65">
               Schedule a private viewing of our model homes and experience the pinnacle of luxury living in person.
             </p>
           </div>
-          <div className="relative z-10 flex flex-wrap justify-center gap-4">
+          <div className="relative z-10 flex flex-col gap-4 sm:flex-row">
             <Link
               to="/contact"
-              className="rounded-sm bg-gradient-gold px-12 py-5 text-xs font-bold uppercase tracking-[0.2em] text-gold-foreground shadow-2xl transition-transform hover:scale-[1.03]"
+              className="group flex items-center gap-3 rounded-2xl px-10 py-5 text-xs font-bold uppercase tracking-[0.2em] text-gold-foreground shadow-2xl transition-all duration-300 hover:scale-[1.04] hover:shadow-gold/20"
+              style={{ background: "var(--gradient-gold)" }}
             >
               Contact Consultant
+              <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
             </Link>
             <Link
               to="/projects"
-              className="rounded-sm border border-white/20 px-12 py-5 text-xs font-bold uppercase tracking-[0.2em] text-background transition-colors hover:bg-white/10"
+              className="flex items-center gap-3 rounded-2xl border border-white/20 px-10 py-5 text-xs font-bold uppercase tracking-[0.2em] text-white transition-all duration-300 hover:bg-white/10 hover:border-white/40"
             >
               Explore Projects
             </Link>
