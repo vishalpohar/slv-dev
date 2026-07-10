@@ -37,20 +37,23 @@ export function Navbar() {
           scrolled ? "opacity-0" : "opacity-100",
         )}
         style={{
-          background:
-            "linear-gradient(to bottom, rgba(0,0,0,0.35) 0%, transparent 100%)",
+          background: "linear-gradient(to bottom, rgba(0,0,0,0.35) 0%, transparent 100%)",
         }}
         aria-hidden
       />
 
       <nav
         className={cn(
-          "relative mx-auto flex max-w-7xl items-center justify-between rounded-2xl px-4 py-3 transition-all duration-700 sm:px-6",
+          "relative overflow-hidden mx-auto flex max-w-7xl items-center justify-between rounded-full px-5 py-3.5 transition-all duration-700 sm:px-7",
           scrolled
-            ? "glass shadow-[0_8px_40px_rgba(0,0,0,0.18)] border border-white/50"
-            : "border border-white/15 bg-black/20 backdrop-blur-lg",
+            ? "navbar-light border border-white/25 bg-white/[0.10] backdrop-blur-[28px] shadow-[0_8px_40px_rgba(0,0,0,0.22)]"
+            : "navbar-dark border border-white/10 bg-transparent backdrop-blur-[30px] shadow-[0_8px_40px_rgba(0,0,0,0.25)]",
         )}
       >
+        <div className="absolute inset-0 overflow-hidden rounded-[28px] pointer-events-none">
+          <div className="navbar-shine absolute top-0 left-0 h-full w-56" />
+        </div>
+
         {/* Thin gold hairline border glow at bottom of nav */}
         <div
           className={cn(
@@ -58,18 +61,18 @@ export function Navbar() {
             scrolled ? "opacity-100" : "opacity-40",
           )}
           style={{
-            background:
-              "linear-gradient(90deg, transparent, var(--color-gold), transparent)",
+            background: "linear-gradient(90deg, transparent, var(--color-gold), transparent)",
           }}
           aria-hidden
         />
 
         {/* Logo */}
-        <Link to="/" className="group flex items-center gap-2.5">
-          <span className={cn(
-            "flex items-center justify-center rounded-xl p-1.5 transition-all duration-300",
-            scrolled ? "bg-card/80" : "bg-white/10 backdrop-blur-md",
-          )}>
+        <Link to="/" className="group flex items-center gap-2.5 outline-none">
+          <span
+            className={
+              "flex items-center justify-center rounded-xl p-1.5 transition-all duration-300"
+            }
+          >
             <img
               src={slvLogo}
               alt="SLV Builders & Developers"
@@ -91,10 +94,10 @@ export function Navbar() {
                   scrolled
                     ? active
                       ? "text-foreground"
-                      : "text-muted-foreground hover:text-foreground"
+                      : "text-black/50 hover:text-foreground"
                     : active
-                    ? "text-white"
-                    : "text-white/70 hover:text-white",
+                      ? "text-white"
+                      : "text-white/70 hover:text-white",
                 )}
               >
                 {l.label}
@@ -134,9 +137,7 @@ export function Navbar() {
             aria-label="Toggle menu"
             className={cn(
               "flex h-10 w-10 items-center justify-center rounded-xl transition-all duration-300 lg:hidden",
-              scrolled
-                ? "text-foreground hover:bg-secondary"
-                : "text-white hover:bg-white/15",
+              scrolled ? "text-foreground hover:bg-secondary" : "text-white hover:bg-white/15",
             )}
           >
             {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -146,11 +147,11 @@ export function Navbar() {
 
       {/* Mobile menu */}
       {open && (
-        <div className="mx-auto mt-2 max-w-7xl animate-slide-down rounded-2xl glass border border-white/40 p-3 lg:hidden shadow-2xl">
+        <div className="mx-auto mt-2 max-w-7xl animate-slide-down rounded-2xl bg-transparent backdrop-blur-xl border border-white/40 p-3 lg:hidden shadow-2xl">
           {/* Crown accent */}
           <div className="mb-2 flex items-center gap-2 px-3 py-1.5 border-b border-border/50">
             <Crown className="h-3.5 w-3.5 text-gold" />
-            <span className="section-label text-muted-foreground">Navigation</span>
+            <span className="section-label text-black">Navigation</span>
           </div>
           <div className="flex flex-col gap-0.5">
             {links.map((l) => (
@@ -161,7 +162,7 @@ export function Navbar() {
                   "flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition-all duration-200",
                   pathname === l.to
                     ? "bg-gradient-gold text-gold-foreground shadow-sm"
-                    : "text-muted-foreground hover:bg-secondary hover:text-foreground",
+                    : "text-black/70 hover:bg-gold/50 hover:text-foreground",
                 )}
               >
                 {l.label}

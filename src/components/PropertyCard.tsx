@@ -16,15 +16,12 @@ export function PropertyCard({ project }: { project: Project }) {
   const comparing = isComparing(project.id);
 
   return (
-    <article className="group relative overflow-hidden rounded-3xl bg-card transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_60px_-15px_rgba(212,175,55,0.18),0_8px_24px_-8px_rgba(0,0,0,0.15)]"
-      style={{ border: "1px solid color-mix(in oklab, var(--color-gold) 12%, var(--color-border))" }}
+    <article
+      className="group relative overflow-hidden rounded-3xl bg-card transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_60px_-15px_rgba(212,175,55,0.18),0_8px_24px_-8px_rgba(0,0,0,0.15)]"
+      style={{
+        border: "1px solid color-mix(in oklab, var(--color-gold) 12%, var(--color-border))",
+      }}
     >
-      {/* Gold corner ornaments */}
-      <span aria-hidden className="pointer-events-none absolute left-3 top-3 z-20 h-4 w-4 border-l border-t opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-        style={{ borderColor: "var(--color-gold)" }} />
-      <span aria-hidden className="pointer-events-none absolute right-3 bottom-3 z-20 h-4 w-4 border-r border-b opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-        style={{ borderColor: "var(--color-gold)" }} />
-
       {/* Image area */}
       <div className="relative aspect-[4/3] overflow-hidden">
         <img
@@ -37,8 +34,13 @@ export function PropertyCard({ project }: { project: Project }) {
         />
         {/* Multi-layer gradient */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent" />
-        <div className="absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-          style={{ background: "linear-gradient(to top, rgba(0,0,0,0.6), rgba(180,130,30,0.04), transparent)" }} />
+        <div
+          className="absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+          style={{
+            background:
+              "linear-gradient(to top, rgba(0,0,0,0.6), rgba(180,130,30,0.04), transparent)",
+          }}
+        />
         {/* Gold accent bar slides up on hover */}
         <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-gold transform translate-y-full transition-transform duration-500 group-hover:translate-y-0" />
 
@@ -63,12 +65,19 @@ export function PropertyCard({ project }: { project: Project }) {
               : "glass border-white/30 text-white hover:bg-rose-500/20 hover:text-rose-300",
           )}
         >
-          <Heart className={cn("h-4 w-4 transition-transform duration-200", wished && "fill-white scale-110")} />
+          <Heart
+            className={cn(
+              "h-4 w-4 transition-transform duration-200",
+              wished && "fill-white scale-110",
+            )}
+          />
         </button>
 
         {/* Price overlay */}
         <div className="absolute bottom-0 left-0 right-0 px-4 pb-4 pt-8">
-          <p className="text-[0.6rem] uppercase tracking-[0.25em] text-white/60">{project.category}</p>
+          <p className="text-[0.6rem] uppercase tracking-[0.25em] text-white/60">
+            {project.category}
+          </p>
           <p className="font-display text-2xl font-semibold text-white">
             {formatPrice(project.priceFrom)}
             <span className="text-base font-light text-white/60">+</span>
@@ -79,8 +88,13 @@ export function PropertyCard({ project }: { project: Project }) {
       {/* Card body */}
       <div className="relative p-5">
         {/* Inner gold hairline at top */}
-        <div className="absolute inset-x-5 top-0 h-px"
-          style={{ background: "linear-gradient(90deg, transparent, color-mix(in oklab, var(--color-gold) 30%, transparent), transparent)" }} />
+        <div
+          className="absolute inset-x-5 top-0 h-px"
+          style={{
+            background:
+              "linear-gradient(90deg, transparent, color-mix(in oklab, var(--color-gold) 30%, transparent), transparent)",
+          }}
+        />
 
         <h3 className="font-display text-xl font-semibold text-foreground group-hover:text-gradient-gold transition-all duration-300">
           {project.name}
@@ -125,7 +139,11 @@ export function PropertyCard({ project }: { project: Project }) {
                 ? "shadow-inner text-gold"
                 : "neu-sm text-muted-foreground hover:text-foreground hover:scale-105",
             )}
-            style={comparing ? { background: "var(--gradient-gold)", color: "var(--color-gold-foreground)" } : {}}
+            style={
+              comparing
+                ? { background: "var(--gradient-gold)", color: "var(--color-gold-foreground)" }
+                : {}
+            }
           >
             <Scale className="h-4.5 w-4.5" />
           </button>

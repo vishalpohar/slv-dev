@@ -19,7 +19,8 @@ export const Route = createFileRoute("/")({
       { property: "og:title", content: "SLV Builders & Developers — Luxury Real Estate" },
       {
         property: "og:description",
-        content: "A curated portfolio of luxury villas, penthouses, and residences in India's finest locations.",
+        content:
+          "A curated portfolio of luxury villas, penthouses, and residences in India's finest locations.",
       },
     ],
   }),
@@ -70,10 +71,16 @@ function Index() {
         <div className="flex overflow-hidden py-4">
           <div className="animate-marquee flex shrink-0 items-center gap-0 whitespace-nowrap">
             {[...accolades, ...accolades, ...accolades, ...accolades].map((a, i) => (
-              <span key={i} className="flex items-center gap-3 px-8 text-[0.72rem] font-bold uppercase tracking-[0.3em] text-muted-foreground">
+              <span
+                key={i}
+                className="flex items-center gap-3 px-8 text-[0.72rem] font-bold uppercase tracking-[0.3em] text-muted-foreground"
+              >
                 <a.icon className="h-3.5 w-3.5 text-gold shrink-0" />
                 {a.text}
-                <span className="ml-4 h-px w-8 opacity-30" style={{ background: "var(--gradient-gold)" }} />
+                <span
+                  className="ml-4 h-px w-8 opacity-30"
+                  style={{ background: "var(--gradient-gold)" }}
+                />
               </span>
             ))}
           </div>
@@ -85,30 +92,37 @@ function Index() {
         <Reveal>
           <div className="relative flex gap-5">
             {/* Ornamental frame lines */}
-            <div className="absolute -left-6 -top-6 -z-10 h-36 w-36 border-l border-t opacity-40"
-              style={{ borderColor: "var(--color-gold)" }} />
-            <div className="absolute -bottom-6 -right-6 -z-10 h-24 w-24 border-r border-b opacity-30"
-              style={{ borderColor: "var(--color-gold)" }} />
+            <div
+              className="absolute -left-6 -top-6 -z-10 h-36 w-36 border-l border-t opacity-40"
+              style={{ borderColor: "var(--color-gold)" }}
+            />
+            <div
+              className="absolute -bottom-6 -right-6 -z-10 h-24 w-24 border-r border-b opacity-30"
+              style={{ borderColor: "var(--color-gold)" }}
+            />
 
-            <div className="w-2/3 overflow-hidden rounded-2xl shadow-2xl">
-              <img
-                src={aboutImage}
-                alt="An SLV Builders gated community in the Vijayawada–Amaravati region"
-                loading="lazy"
-                className="aspect-[3/4] w-full object-cover transition-transform duration-700 hover:scale-105"
-              />
-            </div>
-            <div className="mt-20 w-1/3 overflow-hidden rounded-2xl shadow-xl">
-              <img
-                src={aboutImage2}
-                alt="Interior detail of an SLV residence"
-                loading="lazy"
-                className="aspect-[3/5] w-full object-cover transition-transform duration-700 hover:scale-105"
-              />
+            <div className="flex gap-5 items-end">
+              <div className="w-2/3 overflow-hidden rounded-2xl shadow-2xl">
+                <img
+                  src={aboutImage}
+                  alt="An SLV Builders gated community in the Vijayawada–Amaravati region"
+                  loading="lazy"
+                  className="aspect-[3/4] w-full object-fill transition-transform duration-700 hover:scale-105"
+                />
+              </div>
+              <div className="mt-20 w-1/3 h-[340px] overflow-hidden rounded-2xl shadow-xl">
+                <img
+                  src={aboutImage2}
+                  alt="Interior detail of an SLV residence"
+                  loading="lazy"
+                  className="h-full w-full object-fill transition-transform duration-700 hover:scale-105"
+                />
+              </div>
             </div>
 
             {/* Floating badge */}
-            <div className="absolute -bottom-6 left-8 z-10 rounded-2xl px-5 py-3.5 shadow-2xl backdrop-blur-xl"
+            <div
+              className="absolute -bottom-6 left-8 z-10 rounded-2xl px-5 py-3.5 shadow-2xl backdrop-blur-xl"
               style={{
                 background: "var(--gradient-royal)",
                 border: "1px solid rgba(255,255,255,0.08)",
@@ -129,27 +143,36 @@ function Index() {
 
           {/* Hairline ornament */}
           <div className="mt-8 flex items-center gap-3">
-            <div className="h-px flex-1 max-w-[60px]" style={{ background: "var(--gradient-gold)" }} />
+            <div
+              className="h-px flex-1 max-w-[60px]"
+              style={{ background: "var(--gradient-gold)" }}
+            />
             <div className="h-1 w-1 rotate-45 bg-gold" />
           </div>
 
           <p className="mt-6 text-lg font-light leading-relaxed text-muted-foreground">
-            At SLV Builders &amp; Developers Pvt Ltd, we don't just build structures — we curate lifestyles.
-            Beginning in Bhimavaram in 2007 and entering Vijayawada in 2015 with SLV Anjani Heights, we have
-            redefined the skyline of the Amaravati capital region with architectural brilliance and structural
-            integrity.
+            At SLV Builders &amp; Developers Pvt Ltd, we don't just build structures — we curate
+            lifestyles. Beginning in Bhimavaram in 2007 and entering Vijayawada in 2015 with SLV
+            Anjani Heights, we have redefined the skyline of the Amaravati capital region with
+            architectural brilliance and structural integrity.
           </p>
           <p className="mt-4 leading-relaxed text-muted-foreground">
-            Guided by founder Sri Penmetsa Srinivasa Raju, SLV has delivered 20 residential projects, 2 commercial
-            projects, and an educational institute — all built on trust.
+            Guided by founder Sri Penmetsa Srinivasa Raju, SLV has delivered 20 residential
+            projects, 2 commercial projects, and an educational institute — all built on trust.
           </p>
 
           {/* Stats row */}
           <div className="mt-8 grid grid-cols-3 gap-4">
-            {[["20+", "Projects"], ["5000+", "Families"], ["2", "Commercial"]].map(([n, l]) => (
+            {[
+              ["20+", "Projects"],
+              ["5000+", "Families"],
+              ["2", "Commercial"],
+            ].map(([n, l]) => (
               <div key={l} className="rounded-2xl bg-secondary/60 p-4 text-center">
                 <p className="font-display text-2xl font-bold text-gradient-gold">{n}</p>
-                <p className="mt-0.5 text-xs font-medium uppercase tracking-wider text-muted-foreground">{l}</p>
+                <p className="mt-0.5 text-xs font-medium uppercase tracking-wider text-muted-foreground">
+                  {l}
+                </p>
               </div>
             ))}
           </div>
@@ -167,12 +190,22 @@ function Index() {
       </section>
 
       {/* ── Featured projects ── */}
-      <section className="relative overflow-hidden py-32"
-        style={{ background: "linear-gradient(180deg, var(--color-secondary) 0%, var(--color-background) 100%)" }}
+      <section
+        className="relative overflow-hidden py-32"
+        style={{
+          background:
+            "linear-gradient(180deg, var(--color-secondary) 0%, var(--color-background) 100%)",
+        }}
       >
         {/* Decorative background pattern */}
-        <div aria-hidden className="pointer-events-none absolute inset-0 opacity-[0.025]"
-          style={{ backgroundImage: "radial-gradient(circle, var(--color-gold) 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 opacity-[0.025]"
+          style={{
+            backgroundImage: "radial-gradient(circle, var(--color-gold) 1px, transparent 1px)",
+            backgroundSize: "40px 40px",
+          }}
+        />
 
         <div className="relative mx-auto max-w-7xl px-6">
           <Reveal className="mb-16 flex flex-col items-baseline justify-between gap-6 sm:flex-row">
@@ -205,47 +238,76 @@ function Index() {
       </section>
 
       {/* ── The SLV Philosophy — dark royal ── */}
-      <section className="relative overflow-hidden py-32 text-white" style={{ background: "var(--gradient-royal)" }}>
+      <section
+        className="relative overflow-hidden py-32 text-white"
+        style={{ background: "var(--gradient-royal)" }}
+      >
         {/* Background glow orbs */}
-        <div aria-hidden className="pointer-events-none absolute right-0 top-0 h-[500px] w-[500px] rounded-full opacity-20 blur-[120px]"
-          style={{ background: "var(--color-gold)" }} />
-        <div aria-hidden className="pointer-events-none absolute -left-32 bottom-0 h-[400px] w-[400px] rounded-full opacity-10 blur-[100px]"
-          style={{ background: "var(--color-gold)" }} />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute right-0 top-0 h-[500px] w-[500px] rounded-full opacity-20 blur-[120px]"
+          style={{ background: "var(--color-gold)" }}
+        />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -left-32 bottom-0 h-[400px] w-[400px] rounded-full opacity-10 blur-[100px]"
+          style={{ background: "var(--color-gold)" }}
+        />
 
         <div className="relative mx-auto max-w-7xl px-6">
           <Reveal className="mb-20 text-center">
             <p className="section-label text-gold tracking-[0.35em]">Our Principles</p>
             <h2 className="mt-5 font-display text-5xl font-bold sm:text-6xl">The SLV Philosophy</h2>
             <div className="mx-auto mt-8 flex items-center justify-center gap-4">
-              <div className="h-px w-12 opacity-50" style={{ background: "var(--gradient-gold)" }} />
+              <div
+                className="h-px w-12 opacity-50"
+                style={{ background: "var(--gradient-gold)" }}
+              />
               <div className="h-1.5 w-1.5 rotate-45 bg-gold opacity-70" />
-              <div className="h-px w-12 opacity-50" style={{ background: "var(--gradient-gold)" }} />
+              <div
+                className="h-px w-12 opacity-50"
+                style={{ background: "var(--gradient-gold)" }}
+              />
             </div>
           </Reveal>
 
           <div className="grid gap-8 md:grid-cols-3">
             {philosophy.map((f, i) => (
               <Reveal key={f.title} delay={i * 100}>
-                <div className="group relative h-full rounded-3xl p-8 transition-all duration-500 hover:-translate-y-1"
+                <div
+                  className="group relative h-full rounded-3xl p-8 transition-all duration-500 hover:-translate-y-1"
                   style={{
                     background: "rgba(255,255,255,0.04)",
                     border: "1px solid rgba(255,255,255,0.08)",
                   }}
                 >
                   {/* Hover gold glow */}
-                  <div className="pointer-events-none absolute inset-0 rounded-3xl opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-                    style={{ background: "linear-gradient(135deg, rgba(212,175,55,0.06), transparent)" }} />
+                  <div
+                    className="pointer-events-none absolute inset-0 rounded-3xl opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+                    style={{
+                      background: "linear-gradient(135deg, rgba(212,175,55,0.06), transparent)",
+                    }}
+                  />
 
                   <div className="relative">
                     {/* Icon */}
-                    <div className="flex h-14 w-14 items-center justify-center rounded-2xl"
-                      style={{ background: "rgba(212,175,55,0.12)", border: "1px solid rgba(212,175,55,0.2)" }}
+                    <div
+                      className="flex h-14 w-14 items-center justify-center rounded-2xl"
+                      style={{
+                        background: "rgba(212,175,55,0.12)",
+                        border: "1px solid rgba(212,175,55,0.2)",
+                      }}
                     >
                       <f.icon className="h-6 w-6 text-gold" />
                     </div>
-                    <div className="mt-6 font-display text-6xl italic font-bold text-gold/15">{f.no}</div>
+                    <div className="mt-6 font-display text-6xl italic font-bold text-gold/15">
+                      {f.no}
+                    </div>
                     <h3 className="mt-2 text-xl font-bold tracking-wide uppercase">{f.title}</h3>
-                    <div className="mt-4 h-px w-12 opacity-40" style={{ background: "var(--gradient-gold)" }} />
+                    <div
+                      className="mt-4 h-px w-12 opacity-40"
+                      style={{ background: "var(--gradient-gold)" }}
+                    />
                     <p className="mt-4 font-light leading-relaxed text-white/60">{f.desc}</p>
                   </div>
                 </div>
@@ -261,7 +323,10 @@ function Index() {
           {/* Decorative quote mark */}
           <div className="relative inline-block">
             <Quote className="mx-auto h-12 w-12 text-gold opacity-90" />
-            <div className="absolute inset-0 blur-xl opacity-30" style={{ background: "var(--color-gold)" }} />
+            <div
+              className="absolute inset-0 blur-xl opacity-30"
+              style={{ background: "var(--color-gold)" }}
+            />
           </div>
 
           {/* Gold ornament */}
@@ -276,35 +341,61 @@ function Index() {
           </blockquote>
 
           <div className="mt-12">
-            <div className="mx-auto h-10 w-10 rounded-full" style={{ background: "var(--gradient-gold)", opacity: 0.3 }} />
-            <p className="mt-4 text-xs font-bold uppercase tracking-[0.3em] text-foreground">{featured.name}</p>
-            <p className="mt-1.5 text-[0.65rem] uppercase tracking-[0.25em] text-muted-foreground">{featured.role}</p>
+            <div
+              className="mx-auto h-10 w-10 rounded-full"
+              style={{ background: "var(--gradient-gold)", opacity: 0.3 }}
+            />
+            <p className="mt-4 text-xs font-bold uppercase tracking-[0.3em] text-foreground">
+              {featured.name}
+            </p>
+            <p className="mt-1.5 text-[0.65rem] uppercase tracking-[0.25em] text-muted-foreground">
+              {featured.role}
+            </p>
           </div>
         </Reveal>
       </section>
 
       {/* ── Final CTA — split royal ── */}
       <section className="px-6 pb-24">
-        <Reveal className="relative mx-auto flex max-w-7xl flex-col items-center justify-between gap-12 overflow-hidden rounded-3xl px-10 py-24 text-white md:flex-row md:px-24"
-          style={{ background: "var(--gradient-royal)", border: "1px solid rgba(255,255,255,0.07)" }}
+        <Reveal
+          className="relative mx-auto flex max-w-7xl flex-col items-center justify-between gap-12 overflow-hidden rounded-3xl px-10 py-24 text-white md:flex-row md:px-24"
+          style={{
+            background: "var(--gradient-royal)",
+            border: "1px solid rgba(255,255,255,0.07)",
+          }}
         >
           {/* Background glows */}
-          <div aria-hidden className="pointer-events-none absolute -right-20 -top-20 h-72 w-72 rounded-full blur-3xl opacity-25"
-            style={{ background: "var(--color-gold)" }} />
-          <div aria-hidden className="pointer-events-none absolute -left-20 -bottom-20 h-48 w-48 rounded-full blur-3xl opacity-10"
-            style={{ background: "var(--color-gold)" }} />
+          <div
+            aria-hidden
+            className="pointer-events-none absolute -right-20 -top-20 h-72 w-72 rounded-full blur-3xl opacity-25"
+            style={{ background: "var(--color-gold)" }}
+          />
+          <div
+            aria-hidden
+            className="pointer-events-none absolute -left-20 -bottom-20 h-48 w-48 rounded-full blur-3xl opacity-10"
+            style={{ background: "var(--color-gold)" }}
+          />
 
           {/* Ornamental corners */}
-          <div aria-hidden className="pointer-events-none absolute left-8 top-8 h-8 w-8 border-l border-t opacity-30"
-            style={{ borderColor: "var(--color-gold)" }} />
-          <div aria-hidden className="pointer-events-none absolute right-8 bottom-8 h-8 w-8 border-r border-b opacity-30"
-            style={{ borderColor: "var(--color-gold)" }} />
+          <div
+            aria-hidden
+            className="pointer-events-none absolute left-8 top-8 h-8 w-8 border-l border-t opacity-30"
+            style={{ borderColor: "var(--color-gold)" }}
+          />
+          <div
+            aria-hidden
+            className="pointer-events-none absolute right-8 bottom-8 h-8 w-8 border-r border-b opacity-30"
+            style={{ borderColor: "var(--color-gold)" }}
+          />
 
           <div className="relative z-10 max-w-2xl text-center md:text-left">
             <p className="section-label text-gold tracking-[0.3em]">Begin Your Journey</p>
-            <h2 className="mt-5 font-display text-5xl font-bold sm:text-6xl lg:text-7xl">Your Future Awaits</h2>
+            <h2 className="mt-5 font-display text-5xl font-bold sm:text-6xl lg:text-7xl">
+              Your Future Awaits
+            </h2>
             <p className="mt-6 text-lg font-light leading-relaxed text-white/65">
-              Schedule a private viewing of our model homes and experience the pinnacle of luxury living in person.
+              Schedule a private viewing of our model homes and experience the pinnacle of luxury
+              living in person.
             </p>
           </div>
           <div className="relative z-10 flex flex-col gap-4 sm:flex-row">

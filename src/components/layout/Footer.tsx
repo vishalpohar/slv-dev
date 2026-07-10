@@ -57,7 +57,7 @@ export function Footer() {
       <div className="mx-auto grid max-w-7xl gap-12 px-6 py-16 lg:grid-cols-[1.5fr_1fr_1fr_1fr]">
         {/* Brand column */}
         <div>
-          <span className="inline-flex rounded-2xl bg-white/95 px-4 py-3 shadow-lg">
+          <span className="inline-flex rounded-2xl px-4 py-3 shadow-lg">
             <img src={slvLogo} alt="SLV Builders & Developers" className="h-10 w-auto" />
           </span>
           <p className="mt-6 max-w-sm text-sm leading-relaxed text-white/55">
