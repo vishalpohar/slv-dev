@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode, type CSSProperties } from "react";
 import { cn } from "@/lib/utils";
 
 type RevealDirection = "up" | "left" | "right" | "fade";
@@ -16,12 +16,14 @@ export function Reveal({
   delay = 0,
   from = "up",
   as: Tag = "div",
+  style,
 }: {
   children: ReactNode;
   className?: string;
   delay?: number;
   from?: RevealDirection;
   as?: "div" | "section" | "li";
+  style?: CSSProperties;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const [shown, setShown] = useState(false);
@@ -43,7 +45,7 @@ export function Reveal({
   return (
     <Tag
       ref={ref as never}
-      style={{ transitionDelay: `${delay}ms` }}
+      style={{ ...style, transitionDelay: `${delay}ms` }}
       className={cn(
         "transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform",
         shown ? dir.shown : dir.hidden,
@@ -54,3 +56,4 @@ export function Reveal({
     </Tag>
   );
 }
+
