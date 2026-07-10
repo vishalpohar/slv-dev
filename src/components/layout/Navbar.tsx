@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useRouterState } from "@tanstack/react-router";
-import { Menu, X, Phone } from "lucide-react";
+import { Menu, X, Phone, Crown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import slvLogo from "@/assets/slv-logo.png";
 
@@ -20,7 +20,7 @@ export function Navbar() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
+    const onScroll = () => setScrolled(window.scrollY > 30);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -29,23 +29,57 @@ export function Navbar() {
   useEffect(() => setOpen(false), [pathname]);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-6 sm:pt-5">
+    <header className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-6 sm:pt-4">
+      {/* Ambient top glow when scrolled */}
+      <div
+        className={cn(
+          "pointer-events-none absolute inset-x-0 top-0 h-32 transition-opacity duration-700",
+          scrolled ? "opacity-0" : "opacity-100",
+        )}
+        style={{
+          background:
+            "linear-gradient(to bottom, rgba(0,0,0,0.35) 0%, transparent 100%)",
+        }}
+        aria-hidden
+      />
+
       <nav
         className={cn(
-          "mx-auto flex max-w-7xl items-center justify-between rounded-2xl px-4 py-3 transition-all duration-500 sm:px-6",
-          "glass border-b-2",
-          scrolled ? "border-b-gold/60" : "border-b-gold/30",
+          "relative mx-auto flex max-w-7xl items-center justify-between rounded-2xl px-4 py-3 transition-all duration-700 sm:px-6",
+          scrolled
+            ? "glass shadow-[0_8px_40px_rgba(0,0,0,0.18)] border border-white/50"
+            : "border border-white/15 bg-black/20 backdrop-blur-lg",
         )}
       >
-        <Link to="/" className="flex items-center gap-2.5">
-          <img
-            src={slvLogo}
-            alt="SLV Builders & Developers"
-            className="h-9 w-auto sm:h-10"
-          />
+        {/* Thin gold hairline border glow at bottom of nav */}
+        <div
+          className={cn(
+            "pointer-events-none absolute inset-x-6 bottom-0 h-px transition-opacity duration-700",
+            scrolled ? "opacity-100" : "opacity-40",
+          )}
+          style={{
+            background:
+              "linear-gradient(90deg, transparent, var(--color-gold), transparent)",
+          }}
+          aria-hidden
+        />
+
+        {/* Logo */}
+        <Link to="/" className="group flex items-center gap-2.5">
+          <span className={cn(
+            "flex items-center justify-center rounded-xl p-1.5 transition-all duration-300",
+            scrolled ? "bg-card/80" : "bg-white/10 backdrop-blur-md",
+          )}>
+            <img
+              src={slvLogo}
+              alt="SLV Builders & Developers"
+              className="h-8 w-auto sm:h-9 transition-transform duration-300 group-hover:scale-105"
+            />
+          </span>
         </Link>
 
-        <div className="hidden items-center gap-1 lg:flex">
+        {/* Desktop links */}
+        <div className="hidden items-center gap-0.5 lg:flex">
           {links.map((l) => {
             const active = pathname === l.to;
             return (
@@ -53,54 +87,93 @@ export function Navbar() {
                 key={l.to}
                 to={l.to}
                 className={cn(
-                  "relative rounded-lg px-3 py-2 text-sm font-medium transition-colors",
-                  active ? "text-foreground" : "text-muted-foreground hover:text-foreground",
+                  "relative rounded-lg px-3 py-2 text-[0.82rem] font-medium transition-all duration-300",
+                  scrolled
+                    ? active
+                      ? "text-foreground"
+                      : "text-muted-foreground hover:text-foreground"
+                    : active
+                    ? "text-white"
+                    : "text-white/70 hover:text-white",
                 )}
               >
                 {l.label}
                 {active && (
-                  <span className="absolute inset-x-3 -bottom-0.5 h-0.5 rounded-full bg-gradient-gold" />
+                  <span
+                    className="absolute inset-x-3 -bottom-0.5 h-px rounded-full"
+                    style={{
+                      background:
+                        "linear-gradient(90deg, transparent, var(--color-gold), transparent)",
+                    }}
+                  />
                 )}
+                <span
+                  className="absolute inset-x-3 -bottom-0.5 h-px rounded-full opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                  style={{
+                    background:
+                      "linear-gradient(90deg, transparent, var(--color-gold-light), transparent)",
+                  }}
+                />
               </Link>
             );
           })}
         </div>
 
+        {/* CTA + Mobile toggle */}
         <div className="flex items-center gap-2">
           <a
-            href="tel:+919000000000"
-            className="hidden items-center gap-2 rounded-xl bg-gradient-gold px-4 py-2.5 text-sm font-semibold text-gold-foreground shadow-sm transition-transform hover:scale-[1.03] sm:flex"
+            href="tel:+919859595939"
+            className="group hidden items-center gap-2 overflow-hidden rounded-xl px-4 py-2.5 text-sm font-semibold text-gold-foreground shadow-lg transition-all duration-300 hover:scale-[1.04] hover:shadow-xl sm:flex"
+            style={{ background: "var(--gradient-gold)" }}
           >
-            <Phone className="h-4 w-4" />
-            Enquire
+            <Phone className="h-3.5 w-3.5 transition-transform duration-300 group-hover:rotate-12" />
+            <span>Enquire Now</span>
           </a>
           <button
             onClick={() => setOpen((o) => !o)}
             aria-label="Toggle menu"
-            className="flex h-10 w-10 items-center justify-center rounded-xl text-foreground lg:hidden"
+            className={cn(
+              "flex h-10 w-10 items-center justify-center rounded-xl transition-all duration-300 lg:hidden",
+              scrolled
+                ? "text-foreground hover:bg-secondary"
+                : "text-white hover:bg-white/15",
+            )}
           >
             {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
         </div>
       </nav>
 
+      {/* Mobile menu */}
       {open && (
-        <div className="mx-auto mt-2 max-w-7xl rounded-2xl glass p-3 lg:hidden">
-          <div className="flex flex-col">
+        <div className="mx-auto mt-2 max-w-7xl animate-slide-down rounded-2xl glass border border-white/40 p-3 lg:hidden shadow-2xl">
+          {/* Crown accent */}
+          <div className="mb-2 flex items-center gap-2 px-3 py-1.5 border-b border-border/50">
+            <Crown className="h-3.5 w-3.5 text-gold" />
+            <span className="section-label text-muted-foreground">Navigation</span>
+          </div>
+          <div className="flex flex-col gap-0.5">
             {links.map((l) => (
               <Link
                 key={l.to}
                 to={l.to}
                 className={cn(
-                  "rounded-lg px-4 py-3 text-sm font-medium transition-colors",
+                  "flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition-all duration-200",
                   pathname === l.to
-                    ? "bg-secondary text-foreground"
-                    : "text-muted-foreground hover:text-foreground",
+                    ? "bg-gradient-gold text-gold-foreground shadow-sm"
+                    : "text-muted-foreground hover:bg-secondary hover:text-foreground",
                 )}
               >
                 {l.label}
               </Link>
             ))}
+            <a
+              href="tel:+919859595939"
+              className="mt-1 flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-semibold text-gold-foreground"
+              style={{ background: "var(--gradient-gold)" }}
+            >
+              <Phone className="h-4 w-4" /> Call Us: +91 98595 95939
+            </a>
           </div>
         </div>
       )}
