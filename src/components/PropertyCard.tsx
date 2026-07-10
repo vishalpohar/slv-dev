@@ -16,7 +16,7 @@ export function PropertyCard({ project }: { project: Project }) {
   const comparing = isComparing(project.id);
 
   return (
-    <article className="group relative overflow-hidden rounded-3xl bg-card transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_24px_64px_rgba(0,0,0,0.14)]"
+    <article className="group relative overflow-hidden rounded-3xl bg-card transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_60px_-15px_rgba(212,175,55,0.18),0_8px_24px_-8px_rgba(0,0,0,0.15)]"
       style={{ border: "1px solid color-mix(in oklab, var(--color-gold) 12%, var(--color-border))" }}
     >
       {/* Gold corner ornaments */}
@@ -39,6 +39,8 @@ export function PropertyCard({ project }: { project: Project }) {
         <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent" />
         <div className="absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
           style={{ background: "linear-gradient(to top, rgba(0,0,0,0.6), rgba(180,130,30,0.04), transparent)" }} />
+        {/* Gold accent bar slides up on hover */}
+        <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-gold transform translate-y-full transition-transform duration-500 group-hover:translate-y-0" />
 
         {/* Status badge */}
         <span
@@ -105,11 +107,14 @@ export function PropertyCard({ project }: { project: Project }) {
           <Link
             to="/projects/$slug"
             params={{ slug: project.slug }}
-            className="group/btn flex flex-1 items-center justify-center gap-2 rounded-2xl py-3 text-sm font-bold text-gold-foreground shadow-sm transition-all duration-300 hover:scale-[1.02] hover:shadow-md"
+            className="group/btn relative overflow-hidden flex flex-1 items-center justify-center gap-2 rounded-2xl py-3 text-sm font-bold text-gold-foreground shadow-sm transition-all duration-300 hover:scale-[1.02] hover:shadow-md"
             style={{ background: "var(--gradient-gold)" }}
           >
-            View Details
-            <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover/btn:translate-x-1" />
+            <span className="absolute inset-0 opacity-0 group-hover/btn:opacity-100 animate-shimmer" />
+            <span className="relative flex items-center justify-center gap-2">
+              View Details
+              <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover/btn:translate-x-1" />
+            </span>
           </Link>
           <button
             onClick={() => toggleCompare(project.id)}

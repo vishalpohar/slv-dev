@@ -1,13 +1,76 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { Search, Sparkles, MapPin, Building2, Wallet, Activity, X, Send, ChevronDown } from "lucide-react";
 import heroImg from "@/assets/hero-1.jpg";
 import { OPEN_AI_ASSISTANT_EVENT } from "@/components/AIAssistant";
+import { cn } from "@/lib/utils";
 
 const propertyTypes = ["Any Type", "Apartment", "Villa", "Plots"];
 const budgets = ["Any Budget", "₹30 - 60 L", "₹60 L - 1 Cr", "₹1 Cr +"];
 const statuses = ["Any Status", "Ongoing", "Completed", "Upcoming"];
 
+/* ── Word-by-word animated headline ─────────────────────── */
+function WordReveal({ text, baseDelay = 500 }: { text: string; baseDelay?: number }) {
+  const words = text.split(" ");
+  return (
+    <>
+      {words.map((word, i) => (
+        <span key={i} className="inline-block overflow-hidden" style={{ marginRight: "0.28em" }}>
+          <span
+            className="inline-block animate-word-in"
+            style={{ animationDelay: `${baseDelay + i * 80}ms` }}
+          >
+            {word}
+          </span>
+        </span>
+      ))}
+    </>
+  );
+}
+
+/* ── Animated stat counter ───────────────────────────────── */
+function AnimatedStat({ value, label, delay, index }: { value: string; label: string; delay: number; index: number }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [shown, setShown] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { setShown(true); io.disconnect(); } },
+      { threshold: 0.3 },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  return (
+    <div ref={ref} className="group relative text-center cursor-default overflow-hidden">
+      {index > 0 && (
+        <div className="absolute -left-6 top-1/2 h-8 w-px -translate-y-1/2 opacity-30"
+          style={{ background: "var(--gradient-gold)" }} />
+      )}
+      <p
+        className={cn(
+          "font-display text-4xl font-bold sm:text-5xl transition-all duration-700",
+          shown ? "animate-count-up" : "opacity-0 translate-y-full",
+        )}
+        style={{
+          animationDelay: `${delay}ms`,
+          background: "var(--gradient-gold)",
+          WebkitBackgroundClip: "text",
+          backgroundClip: "text",
+          color: "transparent",
+        }}
+      >
+        {value}
+      </p>
+      <p className="mt-1 text-[0.65rem] font-semibold uppercase tracking-[0.25em] text-white/55">{label}</p>
+    </div>
+  );
+}
+
+/* ── Select chip ─────────────────────────────────────────── */
 function SelectChip({
   icon: Icon,
   label,
@@ -59,18 +122,20 @@ function SelectChip({
   );
 }
 
+/* ── Hero Section ────────────────────────────────────────── */
 export function HeroSection() {
-
+  const [aiOpen, setAiOpen] = useState(false);
+  const [prompt, setPrompt] = useState("");
 
   return (
     <section className="relative flex min-h-[100svh] items-center justify-center overflow-hidden">
-      {/* Hero image with ken-burns */}
+      {/* Background — cinematic scale-down */}
       <img
         src={heroImg}
         alt="Luxury SLV residence at golden dusk"
         width={1920}
         height={1280}
-        className="absolute inset-0 h-full w-full animate-ken-burns object-cover"
+        className="absolute inset-0 h-full w-full animate-ken-burns-down object-cover"
       />
 
       {/* Multi-layer gradient overlay for depth */}
@@ -89,15 +154,18 @@ export function HeroSection() {
 
         {/* Royal badge */}
         <div className="animate-fade-up stagger-1 mx-auto inline-flex items-center gap-2.5 rounded-full border border-gold/30 bg-black/30 px-5 py-2 backdrop-blur-md">
-          <span className="h-1 w-1 rounded-full bg-gold animate-pulse-gold" />
+          <span className="h-1.5 w-1.5 rounded-full bg-gold animate-gold-pulse" />
           <span className="section-label text-gold tracking-[0.35em]">Crafting Excellence Since 2007</span>
-          <span className="h-1 w-1 rounded-full bg-gold animate-pulse-gold" />
+          <span className="h-1.5 w-1.5 rounded-full bg-gold animate-gold-pulse" />
         </div>
 
-        {/* Headline with shimmer gold */}
-        <h1 className="animate-fade-up stagger-2 mx-auto mt-7 max-w-5xl font-display text-5xl font-bold leading-[1.06] sm:text-6xl lg:text-8xl">
-          Elegance in{" "}
-          <em className="animate-gold-shimmer not-italic">Every Square Foot</em>
+        {/* Headline with word-by-word reveal and shimmer gold */}
+        <h1 className="mx-auto mt-7 max-w-5xl font-display text-5xl font-bold leading-[1.06] sm:text-6xl lg:text-8xl"
+            style={{ perspective: "600px" }}>
+          <WordReveal text="Elegance in" baseDelay={500} />{" "}
+          <span className="animate-gold-shimmer not-italic">
+            <WordReveal text="Every Square Foot" baseDelay={700} />
+          </span>
         </h1>
 
         {/* Sub-headline */}
@@ -123,19 +191,22 @@ export function HeroSection() {
           }}
         >
           <div className="grid grid-cols-2 gap-0 divide-x divide-white/10 sm:grid-cols-4">
-            <SelectChip icon={MapPin} label="Location" options={["All Cities", "Vijayawada", "Amaravati"]} />
-            <SelectChip icon={Building2} label="Property Type" options={propertyTypes} />
-            <SelectChip icon={Wallet} label="Budget" options={budgets} />
-            <SelectChip icon={Activity} label="Status" options={statuses} />
+            <SelectChip icon={MapPin}     label="Location"      options={["All Cities", "Vijayawada", "Amaravati"]} />
+            <SelectChip icon={Building2}  label="Property Type" options={propertyTypes} />
+            <SelectChip icon={Wallet}     label="Budget"        options={budgets} />
+            <SelectChip icon={Activity}   label="Status"        options={statuses} />
           </div>
           <div className="border-t border-white/10 p-3 flex flex-col gap-2.5 sm:flex-row">
             <Link
               to="/projects"
-              className="group flex flex-1 items-center justify-center gap-2.5 rounded-2xl py-4 text-sm font-bold tracking-wide text-gold-foreground shadow-lg transition-all duration-300 hover:scale-[1.02] hover:shadow-xl"
+              className="group flex flex-1 items-center justify-center gap-2.5 rounded-2xl py-4 text-sm font-bold tracking-wide text-gold-foreground shadow-lg transition-all duration-300 hover:scale-[1.02] hover:shadow-xl animate-gold-pulse relative overflow-hidden"
               style={{ background: "var(--gradient-gold)" }}
             >
-              <Search className="h-4 w-4 transition-transform duration-300 group-hover:scale-110" />
-              Search Residences
+              <span className="absolute inset-0 opacity-0 group-hover:opacity-100 animate-shimmer transition-opacity duration-300" />
+              <span className="relative flex items-center justify-center gap-2.5">
+                <Search className="h-4 w-4 transition-transform duration-300 group-hover:scale-110" />
+                Search Residences
+              </span>
             </Link>
             <button
               onClick={() => setAiOpen(true)}
@@ -147,35 +218,21 @@ export function HeroSection() {
           </div>
         </div>
 
-        {/* Stats strip */}
+        {/* Stats — animated counters */}
         <div className="animate-fade-up stagger-5 mx-auto mt-14 flex flex-wrap items-center justify-center gap-x-12 gap-y-6">
           {[
-            ["19+", "Years of Legacy"],
-            ["20+", "Residential Projects"],
-            ["2", "Commercial Projects"],
-            ["5000+", "Happy Families"],
-          ].map(([n, l], i) => (
-            <div key={l} className="group relative text-center cursor-default">
-              {i > 0 && (
-                <div className="absolute -left-6 top-1/2 h-8 w-px -translate-y-1/2 opacity-30"
-                  style={{ background: "var(--gradient-gold)" }} />
-              )}
-              <p className="font-display text-4xl font-bold sm:text-5xl" style={{
-                background: "var(--gradient-gold)",
-                WebkitBackgroundClip: "text",
-                backgroundClip: "text",
-                color: "transparent",
-              }}>
-                {n}
-              </p>
-              <p className="mt-1 text-[0.65rem] font-semibold uppercase tracking-[0.25em] text-white/55">{l}</p>
-            </div>
+            { value: "19+",   label: "Years of Legacy",      delay: 0   },
+            { value: "34",    label: "Projects Delivered",   delay: 150 },
+            { value: "2",     label: "Commercial Projects",  delay: 300 },
+            { value: "5000+", label: "Happy Families",       delay: 450 },
+          ].map((s, idx) => (
+            <AnimatedStat key={s.label} index={idx} {...s} />
           ))}
         </div>
       </div>
 
       {/* Scroll indicator */}
-      <div className="absolute bottom-10 left-1/2 z-10 hidden -translate-x-1/2 flex-col items-center gap-2 sm:flex">
+      <div className="absolute bottom-10 left-1/2 z-10 hidden -translate-x-1/2 flex-col items-center gap-2 sm:flex animate-fade-up delay-1000">
         <span className="section-label text-white/40 text-[0.6rem]">Scroll</span>
         <div className="relative h-14 w-px overflow-hidden">
           <div className="absolute inset-0 w-full animate-scroll-line rounded-full" style={{ background: "linear-gradient(to bottom, var(--color-gold), transparent)" }} />
@@ -265,6 +322,7 @@ export function HeroSection() {
       {aiOpen && (
         <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm" onClick={() => setAiOpen(false)} />
       )}
+>>>>>>> origin/main
     </section>
   );
 }

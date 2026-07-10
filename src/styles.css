@@ -399,6 +399,82 @@
   transform-origin: top;
 }
 
+/* ---------- Custom Cinematic Animations ---------- */
+
+/* Cinematic scale-down (more premium) */
+@keyframes ken-burns-down {
+  0%   { transform: scale(1.15); }
+  100% { transform: scale(1.0); }
+}
+@utility animate-ken-burns-down {
+  animation: ken-burns-down 16s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+/* Word-by-word reveal */
+@keyframes word-in {
+  from { opacity: 0; transform: translateY(28px) rotateX(-12deg); }
+  to   { opacity: 1; transform: translateY(0)    rotateX(0deg); }
+}
+@utility animate-word-in {
+  animation: word-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Slide from left */
+@keyframes slide-in-left {
+  from { opacity: 0; transform: translateX(-36px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@utility animate-slide-left {
+  animation: slide-in-left 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Slide from right */
+@keyframes slide-in-right {
+  from { opacity: 0; transform: translateX(36px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@utility animate-slide-right {
+  animation: slide-in-right 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Gold shimmer sweep */
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
+}
+@utility animate-shimmer {
+  background: linear-gradient(90deg, transparent 0%, rgba(212,175,55,0.35) 50%, transparent 100%);
+  background-size: 200% 100%;
+  animation: shimmer 1.8s ease-in-out infinite;
+}
+
+/* Number count-up */
+@keyframes count-up {
+  from { transform: translateY(100%); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+@utility animate-count-up {
+  animation: count-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Pulsing gold glow */
+@keyframes gold-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(212,175,55,0); }
+  50%       { box-shadow: 0 0 24px 6px rgba(212,175,55,0.25); }
+}
+@utility animate-gold-pulse {
+  animation: gold-pulse 2.5s ease-in-out infinite;
+}
+
+/* Scroll indicator bounce */
+@keyframes scroll-bounce {
+  0%, 100% { transform: translateY(0);   opacity: 0.8; }
+  50%       { transform: translateY(10px); opacity: 0.3; }
+}
+@utility animate-scroll-bounce {
+  animation: scroll-bounce 1.8s ease-in-out infinite;
+}
+
 /* ---------- Stagger helpers ---------- */
 .stagger-1 { animation-delay: 0.1s; }
 .stagger-2 { animation-delay: 0.2s; }
