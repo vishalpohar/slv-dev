@@ -54,11 +54,11 @@ function Index() {
       <HeroSection />
 
       {/* Accolades strip */}
-      <section className="border-b border-border bg-card py-10">
-        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-center gap-x-10 gap-y-4 px-6 text-[10px] font-semibold uppercase tracking-[0.3em] text-muted-foreground sm:justify-between">
-          {accolades.map((a) => (
-            <div key={a} className="flex items-center gap-3">
-              <span className="text-lg leading-none text-gold">•</span>
+      <section className="border-b border-border bg-card py-6 overflow-hidden">
+        <div className="flex w-max animate-marquee items-center gap-16 whitespace-nowrap">
+          {[...accolades, ...accolades, ...accolades, ...accolades].map((a, i) => (
+            <div key={i} className="flex items-center gap-4 text-[10px] font-semibold uppercase tracking-[0.3em] text-muted-foreground">
+              <span className="text-xl text-gold">◆</span>
               {a}
             </div>
           ))}
