@@ -1,10 +1,9 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import { Link } from "@tanstack/react-router";
-import { useChat } from "@ai-sdk/react";
-import { DefaultChatTransport } from "ai";
 import ReactMarkdown from "react-markdown";
 import { Sparkles, X, Send, Bot } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { generateResponse } from "@/lib/slv-assistant";
 
 const suggestions = [
   "3 BHK ready-to-move flat under ₹80L in Vijayawada",
@@ -15,17 +14,19 @@ const suggestions = [
 
 export const OPEN_AI_ASSISTANT_EVENT = "open-ai-assistant";
 
+interface ChatMessage {
+  id: string;
+  role: "user" | "assistant";
+  text: string;
+}
+
 export function AIAssistant() {
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState("");
+  const [messages, setMessages] = useState<ChatMessage[]>([]);
+  const [isTyping, setIsTyping] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-
-  const { messages, sendMessage, status, error } = useChat({
-    transport: new DefaultChatTransport({ api: "/api/chat" }),
-  });
-
-  const isBusy = status === "submitted" || status === "streaming";
 
   // Global open trigger (e.g. from the hero button)
   useEffect(() => {
@@ -37,18 +38,37 @@ export function AIAssistant() {
   // Auto-scroll + focus
   useEffect(() => {
     if (scrollRef.current) scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
-  }, [messages, status]);
+  }, [messages, isTyping]);
 
   useEffect(() => {
     if (open) setTimeout(() => inputRef.current?.focus(), 300);
   }, [open]);
 
-  function submit(text: string) {
+  const submit = useCallback((text: string) => {
     const value = text.trim();
-    if (!value || isBusy) return;
-    sendMessage({ text: value });
+    if (!value || isTyping) return;
+
+    const userMsg: ChatMessage = {
+      id: `user-${Date.now()}`,
+      role: "user",
+      text: value,
+    };
+    setMessages((prev) => [...prev, userMsg]);
     setInput("");
-  }
+    setIsTyping(true);
+
+    // Simulate a brief "thinking" delay for natural UX
+    setTimeout(() => {
+      const response = generateResponse(value);
+      const botMsg: ChatMessage = {
+        id: `bot-${Date.now()}`,
+        role: "assistant",
+        text: response,
+      };
+      setMessages((prev) => [...prev, botMsg]);
+      setIsTyping(false);
+    }, 400 + Math.random() * 400);
+  }, [isTyping]);
 
   return (
     <>
@@ -81,7 +101,7 @@ export function AIAssistant() {
               </span>
               <div className="leading-tight">
                 <p className="font-display text-lg font-semibold">SLV Property Assistant</p>
-                <p className="text-[0.65rem] uppercase tracking-wider text-gold">AI-powered · Online</p>
+                <p className="text-[0.65rem] uppercase tracking-wider text-gold">Smart Search · Online</p>
               </div>
             </div>
             <button
@@ -121,9 +141,6 @@ export function AIAssistant() {
             )}
 
             {messages.map((m) => {
-              const text = m.parts
-                .map((p) => (p.type === "text" ? p.text : ""))
-                .join("");
               const isUser = m.role === "user";
               return (
                 <div key={m.id} className={cn("flex gap-3", isUser && "flex-row-reverse")}>
@@ -141,7 +158,7 @@ export function AIAssistant() {
                     )}
                   >
                     {isUser ? (
-                      text
+                      m.text
                     ) : (
                       <div className="prose prose-sm prose-invert max-w-none prose-p:my-1.5 prose-ul:my-1.5 prose-li:my-0.5 prose-a:font-semibold prose-a:text-gold prose-strong:text-background">
                         <ReactMarkdown
@@ -162,7 +179,7 @@ export function AIAssistant() {
                             },
                           }}
                         >
-                          {text || "…"}
+                          {m.text}
                         </ReactMarkdown>
                       </div>
                     )}
@@ -171,7 +188,7 @@ export function AIAssistant() {
               );
             })}
 
-            {status === "submitted" && (
+            {isTyping && (
               <div className="flex gap-3">
                 <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white/10 text-gold">
                   <Bot className="h-4 w-4" />
@@ -182,12 +199,6 @@ export function AIAssistant() {
                   <span className="h-2 w-2 animate-bounce rounded-full bg-gold" />
                 </div>
               </div>
-            )}
-
-            {error && (
-              <p className="rounded-xl bg-red-500/15 p-3 text-xs text-red-200">
-                The assistant is unavailable right now. Please try again in a moment.
-              </p>
             )}
           </div>
 
@@ -209,7 +220,7 @@ export function AIAssistant() {
               />
               <button
                 type="submit"
-                disabled={isBusy || !input.trim()}
+                disabled={isTyping || !input.trim()}
                 aria-label="Send message"
                 className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-gold text-gold-foreground transition-opacity disabled:opacity-40"
               >
@@ -217,7 +228,7 @@ export function AIAssistant() {
               </button>
             </form>
             <p className="mt-2 text-center text-[0.65rem] text-background/40">
-              AI can make mistakes — confirm details with our team before deciding.
+              Answers are based on SLV project catalog — confirm details with our team before deciding.
             </p>
           </div>
         </div>
