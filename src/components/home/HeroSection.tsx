@@ -163,8 +163,15 @@ export function HeroSection() {
         <h1 className="mx-auto mt-7 max-w-5xl font-display text-5xl font-bold leading-[1.06] sm:text-6xl lg:text-8xl"
             style={{ perspective: "600px" }}>
           <WordReveal text="Elegance in" baseDelay={500} />{" "}
-          <span className="animate-gold-shimmer not-italic">
-            <WordReveal text="Every Square Foot" baseDelay={700} />
+          <span className="inline-block overflow-hidden not-italic">
+            <span 
+              className="inline-block animate-word-in" 
+              style={{ animationDelay: "750ms" }}
+            >
+              <span className="animate-gold-shimmer">
+                Every Square Foot
+              </span>
+            </span>
           </span>
         </h1>
 
