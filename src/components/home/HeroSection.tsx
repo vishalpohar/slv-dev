@@ -10,29 +10,16 @@ const budgets = ["Any Budget", "₹30 - 60 L", "₹60 L - 1 Cr", "₹1 Cr +"];
 const statuses = ["Any Status", "Ongoing", "Completed", "Upcoming"];
 
 /* ── Word-by-word animated headline ─────────────────────── */
-function WordReveal({
-  text,
-  baseDelay = 500,
-  className,
-}: {
-  text: string;
-  baseDelay?: number;
-  className?: string;
-}) {
+function WordReveal({ text, baseDelay = 500 }: { text: string; baseDelay?: number }) {
   const words = text.split(" ");
   return (
     <>
       {words.map((word, i) => (
-        <span
-          key={i}
-          className="inline-block overflow-hidden animate-word-in"
-          style={{
-            marginRight: "0.28em",
-            animationDelay: `${baseDelay + i * 80}ms`,
-            animationFillMode: "both",
-          }}
-        >
-          <span className={cn("inline-block", className)}>
+        <span key={i} className="inline-block overflow-hidden" style={{ marginRight: "0.28em" }}>
+          <span
+            className="inline-block animate-word-in"
+            style={{ animationDelay: `${baseDelay + i * 80}ms` }}
+          >
             {word}
           </span>
         </span>
@@ -176,8 +163,15 @@ export function HeroSection() {
         <h1 className="mx-auto mt-7 max-w-5xl font-display text-5xl font-bold leading-[1.06] sm:text-6xl lg:text-8xl"
             style={{ perspective: "600px" }}>
           <WordReveal text="Elegance in" baseDelay={500} />{" "}
-          <span className="not-italic">
-            <WordReveal text="Every Square Foot" baseDelay={700} className="animate-gold-shimmer" />
+          <span className="inline-block overflow-hidden not-italic">
+            <span 
+              className="inline-block animate-word-in" 
+              style={{ animationDelay: "750ms" }}
+            >
+              <span className="animate-gold-shimmer">
+                Every Square Foot
+              </span>
+            </span>
           </span>
         </h1>
 
