@@ -1,7 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import {
-  MoveRight,
-} from "lucide-react";
+import { MoveRight } from "lucide-react";
 import heroImg from "@/assets/hero-1.jpg";
 import slvHero from "@/assets/videos/slv-hero.mp4";
 
@@ -51,20 +49,6 @@ export function HeroSection() {
       {/* Main content */}
       <div className="relative z-10 mx-auto w-full max-w-6xl px-6 pt-28 pb-4 text-center text-white">
         {/* Headline with word-by-word reveal and shimmer gold */}
-        <h1
-          className="mx-auto mt-7 max-w-5xl font-display text-5xl font-bold sm:text-6xl lg:text-8xl"
-          style={{ perspective: "600px" }}
-        >
-          <p className="overflow-hidden not-italic mb-5">
-            <span
-              className="animate-word-in flex flex-col gap-4 font-[Poppins]"
-              style={{ animationDelay: "750ms" }}
-            >
-              <span className="animate-gold-shimmer text-4xl">Elegance in</span>
-              <span className="animate-gold-shimmer text-4xl">Every Square Foot</span>
-            </span>
-          </p>
-        </h1>
         <Link to="/projects">
           <button className="inline-flex items-center gap-2 animate-fade-up stagger-7 mx-auto rounded-full bg-gradient-gold px-8 py-4 text-sm font-bold text-black hover:shadow-lg hover:shadow-gold/30">
             <p>Explore Our Projects</p> <MoveRight />
