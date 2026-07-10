@@ -124,8 +124,6 @@ function SelectChip({
 
 /* ── Hero Section ────────────────────────────────────────── */
 export function HeroSection() {
-  const [aiOpen, setAiOpen] = useState(false);
-  const [prompt, setPrompt] = useState("");
 
   return (
     <section className="relative flex min-h-[100svh] items-center justify-center overflow-hidden">
@@ -216,7 +214,7 @@ export function HeroSection() {
               </span>
             </Link>
             <button
-              onClick={() => setAiOpen(true)}
+              onClick={() => window.dispatchEvent(new Event(OPEN_AI_ASSISTANT_EVENT))}
               className="flex items-center justify-center gap-2.5 rounded-2xl border border-gold/35 bg-white/10 px-6 py-4 text-sm font-bold tracking-wide text-gold backdrop-blur-md transition-all duration-300 hover:bg-white/20 hover:border-gold/60"
             >
               <Sparkles className="h-4 w-4 animate-float" />
@@ -246,89 +244,7 @@ export function HeroSection() {
         </div>
       </div>
 
-      {/* AI Assistant drawer */}
-      <div
-        className={cn(
-          "fixed inset-y-0 right-0 z-[60] w-full max-w-md transform transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] sm:p-4",
-          aiOpen ? "translate-x-0" : "translate-x-full",
-        )}
-      >
-        <div className="flex h-full flex-col text-white sm:rounded-3xl overflow-hidden"
-          style={{
-            background: "linear-gradient(160deg, rgba(18,16,22,0.97) 0%, rgba(12,10,16,0.99) 100%)",
-            backdropFilter: "blur(24px)",
-            border: "1px solid rgba(255,255,255,0.08)",
-            boxShadow: "-12px 0 60px rgba(0,0,0,0.5)",
-          }}
-        >
-          {/* Header */}
-          <div className="flex items-center justify-between p-5" style={{ borderBottom: "1px solid rgba(255,255,255,0.08)" }}>
-            <div className="flex items-center gap-3">
-              <span className="flex h-9 w-9 items-center justify-center rounded-xl" style={{ background: "var(--gradient-gold)" }}>
-                <Sparkles className="h-4 w-4 text-gold-foreground" />
-              </span>
-              <div>
-                <span className="font-display text-base font-semibold">AI Property Assistant</span>
-                <p className="text-[0.65rem] text-white/40 uppercase tracking-widest">Powered by SLV Intelligence</p>
-              </div>
-            </div>
-            <button onClick={() => setAiOpen(false)} aria-label="Close" className="flex h-8 w-8 items-center justify-center rounded-lg text-white/50 transition-colors hover:bg-white/10 hover:text-white">
-              <X className="h-4 w-4" />
-            </button>
-          </div>
 
-          {/* Body */}
-          <div className="flex-1 space-y-4 overflow-y-auto p-5">
-            <div className="max-w-[85%] rounded-2xl rounded-tl-sm p-4 text-sm leading-relaxed text-white/85"
-              style={{ background: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.08)" }}
-            >
-              Hello! Tell me what you're looking for in natural language and I'll find your ideal home. 🏡
-            </div>
-            <div className="flex flex-wrap gap-2">
-              {[
-                "3 BHK gated apartment in Vijayawada",
-                "Independent villa near Penamaluru",
-                "Gated villa plot near Gannavaram Airport",
-              ].map((s) => (
-                <button
-                  key={s}
-                  onClick={() => setPrompt(s)}
-                  className="rounded-full border px-3 py-1.5 text-xs text-gold transition-all duration-200 hover:bg-gold/10"
-                  style={{ borderColor: "rgba(212,175,55,0.3)" }}
-                >
-                  {s}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Input */}
-          <div className="p-4" style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}>
-            <div className="flex items-center gap-2 rounded-2xl p-2 pl-4"
-              style={{ background: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.1)" }}
-            >
-              <input
-                value={prompt}
-                onChange={(e) => setPrompt(e.target.value)}
-                placeholder="Find a 3BHK villa near hi-tech zones..."
-                className="flex-1 bg-transparent text-sm text-white placeholder:text-white/35 focus:outline-none"
-              />
-              <button className="flex h-9 w-9 items-center justify-center rounded-xl text-gold-foreground transition-transform hover:scale-110"
-                style={{ background: "var(--gradient-gold)" }}
-              >
-                <Send className="h-4 w-4" />
-              </button>
-            </div>
-            <p className="mt-2 text-center text-[0.6rem] text-white/30">
-              AI suggestions are illustrative — connect Lovable Cloud to enable live search.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      {aiOpen && (
-        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm" onClick={() => setAiOpen(false)} />
-      )}
     </section>
   );
 }
