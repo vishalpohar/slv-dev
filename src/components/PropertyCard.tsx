@@ -16,7 +16,7 @@ export function PropertyCard({ project }: { project: Project }) {
   const comparing = isComparing(project.id);
 
   return (
-    <article className="group overflow-hidden rounded-3xl bg-card neu transition-transform duration-300 hover:-translate-y-1">
+    <article className="group overflow-hidden rounded-3xl bg-card neu transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_60px_-15px_rgba(212,175,55,0.18),0_8px_24px_-8px_rgba(0,0,0,0.15)]">
       <div className="relative aspect-[4/3] overflow-hidden">
         <img
           src={project.image}
@@ -27,6 +27,8 @@ export function PropertyCard({ project }: { project: Project }) {
           className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-obsidian/60 via-transparent to-transparent" />
+        {/* Gold accent bar slides up on hover */}
+        <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-gold transform translate-y-full transition-transform duration-500 group-hover:translate-y-0" />
 
         <span
           className={cn(
@@ -74,9 +76,10 @@ export function PropertyCard({ project }: { project: Project }) {
           <Link
             to="/projects/$slug"
             params={{ slug: project.slug }}
-            className="flex-1 rounded-xl bg-gradient-obsidian py-2.5 text-center text-sm font-semibold text-background transition-transform hover:scale-[1.02]"
+            className="relative flex-1 overflow-hidden rounded-xl bg-gradient-obsidian py-2.5 text-center text-sm font-semibold text-background transition-transform hover:scale-[1.02] group/btn"
           >
-            View Details
+            <span className="absolute inset-0 opacity-0 group-hover/btn:opacity-100 animate-shimmer" />
+            <span className="relative">View Details</span>
           </Link>
           <button
             onClick={() => toggleCompare(project.id)}

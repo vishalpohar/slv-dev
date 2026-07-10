@@ -1,13 +1,66 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { Search, Sparkles, MapPin, Building2, Wallet, Activity } from "lucide-react";
 import heroImg from "@/assets/hero-1.jpg";
 import { OPEN_AI_ASSISTANT_EVENT } from "@/components/AIAssistant";
+import { cn } from "@/lib/utils";
 
 const propertyTypes = ["Any Type", "Apartment", "Villa", "Plots"];
 const budgets = ["Any Budget", "₹30 - 60 L", "₹60 L - 1 Cr", "₹1 Cr +"];
 const statuses = ["Any Status", "Ongoing", "Completed", "Upcoming"];
 
+/* ── Word-by-word animated headline ─────────────────────── */
+function WordReveal({ text, baseDelay = 500 }: { text: string; baseDelay?: number }) {
+  const words = text.split(" ");
+  return (
+    <>
+      {words.map((word, i) => (
+        <span key={i} className="inline-block overflow-hidden" style={{ marginRight: "0.28em" }}>
+          <span
+            className="inline-block animate-word-in"
+            style={{ animationDelay: `${baseDelay + i * 80}ms` }}
+          >
+            {word}
+          </span>
+        </span>
+      ))}
+    </>
+  );
+}
+
+/* ── Animated stat counter ───────────────────────────────── */
+function AnimatedStat({ value, label, delay }: { value: string; label: string; delay: number }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [shown, setShown] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { setShown(true); io.disconnect(); } },
+      { threshold: 0.3 },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  return (
+    <div ref={ref} className="text-center overflow-hidden">
+      <p
+        className={cn(
+          "font-display text-3xl font-bold text-gold transition-all duration-700",
+          shown ? "animate-count-up" : "opacity-0 translate-y-full",
+        )}
+        style={{ animationDelay: `${delay}ms` }}
+      >
+        {value}
+      </p>
+      <p className="text-xs uppercase tracking-wider text-background/60 mt-1">{label}</p>
+    </div>
+  );
+}
+
+/* ── Select chip ─────────────────────────────────────────── */
 function SelectChip({
   icon: Icon,
   label,
@@ -36,10 +89,7 @@ function SelectChip({
           {options.map((o) => (
             <button
               key={o}
-              onClick={() => {
-                setValue(o);
-                setOpen(false);
-              }}
+              onClick={() => { setValue(o); setOpen(false); }}
               className="block w-full rounded-lg px-3 py-2 text-left text-sm text-foreground hover:bg-secondary"
             >
               {o}
@@ -51,45 +101,58 @@ function SelectChip({
   );
 }
 
+/* ── Hero Section ────────────────────────────────────────── */
 export function HeroSection() {
-
-
   return (
     <section className="relative flex min-h-[100svh] items-center justify-center overflow-hidden">
+      {/* Background — cinematic scale-down */}
       <img
         src={heroImg}
         alt="Luxury SLV residence at golden dusk"
         width={1920}
         height={1280}
-        className="absolute inset-0 h-full w-full animate-ken-burns object-cover"
+        className="absolute inset-0 h-full w-full animate-ken-burns-down object-cover"
       />
       <div className="absolute inset-0 bg-gradient-to-b from-obsidian/70 via-obsidian/40 to-obsidian/85" />
 
       <div className="relative z-10 mx-auto w-full max-w-6xl px-6 pt-28 text-center text-background">
-        <p className="section-label mx-auto text-gold animate-fade-up">Crafting Excellence Since 2007</p>
-        <h1 className="mx-auto mt-5 max-w-4xl font-display text-4xl font-bold leading-[1.1] animate-fade-up sm:text-6xl lg:text-7xl">
-          Elegance in{" "}
-          <span className="italic font-normal text-gradient-gold">Every Square Foot</span>
+
+        {/* Label — slides in from left */}
+        <p className="section-label mx-auto text-gold animate-slide-left delay-300">
+          Crafting Excellence Since 2007
+        </p>
+
+        {/* H1 — word-by-word reveal */}
+        <h1 className="mx-auto mt-5 max-w-4xl font-display text-4xl font-bold leading-[1.1] sm:text-6xl lg:text-7xl"
+            style={{ perspective: "600px" }}>
+          <WordReveal text="Elegance in" baseDelay={500} />{" "}
+          <span className="italic font-normal text-gradient-gold">
+            <WordReveal text="Every Square Foot" baseDelay={700} />
+          </span>
         </h1>
-        <p className="mx-auto mt-6 max-w-2xl text-base text-background/75 animate-fade-up sm:text-lg">
+
+        {/* Subtitle */}
+        <p className="mx-auto mt-6 max-w-2xl text-base text-background/75 animate-fade-up delay-800 sm:text-lg">
           Premium gated communities crafted for modern lifestyles across Vijayawada and the
           Amaravati capital region — trusted homes since 2007.
         </p>
 
         {/* Search panel */}
-        <div className="mx-auto mt-10 max-w-4xl animate-fade-up rounded-3xl glass p-3 text-left sm:p-4">
+        <div className="mx-auto mt-10 max-w-4xl animate-fade-up delay-1000 rounded-3xl glass p-3 text-left sm:p-4">
           <div className="grid grid-cols-2 gap-1 sm:grid-cols-4">
-            <SelectChip icon={MapPin} label="Location" options={["All Cities", "Vijayawada", "Amaravati"]} />
-            <SelectChip icon={Building2} label="Property Type" options={propertyTypes} />
-            <SelectChip icon={Wallet} label="Budget" options={budgets} />
-            <SelectChip icon={Activity} label="Status" options={statuses} />
+            <SelectChip icon={MapPin}     label="Location"      options={["All Cities", "Vijayawada", "Amaravati"]} />
+            <SelectChip icon={Building2}  label="Property Type" options={propertyTypes} />
+            <SelectChip icon={Wallet}     label="Budget"        options={budgets} />
+            <SelectChip icon={Activity}   label="Status"        options={statuses} />
           </div>
           <div className="mt-3 flex flex-col gap-2 sm:flex-row">
             <Link
               to="/projects"
-              className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-gradient-gold py-3.5 text-sm font-semibold text-gold-foreground transition-transform hover:scale-[1.01]"
+              className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-gradient-gold py-3.5 text-sm font-semibold text-gold-foreground transition-transform hover:scale-[1.02] animate-gold-pulse relative overflow-hidden group"
             >
-              <Search className="h-4 w-4" /> Search Residences
+              <span className="absolute inset-0 opacity-0 group-hover:opacity-100 animate-shimmer transition-opacity duration-300" />
+              <Search className="h-4 w-4 relative" />
+              <span className="relative">Search Residences</span>
             </Link>
             <button
               onClick={() => window.dispatchEvent(new Event(OPEN_AI_ASSISTANT_EVENT))}
@@ -100,27 +163,27 @@ export function HeroSection() {
           </div>
         </div>
 
-        <div className="mt-12 flex flex-wrap items-center justify-center gap-x-10 gap-y-4 text-background/80 animate-fade-up">
+        {/* Stats — animated counters */}
+        <div className="mt-12 flex flex-wrap items-center justify-center gap-x-10 gap-y-4 text-background/80">
           {[
-            ["19+", "Years of Legacy"],
-            ["20+", "Residential Projects"],
-            ["2", "Commercial Projects"],
-            ["5000+", "Happy Families"],
-          ].map(([n, l]) => (
-            <div key={l} className="text-center">
-              <p className="font-display text-3xl font-bold text-gold">{n}</p>
-              <p className="text-xs uppercase tracking-wider text-background/60">{l}</p>
-            </div>
+            { value: "19+",   label: "Years of Legacy",      delay: 0   },
+            { value: "34",    label: "Projects Delivered",   delay: 150 },
+            { value: "2",     label: "Commercial Projects",  delay: 300 },
+            { value: "5000+", label: "Happy Families",       delay: 450 },
+          ].map((s) => (
+            <AnimatedStat key={s.label} {...s} />
           ))}
         </div>
       </div>
 
-
-      {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 z-10 hidden -translate-x-1/2 animate-bounce sm:block">
-        <div className="h-12 w-px bg-gradient-to-b from-gold to-transparent" />
+      {/* Scroll indicator — premium */}
+      <div className="absolute bottom-8 left-1/2 z-10 hidden -translate-x-1/2 sm:flex flex-col items-center gap-2 animate-fade-up delay-1000">
+        <span className="text-[0.6rem] uppercase tracking-[0.3em] text-background/50">Scroll</span>
+        <div className="relative h-14 w-px overflow-hidden">
+          <div className="absolute inset-0 bg-gold/20" />
+          <div className="absolute top-0 h-1/2 w-full bg-gradient-to-b from-gold to-transparent animate-scroll-bounce" />
+        </div>
       </div>
-
     </section>
   );
 }
