@@ -46,10 +46,16 @@ const philosophy = [
     title: "Absolute Transparency",
     desc: "RERA-approved projects, clear titles, and honest pricing have been our hallmark since 2007.",
   },
+  {
+    no: "04",
+    icon: Crown,
+    title: "20 Years of Trusted Legacy",
+    desc: "For over two decades, SLV Builders has delivered premium communities built on trust, quality, and customer satisfaction.",
+  },
 ];
 
 const accolades = [
-  { text: "19+ Years of Trust", icon: Crown },
+  { text: "20+ Years of Trust", icon: Crown },
   { text: "ISO 9001:2015 Certified", icon: Award },
   { text: "5000+ Happy Families", icon: Shield },
   { text: "CREDAI Member", icon: TrendingUp },
@@ -102,7 +108,7 @@ function Index() {
             />
 
             <div className="flex gap-5 items-end">
-              <div className="w-2/3 overflow-hidden rounded-2xl shadow-2xl">
+              <div className="w-2/3 overflow-hidden rounded-md md:rounded-2xl shadow-2xl">
                 <img
                   src={aboutImage}
                   alt="An SLV Builders gated community in the Vijayawada–Amaravati region"
@@ -110,12 +116,12 @@ function Index() {
                   className="aspect-[3/4] w-full object-fill transition-transform duration-700 hover:scale-105"
                 />
               </div>
-              <div className="mt-20 w-1/3 h-[340px] overflow-hidden rounded-2xl shadow-xl">
+              <div className="mt-20 w-1/3 overflow-hidden rounded-md md:rounded-2xl shadow-xl">
                 <img
                   src={aboutImage2}
                   alt="Interior detail of an SLV residence"
                   loading="lazy"
-                  className="h-full w-full object-fill transition-transform duration-700 hover:scale-105"
+                  className="aspect-[3/5] w-full object-fill transition-transform duration-700 hover:scale-105"
                 />
               </div>
             </div>
@@ -128,8 +134,8 @@ function Index() {
                 border: "1px solid rgba(255,255,255,0.08)",
               }}
             >
-              <p className="font-display text-2xl font-bold text-white">19+</p>
-              <p className="text-[0.65rem] uppercase tracking-widest text-white/60">Years Legacy</p>
+              <p className="font-display text-2xl font-bold text-white">20+</p>
+              <p className="text-[0.65rem] uppercase tracking-widest text-white/60">Years of Trust</p>
             </div>
           </div>
         </Reveal>
@@ -271,7 +277,7 @@ function Index() {
             </div>
           </Reveal>
 
-          <div className="grid gap-8 md:grid-cols-3">
+          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
             {philosophy.map((f, i) => (
               <Reveal key={f.title} delay={i * 100}>
                 <div

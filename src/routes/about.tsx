@@ -71,7 +71,7 @@ function AboutPage() {
             <p className="section-label text-gold">About SLV Developers</p>
             <h1 className="mt-6 font-display leading-tight text-foreground">
               <span className="inline-flex items-start overflow-visible pb-3 pt-2 sm:pb-5">
-                <span className="block text-[7rem] font-bold leading-none text-gradient-gold drop-shadow-[0_6px_34px_rgba(212,175,55,0.42)] sm:text-[10rem] lg:text-[11rem]">19</span>
+                <span className="block text-[7rem] font-bold leading-none text-gradient-gold drop-shadow-[0_6px_34px_rgba(212,175,55,0.42)] sm:text-[10rem] lg:text-[11rem]">20</span>
                 <span className="ml-2 mt-5 block text-4xl font-bold leading-none text-gold drop-shadow-[0_4px_18px_rgba(212,175,55,0.35)] sm:mt-8 sm:text-6xl">+</span>
               </span>
               <span className="block text-2xl italic leading-tight sm:text-4xl">years of</span>

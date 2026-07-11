@@ -1554,6 +1554,10 @@ export const formatPrice = (value: number): string => {
   return `₹${value.toLocaleString("en-IN")}`;
 };
 
+export const formatCurrency = (value: number) => {
+  return `₹${Math.round(value).toLocaleString("en-IN")}`;
+};
+
 export const testimonials = [
   {
     name: "Ramesh Babu",

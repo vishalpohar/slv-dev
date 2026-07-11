@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { IndianRupee, Percent, CalendarClock } from "lucide-react";
-import { formatPrice } from "@/data/projects";
+import { formatCurrency } from "@/data/projects";
 
 export const Route = createFileRoute("/emi-calculator")({
   head: () => ({
@@ -13,7 +13,10 @@ export const Route = createFileRoute("/emi-calculator")({
           "Plan your home loan with our interactive EMI calculator. Estimate monthly EMI, total interest, and total payable instantly.",
       },
       { property: "og:title", content: "Home Loan EMI Calculator — SLV Builders" },
-      { property: "og:description", content: "Estimate your monthly EMI, interest, and total amount in seconds." },
+      {
+        property: "og:description",
+        content: "Estimate your monthly EMI, interest, and total amount in seconds.",
+      },
     ],
   }),
   component: EMICalculator,
@@ -70,18 +73,43 @@ function EMICalculator() {
   const [amount, setAmount] = useState(15000000);
   const [rate, setRate] = useState(8.5);
   const [years, setYears] = useState(20);
+  const [showAll, setShowAll] = useState(false);
 
-  const { emi, totalInterest, total, principalPct } = useMemo(() => {
+  const { emi, totalInterest, total, principalPct, schedule } = useMemo(() => {
     const r = rate / 12 / 100;
     const n = years * 12;
     const emiVal = (amount * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
     const totalVal = emiVal * n;
     const interest = totalVal - amount;
+
+    const schedule: {
+  month: number;
+  emi: number;
+  principal: number;
+  interest: number;
+  balance: number;
+}[] = [];
+    let balance = amount;
+    for (let month = 1; month <= n; month++) {
+      const interestPayment = balance * r;
+      const principalPayment = emiVal - interestPayment;
+
+      balance -= principalPayment;
+
+      schedule.push({
+        month,
+        emi: emiVal,
+        principal: principalPayment,
+        interest: interestPayment,
+        balance: Math.max(balance, 0),
+      });
+    }
     return {
       emi: emiVal,
       totalInterest: interest,
       total: totalVal,
       principalPct: (amount / totalVal) * 100,
+      schedule,
     };
   }, [amount, rate, years]);
 
@@ -94,7 +122,9 @@ function EMICalculator() {
       <div className="mx-auto max-w-7xl px-6">
         <div className="text-center">
           <p className="section-label text-gold">Plan Your Investment</p>
-          <h1 className="mt-3 font-display text-4xl font-bold text-foreground sm:text-6xl">EMI Calculator</h1>
+          <h1 className="mt-3 font-display text-4xl font-bold text-foreground sm:text-6xl">
+            EMI Calculator
+          </h1>
           <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
             Adjust the sliders to estimate your monthly home loan instalment in real time.
           </p>
@@ -111,7 +141,7 @@ function EMICalculator() {
               max={100000000}
               step={500000}
               onChange={setAmount}
-              format={formatPrice}
+              format={formatCurrency}
             />
             <NeuSlider
               label="Interest Rate"
@@ -140,7 +170,14 @@ function EMICalculator() {
             <div className="flex flex-col items-center">
               <div className="relative">
                 <svg width="200" height="200" viewBox="0 0 200 200" className="-rotate-90">
-                  <circle cx="100" cy="100" r={radius} fill="none" stroke="var(--color-muted)" strokeWidth="22" />
+                  <circle
+                    cx="100"
+                    cy="100"
+                    r={radius}
+                    fill="none"
+                    stroke="var(--color-muted)"
+                    strokeWidth="22"
+                  />
                   <circle
                     cx="100"
                     cy="100"
@@ -164,7 +201,9 @@ function EMICalculator() {
                   />
                 </svg>
                 <div className="absolute inset-0 flex flex-col items-center justify-center">
-                  <span className="text-xs uppercase tracking-wider text-muted-foreground">Monthly EMI</span>
+                  <span className="text-xs uppercase tracking-wider text-muted-foreground">
+                    Monthly EMI
+                  </span>
                   <span className="font-display text-2xl font-bold text-foreground">
                     ₹{Math.round(emi).toLocaleString("en-IN")}
                   </span>
@@ -183,17 +222,77 @@ function EMICalculator() {
 
             <div className="mt-8 space-y-3">
               {[
-                ["Principal Amount", formatPrice(amount)],
-                ["Total Interest", formatPrice(totalInterest)],
-                ["Total Amount Payable", formatPrice(total)],
+                ["Principal Amount", formatCurrency(amount)],
+                ["Total Interest", formatCurrency(totalInterest)],
+                ["Total Amount Payable", formatCurrency(total)],
               ].map(([l, v]) => (
-                <div key={l} className="flex items-center justify-between rounded-2xl bg-background px-5 py-4 neu-pressed">
+                <div
+                  key={l}
+                  className="flex items-center justify-between rounded-2xl bg-background px-5 py-4 neu-pressed"
+                >
                   <span className="text-sm text-muted-foreground">{l}</span>
                   <span className="font-display text-lg font-semibold text-foreground">{v}</span>
                 </div>
               ))}
             </div>
           </div>
+        </div>
+        {/* Amortization Schedule */}
+        <div className="mt-12 overflow-hidden rounded-3xl bg-background neu">
+          <div className="border-b p-6">
+            <h2 className="font-display text-2xl font-bold">Amortization Schedule</h2>
+            <p className="text-muted-foreground mt-2">
+              Breakdown of principal and interest payments over time.
+            </p>
+          </div>
+
+          <div className="overflow-x-auto rounded-b-3xl">
+            <table className="w-full text-center">
+              <thead className="bg-secondary/40 border-b border-border">
+                <tr>
+                  <th className="px-4 py-4 border-r border-border font-semibold text-sm text-muted-foreground uppercase tracking-wider">
+                    Month
+                  </th>
+                  <th className="px-4 py-4 border-r border-border font-semibold text-sm text-muted-foreground uppercase tracking-wider">
+                    EMI
+                  </th>
+                  <th className="px-4 py-4 border-r border-border font-semibold text-sm text-muted-foreground uppercase tracking-wider">
+                    Principal
+                  </th>
+                  <th className="px-4 py-4 border-r border-border font-semibold text-sm text-muted-foreground uppercase tracking-wider">
+                    Interest
+                  </th>
+                  <th className="px-4 py-4 font-semibold text-sm text-muted-foreground uppercase tracking-wider">
+                    Balance
+                  </th>
+                </tr>
+              </thead>
+
+              <tbody>
+                {schedule.slice(0, showAll ? schedule.length : 12).map((item) => (
+                  <tr
+                    key={item.month}
+                    className="border-b border-border hover:bg-secondary/20 transition-colors duration-200"
+                  >
+                    <td className="px-4 py-4 border-r border-border">{item.month}</td>
+                    <td className="px-4 py-4 border-r border-border">{formatCurrency(item.emi)}</td>
+                    <td className="px-4 py-4 border-r border-border text-green-600 font-medium">{formatCurrency(item.principal)}</td>
+                    <td className="px-4 py-4 border-r border-border text-gold font-medium">{formatCurrency(item.interest)}</td>
+                    <td className="px-4 py-4 font-medium">{formatCurrency(item.balance)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div className="p-6 text-center">
+          <button
+            onClick={() => setShowAll(!showAll)}
+            className="rounded-xl bg-gradient-gold px-5 py-3 text-gold-foreground font-semibold cursor-pointer"
+          >
+            {showAll ? "Show Less" : "View Full Schedule"}
+          </button>
         </div>
       </div>
     </div>

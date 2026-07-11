@@ -15,7 +15,7 @@ export function HeroSection() {
         playsInline
         preload="metadata"
         poster={heroImg}
-        className="absolute inset-0 h-full w-full object-cover"
+        className="absolute inset-0 h-full w-full object-fill"
       >
         <source src={slvHero} type="video/mp4" />
       </video>

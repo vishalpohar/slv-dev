@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
-import { MapPin, Phone, Mail, MessageCircle, ArrowUpRight, Crown } from "lucide-react";
+import { useState } from "react";
+import { MapPin, Phone, Mail, MessageCircle, ArrowUpRight, Crown, ChevronDown } from "lucide-react";
 import slvLogo from "@/assets/slv-logo.png";
 
 const ourStory = [
@@ -24,8 +25,12 @@ const projectLinks = [
 ] as const;
 
 export function Footer() {
+  const [ourStoryOpen, setOurStoryOpen] = useState(false);
+  const [workOpen, setWorkOpen] = useState(false);
+  const [projectsOpen, setProjectsOpen] = useState(false);
   return (
-    <footer className="relative mt-24 overflow-hidden text-white"
+    <footer
+      className="relative mt-24 overflow-hidden text-white"
       style={{ background: "var(--gradient-royal)" }}
     >
       {/* Top gold hairline */}
@@ -54,85 +59,143 @@ export function Footer() {
         </div>
       </div>
 
-      <div className="mx-auto grid max-w-7xl gap-12 px-6 py-16 lg:grid-cols-[1.5fr_1fr_1fr_1fr]">
+      <div className="w-full mx-auto max-w-[750px] p-6 flex flex-col items-center">
         {/* Brand column */}
-        <div>
-          <span className="inline-flex rounded-2xl px-4 py-3 shadow-lg">
-            <img src={slvLogo} alt="SLV Builders & Developers" className="h-10 w-auto" />
-          </span>
-          <p className="mt-6 max-w-sm text-sm leading-relaxed text-white/55">
-            SLV strives to develop high-quality properties in prime locations at an affordable
-            price. With a focus on functional, cutting-edge architecture and premium materials, we
-            make luxurious urban living possible — masterpieces in their own right.
-          </p>
+        <span className="inline-flex rounded-2xl px-4 py-3 shadow-lg">
+          <img src={slvLogo} alt="SLV Builders & Developers" className="h-10 w-auto" />
+        </span>
+        <p className="mt-6 max-w-2xl text-sm text-center leading-relaxed text-white/55">
+          SLV strives to develop high-quality properties in prime locations at an affordable price.
+          With a focus on functional, cutting-edge architecture and premium materials, we make
+          luxurious urban living possible — masterpieces in their own right.
+        </p>
 
-          {/* Certification badges */}
-          <div className="mt-7 flex flex-wrap gap-2">
-            {["RERA", "CREDAI", "IGBC", "NAREDCO"].map((b) => (
-              <span
-                key={b}
-                className="rounded-lg px-3 py-1.5 text-[0.62rem] font-bold uppercase tracking-widest text-white/60 transition-all duration-300 hover:text-gold"
-                style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)" }}
-              >
-                {b}
-              </span>
-            ))}
-          </div>
+        {/* Certification badges */}
+        <div className="mt-7 flex flex-wrap gap-2">
+          {["RERA", "CREDAI", "IGBC", "NAREDCO"].map((b) => (
+            <span
+              key={b}
+              className="rounded-lg px-3 py-1.5 text-[0.62rem] font-bold uppercase tracking-widest text-white/60 transition-all duration-300 hover:text-gold"
+              style={{
+                background: "rgba(255,255,255,0.06)",
+                border: "1px solid rgba(255,255,255,0.1)",
+              }}
+            >
+              {b}
+            </span>
+          ))}
         </div>
+      </div>
 
+      <div className="w-full mx-auto grid max-w-[725px] gap-6 px-6 py-4 lg:grid-cols-[1fr_1fr_1fr]">
         {/* Our Story */}
-        <div>
-          <h4 className="section-label text-gold tracking-[0.28em]">Our Story</h4>
-          <div className="mt-2 h-px w-8 opacity-40" style={{ background: "var(--gradient-gold)" }} />
-          <ul className="mt-6 space-y-3.5">
-            {ourStory.map((l) => (
-              <li key={l.label}>
-                <Link
-                  to={l.to}
-                  className="group inline-flex items-center gap-1.5 text-sm text-white/55 transition-all duration-300 hover:text-gold"
-                >
-                  <span className="hover-gold-line">{l.label}</span>
-                  <ArrowUpRight className="h-3.5 w-3.5 opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                </Link>
-              </li>
-            ))}
-          </ul>
+        <div className="relative">
+          <button
+            onClick={() => setOurStoryOpen(!ourStoryOpen)}
+            className="flex items-center gap-2 section-label text-gold tracking-[0.28em]"
+          >
+            Our Story
+            <ChevronDown
+              className={`h-3 w-3 transition-transform duration-300 ${
+                ourStoryOpen ? "rotate-180" : ""
+              }`}
+            />
+          </button>
+
+          {ourStoryOpen && (
+            <div className="mt-4 min-w-[210px] rounded-2xl backdrop-blur-xl">
+              <ul className="space-y-3">
+                {ourStory.map((l) => (
+                  <li key={l.label}>
+                    <Link
+                      to={l.to}
+                      className="group inline-flex items-center gap-1.5 text-sm text-white/55 transition-all duration-300 hover:text-gold"
+                    >
+                      <span className="hover-gold-line">{l.label}</span>
+                      <ArrowUpRight className="h-3.5 w-3.5 opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
 
-        {/* Work With Us + Projects */}
-        <div>
-          <h4 className="section-label text-gold tracking-[0.28em]">Work With Us</h4>
-          <div className="mt-2 h-px w-8 opacity-40" style={{ background: "var(--gradient-gold)" }} />
-          <ul className="mt-6 space-y-3.5">
-            {workWithUs.map((l) => (
-              <li key={l.label}>
-                <Link
-                  to={l.to}
-                  className="group inline-flex items-center gap-1.5 text-sm text-white/55 transition-all duration-300 hover:text-gold"
-                >
-                  <span>{l.label}</span>
-                  <ArrowUpRight className="h-3.5 w-3.5 opacity-0 transition-all duration-300 group-hover:opacity-100" />
-                </Link>
-              </li>
-            ))}
-          </ul>
-          <h4 className="section-label mt-10 text-gold tracking-[0.28em]">Projects</h4>
-          <div className="mt-2 h-px w-8 opacity-40" style={{ background: "var(--gradient-gold)" }} />
-          <ul className="mt-6 space-y-3.5">
-            {projectLinks.map((l) => (
-              <li key={l.label}>
-                <Link to={l.to} className="text-sm text-white/55 transition-all duration-300 hover:text-gold">
-                  {l.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
+        {/* Work With Us */}
+        <div className="relative">
+          <button
+            onClick={() => setWorkOpen(!workOpen)}
+            className="flex items-center gap-2 section-label text-gold tracking-[0.28em]"
+          >
+            Work With Us
+            <ChevronDown
+              className={`h-3 w-3 transition-transform duration-300 ${
+                workOpen ? "rotate-180" : ""
+              }`}
+            />
+          </button>
+
+          {workOpen && (
+            <div className="min-w-[210px] rounded-2xl backdrop-blur-xl">
+              <ul className="mt-4 space-y-3">
+                {workWithUs.map((l) => (
+                  <li key={l.label}>
+                    <Link
+                      to={l.to}
+                      className="group flex items-center justify-between rounded-lg py-1 text-sm text-white/60 transition-all duration-300 hover:bg-white/5 hover:text-gold"
+                    >
+                      <span>{l.label}</span>
+                      <ArrowUpRight className="h-3.5 w-3.5 opacity-0 transition-all duration-300 group-hover:opacity-100" />
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
 
+        {/* Projects */}  
+        <div className="relative">
+          <button
+            onClick={() => setProjectsOpen(!projectsOpen)}
+            className="flex items-center gap-2 section-label text-gold tracking-[0.28em]"
+          >
+            Projects
+            <ChevronDown
+              className={`h-3 w-3 transition-transform duration-300 ${
+                projectsOpen ? "rotate-180" : ""
+              }`}
+            />
+          </button>
+
+          {projectsOpen && (
+            <div className="min-w-[210px] rounded-2xl backdrop-blur-xl">
+              <ul className="mt-4 space-y-3">
+                {projectLinks.map((l) => (
+                  <li key={l.label}>
+                    <Link
+                      to={l.to}
+                      className="group flex items-center justify-between rounded-lg py-1 text-sm text-white/60 transition-all duration-300 hover:bg-white/5 hover:text-gold"
+                    >
+                      <span>{l.label}</span>
+                      <ArrowUpRight className="h-3.5 w-3.5 opacity-0 transition-all duration-300 group-hover:opacity-100" />
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+      </div>
+
+      <div className="w-full mx-auto grid max-w-[725px] gap-8 px-6 py-4 lg:grid-cols-[1fr_1fr]">
         {/* Contact */}
         <div>
           <h4 className="section-label text-gold tracking-[0.28em]">Registered Office</h4>
-          <div className="mt-2 h-px w-8 opacity-40" style={{ background: "var(--gradient-gold)" }} />
+          <div
+            className="mt-2 h-px w-8 opacity-40"
+            style={{ background: "var(--gradient-gold)" }}
+          />
           <p className="mt-6 flex gap-3 text-sm leading-relaxed text-white/55">
             <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-gold" />
             <span>
@@ -141,14 +204,26 @@ export function Footer() {
               Andhra Pradesh.
             </span>
           </p>
+        </div>
 
-          <h4 className="section-label mt-10 text-gold tracking-[0.28em]">Connect</h4>
-          <div className="mt-2 h-px w-8 opacity-40" style={{ background: "var(--gradient-gold)" }} />
+        <div>
+          <h4 className="section-label text-gold tracking-[0.28em]">Connect</h4>
+          <div
+            className="mt-2 h-px w-8 opacity-40"
+            style={{ background: "var(--gradient-gold)" }}
+          />
           <ul className="mt-6 space-y-4 text-sm text-white/55">
             <li>
-              <a href="tel:+919859595939" className="group flex items-center gap-3 transition-all duration-300 hover:text-gold">
-                <span className="flex h-8 w-8 items-center justify-center rounded-lg transition-all duration-300 group-hover:scale-110"
-                  style={{ background: "rgba(212,175,55,0.12)", border: "1px solid rgba(212,175,55,0.2)" }}
+              <a
+                href="tel:+919859595939"
+                className="group flex items-center gap-3 transition-all duration-300 hover:text-gold"
+              >
+                <span
+                  className="flex h-8 w-8 items-center justify-center rounded-lg transition-all duration-300 group-hover:scale-110"
+                  style={{
+                    background: "rgba(212,175,55,0.12)",
+                    border: "1px solid rgba(212,175,55,0.2)",
+                  }}
                 >
                   <Phone className="h-3.5 w-3.5 text-gold" />
                 </span>
@@ -156,9 +231,16 @@ export function Footer() {
               </a>
             </li>
             <li>
-              <a href="mailto:slv.bvrm@gmail.com" className="group flex items-center gap-3 transition-all duration-300 hover:text-gold">
-                <span className="flex h-8 w-8 items-center justify-center rounded-lg transition-all duration-300 group-hover:scale-110"
-                  style={{ background: "rgba(212,175,55,0.12)", border: "1px solid rgba(212,175,55,0.2)" }}
+              <a
+                href="mailto:slv.bvrm@gmail.com"
+                className="group flex items-center gap-3 transition-all duration-300 hover:text-gold"
+              >
+                <span
+                  className="flex h-8 w-8 items-center justify-center rounded-lg transition-all duration-300 group-hover:scale-110"
+                  style={{
+                    background: "rgba(212,175,55,0.12)",
+                    border: "1px solid rgba(212,175,55,0.2)",
+                  }}
                 >
                   <Mail className="h-3.5 w-3.5 text-gold" />
                 </span>
@@ -166,9 +248,16 @@ export function Footer() {
               </a>
             </li>
             <li>
-              <a href="https://wa.me/919859595939" className="group flex items-center gap-3 transition-all duration-300 hover:text-gold">
-                <span className="flex h-8 w-8 items-center justify-center rounded-lg transition-all duration-300 group-hover:scale-110"
-                  style={{ background: "rgba(212,175,55,0.12)", border: "1px solid rgba(212,175,55,0.2)" }}
+              <a
+                href="https://wa.me/919859595939"
+                className="group flex items-center gap-3 transition-all duration-300 hover:text-gold"
+              >
+                <span
+                  className="flex h-8 w-8 items-center justify-center rounded-lg transition-all duration-300 group-hover:scale-110"
+                  style={{
+                    background: "rgba(212,175,55,0.12)",
+                    border: "1px solid rgba(212,175,55,0.2)",
+                  }}
                 >
                   <MessageCircle className="h-3.5 w-3.5 text-gold" />
                 </span>
@@ -179,10 +268,12 @@ export function Footer() {
         </div>
       </div>
 
-      {/* Bottom strip */}
+      {/* Bottom copyright bar */}
       <div style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-6 py-6 text-xs text-white/35 sm:flex-row">
-          <p>© {new Date().getFullYear()} SLV Builders & Developers Pvt Ltd. All rights reserved.</p>
+          <p>
+            © {new Date().getFullYear()} SLV Builders & Developers Pvt Ltd. All rights reserved.
+          </p>
           <div className="flex items-center gap-3">
             <div className="h-px w-4 opacity-30" style={{ background: "var(--color-gold)" }} />
             <p>RERA Registered · Crafted for discerning homeowners.</p>
