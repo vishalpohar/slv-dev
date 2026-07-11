@@ -87,7 +87,7 @@ export function Footer() {
         </div>
       </div>
 
-      <div className="w-full mx-auto grid max-w-[725px] gap-6 px-6 py-4 lg:grid-cols-[1fr_1fr_1fr]">
+      <div className="w-full mx-auto grid max-w-[725px] gap-6 px-6 py-4 md:grid-cols-[1fr_1fr_1fr]">
         {/* Our Story */}
         <div className="relative">
           <button
@@ -188,7 +188,7 @@ export function Footer() {
         </div>
       </div>
 
-      <div className="w-full mx-auto grid max-w-[725px] gap-8 px-6 py-4 lg:grid-cols-[1fr_1fr]">
+      <div className="w-full mx-auto grid max-w-[725px] gap-8 px-6 py-4 md:grid-cols-[1fr_1fr]">
         {/* Contact */}
         <div>
           <h4 className="section-label text-gold tracking-[0.28em]">Registered Office</h4>

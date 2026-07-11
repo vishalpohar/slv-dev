@@ -2,6 +2,13 @@ import { createFileRoute } from "@tanstack/react-router";
 import { MapPin, Phone, Mail, Clock, MessageCircle } from "lucide-react";
 import { toast } from "sonner";
 
+const message = encodeURIComponent(`Hello SLV Builders & Developers,
+
+I am interested in your projects and would like more information regarding available properties, pricing, and site visits.              
+Please share the details.
+
+Thank you.`);
+
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
@@ -12,16 +19,29 @@ export const Route = createFileRoute("/contact")({
           "Get in touch with SLV Builders & Developers. Book a site visit, call us, or message us on WhatsApp. Office in Vijayawada, Andhra Pradesh.",
       },
       { property: "og:title", content: "Contact SLV Builders & Developers" },
-      { property: "og:description", content: "Book a private viewing or reach our relationship team." },
+      {
+        property: "og:description",
+        content: "Book a private viewing or reach our relationship team.",
+      },
     ],
   }),
   component: ContactPage,
 });
 
 const info = [
-  { icon: MapPin, label: "Visit Us", value: "Ramavarappadu Ring, Vijayawada, Andhra Pradesh 520010" },
-  { icon: Phone, label: "Call Us", value: "+91 90000 00000", href: "tel:+919000000000" },
-  { icon: Mail, label: "Email Us", value: "info@slvdevelopers.in", href: "mailto:info@slvdevelopers.in" },
+  {
+    icon: MapPin,
+    label: "Visit Us",
+    value:
+      "8-56-68/5, Beside Tenali Flyover, Sri Saila Nagar, Ward No.5, Mangalgiri, Guntur, Andhra Pradesh.",
+  },
+  { icon: Phone, label: "Call Us", value: "+91 98595 95939", href: "tel:+919859595939" },
+  {
+    icon: Mail,
+    label: "Email Us",
+    value: "info@slvdevelopers.in",
+    href: "mailto:info@slvdevelopers.in",
+  },
   { icon: Clock, label: "Office Hours", value: "Mon – Sat · 9:30 AM to 7:00 PM" },
 ];
 
@@ -35,7 +55,8 @@ function ContactPage() {
             Let's Find Your Home
           </h1>
           <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
-            Share your details and our relationship team will reach out to schedule a private viewing.
+            Share your details and our relationship team will reach out to schedule a private
+            viewing.
           </p>
         </div>
 
@@ -48,9 +69,16 @@ function ContactPage() {
                   <i.icon className="h-5 w-5" />
                 </span>
                 <div>
-                  <p className="text-xs uppercase tracking-wider text-muted-foreground">{i.label}</p>
+                  <p className="text-xs uppercase tracking-wider text-muted-foreground">
+                    {i.label}
+                  </p>
                   {i.href ? (
-                    <a href={i.href} className="font-medium text-foreground hover:text-gold-foreground">{i.value}</a>
+                    <a
+                      href={i.href}
+                      className="font-medium text-foreground hover:text-gold-foreground"
+                    >
+                      {i.value}
+                    </a>
                   ) : (
                     <p className="font-medium text-foreground">{i.value}</p>
                   )}
@@ -58,7 +86,7 @@ function ContactPage() {
               </div>
             ))}
             <a
-              href="https://wa.me/919000000000"
+              href={`https://wa.me/919859595939?text=${message}`}
               className="flex items-center justify-center gap-2 rounded-2xl bg-[#25D366] py-4 text-sm font-semibold text-white"
             >
               <MessageCircle className="h-5 w-5" /> Chat on WhatsApp
@@ -85,10 +113,23 @@ function ContactPage() {
               }}
             >
               <div className="grid gap-4 sm:grid-cols-2">
-                <input required placeholder="Full Name" className="rounded-xl bg-background px-4 py-3 text-sm neu-pressed focus:outline-none" />
-                <input required placeholder="Phone Number" className="rounded-xl bg-background px-4 py-3 text-sm neu-pressed focus:outline-none" />
+                <input
+                  required
+                  placeholder="Full Name"
+                  className="rounded-xl bg-background px-4 py-3 text-sm neu-pressed focus:outline-none"
+                />
+                <input
+                  required
+                  placeholder="Phone Number"
+                  className="rounded-xl bg-background px-4 py-3 text-sm neu-pressed focus:outline-none"
+                />
               </div>
-              <input required type="email" placeholder="Email Address" className="w-full rounded-xl bg-background px-4 py-3 text-sm neu-pressed focus:outline-none" />
+              <input
+                required
+                type="email"
+                placeholder="Email Address"
+                className="w-full rounded-xl bg-background px-4 py-3 text-sm neu-pressed focus:outline-none"
+              />
               <select className="w-full rounded-xl bg-background px-4 py-3 text-sm text-foreground neu-pressed focus:outline-none">
                 <option>I'm interested in… (select)</option>
                 <option>The Obsidian Residences</option>

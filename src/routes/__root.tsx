@@ -85,19 +85,42 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "SLV Builders & Developers" },
-      { name: "description", content: "A premium real estate platform with RBAC for secure, department-specific access and advanced user features." },
-      { name: "author", content: "Lovable" },
+      {
+        name: "description",
+        content:
+          "A premium real estate platform with RBAC for secure, department-specific access and advanced user features.",
+      },
+      { name: "author", content: "SLV Builders & Developers" },
       { property: "og:title", content: "SLV Builders & Developers" },
-      { property: "og:description", content: "A premium real estate platform with RBAC for secure, department-specific access and advanced user features." },
+      {
+        property: "og:description",
+        content:
+          "A premium real estate platform with RBAC for secure, department-specific access and advanced user features.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:site", content: "@slvbuilders" },
       { name: "twitter:title", content: "SLV Builders & Developers" },
-      { name: "twitter:description", content: "A premium real estate platform with RBAC for secure, department-specific access and advanced user features." },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/8fdcf156-bf68-4b76-aeb9-f0a3a3fd84d3/id-preview-fde16a38--972498bf-4d29-4fa7-ac37-9cc231591102.lovable.app-1782459746850.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/8fdcf156-bf68-4b76-aeb9-f0a3a3fd84d3/id-preview-fde16a38--972498bf-4d29-4fa7-ac37-9cc231591102.lovable.app-1782459746850.png" },
+      {
+        name: "twitter:description",
+        content:
+          "A premium real estate platform with RBAC for secure, department-specific access and advanced user features.",
+      },
+      {
+        property: "og:image",
+        content: "https://slv-dev-pi.vercel.app/slv-logo.png",
+      },
+      {
+        name: "twitter:image",
+        content: "https://slv-dev-pi.vercel.app/slv-logo.png",
+      },
     ],
     links: [
+      {
+        rel: "icon",
+        type: "image/png",
+        href: "/slv-logo.png",
+      },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {

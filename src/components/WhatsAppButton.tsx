@@ -1,15 +1,31 @@
-import { MessageCircle } from "lucide-react";
+import whatsappIcon from "@/assets/icons/whatsapp-icon.png";
+
+const message = encodeURIComponent(
+  `Hello SLV Builders & Developers,
+
+I came across your website and I'm interested in learning more about your projects.
+
+Could you please share details regarding:
+• Available properties
+• Pricing and payment plans
+• Project locations
+• Site visit availability
+
+Looking forward to hearing from you.
+
+Thank you.`,
+);
 
 export function WhatsAppButton() {
   return (
     <a
-      href="https://wa.me/919000000000"
+      href={`https://wa.me/919859595939?text=${message}`}
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Chat on WhatsApp"
       className="fixed bottom-24 right-4 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg transition-transform hover:scale-110 sm:bottom-6 sm:right-6"
     >
-      <MessageCircle className="h-7 w-7" />
+      <img src={whatsappIcon} alt="WhatsApp" className="h-8 w-8" />
     </a>
   );
 }
