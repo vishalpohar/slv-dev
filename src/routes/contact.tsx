@@ -48,7 +48,7 @@ const info = [
 function ContactPage() {
   return (
     <div className="pt-32">
-      <div className="mx-auto max-w-7xl px-6 pb-12">
+      <div className="mx-auto max-w-7xl px-6">
         <div className="text-center">
           <p className="section-label text-gold">Get in Touch</p>
           <h1 className="mt-3 font-display text-4xl font-bold text-foreground sm:text-6xl">
