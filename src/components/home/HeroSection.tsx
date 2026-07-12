@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { MoveRight } from "lucide-react";
-import heroImg from "@/assets/hero-1.jpg";
+import slvPoster from "@/assets/slv-poster.png";
 import slvHero from "@/assets/videos/slv-hero.mp4";
 
 /* ── Hero Section ────────────────────────────────────────── */
@@ -14,7 +14,7 @@ export function HeroSection() {
         loop
         playsInline
         preload="metadata"
-        poster={heroImg}
+        poster={slvPoster}
         className="absolute inset-0 h-full w-full object-fill"
       >
         <source src={slvHero} type="video/mp4" />

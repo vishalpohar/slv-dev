@@ -137,7 +137,7 @@ export function Navbar() {
             aria-label="Toggle menu"
             className={cn(
               "flex h-10 w-10 items-center justify-center rounded-xl transition-all duration-300 lg:hidden",
-              scrolled ? "text-foreground hover:bg-secondary" : "text-white hover:bg-white/15",
+              scrolled ? "text-foreground hover:bg-secondary" : "text-gold hover:bg-white/15",
             )}
           >
             {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -147,11 +147,11 @@ export function Navbar() {
 
       {/* Mobile menu */}
       {open && (
-        <div className="mx-auto mt-2 max-w-7xl animate-slide-down rounded-2xl bg-transparent backdrop-blur-xl border border-white/40 p-3 lg:hidden shadow-2xl">
+        <div className="mx-auto mt-2 max-w-7xl animate-slide-down rounded-2xl border-white/10 bg-transparent backdrop-blur-[30px] border p-3 lg:hidden shadow-2xl">
           {/* Crown accent */}
           <div className="mb-2 flex items-center gap-2 px-3 py-1.5 border-b border-border/50">
             <Crown className="h-3.5 w-3.5 text-gold" />
-            <span className="section-label text-black">Navigation</span>
+            <span className="section-label text-gold">Navigation</span>
           </div>
           <div className="flex flex-col gap-0.5">
             {links.map((l) => (
@@ -162,7 +162,7 @@ export function Navbar() {
                   "flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition-all duration-200",
                   pathname === l.to
                     ? "bg-gradient-gold text-gold-foreground shadow-sm"
-                    : "text-black/70 hover:bg-gold/50 hover:text-foreground",
+                    : "text-gold/70 hover:bg-gold/50 hover:text-foreground",
                 )}
               >
                 {l.label}
