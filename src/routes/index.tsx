@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Quote, Crown, Award, Shield, TrendingUp } from "lucide-react";
+import { ArrowRight, Quote, Crown, Award, Shield, TrendingUp, Star, UserIcon } from "lucide-react";
 import { HeroSection } from "@/components/home/HeroSection";
 import { PropertyCard } from "@/components/PropertyCard";
 import { Reveal } from "@/components/Reveal";
@@ -135,7 +135,9 @@ function Index() {
               }}
             >
               <p className="font-display text-2xl font-bold text-white">20+</p>
-              <p className="text-[0.65rem] uppercase tracking-widest text-white/60">Years of Trust</p>
+              <p className="text-[0.65rem] uppercase tracking-widest text-white/60">
+                Years of Trust
+              </p>
             </div>
           </div>
         </Reveal>
