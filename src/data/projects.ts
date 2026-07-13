@@ -30,6 +30,7 @@ export interface Project {
   specifications: { label: string; value: string }[];
   proximity: { label: string; distance: string }[];
   floorPlans: { type: string; sqft: number; image: string }[];
+  brochureUrl?: string; // Brochure PDF URL for full-screen view
 }
 
 // Cycle through available images
@@ -912,6 +913,7 @@ export const projects: Project[] = [
       { type: "3 BHK", sqft: 1800, image: img(3) },
       { type: "4 BHK", sqft: 2400, image: img(1) },
     ],
+    brochureUrl: "https://drive.google.com/file/d/1N-l2cIhZv9G4s_dP2SFbx2r9VGO3T6pM/view",
   },
   // ── 21 ──────────────────────────────────────────────
   {
