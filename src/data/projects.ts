@@ -2,6 +2,21 @@ import project1 from "@/assets/project-1.jpg";
 import project2 from "@/assets/project-2.jpg";
 import project3 from "@/assets/project-3.jpg";
 
+import prideElevation1 from "@/assets/pride-elevation-1.jpg";
+import prideElevation2 from "@/assets/pride-elevation-2.jpg";
+import prideElevation3 from "@/assets/pride-elevation-3.jpg";
+import prideElevation4 from "@/assets/pride-elevation-4.jpg";
+import prideClubhouse from "@/assets/pride-clubhouse.jpg";
+import prideFloorA from "@/assets/pride-floor-a.jpg";
+import prideFloorB from "@/assets/pride-floor-b.jpg";
+import prideFloorC from "@/assets/pride-floor-c.jpg";
+import prideFloorD from "@/assets/pride-floor-d.jpg";
+import prideFloorE from "@/assets/pride-floor-e.jpg";
+import prideFloorF from "@/assets/pride-floor-f.jpg";
+import prideFloorG from "@/assets/pride-floor-g.jpg";
+import prideLayout from "@/assets/pride-layout.jpg";
+import prideBrochure from "@/assets/Slv-Amaravathi-Pride.pdf";
+
 export type ProjectStatus = "Ongoing" | "Completed" | "Upcoming";
 export type ProjectCategory = "Villa" | "Apartment" | "Plots" | "Commercial" | "Educational";
 
@@ -745,36 +760,64 @@ export const projects: Project[] = [
     sqftFrom: 1180,
     sqftTo: 1860,
     launchDate: "Ongoing — Dec 2025",
-    image: img(2),
-    gallery: gallery(2),
+    image: prideElevation1,
+    gallery: [
+      prideElevation1,
+      prideElevation2,
+      prideElevation3,
+      prideElevation4,
+      prideClubhouse,
+    ],
     description:
-      "SLV Amaravati Pride is a thoughtfully designed gated community of 410 premium 2 & 3 BHK residences at Mangalagiri, minutes from the capital region. Spacious Vaastu-compliant homes, a grand clubhouse, and lush landscaped commons bring resort-style living to the heart of the Amaravati growth corridor.",
+      "Imagine being welcomed in a grandiose of a community full of glittering advantages. Imagine finding superlative lifestyle indulgences that you would gladly accept at SLV AMARAVATHI PRIDE. Lead a lifestyle in your spacious, sun-kissed and airy apartments that has enough room to accommodate your towering stature. 410 beautifully designed apartments enveloped in landscaped spaces, wide drive ways and of course a clubhouse which is studded with opulent features.",
     amenities: [
-      "Grand Clubhouse",
-      "Swimming Pool",
-      "Fully-equipped Gym",
-      "Children's Play Area",
-      "Landscaped Gardens",
-      "Indoor Games Room",
-      "24/7 Security & CCTV",
-      "Power Backup",
+      "Splendid Main Entrance",
+      "Clubhouse with Swimming Pool",
+      "Multipurpose Function Hall & Dining",
+      "Mini Theatre & Cafeteria",
+      "Gymnasium & Yoga/Meditation Hall",
+      "Children's Play Area & Indoor Games",
+      "Super Market & Saloon/Beauty Parlour",
+      "Open Party Lawn with Stage",
+      "Executive Suite Rooms",
+      "Sewage Treatment Plant & WTP",
+      "100% Vaasthu-Compliant",
+      "24/7 Security, CCTV & Intercom",
+      "Power Backup & Solar Fencing",
+      "Rainwater Harvesting",
     ],
     specifications: [
-      { label: "Units", value: "410 Apartments" },
-      { label: "Total Area", value: "7,38,000 sq ft" },
-      { label: "Commencement", value: "Feb 2019" },
-      { label: "Completion", value: "Dec 2025" },
+      { label: "Structure", value: "RCC framed structure designed to withstand wind and seismic loads." },
+      { label: "Super Structure", value: "ACC blocks masonry with special adhesive." },
+      { label: "Wood Work - Main Door", value: "Teak wood frames with teak wood shutter with polish and reputed hardware." },
+      { label: "Wood Work - Internal Doors", value: "Teak wood frames with flush shutter with paint finish and reputed hardware." },
+      { label: "Windows & French Doors", value: "UPVC windows and French doors of Rehau or equivalent make." },
+      { label: "Flooring", value: "Premium quality vitrified tiles in living, dining, bedroom, and kitchen. Acid-resistant, anti-skid ceramic tiles in bathrooms." },
+      { label: "Cladding & Dadoing", value: "Ceramic tiles dado up to 4' in kitchen, 7' in bathrooms, and 3' in utility/wash area." },
+      { label: "Kitchen", value: "Black granite platform with Carysil or equivalent sink. MMC sweet water connection and provisions for chimney, purifier, and exhaust." },
+      { label: "Painting", value: "Two coats exterior acrylic emulsion (external); smooth wall putty finish with acrylic emulsion (internal) of Asian or equivalent make." },
+      { label: "Toilets & CP Fittings", value: "Cera/Parryware sanitary ware. Jaquar/Mark/Plumber or equivalent chrome plated CP fittings. Hot and cold water diverter." },
+      { label: "Electrical & Cable TV", value: "3 Phase power supply. Concealed copper wiring with Legrand Arteor or equivalent modular switches. MCBs. TV point in Living." },
     ],
     proximity: [
-      { label: "Mangalagiri Town", distance: "2 km" },
-      { label: "NH-16 Highway", distance: "2 km" },
-      { label: "Reputed Schools", distance: "3 km" },
-      { label: "Multi-specialty Hospital", distance: "4 km" },
+      { label: "Chennai-Kolkata Highway (NH-16)", distance: "100 meters (2 min)" },
+      { label: "Amaravathi Capital Region", distance: "3 km" },
+      { label: "DGP Office & AIIMS Mangalagiri", distance: "3 km" },
+      { label: "NRI Hospital", distance: "2 km" },
+      { label: "Delhi Public School", distance: "6 km" },
     ],
     floorPlans: [
-      { type: "2 BHK", sqft: 1180, image: img(2) },
-      { type: "3 BHK", sqft: 1860, image: img(3) },
+      { type: "Layout Plan", sqft: 738000, image: prideLayout },
+      { type: "Club House Plan", sqft: 15000, image: prideClubhouse },
+      { type: "Block A Floor Plan", sqft: 1180, image: prideFloorA },
+      { type: "Block B Floor Plan", sqft: 1240, image: prideFloorB },
+      { type: "Block C Floor Plan", sqft: 1290, image: prideFloorC },
+      { type: "Block D Floor Plan", sqft: 1350, image: prideFloorD },
+      { type: "Block E Floor Plan", sqft: 1420, image: prideFloorE },
+      { type: "Block F Floor Plan", sqft: 1560, image: prideFloorF },
+      { type: "Block G Floor Plan", sqft: 1860, image: prideFloorG },
     ],
+    brochureUrl: prideBrochure,
   },
   // ── 18 ──────────────────────────────────────────────
   {
