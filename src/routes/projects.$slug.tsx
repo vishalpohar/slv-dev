@@ -57,6 +57,7 @@ function ProjectDetails() {
   const [activeImg, setActiveImg] = useState(0);
   const [lightbox, setLightbox] = useState<string | null>(null);
   const [plan, setPlan] = useState(0);
+  const [showBrochure, setShowBrochure] = useState(false);
 
   const wished = isWishlisted(project.id);
   const comparing = isComparing(project.id);
@@ -190,12 +191,13 @@ function ProjectDetails() {
               <aside className="h-fit rounded-3xl bg-gradient-obsidian p-7 text-background">
                 <h3 className="font-display text-xl font-semibold">Request Details</h3>
                 <p className="mt-2 text-sm text-background/65">Get the brochure, floor plans, and pricing.</p>
-                <a
-                  href="#"
-                  className="mt-6 flex items-center justify-center gap-2 rounded-xl bg-gradient-gold py-3 text-sm font-semibold text-gold-foreground"
+                <button
+                  type="button"
+                  onClick={() => setShowBrochure(true)}
+                  className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-gold py-3 text-sm font-semibold text-gold-foreground"
                 >
                   <Download className="h-4 w-4" /> Download Brochure
-                </a>
+                </button>
                 <Link
                   to="/contact"
                   className="mt-3 flex items-center justify-center gap-2 rounded-xl border border-white/20 py-3 text-sm font-semibold text-background hover:bg-white/10"
@@ -312,6 +314,28 @@ function ProjectDetails() {
             <X className="h-8 w-8" />
           </button>
           <img src={lightbox} alt="Fullscreen" className="max-h-[90vh] max-w-full rounded-2xl object-contain" />
+        </div>
+      )}
+
+      {/* Brochure Viewer — full screen */}
+      {showBrochure && project.brochureUrl && (
+        <div className="fixed inset-0 z-[80] flex flex-col bg-obsidian">
+          <div className="flex items-center justify-between border-b border-white/10 px-6 py-4">
+            <p className="font-display text-lg font-semibold text-background">{project.name} — Brochure</p>
+            <button
+              onClick={() => setShowBrochure(false)}
+              className="flex items-center gap-2 rounded-xl bg-white/10 px-4 py-2 text-sm font-medium text-background hover:bg-white/20"
+              aria-label="Close brochure"
+            >
+              <X className="h-5 w-5" /> Close
+            </button>
+          </div>
+          <iframe
+            src={project.brochureUrl.replace("/view", "/preview")}
+            title={`${project.name} Brochure`}
+            className="h-full w-full flex-1 border-0"
+            allow="autoplay; encrypted-media"
+          />
         </div>
       )}
     </div>
