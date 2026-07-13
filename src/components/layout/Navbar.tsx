@@ -4,12 +4,6 @@ import { Menu, X, Phone, Crown, ChevronDown, ArrowUpRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import slvLogo from "@/assets/slv-logo.png";
 
-const links = [
-  { label: "Home", to: "/" },
-  { label: "EMI Calculator", to: "/emi-calculator" },
-  { label: "Contact Us", to: "/contact" },
-] as const;
-
 const ourStoryLinks = [
   { label: "About Us", to: "/about" },
   { label: "Management", to: "/about" },
@@ -50,6 +44,15 @@ export function Navbar() {
   const handleDesktopWorkOpen = () => {
     setDesktopWorkOpen(!desktopWorkOpen);
     setDesktopOurStoryOpen(false);
+  };
+
+  const scrollToTopIfSamePage = (target: string) => {
+    if (pathname === target) {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    }
   };
 
   useEffect(() => {
@@ -100,7 +103,11 @@ export function Navbar() {
         />
 
         {/* Logo */}
-        <Link to="/" className="group flex items-center gap-2.5 outline-none">
+        <Link
+          to="/"
+          onClick={() => scrollToTopIfSamePage("/")}
+          className="group flex items-center gap-2.5 outline-none"
+        >
           <span
             className={
               "flex items-center justify-center rounded-xl p-1.5 transition-all duration-300"
@@ -119,6 +126,7 @@ export function Navbar() {
           {/* Home */}
           <Link
             to="/"
+            onClick={() => scrollToTopIfSamePage("/")}
             className={cn(
               "rounded-lg px-3 py-2 text-[0.82rem] font-medium transition-all duration-300",
               pathname === "/"
@@ -155,7 +163,10 @@ export function Navbar() {
                     <li key={item.label}>
                       <Link
                         to={item.to}
-                        onClick={() => setDesktopOurStoryOpen(false)}
+                        onClick={() => {
+                          scrollToTopIfSamePage(item.to);
+                          setDesktopOurStoryOpen(false);
+                        }}
                         className="flex items-center justify-between text-sm text-white/70 hover:text-gold"
                       >
                         {item.label}
@@ -192,6 +203,7 @@ export function Navbar() {
                   <li key={item.label}>
                     <Link
                       to={item.to}
+                      onClick={() => scrollToTopIfSamePage(item.to)}
                       className="flex items-center justify-between text-sm text-white/70 hover:text-gold"
                     >
                       {item.label}
@@ -225,7 +237,10 @@ export function Navbar() {
                     <li key={item.label}>
                       <Link
                         to={item.to}
-                        onClick={() => setDesktopWorkOpen(false)}
+                        onClick={() => {
+                          scrollToTopIfSamePage(item.to);
+                          setDesktopWorkOpen(false);
+                        }}
                         className="flex items-center justify-between text-sm text-white/70 hover:text-gold"
                       >
                         {item.label}
@@ -241,6 +256,7 @@ export function Navbar() {
           {/* EMI */}
           <Link
             to="/emi-calculator"
+            onClick={() => scrollToTopIfSamePage("/emi-calculator")}
             className={cn(
               "rounded-lg px-3 py-2 text-[0.82rem] font-medium transition-all duration-300",
               pathname === "/emi-calculator"
@@ -258,6 +274,7 @@ export function Navbar() {
           {/* Contact */}
           <Link
             to="/contact"
+            onClick={() => scrollToTopIfSamePage("/contact")}
             className={cn(
               "rounded-lg px-3 py-2 text-[0.82rem] font-medium transition-all duration-300",
               pathname === "/contact"
@@ -310,7 +327,7 @@ export function Navbar() {
             </Link>
 
             <button
-              onClick={() => setMobileOurStoryOpen(!mobileOurStoryOpen)}
+              onClick={() => setMobileOurStoryOpen((o) => !o)}
               className="flex items-center justify-between rounded-xl px-4 py-3 text-gold"
             >
               Our Story
@@ -325,6 +342,7 @@ export function Navbar() {
                   key={item.label}
                   to={item.to}
                   onClick={() => {
+                    scrollToTopIfSamePage(item.to);
                     setMobileOurStoryOpen(false);
                     setOpen((o) => !o);
                   }}
@@ -335,7 +353,7 @@ export function Navbar() {
               ))}
 
             <button
-              onClick={() => setMobileProjectsOpen(!mobileProjectsOpen)}
+              onClick={() => setMobileProjectsOpen((o) => !o)}
               className="flex items-center justify-between rounded-xl px-4 py-3 text-gold"
             >
               Projects
@@ -350,6 +368,7 @@ export function Navbar() {
                   key={item.label}
                   to={item.to}
                   onClick={() => {
+                    scrollToTopIfSamePage(item.to);
                     setMobileProjectsOpen(false);
                     setOpen((o) => !o);
                   }}
@@ -360,7 +379,7 @@ export function Navbar() {
               ))}
 
             <button
-              onClick={() => setMobileWorkOpen(!mobileWorkOpen)}
+              onClick={() => setMobileWorkOpen((o) => !o)}
               className="flex items-center justify-between rounded-xl px-4 py-3 text-gold"
             >
               Work With Us
@@ -375,6 +394,7 @@ export function Navbar() {
                   key={item.label}
                   to={item.to}
                   onClick={() => {
+                    scrollToTopIfSamePage(item.to);
                     setMobileWorkOpen(false);
                     setOpen((o) => !o);
                   }}
@@ -384,11 +404,19 @@ export function Navbar() {
                 </Link>
               ))}
 
-            <Link to="/emi-calculator" className="rounded-xl px-4 py-3 text-gold">
+            <Link
+              to="/emi-calculator"
+              onClick={() => scrollToTopIfSamePage("/emi-calculator")}
+              className="rounded-xl px-4 py-3 text-gold"
+            >
               EMI Calculator
             </Link>
 
-            <Link to="/contact" className="rounded-xl px-4 py-3 text-gold">
+            <Link
+              to="/contact"
+              onClick={() => scrollToTopIfSamePage("/contact")}
+              className="rounded-xl px-4 py-3 text-gold"
+            >
               Contact Us
             </Link>
             <a
