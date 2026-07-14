@@ -17,6 +17,17 @@ import prideFloorG from "@/assets/pride-floor-g.jpg";
 import prideLayout from "@/assets/pride-layout.jpg";
 import prideBrochure from "@/assets/Slv-Amaravathi-Pride.pdf";
 
+import gmAerial from "@/assets/gm-aerial.jpg";
+import gmBaBlock from "@/assets/gm-ba-block.jpg";
+import gmCBlock from "@/assets/gm-c-block.jpg";
+import gmClubhouse from "@/assets/gm-clubhouse.jpg";
+import gmClubhouseInterior from "@/assets/gm-clubhouse-interior.webp";
+import gmFloorEast1 from "@/assets/gm-floor-east1.webp";
+import gmFloorWest1 from "@/assets/gm-floor-west1.webp";
+import gmFloorEast2 from "@/assets/gm-floor-east2.webp";
+import gmFloorWest2 from "@/assets/gm-floor-west2.webp";
+import gmMasterLayout from "@/assets/gm-master-layout.webp";
+
 export type ProjectStatus = "Ongoing" | "Completed" | "Upcoming";
 export type ProjectCategory = "Villa" | "Apartment" | "Plots" | "Commercial" | "Educational";
 
@@ -917,44 +928,62 @@ export const projects: Project[] = [
     tagline: "Vijayawada's most expansive gated residential community",
     category: "Apartment",
     status: "Completed",
-    location: "Vijayawada",
+    location: "Ramavarappadu",
     city: "Vijayawada",
     priceFrom: 7000000,
-    bedrooms: "2, 3 & 4 BHK",
+    bedrooms: "2 & 3 BHK",
     sqftFrom: 1200,
-    sqftTo: 2400,
+    sqftTo: 1800,
     launchDate: "Delivered Dec 2022",
-    image: img(2),
-    gallery: gallery(2),
+    image: gmAerial,
+    gallery: [
+      gmAerial,
+      gmBaBlock,
+      gmCBlock,
+      gmClubhouse,
+      gmClubhouseInterior,
+    ],
     description:
-      "SLV Green Meadows — 249 homes across a sprawling 10,13,634 sq ft in Vijayawada. Completed in 2022, this landmark gated community features resort-style amenities and lush green spaces, making it one of the most sought-after residential addresses in the city.",
+      "Minutes away from the Medha IT park and Ramavarappadu Junction, and miles away from the madness and hustle and bustle of the city, SLV Green Meadows is nestled in a serene abode of pristinely natural premises. Set in a picturesque location of greenery, SLV Green Meadows gives you a unique feeling of living in consonance with nature and lets you live on the frontier of excellence with its distinct amenities like Swimming Pool with Sundeck area, Indoor Games, Party Lawn with Barbeque Counter, Doctor on Call and various others. Located close to the major pulse points in the city, SLV Green Meadows connects you with all important places in a seamless route.",
     amenities: [
-      "Resort-style Clubhouse",
-      "Olympic-size Pool",
-      "Gymnasium",
-      "Jogging & Cycling Tracks",
-      "Children's Play Areas",
-      "Landscaped Parks",
+      "Visitor's Lounge & Library Lounge",
+      "Clubhouse with Swimming Pool & Sundeck",
+      "Air-conditioned Gymnasium",
+      "Indoor Badminton Courts",
+      "Multi-Purpose Hall",
+      "Mini Theatre Hall",
+      "Executive Guest Suites",
+      "Cafeteria & Food Court",
+      "Community Health Centre & Doctor on Call",
+      "Spa & Beauty Saloon",
+      "Indoor Play Area & Indoor Games",
+      "Supermarket",
+      "Volleyball & Half Basketball Courts",
+      "Party Lawn with Barbeque Counter",
       "24/7 Security & CCTV",
-      "Power Backup",
-      "Solar Energy",
+      "Power Backup & Solar Energy",
     ],
     specifications: [
-      { label: "Units", value: "249 Apartments" },
-      { label: "Total Area", value: "10,13,634 sq ft" },
-      { label: "Commencement", value: "Aug 2021" },
-      { label: "Completion", value: "Dec 2022" },
+      { label: "Structure", value: "RCC framed structure designed to withstand wind and seismic loads." },
+      { label: "Flooring", value: "Premium quality vitrified tiles in living, dining, bedrooms, and kitchen. Anti-skid ceramic tiles in toilets." },
+      { label: "Doors & Windows", value: "Teak wood main door frame and shutter with polish. UPVC window frames with safety grills." },
+      { label: "Kitchen", value: "Black granite kitchen platform with stainless steel sink and sweet water connection." },
+      { label: "Electrical", value: "Concealed copper wiring with modular switches. MCB distribution board and generator backup." },
+      { label: "Painting", value: "Smooth wall putty finish with premium emulsion paints for interiors; weather-shield paint for exteriors." },
     ],
     proximity: [
-      { label: "Vijayawada City Centre", distance: "5 km" },
-      { label: "NH-16 Highway", distance: "2 km" },
-      { label: "Schools", distance: "2 km" },
-      { label: "Hospital", distance: "3 km" },
+      { label: "Ramavarappadu Junction & Flyover", distance: "500 meters (1 min)" },
+      { label: "Benz Circle", distance: "5 km (10 min)" },
+      { label: "Vijayawada Railway Station", distance: "8 km (15 min)" },
+      { label: "Medha IT Park", distance: "10 km (12 min)" },
+      { label: "Vijayawada International Airport", distance: "12 km (18 min)" },
     ],
     floorPlans: [
-      { type: "2 BHK", sqft: 1200, image: img(2) },
-      { type: "3 BHK", sqft: 1800, image: img(3) },
-      { type: "4 BHK", sqft: 2400, image: img(1) },
+      { type: "Master Plan Layout", sqft: 1013634, image: gmMasterLayout },
+      { type: "East Facing Floor Plan (2 BHK)", sqft: 1200, image: gmFloorEast1 },
+      { type: "West Facing Floor Plan (2 BHK)", sqft: 1200, image: gmFloorWest1 },
+      { type: "East Facing Floor Plan (3 BHK)", sqft: 1800, image: gmFloorEast2 },
+      { type: "West Facing Floor Plan (3 BHK)", sqft: 1800, image: gmFloorWest2 },
     ],
     brochureUrl: "https://drive.google.com/file/d/1N-l2cIhZv9G4s_dP2SFbx2r9VGO3T6pM/view",
   },
