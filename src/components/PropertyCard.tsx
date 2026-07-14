@@ -30,7 +30,10 @@ export function PropertyCard({ project }: { project: Project }) {
           loading="lazy"
           width={1024}
           height={768}
-          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-108"
+          className={cn(
+            "h-full w-full transition-transform duration-700 group-hover:scale-108 bg-white",
+            project.imageFit === "contain" ? "object-contain" : "object-cover"
+          )}
         />
         {/* Multi-layer gradient */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent" />

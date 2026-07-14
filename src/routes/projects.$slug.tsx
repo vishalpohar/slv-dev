@@ -107,7 +107,8 @@ function ProjectDetails() {
                   src={g}
                   alt={`${project.name} view ${i + 1}`}
                   className={cn(
-                    "absolute inset-0 h-full w-full object-cover",
+                    "absolute inset-0 h-full w-full",
+                    (project.imageFit === "contain" && i === 0) ? "object-contain bg-white" : "object-cover",
                     "transition-[opacity,transform] duration-700 ease-in-out",
                     activeImg === i ? "opacity-100 scale-100 z-[1]" : "opacity-0 scale-105 z-0"
                   )}
@@ -237,7 +238,10 @@ function ProjectDetails() {
                 <img
                   src={g}
                   alt={`${project.name} ${i + 1}`}
-                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  className={cn(
+                    "h-full w-full transition-transform duration-500 group-hover:scale-110",
+                    (project.imageFit === "contain" && i === 0) ? "object-contain bg-white" : "object-cover"
+                  )}
                 />
 
                 {/* Active gold tint */}
@@ -476,7 +480,7 @@ function ProjectDetails() {
               className="group overflow-hidden rounded-2xl bg-card neu-sm"
             >
               <div className="aspect-[16/10] overflow-hidden">
-                <img src={p.image} alt={p.name} className="h-full w-full object-cover transition-transform group-hover:scale-105" />
+                <img src={p.image} alt={p.name} className={cn("h-full w-full transition-transform group-hover:scale-105", p.imageFit === "contain" ? "object-contain bg-white" : "object-cover")} />
               </div>
               <div className="p-4">
                 <p className="font-display text-lg font-semibold text-foreground">{p.name}</p>
