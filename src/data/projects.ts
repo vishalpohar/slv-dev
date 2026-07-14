@@ -27,7 +27,14 @@ import gmFloorWest1 from "@/assets/gm-floor-west1.webp";
 import gmFloorEast2 from "@/assets/gm-floor-east2.webp";
 import gmFloorWest2 from "@/assets/gm-floor-west2.webp";
 import gmMasterLayout from "@/assets/gm-master-layout.webp";
-import gmLogoedImage from "@/assets/SLV Green Meadows Logoed image !.jpg";
+import gmLogoedImage from "@/assets/SLV_Green_Logoimg.png";
+
+import glLogo from "@/assets/gl-Greenland-01.png";
+import glLayout from "@/assets/gl-SLV-Greenlan_Layout-scaled.webp";
+import glLocationHighlights from "@/assets/gl-Location-Hignlights.webp";
+import glInfra from "@/assets/gl-SLV-Infra-01.png";
+import glWestFacing from "@/assets/gl-west-Faceing-1536x1424.webp";
+
 
 export type ProjectStatus = "Ongoing" | "Completed" | "Upcoming";
 export type ProjectCategory = "Villa" | "Apartment" | "Plots" | "Commercial" | "Educational";
@@ -938,7 +945,6 @@ export const projects: Project[] = [
     sqftTo: 1800,
     launchDate: "Delivered Dec 2022",
     image: gmLogoedImage,
-    imageFit: "contain",
     gallery: [
       gmLogoedImage,
       gmAerial,
@@ -1173,50 +1179,58 @@ export const projects: Project[] = [
       { type: "Premium Plot", sqft: 4500, image: img(1) },
     ],
   },
-  // ── 25 ──────────────────────────────────────────────
   {
     id: "25",
     slug: "slv-green-lands",
     name: "SLV Green Lands",
-    tagline: "Premium gated plots in a high-growth corridor",
+    tagline: "Nature Inspired Living: A smart Investment",
     category: "Plots",
     status: "Completed",
     location: "Guntupalli",
-    city: "Amaravati Region",
+    city: "Vijayawada",
     priceFrom: 3500000,
-    bedrooms: "Villa Plots",
+    bedrooms: "Premium Plots",
     sqftFrom: 1800,
-    sqftTo: 4500,
-    launchDate: "Delivered Apr 2024",
-    image: img(1),
-    gallery: gallery(1),
+    sqftTo: 2700,
+    launchDate: "Delivered",
+    image: glLogo,
+    gallery: [
+      glLogo,
+      glLayout,
+      glLocationHighlights,
+      glInfra,
+    ],
     description:
-      "SLV Green Lands — 147 premium plots at Guntupalli spanning Ac 14.97 C. Completed in 2024, this fully-developed gated layout in the fast-appreciating Amaravati corridor offers ready-to-build parcels with avenue plantation, underground utilities, and clear titles.",
+      "Introducing SLV Green Lands: an extraordinary addition to our esteemed portfolio. Here, amidst the tranquil expanse of Guntupalli, Vijayawada lies your perfect abode. Within our project, we transcend mere luxury, offering mirrors that reflect the unique essence of every resident. Bask in the comfort of your home, where every detail whispers tales of comfort and contentment. This is SLV Green Lands – where you find a place worthy of being called your home.",
     amenities: [
-      "Gated Plotted Layout",
-      "Avenue Plantation",
-      "Underground Drainage",
-      "Black-top Internal Roads",
-      "Overhead Water Tank",
-      "Entrance Arch & Security",
+      "100% Vastu",
+      "Entrance Arch",
+      "40ft BT Road",
+      "Compound Wall",
+      "Water Tap Connection for Each Plot",
       "Children's Park",
-      "Clear Marketable Titles",
+      "Street Lights",
+      "Underground Drainage",
+      "Avenue Plantation",
+      "Name Board For Each Plot",
+      "Rainwater Harvesting Pits",
+      "Overhead Tank",
     ],
     specifications: [
-      { label: "Plots", value: "147 Plots" },
-      { label: "Total Area", value: "Ac 14.97 C" },
-      { label: "Commencement", value: "Nov 2023" },
-      { label: "Completion", value: "Apr 2024" },
+      { label: "Layout Status", value: "APCRDA Approved Plotted Layout" },
+      { label: "Total Plots", value: "147 Plots" },
+      { label: "Plot Facing Options", value: "East Facing & West Facing" },
+      { label: "Plot Sizes", value: "200, 240 & 300 Sq Yds" },
     ],
     proximity: [
-      { label: "Gannavaram Airport", distance: "8 km" },
-      { label: "NH-16 Highway", distance: "3 km" },
-      { label: "Proposed IT Hub", distance: "10 km" },
-      { label: "Upcoming Capital City", distance: "20 km" },
+      { label: "NH-65 Highway (Vijayawada-Hyderabad)", distance: "0.8 km" },
+      { label: "Rayanapadu Railway Station", distance: "2 km" },
+      { label: "Vijayawada Bus Station (PNBS)", distance: "10 km" },
+      { label: "Vijayawada International Airport", distance: "25 km" },
     ],
     floorPlans: [
-      { type: "200 Sq Yd Plot", sqft: 1800, image: img(1) },
-      { type: "500 Sq Yd Plot", sqft: 4500, image: img(2) },
+      { type: "Master Layout Plan", sqft: 1800, image: glLayout },
+      { type: "West Facing Plot Layout (200 Sq Yds)", sqft: 1800, image: glWestFacing },
     ],
   },
   // ── 26 ──────────────────────────────────────────────
