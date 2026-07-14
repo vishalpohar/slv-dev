@@ -27,6 +27,7 @@ import gmFloorWest1 from "@/assets/gm-floor-west1.webp";
 import gmFloorEast2 from "@/assets/gm-floor-east2.webp";
 import gmFloorWest2 from "@/assets/gm-floor-west2.webp";
 import gmMasterLayout from "@/assets/gm-master-layout.webp";
+import gmLogoedImage from "@/assets/SLV Green Meadows Logoed image !.jpg";
 
 export type ProjectStatus = "Ongoing" | "Completed" | "Upcoming";
 export type ProjectCategory = "Villa" | "Apartment" | "Plots" | "Commercial" | "Educational";
@@ -57,6 +58,7 @@ export interface Project {
   proximity: { label: string; distance: string }[];
   floorPlans: { type: string; sqft: number; image: string }[];
   brochureUrl?: string; // Brochure PDF URL for full-screen view
+  imageFit?: "cover" | "contain";
 }
 
 // Cycle through available images
@@ -935,8 +937,10 @@ export const projects: Project[] = [
     sqftFrom: 1200,
     sqftTo: 1800,
     launchDate: "Delivered Dec 2022",
-    image: gmAerial,
+    image: gmLogoedImage,
+    imageFit: "contain",
     gallery: [
+      gmLogoedImage,
       gmAerial,
       gmBaBlock,
       gmCBlock,
