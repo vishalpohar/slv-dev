@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Eye, Rocket, PenTool, ArrowRight, Quote } from "lucide-react";
 import { Reveal } from "@/components/Reveal";
 import heroImage from "@/assets/hero-1.jpg";
-import journey1 from "@/assets/project-1.jpg";
+import amaravathi from "@/assets/amaravathi.jpg";
 import journey2 from "@/assets/project-2.jpg";
 import journey3 from "@/assets/project-3.jpg";
 
@@ -44,14 +44,14 @@ const journey = [
   {
     year: "2007",
     title: "Where It All Began",
-    img: journey1,
+    img: amaravathi,
     desc: "SLV Group was founded in Bhimavaram with a single intent — providing affordable housing and lands to families who dreamed of a home of their own.",
   },
   {
     year: "2015",
     title: "Into the Capital City",
     img: journey2,
-    desc: "After a decade of building trust, SLV stepped into Vijayawada with 'SLV Anjani Heights' — a gated community that was the first of its kind in the capital region.",
+    desc: "With over a decade of trust and excellence, SLV entered Vijayawada under the divine blessings of **Sri Mavullamma Thalli**, introducing **SLV Anjani Heights**—the capital region's first premium gated community, setting a new benchmark for modern living.",
   },
   {
     year: "Today",
