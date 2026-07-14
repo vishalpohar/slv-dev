@@ -27,7 +27,7 @@ import gmFloorWest1 from "@/assets/gm-floor-west1.webp";
 import gmFloorEast2 from "@/assets/gm-floor-east2.webp";
 import gmFloorWest2 from "@/assets/gm-floor-west2.webp";
 import gmMasterLayout from "@/assets/gm-master-layout.webp";
-import gmLogoedImage from "@/assets/SLV Green Meadows Logoed image !.jpg";
+import gmLogoedImage from "@/assets/SLV_Green_Logoimg.png";
 
 export type ProjectStatus = "Ongoing" | "Completed" | "Upcoming";
 export type ProjectCategory = "Villa" | "Apartment" | "Plots" | "Commercial" | "Educational";
@@ -938,7 +938,6 @@ export const projects: Project[] = [
     sqftTo: 1800,
     launchDate: "Delivered Dec 2022",
     image: gmLogoedImage,
-    imageFit: "contain",
     gallery: [
       gmLogoedImage,
       gmAerial,
