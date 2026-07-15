@@ -18,7 +18,7 @@ export const Route = createFileRoute("/about")({
       { property: "og:title", content: "About SLV Builders & Developers" },
       {
         property: "og:description",
-        content: "19 years of building trusted homes across Andhra Pradesh.",
+        content: "20 years of building trusted homes across Andhra Pradesh.",
       },
       { property: "og:image", content: heroImage },
     ],
@@ -71,8 +71,10 @@ function AboutPage() {
             <p className="section-label text-gold">About SLV Developers</p>
             <h1 className="mt-6 font-display leading-tight text-foreground">
               <span className="inline-flex items-start overflow-visible pb-3 pt-2 sm:pb-5">
-                <span className="block text-[7rem] font-bold leading-none text-gradient-gold drop-shadow-[0_6px_34px_rgba(212,175,55,0.42)] sm:text-[10rem] lg:text-[11rem]">20</span>
-                <span className="ml-2 mt-5 block text-4xl font-bold leading-none text-gold drop-shadow-[0_4px_18px_rgba(212,175,55,0.35)] sm:mt-8 sm:text-6xl">+</span>
+                <span className="self-end ml-2 block text-2xl font-bold leading-none text-gold drop-shadow-[0_4px_18px_rgba(212,175,55,0.35)] sm:text-2xl">near</span>
+                <span className="block text-[7rem] font-bold leading-none text-gradient-gold drop-shadow-[0_6px_34px_rgba(212,175,55,0.42)] sm:text-[10rem] lg:text-[11rem]">
+                  20
+                </span>
               </span>
               <span className="block text-2xl italic leading-tight sm:text-4xl">years of</span>
               <span className="block text-4xl font-bold uppercase tracking-tight sm:text-6xl">
@@ -140,7 +142,9 @@ function AboutPage() {
               <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-gold text-gold-foreground">
                 <Eye className="h-6 w-6" />
               </span>
-              <h3 className="mt-6 font-display text-2xl font-semibold text-foreground">Our Vision</h3>
+              <h3 className="mt-6 font-display text-2xl font-semibold text-foreground">
+                Our Vision
+              </h3>
               <p className="mt-3 leading-relaxed text-muted-foreground">
                 To become the first choice for those who wish to acquire a dream property — and the
                 sought-after name in the construction industry.
@@ -152,7 +156,9 @@ function AboutPage() {
               <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-gold text-gold-foreground">
                 <Rocket className="h-6 w-6" />
               </span>
-              <h3 className="mt-6 font-display text-2xl font-semibold text-foreground">Our Mission</h3>
+              <h3 className="mt-6 font-display text-2xl font-semibold text-foreground">
+                Our Mission
+              </h3>
               <p className="mt-3 leading-relaxed text-muted-foreground">
                 To evolve with our customers' requirements, providing them contemporary, sustainable
                 dwellings through the highest standards of quality and workmanship.
