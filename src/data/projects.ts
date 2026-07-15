@@ -16,6 +16,7 @@ import prideFloorF from "@/assets/pride-floor-f.jpg";
 import prideFloorG from "@/assets/pride-floor-g.jpg";
 import prideLayout from "@/assets/pride-layout.jpg";
 import prideBrochure from "@/assets/Slv-Amaravathi-Pride.pdf";
+import amaravathiGrandBrochure from "@/assets/SLV-Amaravathi-Grand-2.pdf";
 
 import gmAerial from "@/assets/gm-aerial.jpg";
 import gmBaBlock from "@/assets/gm-ba-block.jpg";
@@ -1042,6 +1043,7 @@ export const projects: Project[] = [
       { type: "2 BHK", sqft: 1280, image: img(3) },
       { type: "3 BHK", sqft: 2100, image: img(1) },
     ],
+    brochureUrl: amaravathiGrandBrochure,
   },
   // ── 22 ──────────────────────────────────────────────
   {
