@@ -35,6 +35,15 @@ import glLocationHighlights from "@/assets/gl-Location-Hignlights.webp";
 import glInfra from "@/assets/gl-SLV-Infra-01.png";
 import glWestFacing from "@/assets/gl-west-Faceing-1536x1424.webp";
 
+import ag2Aerial from "@/assets/ag2-aerial.jpg";
+import ag2BaBlock from "@/assets/ag2-ba-block.jpg";
+import ag2CBlock from "@/assets/ag2-c-block.jpg";
+import ag2Clubhouse from "@/assets/ag2-clubhouse.jpg";
+import ag2FloorA from "@/assets/ag2-floor-a.jpg";
+import ag2FloorB from "@/assets/ag2-floor-b.jpg";
+import ag2FloorC from "@/assets/ag2-floor-c.jpg";
+import ag2SitePlan from "@/assets/ag2-site-plan.jpg";
+
 
 export type ProjectStatus = "Ongoing" | "Completed" | "Upcoming";
 export type ProjectCategory = "Villa" | "Apartment" | "Plots" | "Commercial" | "Educational";
@@ -1001,46 +1010,67 @@ export const projects: Project[] = [
   {
     id: "21",
     slug: "slv-amaravathi-grand-2",
-    name: "SLV Amaravathi Grand-2",
-    tagline: "The Grand series continues — 160 premium residences",
+    name: "SLV Amaravathi Grand II",
+    tagline: "An Abode of Opulence",
     category: "Apartment",
     status: "Completed",
-    location: "Vijayawada",
+    location: "Gunadala",
     city: "Vijayawada",
     priceFrom: 7800000,
-    bedrooms: "2 & 3 BHK",
-    sqftFrom: 1280,
-    sqftTo: 2100,
-    launchDate: "Delivered Jun 2023",
-    image: img(3),
-    gallery: gallery(3),
+    bedrooms: "3 & 4 BHK",
+    sqftFrom: 2032,
+    sqftTo: 3320,
+    launchDate: "Delivered",
+    image: ag2Aerial,
+    gallery: [
+      ag2Aerial,
+      ag2BaBlock,
+      ag2CBlock,
+      ag2Clubhouse,
+    ],
     description:
-      "SLV Amaravathi Grand-2 — the second chapter in the iconic Grand series — 160 premium residences across 4,40,000 sq ft in Vijayawada. Completed in 2023, this project builds on the success of Grand-1 with elevated architecture and enhanced amenities.",
+      "It’s not any other house. It’s a royal home with a multitude of amenities and facilities that blow you off your feet. Opulence and luxury make their signature on every aspect of this extraordinary structure of elegance. Rediscover the true meaning of luxury and let it define your elevated lifestyle. Immerse yourself in an ambience that pays a befitting tribute to your distinguished presence. A true touchstone to your distinct persona, SLV Amaravathi Grand II premium residential gated community is an emblem of grandeur that makes you entitled to experience royal bliss in the truest sense of the word.",
     amenities: [
-      "Podium Amenity Deck",
-      "Infinity Pool",
-      "Clubhouse & Sky Lounge",
-      "Landscaped Courtyards",
-      "Jogging Track",
-      "Multipurpose Hall",
-      "High-speed Elevators",
-      "EV Charging",
+      "Well Equipped Gym",
+      "Visitor’s Lounge",
+      "Indoor Games",
+      "Indoor Shuttle Court",
+      "Multi-purpose Hall",
+      "Mini Theatre Hall",
+      "Cafeteria",
+      "Super Market",
+      "Saloon & Beauty Parlour",
+      "Yoga & Meditation Hall",
+      "Swimming Pool with Children’s Pool",
+      "Open Party Lawn with Stage",
+      "RFID Operated Gates",
+      "Dedicated Children’s Play Area",
+      "Covered Parking",
+      "Automatic Water Level Controllers",
     ],
     specifications: [
-      { label: "Units", value: "160 Apartments" },
-      { label: "Total Area", value: "4,40,000 sq ft" },
-      { label: "Commencement", value: "Jan 2021" },
-      { label: "Completion", value: "Jun 2023" },
+      { label: "Blocks", value: "3 Blocks" },
+      { label: "Units", value: "160 Signature Style Apartments" },
+      { label: "Sizes", value: "2032 to 3320 sq ft" },
+      { label: "Apartment Types", value: "3 & 4 BHK" },
+      { label: "Site Address", value: "SLV Amaravathi Grand II, Sunrise Meadows, D.No: 49-4-21, Division - 1, Gunadala, Vijayawada - 520 004" },
     ],
     proximity: [
-      { label: "Vijayawada City Centre", distance: "4 km" },
-      { label: "Benz Circle", distance: "4 km" },
-      { label: "Vijayawada Railway Stn", distance: "6 km" },
-      { label: "Hospital", distance: "3 km" },
+      { label: "Ramavarappadu Junction", distance: "2 km" },
+      { label: "Medha IT Park", distance: "12 km" },
+      { label: "National Highway 16", distance: "1.5 km" },
+      { label: "Gannavaram Airport", distance: "14 km" },
+      { label: "St. Johns Public School", distance: "2 km" },
+      { label: "Delhi Public School", distance: "6 km" },
+      { label: "Andhra Loyola & Maris Stella College", distance: "4 km" },
+      { label: "Rainbow & Ramesh Hospitals", distance: "3 km" },
+      { label: "Novotel & Gateway Hotels", distance: "4 km" },
     ],
     floorPlans: [
-      { type: "2 BHK", sqft: 1280, image: img(3) },
-      { type: "3 BHK", sqft: 2100, image: img(1) },
+      { type: "Block A Floor Plan (Typical)", sqft: 2032, image: ag2FloorA },
+      { type: "Block B Floor Plan (Typical)", sqft: 2500, image: ag2FloorB },
+      { type: "Block C Floor Plan (Typical)", sqft: 3320, image: ag2FloorC },
+      { type: "Site Plan Layout", sqft: 440000, image: ag2SitePlan },
     ],
   },
   // ── 22 ──────────────────────────────────────────────
