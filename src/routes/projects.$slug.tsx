@@ -43,7 +43,9 @@ export const Route = createFileRoute("/projects/$slug")({
   notFoundComponent: () => (
     <div className="flex min-h-screen flex-col items-center justify-center gap-4">
       <h1 className="font-display text-3xl font-bold">Project not found</h1>
-      <Link to="/projects" className="text-gold underline">Back to projects</Link>
+      <Link to="/projects" search={{ status: undefined }} className="text-gold underline">
+        Back to projects
+      </Link>
     </div>
   ),
   errorComponent: () => (
@@ -69,28 +71,27 @@ function ProjectDetails() {
 
   // Stat cards shown on the hero panel
   const statCards = [
-    { Icon: Building2, val: project.status,              sub: "Status"  },
-    { Icon: Ruler,     val: `${project.sqftFrom.toLocaleString()}+`, sub: "Sqft" },
-    { Icon: Home,      val: project.bedrooms,             sub: "Config"  },
-    { Icon: Star,      val: project.category,             sub: "Type"    },
+    { Icon: Building2, val: project.status, sub: "Status" },
+    { Icon: Ruler, val: `${project.sqftFrom.toLocaleString()}+`, sub: "Sqft" },
+    { Icon: Home, val: project.bedrooms, sub: "Config" },
+    { Icon: Star, val: project.category, sub: "Type" },
   ];
 
   return (
     <div className="pt-24">
-
       {/* ════════════════════════════════════════════════
           GALLERY — Cinematic Hero + Thumbnail Strip
       ════════════════════════════════════════════════ */}
       <div className="mx-auto max-w-7xl px-6">
         <Link
           to="/projects"
+          search={{ status: undefined }}
           className="inline-flex items-center gap-1.5 py-4 text-sm text-muted-foreground hover:text-foreground transition-colors"
         >
           <ChevronLeft className="h-4 w-4" /> Back to Projects
         </Link>
 
         <div className="grid gap-3 lg:grid-cols-[2fr_1fr]">
-
           {/* ═══════════════════════════════════
               LEFT — Cinematic Hero Image Panel
           ═══════════════════════════════════ */}
@@ -109,16 +110,25 @@ function ProjectDetails() {
                   className={cn(
                     "absolute inset-0 h-full w-full object-cover",
                     "transition-[opacity,transform] duration-700 ease-in-out",
-                    activeImg === i ? "opacity-100 scale-100 z-[1]" : "opacity-0 scale-105 z-0"
+                    activeImg === i ? "opacity-100 scale-100 z-[1]" : "opacity-0 scale-105 z-0",
                   )}
                 />
               ))}
 
               {/* ── Cinematic gradient overlays ── */}
-              <div className="absolute inset-0 z-[2] pointer-events-none"
-                style={{ background: "linear-gradient(to top, rgba(10,10,18,0.93) 0%, rgba(10,10,18,0.25) 50%, transparent 100%)" }} />
-              <div className="absolute inset-0 z-[2] pointer-events-none"
-                style={{ background: "linear-gradient(to right, rgba(10,10,18,0.65) 0%, transparent 55%)" }} />
+              <div
+                className="absolute inset-0 z-[2] pointer-events-none"
+                style={{
+                  background:
+                    "linear-gradient(to top, rgba(10,10,18,0.93) 0%, rgba(10,10,18,0.25) 50%, transparent 100%)",
+                }}
+              />
+              <div
+                className="absolute inset-0 z-[2] pointer-events-none"
+                style={{
+                  background: "linear-gradient(to right, rgba(10,10,18,0.65) 0%, transparent 55%)",
+                }}
+              />
 
               {/* ── TOP BAR ── */}
               <div className="absolute top-0 left-0 right-0 z-[10] flex items-center justify-between p-5 pointer-events-none">
@@ -127,33 +137,52 @@ function ProjectDetails() {
                   className="flex items-center gap-2 rounded-full px-4 py-2 border border-white/15"
                   style={{ background: "rgba(8,8,14,0.6)", backdropFilter: "blur(12px)" }}
                 >
-                  <span className="h-2 w-2 rounded-full flex-shrink-0 animate-pulse-gold"
-                    style={{ background: "linear-gradient(135deg,oklch(0.84 0.1 90),oklch(0.7 0.14 78))" }} />
-                  <span className="text-[11px] font-bold tracking-[0.22em] uppercase text-white/90">SLV Premium</span>
+                  <span
+                    className="h-2 w-2 rounded-full flex-shrink-0 animate-pulse-gold"
+                    style={{
+                      background: "linear-gradient(135deg,oklch(0.84 0.1 90),oklch(0.7 0.14 78))",
+                    }}
+                  />
+                  <span className="text-[11px] font-bold tracking-[0.22em] uppercase text-white/90">
+                    SLV Premium
+                  </span>
                 </div>
                 {/* Image counter */}
                 <div
                   className="rounded-full px-3.5 py-1.5 text-xs font-bold tabular-nums text-white/80 border border-white/15"
                   style={{ background: "rgba(8,8,14,0.6)", backdropFilter: "blur(12px)" }}
                 >
-                  {String(activeImg + 1).padStart(2, "0")} / {String(project.gallery.length).padStart(2, "0")}
+                  {String(activeImg + 1).padStart(2, "0")} /{" "}
+                  {String(project.gallery.length).padStart(2, "0")}
                 </div>
               </div>
 
               {/* ── FLOATING STAT BADGES (visible on hover) ── */}
-              <div className="absolute right-5 top-1/2 -translate-y-1/2 z-[10] flex flex-col gap-3
+              <div
+                className="absolute right-5 top-1/2 -translate-y-1/2 z-[10] flex flex-col gap-3
                               opacity-0 translate-x-8 pointer-events-none
                               group-hover:opacity-100 group-hover:translate-x-0
-                              transition-all duration-500 ease-out">
+                              transition-all duration-500 ease-out"
+              >
                 {statCards.map(({ Icon, val, sub }) => (
                   <div
                     key={sub}
                     className="flex flex-col items-center gap-0.5 rounded-2xl text-center border border-white/15"
-                    style={{ background: "rgba(8,8,14,0.65)", backdropFilter: "blur(14px)", padding: "10px 14px", minWidth: 82 }}
+                    style={{
+                      background: "rgba(8,8,14,0.65)",
+                      backdropFilter: "blur(14px)",
+                      padding: "10px 14px",
+                      minWidth: 82,
+                    }}
                   >
                     <Icon className="h-4 w-4 mb-0.5" style={{ color: "oklch(0.78 0.11 85)" }} />
                     <span className="text-[11px] font-bold leading-snug text-white">{val}</span>
-                    <span className="text-[9px] uppercase tracking-wider" style={{ color: "rgba(255,255,255,0.45)" }}>{sub}</span>
+                    <span
+                      className="text-[9px] uppercase tracking-wider"
+                      style={{ color: "rgba(255,255,255,0.45)" }}
+                    >
+                      {sub}
+                    </span>
                   </div>
                 ))}
               </div>
@@ -162,10 +191,17 @@ function ProjectDetails() {
               <div className="absolute bottom-0 left-0 right-0 z-[10] p-6 pointer-events-none">
                 {/* gold rule + city */}
                 <div className="flex items-center gap-3 mb-2.5">
-                  <div className="h-px w-12 flex-shrink-0"
-                    style={{ background: "linear-gradient(to right, oklch(0.72 0.13 82), oklch(0.84 0.1 88))" }} />
-                  <span className="text-[10px] font-bold uppercase tracking-[0.28em]"
-                    style={{ color: "oklch(0.78 0.11 85 / 0.8)" }}>
+                  <div
+                    className="h-px w-12 flex-shrink-0"
+                    style={{
+                      background:
+                        "linear-gradient(to right, oklch(0.72 0.13 82), oklch(0.84 0.1 88))",
+                    }}
+                  />
+                  <span
+                    className="text-[10px] font-bold uppercase tracking-[0.28em]"
+                    style={{ color: "oklch(0.78 0.11 85 / 0.8)" }}
+                  >
                     {project.city}
                   </span>
                 </div>
@@ -186,15 +222,23 @@ function ProjectDetails() {
                 <div className="flex flex-wrap items-center gap-2.5 pointer-events-auto">
                   <span
                     className="flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-medium border border-white/10"
-                    style={{ background: "rgba(255,255,255,0.12)", backdropFilter: "blur(8px)", color: "rgba(255,255,255,0.9)" }}
+                    style={{
+                      background: "rgba(255,255,255,0.12)",
+                      backdropFilter: "blur(8px)",
+                      color: "rgba(255,255,255,0.9)",
+                    }}
                   >
-                    <MapPin className="h-3 w-3 flex-shrink-0" style={{ color: "oklch(0.72 0.13 82)" }} />
+                    <MapPin
+                      className="h-3 w-3 flex-shrink-0"
+                      style={{ color: "oklch(0.72 0.13 82)" }}
+                    />
                     {project.location}
                   </span>
                   <span
                     className="flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-bold shadow-lg"
                     style={{
-                      background: "linear-gradient(135deg,oklch(0.84 0.1 90),oklch(0.7 0.14 78),oklch(0.78 0.11 85))",
+                      background:
+                        "linear-gradient(135deg,oklch(0.84 0.1 90),oklch(0.7 0.14 78),oklch(0.78 0.11 85))",
                       color: "oklch(0.13 0.005 265)",
                     }}
                   >
@@ -203,7 +247,11 @@ function ProjectDetails() {
                   </span>
                   <span
                     className="rounded-full px-3.5 py-1.5 text-xs font-semibold border border-white/10"
-                    style={{ background: "rgba(255,255,255,0.1)", backdropFilter: "blur(8px)", color: "rgba(255,255,255,0.85)" }}
+                    style={{
+                      background: "rgba(255,255,255,0.1)",
+                      backdropFilter: "blur(8px)",
+                      color: "rgba(255,255,255,0.85)",
+                    }}
                   >
                     {project.status}
                   </span>
@@ -230,9 +278,9 @@ function ProjectDetails() {
                     ? "scale-[1.03] ring-2 ring-gold"
                     : "opacity-55 hover:opacity-100 hover:scale-[1.015]",
                 )}
-                style={activeImg === i
-                  ? { boxShadow: "0 8px 32px -4px rgba(180,145,50,0.45)" }
-                  : {}}
+                style={
+                  activeImg === i ? { boxShadow: "0 8px 32px -4px rgba(180,145,50,0.45)" } : {}
+                }
               >
                 <img
                   src={g}
@@ -244,7 +292,9 @@ function ProjectDetails() {
                 {activeImg === i && (
                   <div
                     className="absolute inset-0"
-                    style={{ background: "linear-gradient(to top, rgba(180,140,45,0.3), transparent 60%)" }}
+                    style={{
+                      background: "linear-gradient(to top, rgba(180,140,45,0.3), transparent 60%)",
+                    }}
                   />
                 )}
 
@@ -252,23 +302,35 @@ function ProjectDetails() {
                 {activeImg === i && (
                   <div
                     className="absolute bottom-0 left-0 right-0 h-[3px]"
-                    style={{ background: "linear-gradient(to right, oklch(0.72 0.13 82), oklch(0.84 0.1 88))" }}
+                    style={{
+                      background:
+                        "linear-gradient(to right, oklch(0.72 0.13 82), oklch(0.84 0.1 88))",
+                    }}
                   />
                 )}
 
                 {/* Number badge */}
                 <div
                   className="absolute bottom-2 right-2 rounded-full text-[10px] font-bold px-2 py-0.5 leading-tight transition-all duration-300"
-                  style={activeImg === i
-                    ? { background: "linear-gradient(135deg,oklch(0.84 0.1 90),oklch(0.7 0.14 78))", color: "oklch(0.13 0.005 265)" }
-                    : { background: "rgba(0,0,0,0.6)", color: "rgba(255,255,255,0.75)", backdropFilter: "blur(4px)" }}
+                  style={
+                    activeImg === i
+                      ? {
+                          background:
+                            "linear-gradient(135deg,oklch(0.84 0.1 90),oklch(0.7 0.14 78))",
+                          color: "oklch(0.13 0.005 265)",
+                        }
+                      : {
+                          background: "rgba(0,0,0,0.6)",
+                          color: "rgba(255,255,255,0.75)",
+                          backdropFilter: "blur(4px)",
+                        }
+                  }
                 >
                   {String(i + 1).padStart(2, "0")}
                 </div>
               </button>
             ))}
           </div>
-
         </div>
       </div>
 
@@ -284,28 +346,40 @@ function ProjectDetails() {
               </span>
               <span className="text-sm text-muted-foreground">{project.category}</span>
             </div>
-            <h1 className="mt-3 font-display text-4xl font-bold text-foreground sm:text-5xl">{project.name}</h1>
+            <h1 className="mt-3 font-display text-4xl font-bold text-foreground sm:text-5xl">
+              {project.name}
+            </h1>
             <p className="mt-2 flex items-center gap-1.5 text-muted-foreground">
               <MapPin className="h-4 w-4 text-gold" /> {project.location}, {project.city}
             </p>
           </div>
           <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center">
             <div>
-              <p className="text-xs uppercase tracking-wider text-muted-foreground">Starting from</p>
-              <p className="font-display text-3xl font-bold text-foreground">{formatPrice(project.priceFrom)}</p>
+              <p className="text-xs uppercase tracking-wider text-muted-foreground">
+                Starting from
+              </p>
+              <p className="font-display text-3xl font-bold text-foreground">
+                {formatPrice(project.priceFrom)}
+              </p>
             </div>
             <div className="flex gap-2">
               <button
                 onClick={() => toggleWishlist(project.id)}
                 aria-label="Wishlist"
-                className={cn("flex h-12 w-12 items-center justify-center rounded-xl", wished ? "neu-pressed text-rose-500" : "neu-sm")}
+                className={cn(
+                  "flex h-12 w-12 items-center justify-center rounded-xl",
+                  wished ? "neu-pressed text-rose-500" : "neu-sm",
+                )}
               >
                 <Heart className={cn("h-5 w-5", wished && "fill-rose-500")} />
               </button>
               <button
                 onClick={() => toggleCompare(project.id)}
                 aria-label="Compare"
-                className={cn("flex h-12 w-12 items-center justify-center rounded-xl", comparing ? "neu-pressed text-gold-foreground" : "neu-sm")}
+                className={cn(
+                  "flex h-12 w-12 items-center justify-center rounded-xl",
+                  comparing ? "neu-pressed text-gold-foreground" : "neu-sm",
+                )}
               >
                 <Scale className="h-5 w-5" />
               </button>
@@ -317,7 +391,10 @@ function ProjectDetails() {
         <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-4">
           {[
             ["Configurations", project.bedrooms],
-            ["Saleable Area", `${project.sqftFrom.toLocaleString()} - ${project.sqftTo.toLocaleString()} sqft`],
+            [
+              "Saleable Area",
+              `${project.sqftFrom.toLocaleString()} - ${project.sqftTo.toLocaleString()} sqft`,
+            ],
             ["Launch", project.launchDate],
             ["Category", project.category],
           ].map(([l, v]) => (
@@ -347,12 +424,13 @@ function ProjectDetails() {
         </div>
 
         <div className="mt-8 min-h-[300px]">
-
           {/* Overview */}
           {tab === "Overview" && (
             <div className="grid gap-10 lg:grid-cols-[2fr_1fr]">
               <div>
-                <h2 className="font-display text-2xl font-semibold text-foreground">Project Vision</h2>
+                <h2 className="font-display text-2xl font-semibold text-foreground">
+                  Project Vision
+                </h2>
                 <p className="mt-4 leading-relaxed text-muted-foreground">{project.description}</p>
                 <div className="mt-8 rounded-3xl bg-card p-6 neu">
                   <h3 className="flex items-center gap-2 font-display text-lg font-semibold text-foreground">
@@ -360,9 +438,14 @@ function ProjectDetails() {
                   </h3>
                   <div className="mt-5 grid gap-4 sm:grid-cols-2">
                     {project.proximity.map((pr: { label: string; distance: string }) => (
-                      <div key={pr.label} className="flex items-center justify-between rounded-xl bg-background px-4 py-3 neu-sm">
+                      <div
+                        key={pr.label}
+                        className="flex items-center justify-between rounded-xl bg-background px-4 py-3 neu-sm"
+                      >
                         <span className="text-sm text-muted-foreground">{pr.label}</span>
-                        <span className="font-display text-base font-semibold text-gold-foreground">{pr.distance}</span>
+                        <span className="font-display text-base font-semibold text-gold-foreground">
+                          {pr.distance}
+                        </span>
                       </div>
                     ))}
                   </div>
@@ -370,14 +453,18 @@ function ProjectDetails() {
               </div>
               <aside className="h-fit rounded-3xl bg-gradient-obsidian p-7 text-background">
                 <h3 className="font-display text-xl font-semibold">Request Details</h3>
-                <p className="mt-2 text-sm text-background/65">Get the brochure, floor plans, and pricing.</p>
-                <button
-                  type="button"
-                  onClick={() => setShowBrochure(true)}
-                  className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-gold py-3 text-sm font-semibold text-gold-foreground"
-                >
-                  <Download className="h-4 w-4" /> Download Brochure
-                </button>
+                <p className="mt-2 text-sm text-background/65">
+                  Get the brochure, floor plans, and pricing.
+                </p>
+                {project.brochureUrl && (
+                  <button
+                    type="button"
+                    onClick={() => setShowBrochure(true)}
+                    className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-gold py-3 text-sm font-semibold text-gold-foreground"
+                  >
+                    <Download className="h-4 w-4" /> Download Brochure
+                  </button>
+                )}
                 <Link
                   to="/contact"
                   className="mt-3 flex items-center justify-center gap-2 rounded-xl border border-white/20 py-3 text-sm font-semibold text-background hover:bg-white/10"
@@ -405,11 +492,15 @@ function ProjectDetails() {
                 </div>
               </div>
               <div>
-                <h2 className="font-display text-2xl font-semibold text-foreground">Specifications</h2>
+                <h2 className="font-display text-2xl font-semibold text-foreground">
+                  Specifications
+                </h2>
                 <div className="mt-5 space-y-3">
                   {project.specifications.map((s: { label: string; value: string }) => (
                     <div key={s.label} className="rounded-2xl bg-card p-5 neu-sm">
-                      <p className="text-xs uppercase tracking-wider text-gold-foreground">{s.label}</p>
+                      <p className="text-xs uppercase tracking-wider text-gold-foreground">
+                        {s.label}
+                      </p>
                       <p className="mt-1 text-foreground">{s.value}</p>
                     </div>
                   ))}
@@ -422,18 +513,20 @@ function ProjectDetails() {
           {tab === "Floor Plans" && (
             <div>
               <div className="inline-flex gap-2 rounded-2xl bg-background p-2 neu-pressed">
-                {project.floorPlans.map((fp: { type: string; sqft: number; image: string }, i: number) => (
-                  <button
-                    key={fp.type}
-                    onClick={() => setPlan(i)}
-                    className={cn(
-                      "rounded-xl px-5 py-2.5 text-sm font-medium transition-all",
-                      plan === i ? "neu text-foreground" : "text-muted-foreground",
-                    )}
-                  >
-                    {fp.type}
-                  </button>
-                ))}
+                {project.floorPlans.map(
+                  (fp: { type: string; sqft: number; image: string }, i: number) => (
+                    <button
+                      key={fp.type}
+                      onClick={() => setPlan(i)}
+                      className={cn(
+                        "rounded-xl px-5 py-2.5 text-sm font-medium transition-all",
+                        plan === i ? "neu text-foreground" : "text-muted-foreground",
+                      )}
+                    >
+                      {fp.type}
+                    </button>
+                  ),
+                )}
               </div>
               <div className="mt-6 grid gap-6 lg:grid-cols-[2fr_1fr]">
                 <button
@@ -450,9 +543,15 @@ function ProjectDetails() {
                   </span>
                 </button>
                 <div className="rounded-3xl bg-card p-7 neu">
-                  <p className="text-xs uppercase tracking-wider text-muted-foreground">Configuration</p>
-                  <p className="font-display text-3xl font-bold text-foreground">{project.floorPlans[plan].type}</p>
-                  <p className="mt-4 text-xs uppercase tracking-wider text-muted-foreground">Saleable Area</p>
+                  <p className="text-xs uppercase tracking-wider text-muted-foreground">
+                    Configuration
+                  </p>
+                  <p className="font-display text-3xl font-bold text-foreground">
+                    {project.floorPlans[plan].type}
+                  </p>
+                  <p className="mt-4 text-xs uppercase tracking-wider text-muted-foreground">
+                    Saleable Area
+                  </p>
                   <p className="font-display text-2xl font-semibold text-gold-foreground">
                     {project.floorPlans[plan].sqft.toLocaleString()} sqft
                   </p>
@@ -460,7 +559,6 @@ function ProjectDetails() {
               </div>
             </div>
           )}
-
         </div>
       </div>
 
@@ -468,22 +566,28 @@ function ProjectDetails() {
       <section className="mx-auto max-w-7xl px-6 py-20">
         <h2 className="font-display text-2xl font-semibold text-foreground">More Residences</h2>
         <div className="mt-6 grid gap-6 sm:grid-cols-3">
-          {projects.filter((p) => p.id !== project.id).map((p) => (
-            <Link
-              key={p.id}
-              to="/projects/$slug"
-              params={{ slug: p.slug }}
-              className="group overflow-hidden rounded-2xl bg-card neu-sm"
-            >
-              <div className="aspect-[16/10] overflow-hidden">
-                <img src={p.image} alt={p.name} className="h-full w-full object-cover transition-transform group-hover:scale-105" />
-              </div>
-              <div className="p-4">
-                <p className="font-display text-lg font-semibold text-foreground">{p.name}</p>
-                <p className="text-sm text-muted-foreground">{p.location}</p>
-              </div>
-            </Link>
-          ))}
+          {projects
+            .filter((p) => p.id !== project.id)
+            .map((p) => (
+              <Link
+                key={p.id}
+                to="/projects/$slug"
+                params={{ slug: p.slug }}
+                className="group overflow-hidden rounded-2xl bg-card neu-sm"
+              >
+                <div className="aspect-[16/10] overflow-hidden">
+                  <img
+                    src={p.image}
+                    alt={p.name}
+                    className="h-full w-full object-cover transition-transform group-hover:scale-105"
+                  />
+                </div>
+                <div className="p-4">
+                  <p className="font-display text-lg font-semibold text-foreground">{p.name}</p>
+                  <p className="text-sm text-muted-foreground">{p.location}</p>
+                </div>
+              </Link>
+            ))}
         </div>
       </section>
 
@@ -493,10 +597,17 @@ function ProjectDetails() {
           className="fixed inset-0 z-[70] flex items-center justify-center bg-obsidian/90 p-6"
           onClick={() => setLightbox(null)}
         >
-          <button className="absolute right-6 top-6 text-background/80 hover:text-background" aria-label="Close">
+          <button
+            className="absolute right-6 top-6 text-background/80 hover:text-background"
+            aria-label="Close"
+          >
             <X className="h-8 w-8" />
           </button>
-          <img src={lightbox} alt="Fullscreen" className="max-h-[90vh] max-w-full rounded-2xl object-contain" />
+          <img
+            src={lightbox}
+            alt="Fullscreen"
+            className="max-h-[90vh] max-w-full rounded-2xl object-contain"
+          />
         </div>
       )}
 
@@ -504,7 +615,9 @@ function ProjectDetails() {
       {showBrochure && project.brochureUrl && (
         <div className="fixed inset-0 z-[80] flex flex-col bg-obsidian">
           <div className="flex items-center justify-between border-b border-white/10 px-6 py-4">
-            <p className="font-display text-lg font-semibold text-background">{project.name} — Brochure</p>
+            <p className="font-display text-lg font-semibold text-background">
+              {project.name} — Brochure
+            </p>
             <button
               onClick={() => setShowBrochure(false)}
               className="flex items-center gap-2 rounded-xl bg-white/10 px-4 py-2 text-sm font-medium text-background hover:bg-white/20"

@@ -6,15 +6,15 @@ import slvLogo from "@/assets/slv-logo.png";
 
 const ourStoryLinks = [
   { label: "About Us", to: "/about" },
-  { label: "Management", to: "/about" },
+  // { label: "Management", to: "/about" },
   { label: "Gallery", to: "/projects" },
   { label: "Buyer's Guide", to: "/buyers-guide" },
 ];
 
 const projectLinks = [
-  { label: "Ongoing Projects", to: "/projects" },
-  { label: "Upcoming Projects", to: "/projects" },
-  { label: "Completed Projects", to: "/projects" },
+  { label: "Ongoing Projects", to: "/projects", search: { status: "ongoing" } },
+  { label: "Upcoming Projects", to: "/projects", search: { status: "upcoming" } },
+  { label: "Completed Projects", to: "/projects", search: { status: "completed" } },
 ];
 
 const workLinks = [
@@ -142,54 +142,43 @@ export function Navbar() {
           </Link>
 
           {/* Our Story */}
-          <div className="relative">
+          <div className="relative group">
             <button
               className={cn(
-                "flex items-center gap-1 rounded-lg px-3 py-2 text-[0.82rem] font-medium transition-all duration-300",
+                "flex items-center gap-1 rounded-lg px-3 py-2 text-[0.82rem] font-medium transition-all duration-300 cursor-pointer",
                 scrolled ? "text-black/50 hover:text-foreground" : "text-white/70 hover:text-white",
               )}
-              onClick={handleDesktopOurStory}
             >
               Our Story
-              <ChevronDown
-                className={`h-3 w-3 transition-transform ${desktopOurStoryOpen && "rotate-180"}`}
-              />
+              <ChevronDown className="h-3 w-3 transition-transform group-hover:rotate-180" />
             </button>
 
-            {desktopOurStoryOpen && (
-              <div className="absolute left-0 top-full min-w-[230px] rounded-2xl border border-white/10 bg-black/80 p-4 backdrop-blur-xl group-hover:block">
-                <ul className="space-y-3">
-                  {ourStoryLinks.map((item) => (
-                    <li key={item.label}>
-                      <Link
-                        to={item.to}
-                        onClick={() => {
-                          scrollToTopIfSamePage(item.to);
-                          setDesktopOurStoryOpen(false);
-                        }}
-                        className="flex items-center justify-between text-sm text-white/70 hover:text-gold"
-                      >
-                        {item.label}
-                        <ArrowUpRight className="h-3 w-3" />
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
+            <div className="absolute left-0 top-full hidden min-w-[230px] rounded-2xl border border-white/10 bg-black/80 p-4 backdrop-blur-xl group-hover:block">
+              <ul className="space-y-3">
+                {ourStoryLinks.map((item) => (
+                  <li key={item.label}>
+                    <Link
+                      to={item.to}
+                      onClick={() => {
+                        scrollToTopIfSamePage(item.to);
+                        setDesktopOurStoryOpen(false);
+                      }}
+                      className="flex items-center justify-between text-sm text-white/70 hover:text-gold"
+                    >
+                      {item.label}
+                      <ArrowUpRight className="h-3 w-3" />
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
 
           {/* Projects */}
-          <div
-            className="relative group"
-            onMouseEnter={() => {
-              setDesktopOurStoryOpen(false);
-              setDesktopWorkOpen(false);
-            }}
-          >
+          <div className="relative group">
             <button
               className={cn(
-                "flex items-center gap-1 rounded-lg px-3 py-2 text-[0.82rem] font-medium transition-all duration-300",
+                "flex items-center gap-1 rounded-lg px-3 py-2 text-[0.82rem] font-medium transition-all duration-300 cursor-pointer",
                 scrolled ? "text-black/50 hover:text-foreground" : "text-white/70 hover:text-white",
               )}
             >
@@ -203,6 +192,7 @@ export function Navbar() {
                   <li key={item.label}>
                     <Link
                       to={item.to}
+                      search={item.search}
                       onClick={() => scrollToTopIfSamePage(item.to)}
                       className="flex items-center justify-between text-sm text-white/70 hover:text-gold"
                     >
@@ -216,41 +206,36 @@ export function Navbar() {
           </div>
 
           {/* Work With Us */}
-          <div className="relative">
+          <div className="relative group">
             <button
               className={cn(
-                "flex items-center gap-1 rounded-lg px-3 py-2 text-[0.82rem] font-medium transition-all duration-300",
+                "flex items-center gap-1 rounded-lg px-3 py-2 text-[0.82rem] font-medium transition-all duration-300 cursor-pointer",
                 scrolled ? "text-black/50 hover:text-foreground" : "text-white/70 hover:text-white",
               )}
-              onClick={handleDesktopWorkOpen}
             >
               Work With Us
-              <ChevronDown
-                className={`h-3 w-3 transition-transform ${desktopWorkOpen && "rotate-180"}`}
-              />
+              <ChevronDown className="h-3 w-3 transition-transform group-hover:rotate-180" />
             </button>
 
-            {desktopWorkOpen && (
-              <div className="absolute left-0 top-full min-w-[260px] rounded-2xl border border-white/10 bg-black/80 p-4 backdrop-blur-xl group-hover:block">
-                <ul className="space-y-3">
-                  {workLinks.map((item) => (
-                    <li key={item.label}>
-                      <Link
-                        to={item.to}
-                        onClick={() => {
-                          scrollToTopIfSamePage(item.to);
-                          setDesktopWorkOpen(false);
-                        }}
-                        className="flex items-center justify-between text-sm text-white/70 hover:text-gold"
-                      >
-                        {item.label}
-                        <ArrowUpRight className="h-3 w-3" />
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
+            <div className="absolute left-0 top-full hidden min-w-[260px] rounded-2xl border border-white/10 bg-black/80 p-4 backdrop-blur-xl group-hover:block">
+              <ul className="space-y-3">
+                {workLinks.map((item) => (
+                  <li key={item.label}>
+                    <Link
+                      to={item.to}
+                      onClick={() => {
+                        scrollToTopIfSamePage(item.to);
+                        setDesktopWorkOpen(false);
+                      }}
+                      className="flex items-center justify-between text-sm text-white/70 hover:text-gold"
+                    >
+                      {item.label}
+                      <ArrowUpRight className="h-3 w-3" />
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
 
           {/* EMI */}
@@ -367,6 +352,7 @@ export function Navbar() {
                 <Link
                   key={item.label}
                   to={item.to}
+                  search={item.search}
                   onClick={() => {
                     scrollToTopIfSamePage(item.to);
                     setMobileProjectsOpen(false);

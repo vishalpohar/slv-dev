@@ -27,7 +27,7 @@ import gmFloorWest1 from "@/assets/gm-floor-west1.webp";
 import gmFloorEast2 from "@/assets/gm-floor-east2.webp";
 import gmFloorWest2 from "@/assets/gm-floor-west2.webp";
 import gmMasterLayout from "@/assets/gm-master-layout.webp";
-import gmLogoedImage from "@/assets/SLV_Green_Logoimg.png";
+import gmLogoedImage from "@/assets/gl-Greenland-01.png";
 
 import glLogo from "@/assets/gl-Greenland-01.png";
 import glLayout from "@/assets/gl-SLV-Greenlan_Layout-scaled.webp";
@@ -43,7 +43,6 @@ import ag2FloorA from "@/assets/ag2-floor-a.jpg";
 import ag2FloorB from "@/assets/ag2-floor-b.jpg";
 import ag2FloorC from "@/assets/ag2-floor-c.jpg";
 import ag2SitePlan from "@/assets/ag2-site-plan.jpg";
-
 
 export type ProjectStatus = "Ongoing" | "Completed" | "Upcoming";
 export type ProjectCategory = "Villa" | "Apartment" | "Plots" | "Commercial" | "Educational";

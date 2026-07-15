@@ -4,7 +4,7 @@ import slvLogo from "@/assets/slv-logo.png";
 
 const ourStory = [
   { label: "About Us", to: "/about" },
-  { label: "Management", to: "/about" },
+  // { label: "Management", to: "/about" },
   { label: "Gallery", to: "/projects" },
   { label: "Buyer's Guide", to: "/buyers-guide" },
 ] as const;
@@ -18,9 +18,9 @@ const workWithUs = [
 ] as const;
 
 const projectLinks = [
-  { label: "Ongoing Projects", to: "/projects" },
-  { label: "Upcoming Projects", to: "/projects" },
-  { label: "Completed Projects", to: "/projects" },
+  { label: "Ongoing Projects", to: "/projects", search: { status: "ongoing" } },
+  { label: "Upcoming Projects", to: "/projects", search: { status: "upcoming" } },
+  { label: "Completed Projects", to: "/projects", search: { status: "completed" } },
 ] as const;
 
 export function Footer() {
@@ -136,6 +136,7 @@ export function Footer() {
               <li key={l.label}>
                 <Link
                   to={l.to}
+                  search={l.search}
                   className="text-sm text-white/55 transition-all duration-300 hover:text-gold"
                 >
                   {l.label}

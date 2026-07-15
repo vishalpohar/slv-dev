@@ -1,8 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Eye, Rocket, PenTool, ArrowRight, Quote } from "lucide-react";
 import { Reveal } from "@/components/Reveal";
-import heroImage from "@/assets/hero-1.jpg";
-import amaravathi from "@/assets/amaravathi.jpg";
+import heroImage from "@/assets/about_slv.jpg";
+import amaravathi from "@/assets/amaravathi.png";
 import journey2 from "@/assets/project-2.jpg";
 import journey3 from "@/assets/project-3.jpg";
 
@@ -36,7 +36,11 @@ const stats = [
 const pillars = [
   { letter: "T", title: "Trust", desc: "Earned at every handshake, walkthrough, and handover." },
   { letter: "T", title: "Teamwork", desc: "Architects, engineers, and managers moving as one." },
-  { letter: "T", title: "Timely Delivery", desc: "Every project handed over on the promised date." },
+  {
+    letter: "T",
+    title: "Timely Delivery",
+    desc: "Every project handed over on the promised date.",
+  },
   { letter: "T", title: "Transparency", desc: "Clear titles, clear pricing, and no surprises." },
 ];
 
@@ -70,13 +74,25 @@ function AboutPage() {
           <Reveal>
             <p className="section-label text-gold">About SLV Developers</p>
             <h1 className="mt-6 font-display leading-tight text-foreground">
-              <span className="inline-flex items-start overflow-visible pb-3 pt-2 sm:pb-5">
-                <span className="self-end ml-2 block text-2xl font-bold leading-none text-gold drop-shadow-[0_4px_18px_rgba(212,175,55,0.35)] sm:text-2xl">near</span>
-                <span className="block text-[7rem] font-bold leading-none text-gradient-gold drop-shadow-[0_6px_34px_rgba(212,175,55,0.42)] sm:text-[10rem] lg:text-[11rem]">
+              <span className="inline-flex items-end gap-2 overflow-visible">
+                <span
+                  className="-mb-1 text-[3rem] italic font-medium text-gradient-gold sm:text-[4rem] lg:text-[4.5rem]"
+                  style={{
+                    fontFamily: "'Cormorant Garamond', serif",
+                  }}
+                >
+                  near
+                </span>
+
+                <span className="-mb-3 text-[7rem] font-semibold leading-none text-gradient-gold drop-shadow-[0_6px_34px_rgba(212,175,55,0.42)] sm:text-[10rem] lg:text-[11rem]">
                   20
                 </span>
               </span>
-              <span className="block text-2xl italic leading-tight sm:text-4xl">years of</span>
+
+              <span className="block text-2xl italic tracking-[0.15em] text-foreground/80 sm:text-4xl">
+                years of
+              </span>
+
               <span className="block text-4xl font-bold uppercase tracking-tight sm:text-6xl">
                 Trusted Legacy
               </span>
@@ -209,6 +225,7 @@ function AboutPage() {
             </div>
             <Link
               to="/projects"
+              search={{ status: undefined }}
               className="group inline-flex items-center gap-2 text-sm font-semibold text-foreground"
             >
               Explore Our Projects
