@@ -1,23 +1,59 @@
 import { useEffect, useState } from "react";
 import { Link, useRouterState } from "@tanstack/react-router";
-import { Menu, X, Phone, Crown } from "lucide-react";
+import { Menu, X, Phone, Crown, ChevronDown, ArrowUpRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import slvLogo from "@/assets/slv-logo.png";
 
-const links = [
-  { label: "Home", to: "/" },
+const ourStoryLinks = [
   { label: "About Us", to: "/about" },
-  { label: "Projects", to: "/projects" },
+  // { label: "Management", to: "/about" },
+  { label: "Gallery", to: "/projects" },
   { label: "Buyer's Guide", to: "/buyers-guide" },
-  { label: "EMI Calculator", to: "/emi-calculator" },
+];
+
+const projectLinks = [
+  { label: "Ongoing Projects", to: "/projects", search: { status: "ongoing" } },
+  { label: "Upcoming Projects", to: "/projects", search: { status: "upcoming" } },
+  { label: "Completed Projects", to: "/projects", search: { status: "completed" } },
+];
+
+const workLinks = [
   { label: "Careers", to: "/careers" },
-  { label: "Contact Us", to: "/contact" },
-] as const;
+  { label: "Architect & Consultant", to: "/careers" },
+  { label: "Contractor Registration", to: "/careers" },
+  { label: "Vendors & Suppliers", to: "/careers" },
+  { label: "Land Proposals", to: "/contact" },
+];
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const [desktopOurStoryOpen, setDesktopOurStoryOpen] = useState(false);
+  const [desktopWorkOpen, setDesktopWorkOpen] = useState(false);
+  const [mobileOurStoryOpen, setMobileOurStoryOpen] = useState(false);
+  const [mobileProjectsOpen, setMobileProjectsOpen] = useState(false);
+  const [mobileWorkOpen, setMobileWorkOpen] = useState(false);
+
   const pathname = useRouterState({ select: (s) => s.location.pathname });
+
+  const handleDesktopOurStory = () => {
+    setDesktopOurStoryOpen(!desktopOurStoryOpen);
+    setDesktopWorkOpen(false);
+  };
+
+  const handleDesktopWorkOpen = () => {
+    setDesktopWorkOpen(!desktopWorkOpen);
+    setDesktopOurStoryOpen(false);
+  };
+
+  const scrollToTopIfSamePage = (target: string) => {
+    if (pathname === target) {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    }
+  };
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 30);
@@ -44,7 +80,7 @@ export function Navbar() {
 
       <nav
         className={cn(
-          "relative overflow-hidden mx-auto flex max-w-7xl items-center justify-between rounded-full px-5 py-3.5 transition-all duration-700 sm:px-7",
+          "relative mx-auto flex max-w-7xl items-center justify-between rounded-full px-5 py-3.5 transition-all duration-700 sm:px-7",
           scrolled
             ? "navbar-light border border-white/25 bg-white/[0.10] backdrop-blur-[28px] shadow-[0_8px_40px_rgba(0,0,0,0.22)]"
             : "navbar-dark border border-white/10 bg-transparent backdrop-blur-[30px] shadow-[0_8px_40px_rgba(0,0,0,0.25)]",
@@ -67,7 +103,11 @@ export function Navbar() {
         />
 
         {/* Logo */}
-        <Link to="/" className="group flex items-center gap-2.5 outline-none">
+        <Link
+          to="/"
+          onClick={() => scrollToTopIfSamePage("/")}
+          className="group flex items-center gap-2.5 outline-none"
+        >
           <span
             className={
               "flex items-center justify-center rounded-xl p-1.5 transition-all duration-300"
@@ -82,51 +122,164 @@ export function Navbar() {
         </Link>
 
         {/* Desktop links */}
-        <div className="hidden items-center gap-0.5 lg:flex">
-          {links.map((l) => {
-            const active = pathname === l.to;
-            return (
-              <Link
-                key={l.to}
-                to={l.to}
-                className={cn(
-                  "relative rounded-lg px-3 py-2 text-[0.82rem] font-medium transition-all duration-300",
-                  scrolled
-                    ? active
-                      ? "text-foreground"
-                      : "text-black/50 hover:text-foreground"
-                    : active
-                      ? "text-white"
-                      : "text-white/70 hover:text-white",
-                )}
-              >
-                {l.label}
-                {active && (
-                  <span
-                    className="absolute inset-x-3 -bottom-0.5 h-px rounded-full"
-                    style={{
-                      background:
-                        "linear-gradient(90deg, transparent, var(--color-gold), transparent)",
-                    }}
-                  />
-                )}
-                <span
-                  className="absolute inset-x-3 -bottom-0.5 h-px rounded-full opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-                  style={{
-                    background:
-                      "linear-gradient(90deg, transparent, var(--color-gold-light), transparent)",
-                  }}
-                />
-              </Link>
-            );
-          })}
+        <div className="hidden items-center gap-1 lg:flex">
+          {/* Home */}
+          <Link
+            to="/"
+            onClick={() => scrollToTopIfSamePage("/")}
+            className={cn(
+              "rounded-lg px-3 py-2 text-[0.82rem] font-medium transition-all duration-300",
+              pathname === "/"
+                ? scrolled
+                  ? "text-foreground"
+                  : "text-white"
+                : scrolled
+                  ? "text-black/50 hover:text-foreground"
+                  : "text-white/70 hover:text-white",
+            )}
+          >
+            Home
+          </Link>
+
+          {/* Our Story */}
+          <div className="relative group">
+            <button
+              className={cn(
+                "flex items-center gap-1 rounded-lg px-3 py-2 text-[0.82rem] font-medium transition-all duration-300 cursor-pointer",
+                scrolled ? "text-black/50 hover:text-foreground" : "text-white/70 hover:text-white",
+              )}
+            >
+              Our Story
+              <ChevronDown className="h-3 w-3 transition-transform group-hover:rotate-180" />
+            </button>
+
+            <div className="absolute left-0 top-full hidden min-w-[230px] rounded-2xl border border-white/10 bg-black/80 p-4 backdrop-blur-xl group-hover:block">
+              <ul className="space-y-3">
+                {ourStoryLinks.map((item) => (
+                  <li key={item.label}>
+                    <Link
+                      to={item.to}
+                      onClick={() => {
+                        scrollToTopIfSamePage(item.to);
+                        setDesktopOurStoryOpen(false);
+                      }}
+                      className="flex items-center justify-between text-sm text-white/70 hover:text-gold"
+                    >
+                      {item.label}
+                      <ArrowUpRight className="h-3 w-3" />
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          {/* Projects */}
+          <div className="relative group">
+            <button
+              className={cn(
+                "flex items-center gap-1 rounded-lg px-3 py-2 text-[0.82rem] font-medium transition-all duration-300 cursor-pointer",
+                scrolled ? "text-black/50 hover:text-foreground" : "text-white/70 hover:text-white",
+              )}
+            >
+              Projects
+              <ChevronDown className="h-3 w-3 transition-transform group-hover:rotate-180" />
+            </button>
+
+            <div className="absolute left-0 top-full hidden min-w-[230px] rounded-2xl border border-white/10 bg-black/80 p-4 backdrop-blur-xl group-hover:block">
+              <ul className="space-y-3">
+                {projectLinks.map((item) => (
+                  <li key={item.label}>
+                    <Link
+                      to={item.to}
+                      search={item.search}
+                      onClick={() => scrollToTopIfSamePage(item.to)}
+                      className="flex items-center justify-between text-sm text-white/70 hover:text-gold"
+                    >
+                      {item.label}
+                      <ArrowUpRight className="h-3 w-3" />
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          {/* Work With Us */}
+          <div className="relative group">
+            <button
+              className={cn(
+                "flex items-center gap-1 rounded-lg px-3 py-2 text-[0.82rem] font-medium transition-all duration-300 cursor-pointer",
+                scrolled ? "text-black/50 hover:text-foreground" : "text-white/70 hover:text-white",
+              )}
+            >
+              Work With Us
+              <ChevronDown className="h-3 w-3 transition-transform group-hover:rotate-180" />
+            </button>
+
+            <div className="absolute left-0 top-full hidden min-w-[260px] rounded-2xl border border-white/10 bg-black/80 p-4 backdrop-blur-xl group-hover:block">
+              <ul className="space-y-3">
+                {workLinks.map((item) => (
+                  <li key={item.label}>
+                    <Link
+                      to={item.to}
+                      onClick={() => {
+                        scrollToTopIfSamePage(item.to);
+                        setDesktopWorkOpen(false);
+                      }}
+                      className="flex items-center justify-between text-sm text-white/70 hover:text-gold"
+                    >
+                      {item.label}
+                      <ArrowUpRight className="h-3 w-3" />
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          {/* EMI */}
+          <Link
+            to="/emi-calculator"
+            onClick={() => scrollToTopIfSamePage("/emi-calculator")}
+            className={cn(
+              "rounded-lg px-3 py-2 text-[0.82rem] font-medium transition-all duration-300",
+              pathname === "/emi-calculator"
+                ? scrolled
+                  ? "text-foreground"
+                  : "text-white"
+                : scrolled
+                  ? "text-black/50 hover:text-foreground"
+                  : "text-white/70 hover:text-white",
+            )}
+          >
+            EMI Calculator
+          </Link>
+
+          {/* Contact */}
+          <Link
+            to="/contact"
+            onClick={() => scrollToTopIfSamePage("/contact")}
+            className={cn(
+              "rounded-lg px-3 py-2 text-[0.82rem] font-medium transition-all duration-300",
+              pathname === "/contact"
+                ? scrolled
+                  ? "text-foreground"
+                  : "text-white"
+                : scrolled
+                  ? "text-black/50 hover:text-foreground"
+                  : "text-white/70 hover:text-white",
+            )}
+          >
+            Contact Us
+          </Link>
         </div>
 
         {/* CTA + Mobile toggle */}
         <div className="flex items-center gap-2">
           <a
             href="tel:+919859595939"
-            className="group hidden items-center gap-2 overflow-hidden rounded-xl px-4 py-2.5 text-sm font-semibold text-gold-foreground shadow-lg transition-all duration-300 hover:scale-[1.04] hover:shadow-xl sm:flex"
+            className="group hidden items-center gap-2 overflow-hidden rounded-xl px-4 py-2.5 text-sm font-semibold text-gold-foreground shadow-lg transition-all duration-300 hover:scale-[1.04] hover:shadow-xl lg:flex"
             style={{ background: "var(--gradient-gold)" }}
           >
             <Phone className="h-3.5 w-3.5 transition-transform duration-300 group-hover:rotate-12" />
@@ -154,20 +307,104 @@ export function Navbar() {
             <span className="section-label text-gold">Navigation</span>
           </div>
           <div className="flex flex-col gap-0.5">
-            {links.map((l) => (
-              <Link
-                key={l.to}
-                to={l.to}
-                className={cn(
-                  "flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition-all duration-200",
-                  pathname === l.to
-                    ? "bg-gradient-gold text-gold-foreground shadow-sm"
-                    : "text-gold/70 hover:bg-gold/50 hover:text-foreground",
-                )}
-              >
-                {l.label}
-              </Link>
-            ))}
+            <Link to="/" className="rounded-xl px-4 py-3 text-gold">
+              Home
+            </Link>
+
+            <button
+              onClick={() => setMobileOurStoryOpen((o) => !o)}
+              className="flex items-center justify-between rounded-xl px-4 py-3 text-gold"
+            >
+              Our Story
+              <ChevronDown
+                className={`h-4 w-4 transition-transform ${mobileOurStoryOpen ? "rotate-180" : ""}`}
+              />
+            </button>
+
+            {mobileOurStoryOpen &&
+              ourStoryLinks.map((item) => (
+                <Link
+                  key={item.label}
+                  to={item.to}
+                  onClick={() => {
+                    scrollToTopIfSamePage(item.to);
+                    setMobileOurStoryOpen(false);
+                    setOpen((o) => !o);
+                  }}
+                  className="pl-8 py-2 text-sm text-gold/70"
+                >
+                  {item.label}
+                </Link>
+              ))}
+
+            <button
+              onClick={() => setMobileProjectsOpen((o) => !o)}
+              className="flex items-center justify-between rounded-xl px-4 py-3 text-gold"
+            >
+              Projects
+              <ChevronDown
+                className={`h-4 w-4 transition-transform ${mobileProjectsOpen ? "rotate-180" : ""}`}
+              />
+            </button>
+
+            {mobileProjectsOpen &&
+              projectLinks.map((item) => (
+                <Link
+                  key={item.label}
+                  to={item.to}
+                  search={item.search}
+                  onClick={() => {
+                    scrollToTopIfSamePage(item.to);
+                    setMobileProjectsOpen(false);
+                    setOpen((o) => !o);
+                  }}
+                  className="pl-8 py-2 text-sm text-gold/70"
+                >
+                  {item.label}
+                </Link>
+              ))}
+
+            <button
+              onClick={() => setMobileWorkOpen((o) => !o)}
+              className="flex items-center justify-between rounded-xl px-4 py-3 text-gold"
+            >
+              Work With Us
+              <ChevronDown
+                className={`h-4 w-4 transition-transform ${mobileWorkOpen ? "rotate-180" : ""}`}
+              />
+            </button>
+
+            {mobileWorkOpen &&
+              workLinks.map((item) => (
+                <Link
+                  key={item.label}
+                  to={item.to}
+                  onClick={() => {
+                    scrollToTopIfSamePage(item.to);
+                    setMobileWorkOpen(false);
+                    setOpen((o) => !o);
+                  }}
+                  className="pl-8 py-2 text-sm text-gold/70"
+                >
+                  {item.label}
+                </Link>
+              ))}
+
+            <Link
+              to="/emi-calculator"
+              onClick={() => scrollToTopIfSamePage("/emi-calculator")}
+              className="rounded-xl px-4 py-3 text-gold"
+            >
+              EMI Calculator
+            </Link>
+
+            <Link
+              to="/contact"
+              onClick={() => scrollToTopIfSamePage("/contact")}
+              className="rounded-xl px-4 py-3 text-gold"
+            >
+              Contact Us
+            </Link>
             <a
               href="tel:+919859595939"
               className="mt-1 flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-semibold text-gold-foreground"
