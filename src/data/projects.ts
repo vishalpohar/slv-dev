@@ -45,6 +45,17 @@ import ag2FloorB from "@/assets/ag2-floor-b.jpg";
 import ag2FloorC from "@/assets/ag2-floor-c.jpg";
 import ag2SitePlan from "@/assets/ag2-site-plan.jpg";
 
+import anjaniElevation1 from "@/assets/anjani-elevation-1.jpg";
+import anjaniElevation2 from "@/assets/anjani-elevation-2.jpg";
+import anjaniElevation3 from "@/assets/anjani-elevation-3.jpg";
+import anjaniElevation4 from "@/assets/anjani-elevation-4.jpg";
+import anjaniClubhouse from "@/assets/anjani-clubhouse.jpg";
+import anjaniLayout from "@/assets/anjani-layout.jpg";
+import anjaniFloor1 from "@/assets/anjani-floor-1.jpg";
+import anjaniFloor2 from "@/assets/anjani-floor-2.jpg";
+import anjaniFloor3 from "@/assets/anjani-floor-3.jpg";
+import anjaniBrochure from "@/assets/SLV-Anjani-Heights-Brochure.pdf";
+
 export type ProjectStatus = "Ongoing" | "Completed" | "Upcoming";
 export type ProjectCategory = "Villa" | "Apartment" | "Plots" | "Commercial" | "Educational";
 
@@ -697,36 +708,70 @@ export const projects: Project[] = [
     sqftFrom: 1080,
     sqftTo: 1720,
     launchDate: "Delivered Dec 2016",
-    image: img(3),
-    gallery: gallery(3),
+    image: anjaniElevation1,
+    gallery: [
+      anjaniElevation1,
+      anjaniElevation2,
+      anjaniElevation3,
+      anjaniElevation4,
+      anjaniClubhouse,
+    ],
     description:
-      "The project that put SLV on the map in Vijayawada — Anjani Heights was the first gated community of its kind with 135 units. A delivered, fully-occupied landmark of well-planned homes, amenities, and a vibrant resident community that continues to set the benchmark for value and quality.",
+      "The project that put SLV on the map in Vijayawada — Anjani Heights was the first gated community of its kind with 135 units. Nestled in a rapidly developing location at Chinautpally, Gannavaram, it is a landmark of well-planned homes, premium amenities, and a vibrant resident community that continues to set the benchmark for value and quality. The project is designed to fulfill a family's unique needs, combining the serenity of gated community living with spacious internal layouts, modern clubhouse amenities, and excellent landscaping to enhance the quality of living.",
     amenities: [
-      "Community Clubhouse",
-      "Swimming Pool",
-      "Gymnasium",
-      "Children's Park",
-      "Landscaped Greens",
-      "Indoor Games",
-      "Gated Security",
-      "Power Backup",
+      "Exclusive Club House",
+      "Swimming Pool with Kid's Pool Enclave",
+      "Modern Gymnasium",
+      "Indoor Games Enclave",
+      "Multipurpose Hall",
+      "Super Market",
+      "Library Enclave",
+      "Yoga & Meditation Hall",
+      "Cafeteria",
+      "Visitors Lounge",
+      "Children Play Area",
+      "Open Party Lawn with Stage",
+      "Open Meditation Area with Central Tree",
+      "Excellent Landscaping & Lawns",
+      "Play Courts",
+      "Mobile Phone Operated Gates",
+      "Sensor Based Modern Lighting",
+      "Solar Hot Water System",
+      "Solar Fencing",
+      "Intercom Connectivity",
+      "High-speed Passenger Lifts",
+      "D.G. Generator Backup",
     ],
     specifications: [
-      { label: "Units", value: "135 Apartments" },
-      { label: "Total Area", value: "2,04,000 sq ft" },
-      { label: "Commencement", value: "Nov 2015" },
-      { label: "Completion", value: "Dec 2016" },
+      { label: "Structure", value: "RCC framed structure designed to withstand wind and seismic loads." },
+      { label: "Super Structure", value: "Light weight brick masonry in cement mortar." },
+      { label: "Plastering", value: "Plastering with sponge finish." },
+      { label: "Wood Work", value: "Main door: Teak wood frame and shutter with polish. Internal doors: Teak wood frames with flush shutter with paint finish and hardware of reputed brand. Windows: uPVC windows and French doors of reputed brand." },
+      { label: "Painting", value: "External: Two coats exterior acrylic emulsion of Asian paint or equivalent brand over one coat of primer. Internal: Smooth wall putty finish with acrylic emulsion of Asian paints or equivalent brand over one coat primer." },
+      { label: "Toilets", value: "All toilets will consist of EWC with flush tank of Hindustan/Parryware or equivalent brand. Hot & Cold water mixer with showers. Provision for geysers in all toilets. Chrome plated CP fittings Jaguar/Mark/Plumber or equivalent brand." },
+      { label: "Plumbing", value: "Concealed best quality PVC / CPVC / uPVC pipes." },
+      { label: "Flooring", value: "Vitrified Tiles in Living, Dining, Bedroom & Kitchen. Acid-resistant, anti-skid ceramic tiles in bathrooms. Glazed ceramic tiles dado up to 7' height in bathrooms and 3' height in utility/wash." },
+      { label: "Electrical", value: "Concealed copper wiring of Anchor or equivalent. Power outlets for air-conditioners in all bedrooms. Power plugs for cooking range, chimney, refrigerator, microwave oven, and mixer/grinder in kitchen. Miniature circuit breakers (MCB) for each distribution board. Modular switches of Legrand or equivalent." },
+      { label: "Kitchen", value: "Provision for supply of treated and sweet water connections at one point with provision for fixing water purifiers, exhaust fan, and chimney." },
+      { label: "Intercom", value: "Telephone points in master bedroom and living areas, intercom facility connecting with the security." },
+      { label: "Cable TV", value: "Provision for cable TV connection in living room and master bedroom." },
+      { label: "Lifts", value: "High speed automatic passenger lifts with rescue device room." },
+      { label: "Generators", value: "D.G. set back-up with acoustic enclosure & AMF for common areas, lifts, pumps, essential areas and selected points in each flat (800 watts)." }
     ],
     proximity: [
-      { label: "Gannavaram Airport", distance: "3 km" },
-      { label: "Vijayawada Bus Stand", distance: "10 km" },
-      { label: "Schools & Colleges", distance: "2 km" },
-      { label: "Government Hospital", distance: "3 km" },
+      { label: "National Highway (NH-16 / NH-65 ORR)", distance: "700 meters" },
+      { label: "Bus Stop / Public Transport", distance: "500 meters" },
+      { label: "Pinnamaneni Siddhartha Medical College", distance: "Close proximity (Walking distance)" },
+      { label: "Gannavaram International Airport", distance: "4 km" },
+      { label: "Vijayawada Bus Stand (PNBS)", distance: "10 km" }
     ],
     floorPlans: [
-      { type: "2 BHK", sqft: 1080, image: img(3) },
-      { type: "3 BHK", sqft: 1720, image: img(1) },
+      { type: "Master Layout Plan", sqft: 204000, image: anjaniLayout },
+      { type: "Floor Plan 01 (Typical)", sqft: 1080, image: anjaniFloor1 },
+      { type: "Floor Plan 02 (Typical)", sqft: 1400, image: anjaniFloor2 },
+      { type: "Floor Plan 03 (Typical)", sqft: 1720, image: anjaniFloor3 }
     ],
+    brochureUrl: anjaniBrochure,
   },
   // ── 16 ──────────────────────────────────────────────
   {
