@@ -16,6 +16,7 @@ import prideFloorF from "@/assets/pride-floor-f.jpg";
 import prideFloorG from "@/assets/pride-floor-g.jpg";
 import prideLayout from "@/assets/pride-layout.jpg";
 import prideBrochure from "@/assets/Slv-Amaravathi-Pride.pdf";
+import amaravathiGrandBrochure from "@/assets/SLV-Amaravathi-Grand-2.pdf";
 
 import gmAerial from "@/assets/gm-aerial.jpg";
 import gmBaBlock from "@/assets/gm-ba-block.jpg";
@@ -1071,6 +1072,7 @@ export const projects: Project[] = [
       { type: "Block C Floor Plan (Typical)", sqft: 3320, image: ag2FloorC },
       { type: "Site Plan Layout", sqft: 440000, image: ag2SitePlan },
     ],
+    brochureUrl: amaravathiGrandBrochure,
   },
   // ── 22 ──────────────────────────────────────────────
   {
