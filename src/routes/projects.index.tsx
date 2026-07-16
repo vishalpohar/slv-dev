@@ -114,17 +114,7 @@ function ProjectsPage() {
               </p>
               <div className="flex flex-wrap gap-2">
                 {categoryFilters.map((c) => (
-                  <FilterPill
-                    key={c}
-                    active={category === c}
-                    onClick={() => {
-                      navigate({
-                        search: {
-                          status: c === "All" ? undefined : c.toLowerCase(),
-                        },
-                      });
-                    }}
-                  >
+                  <FilterPill key={c} active={category === c} onClick={() => setCategory(c)}>
                     {c}
                   </FilterPill>
                 ))}
