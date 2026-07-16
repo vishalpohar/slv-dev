@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useRouterState } from "@tanstack/react-router";
 import { MapPin, Phone, Mail, MessageCircle, ArrowUpRight, Crown } from "lucide-react";
 import slvLogo from "@/assets/slv-logo.png";
 
@@ -24,6 +24,16 @@ const projectLinks = [
 ] as const;
 
 export function Footer() {
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+
+  const scrollToTopIfSamePage = (target: string) => {
+    if (pathname === target) {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    }
+  };
   return (
     <footer
       className="relative mt-24 overflow-hidden text-white"
@@ -96,6 +106,7 @@ export function Footer() {
               <li key={l.label}>
                 <Link
                   to={l.to}
+                  onClick={() => scrollToTopIfSamePage(l.to)}
                   className="group inline-flex items-center gap-1.5 text-sm text-white/55 transition-all duration-300 hover:text-gold"
                 >
                   <span className="hover-gold-line">{l.label}</span>
@@ -118,6 +129,7 @@ export function Footer() {
               <li key={l.label}>
                 <Link
                   to={l.to}
+                  onClick={() => scrollToTopIfSamePage(l.to)}
                   className="group inline-flex items-center gap-1.5 text-sm text-white/55 transition-all duration-300 hover:text-gold"
                 >
                   <span>{l.label}</span>
@@ -136,10 +148,12 @@ export function Footer() {
               <li key={l.label}>
                 <Link
                   to={l.to}
+                  onClick={() => scrollToTopIfSamePage(l.to)}
                   search={l.search}
-                  className="text-sm text-white/55 transition-all duration-300 hover:text-gold"
+                  className="group inline-flex items-center gap-1.5 text-sm text-white/55 transition-all duration-300 hover:text-gold"
                 >
-                  {l.label}
+                  <span>{l.label}</span>
+                  <ArrowUpRight className="h-3.5 w-3.5 opacity-0 transition-all duration-300 group-hover:opacity-100" />
                 </Link>
               </li>
             ))}

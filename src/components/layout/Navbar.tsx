@@ -28,23 +28,11 @@ const workLinks = [
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-  const [desktopOurStoryOpen, setDesktopOurStoryOpen] = useState(false);
-  const [desktopWorkOpen, setDesktopWorkOpen] = useState(false);
   const [mobileOurStoryOpen, setMobileOurStoryOpen] = useState(false);
   const [mobileProjectsOpen, setMobileProjectsOpen] = useState(false);
   const [mobileWorkOpen, setMobileWorkOpen] = useState(false);
 
   const pathname = useRouterState({ select: (s) => s.location.pathname });
-
-  const handleDesktopOurStory = () => {
-    setDesktopOurStoryOpen(!desktopOurStoryOpen);
-    setDesktopWorkOpen(false);
-  };
-
-  const handleDesktopWorkOpen = () => {
-    setDesktopWorkOpen(!desktopWorkOpen);
-    setDesktopOurStoryOpen(false);
-  };
 
   const scrollToTopIfSamePage = (target: string) => {
     if (pathname === target) {
@@ -161,7 +149,6 @@ export function Navbar() {
                       to={item.to}
                       onClick={() => {
                         scrollToTopIfSamePage(item.to);
-                        setDesktopOurStoryOpen(false);
                       }}
                       className="flex items-center justify-between text-sm text-white/70 hover:text-gold"
                     >
@@ -225,7 +212,6 @@ export function Navbar() {
                       to={item.to}
                       onClick={() => {
                         scrollToTopIfSamePage(item.to);
-                        setDesktopWorkOpen(false);
                       }}
                       className="flex items-center justify-between text-sm text-white/70 hover:text-gold"
                     >
