@@ -1,8 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Eye, Rocket, PenTool, ArrowRight, Quote } from "lucide-react";
 import { Reveal } from "@/components/Reveal";
-import heroImage from "@/assets/hero-1.jpg";
-import journey1 from "@/assets/project-1.jpg";
+import heroImage from "@/assets/about_slv.jpg";
+import amaravathi from "@/assets/amaravathi.png";
 import journey2 from "@/assets/project-2.jpg";
 import journey3 from "@/assets/project-3.jpg";
 
@@ -18,7 +18,7 @@ export const Route = createFileRoute("/about")({
       { property: "og:title", content: "About SLV Builders & Developers" },
       {
         property: "og:description",
-        content: "19 years of building trusted homes across Andhra Pradesh.",
+        content: "20 years of building trusted homes across Andhra Pradesh.",
       },
       { property: "og:image", content: heroImage },
     ],
@@ -36,7 +36,11 @@ const stats = [
 const pillars = [
   { letter: "T", title: "Trust", desc: "Earned at every handshake, walkthrough, and handover." },
   { letter: "T", title: "Teamwork", desc: "Architects, engineers, and managers moving as one." },
-  { letter: "T", title: "Timely Delivery", desc: "Every project handed over on the promised date." },
+  {
+    letter: "T",
+    title: "Timely Delivery",
+    desc: "Every project handed over on the promised date.",
+  },
   { letter: "T", title: "Transparency", desc: "Clear titles, clear pricing, and no surprises." },
 ];
 
@@ -44,14 +48,14 @@ const journey = [
   {
     year: "2007",
     title: "Where It All Began",
-    img: journey1,
+    img: amaravathi,
     desc: "SLV Group was founded in Bhimavaram with a single intent — providing affordable housing and lands to families who dreamed of a home of their own.",
   },
   {
     year: "2015",
     title: "Into the Capital City",
     img: journey2,
-    desc: "After a decade of building trust, SLV stepped into Vijayawada with 'SLV Anjani Heights' — a gated community that was the first of its kind in the capital region.",
+    desc: "With over a decade of trust and excellence, SLV entered Vijayawada under the divine blessings of **Sri Mavullamma Thalli**, introducing **SLV Anjani Heights**—the capital region's first premium gated community, setting a new benchmark for modern living.",
   },
   {
     year: "Today",
@@ -70,11 +74,25 @@ function AboutPage() {
           <Reveal>
             <p className="section-label text-gold">About SLV Developers</p>
             <h1 className="mt-6 font-display leading-tight text-foreground">
-              <span className="inline-flex items-start overflow-visible pb-3 pt-2 sm:pb-5">
-                <span className="block text-[7rem] font-bold leading-none text-gradient-gold drop-shadow-[0_6px_34px_rgba(212,175,55,0.42)] sm:text-[10rem] lg:text-[11rem]">20</span>
-                <span className="ml-2 mt-5 block text-4xl font-bold leading-none text-gold drop-shadow-[0_4px_18px_rgba(212,175,55,0.35)] sm:mt-8 sm:text-6xl">+</span>
+              <span className="inline-flex items-end gap-2 overflow-visible">
+                <span
+                  className="-mb-1 text-[3rem] italic font-medium text-gradient-gold sm:text-[4rem] lg:text-[4.5rem]"
+                  style={{
+                    fontFamily: "'Cormorant Garamond', serif",
+                  }}
+                >
+                  near
+                </span>
+
+                <span className="-mb-3 text-[7rem] font-semibold leading-none text-gradient-gold drop-shadow-[0_6px_34px_rgba(212,175,55,0.42)] sm:text-[10rem] lg:text-[11rem]">
+                  20
+                </span>
               </span>
-              <span className="block text-2xl italic leading-tight sm:text-4xl">years of</span>
+
+              <span className="block text-2xl italic tracking-[0.15em] text-foreground/80 sm:text-4xl">
+                years of
+              </span>
+
               <span className="block text-4xl font-bold uppercase tracking-tight sm:text-6xl">
                 Trusted Legacy
               </span>
@@ -140,7 +158,9 @@ function AboutPage() {
               <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-gold text-gold-foreground">
                 <Eye className="h-6 w-6" />
               </span>
-              <h3 className="mt-6 font-display text-2xl font-semibold text-foreground">Our Vision</h3>
+              <h3 className="mt-6 font-display text-2xl font-semibold text-foreground">
+                Our Vision
+              </h3>
               <p className="mt-3 leading-relaxed text-muted-foreground">
                 To become the first choice for those who wish to acquire a dream property — and the
                 sought-after name in the construction industry.
@@ -152,7 +172,9 @@ function AboutPage() {
               <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-gold text-gold-foreground">
                 <Rocket className="h-6 w-6" />
               </span>
-              <h3 className="mt-6 font-display text-2xl font-semibold text-foreground">Our Mission</h3>
+              <h3 className="mt-6 font-display text-2xl font-semibold text-foreground">
+                Our Mission
+              </h3>
               <p className="mt-3 leading-relaxed text-muted-foreground">
                 To evolve with our customers' requirements, providing them contemporary, sustainable
                 dwellings through the highest standards of quality and workmanship.
@@ -203,6 +225,7 @@ function AboutPage() {
             </div>
             <Link
               to="/projects"
+              search={{ status: undefined }}
               className="group inline-flex items-center gap-2 text-sm font-semibold text-foreground"
             >
               Explore Our Projects

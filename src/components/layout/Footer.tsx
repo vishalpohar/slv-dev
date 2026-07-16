@@ -1,11 +1,10 @@
 import { Link } from "@tanstack/react-router";
-import { useState } from "react";
-import { MapPin, Phone, Mail, MessageCircle, ArrowUpRight, Crown, ChevronDown } from "lucide-react";
+import { MapPin, Phone, Mail, MessageCircle, ArrowUpRight, Crown } from "lucide-react";
 import slvLogo from "@/assets/slv-logo.png";
 
 const ourStory = [
   { label: "About Us", to: "/about" },
-  { label: "Management", to: "/about" },
+  // { label: "Management", to: "/about" },
   { label: "Gallery", to: "/projects" },
   { label: "Buyer's Guide", to: "/buyers-guide" },
 ] as const;
@@ -19,15 +18,12 @@ const workWithUs = [
 ] as const;
 
 const projectLinks = [
-  { label: "Ongoing Projects", to: "/projects" },
-  { label: "Upcoming Projects", to: "/projects" },
-  { label: "Completed Projects", to: "/projects" },
+  { label: "Ongoing Projects", to: "/projects", search: { status: "ongoing" } },
+  { label: "Upcoming Projects", to: "/projects", search: { status: "upcoming" } },
+  { label: "Completed Projects", to: "/projects", search: { status: "completed" } },
 ] as const;
 
 export function Footer() {
-  const [ourStoryOpen, setOurStoryOpen] = useState(false);
-  const [workOpen, setWorkOpen] = useState(false);
-  const [projectsOpen, setProjectsOpen] = useState(false);
   return (
     <footer
       className="relative mt-24 overflow-hidden text-white"
@@ -59,136 +55,97 @@ export function Footer() {
         </div>
       </div>
 
-      <div className="w-full mx-auto max-w-[750px] p-6 flex flex-col items-center">
+      <div className="mx-auto grid max-w-7xl gap-12 px-6 py-16 lg:grid-cols-[1.5fr_1fr_1fr_1fr]">
         {/* Brand column */}
-        <span className="inline-flex rounded-2xl px-4 py-3 shadow-lg">
-          <img src={slvLogo} alt="SLV Builders & Developers" className="h-10 w-auto" />
-        </span>
-        <p className="mt-6 max-w-2xl text-sm text-center leading-relaxed text-white/55">
-          SLV strives to develop high-quality properties in prime locations at an affordable price.
-          With a focus on functional, cutting-edge architecture and premium materials, we make
-          luxurious urban living possible — masterpieces in their own right.
-        </p>
+        <div>
+          <span className="inline-flex rounded-2xl px-4 py-3 shadow-lg">
+            <img src={slvLogo} alt="SLV Builders & Developers" className="h-10 w-auto" />
+          </span>
+          <p className="mt-6 max-w-sm text-sm leading-relaxed text-white/55">
+            SLV strives to develop high-quality properties in prime locations at an affordable
+            price. With a focus on functional, cutting-edge architecture and premium materials, we
+            make luxurious urban living possible — masterpieces in their own right.
+          </p>
 
-        {/* Certification badges */}
-        <div className="mt-7 flex flex-wrap gap-2">
-          {["RERA", "CREDAI", "IGBC", "NAREDCO"].map((b) => (
-            <span
-              key={b}
-              className="rounded-lg px-3 py-1.5 text-[0.62rem] font-bold uppercase tracking-widest text-white/60 transition-all duration-300 hover:text-gold"
-              style={{
-                background: "rgba(255,255,255,0.06)",
-                border: "1px solid rgba(255,255,255,0.1)",
-              }}
-            >
-              {b}
-            </span>
-          ))}
+          {/* Certification badges */}
+          <div className="mt-7 flex flex-wrap gap-2">
+            {["RERA", "CREDAI", "IGBC", "NAREDCO"].map((b) => (
+              <span
+                key={b}
+                className="rounded-lg px-3 py-1.5 text-[0.62rem] font-bold uppercase tracking-widest text-white/60 transition-all duration-300 hover:text-gold"
+                style={{
+                  background: "rgba(255,255,255,0.06)",
+                  border: "1px solid rgba(255,255,255,0.1)",
+                }}
+              >
+                {b}
+              </span>
+            ))}
+          </div>
         </div>
-      </div>
 
-      <div className="w-full mx-auto grid max-w-[725px] gap-6 px-6 py-4 md:grid-cols-[1fr_1fr_1fr]">
         {/* Our Story */}
-        <div className="relative">
-          <button
-            onClick={() => setOurStoryOpen(!ourStoryOpen)}
-            className="flex items-center gap-2 section-label text-gold tracking-[0.28em]"
-          >
-            Our Story
-            <ChevronDown
-              className={`h-3 w-3 transition-transform duration-300 ${
-                ourStoryOpen ? "rotate-180" : ""
-              }`}
-            />
-          </button>
-
-          {ourStoryOpen && (
-            <div className="mt-4 min-w-[210px] rounded-2xl backdrop-blur-xl">
-              <ul className="space-y-3">
-                {ourStory.map((l) => (
-                  <li key={l.label}>
-                    <Link
-                      to={l.to}
-                      className="group inline-flex items-center gap-1.5 text-sm text-white/55 transition-all duration-300 hover:text-gold"
-                    >
-                      <span className="hover-gold-line">{l.label}</span>
-                      <ArrowUpRight className="h-3.5 w-3.5 opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
+        <div>
+          <h4 className="section-label text-gold tracking-[0.28em]">Our Story</h4>
+          <div
+            className="mt-2 h-px w-8 opacity-40"
+            style={{ background: "var(--gradient-gold)" }}
+          />
+          <ul className="mt-6 space-y-3.5">
+            {ourStory.map((l) => (
+              <li key={l.label}>
+                <Link
+                  to={l.to}
+                  className="group inline-flex items-center gap-1.5 text-sm text-white/55 transition-all duration-300 hover:text-gold"
+                >
+                  <span className="hover-gold-line">{l.label}</span>
+                  <ArrowUpRight className="h-3.5 w-3.5 opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                </Link>
+              </li>
+            ))}
+          </ul>
         </div>
 
-        {/* Work With Us */}
-        <div className="relative">
-          <button
-            onClick={() => setWorkOpen(!workOpen)}
-            className="flex items-center gap-2 section-label text-gold tracking-[0.28em]"
-          >
-            Work With Us
-            <ChevronDown
-              className={`h-3 w-3 transition-transform duration-300 ${
-                workOpen ? "rotate-180" : ""
-              }`}
-            />
-          </button>
-
-          {workOpen && (
-            <div className="min-w-[210px] rounded-2xl backdrop-blur-xl">
-              <ul className="mt-4 space-y-3">
-                {workWithUs.map((l) => (
-                  <li key={l.label}>
-                    <Link
-                      to={l.to}
-                      className="group flex items-center justify-between rounded-lg py-1 text-sm text-white/60 transition-all duration-300 hover:bg-white/5 hover:text-gold"
-                    >
-                      <span>{l.label}</span>
-                      <ArrowUpRight className="h-3.5 w-3.5 opacity-0 transition-all duration-300 group-hover:opacity-100" />
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
+        {/* Work With Us + Projects */}
+        <div>
+          <h4 className="section-label text-gold tracking-[0.28em]">Work With Us</h4>
+          <div
+            className="mt-2 h-px w-8 opacity-40"
+            style={{ background: "var(--gradient-gold)" }}
+          />
+          <ul className="mt-6 space-y-3.5">
+            {workWithUs.map((l) => (
+              <li key={l.label}>
+                <Link
+                  to={l.to}
+                  className="group inline-flex items-center gap-1.5 text-sm text-white/55 transition-all duration-300 hover:text-gold"
+                >
+                  <span>{l.label}</span>
+                  <ArrowUpRight className="h-3.5 w-3.5 opacity-0 transition-all duration-300 group-hover:opacity-100" />
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <h4 className="section-label mt-10 text-gold tracking-[0.28em]">Projects</h4>
+          <div
+            className="mt-2 h-px w-8 opacity-40"
+            style={{ background: "var(--gradient-gold)" }}
+          />
+          <ul className="mt-6 space-y-3.5">
+            {projectLinks.map((l) => (
+              <li key={l.label}>
+                <Link
+                  to={l.to}
+                  search={l.search}
+                  className="text-sm text-white/55 transition-all duration-300 hover:text-gold"
+                >
+                  {l.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
         </div>
 
-        {/* Projects */}  
-        <div className="relative">
-          <button
-            onClick={() => setProjectsOpen(!projectsOpen)}
-            className="flex items-center gap-2 section-label text-gold tracking-[0.28em]"
-          >
-            Projects
-            <ChevronDown
-              className={`h-3 w-3 transition-transform duration-300 ${
-                projectsOpen ? "rotate-180" : ""
-              }`}
-            />
-          </button>
-
-          {projectsOpen && (
-            <div className="min-w-[210px] rounded-2xl backdrop-blur-xl">
-              <ul className="mt-4 space-y-3">
-                {projectLinks.map((l) => (
-                  <li key={l.label}>
-                    <Link
-                      to={l.to}
-                      className="group flex items-center justify-between rounded-lg py-1 text-sm text-white/60 transition-all duration-300 hover:bg-white/5 hover:text-gold"
-                    >
-                      <span>{l.label}</span>
-                      <ArrowUpRight className="h-3.5 w-3.5 opacity-0 transition-all duration-300 group-hover:opacity-100" />
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-        </div>
-      </div>
-
-      <div className="w-full mx-auto grid max-w-[725px] gap-8 px-6 py-4 md:grid-cols-[1fr_1fr]">
         {/* Contact */}
         <div>
           <h4 className="section-label text-gold tracking-[0.28em]">Registered Office</h4>
@@ -204,10 +161,8 @@ export function Footer() {
               Andhra Pradesh.
             </span>
           </p>
-        </div>
 
-        <div>
-          <h4 className="section-label text-gold tracking-[0.28em]">Connect</h4>
+          <h4 className="section-label mt-10 text-gold tracking-[0.28em]">Connect</h4>
           <div
             className="mt-2 h-px w-8 opacity-40"
             style={{ background: "var(--gradient-gold)" }}
@@ -268,7 +223,7 @@ export function Footer() {
         </div>
       </div>
 
-      {/* Bottom copyright bar */}
+      {/* Bottom strip */}
       <div style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-6 py-6 text-xs text-white/35 sm:flex-row">
           <p>

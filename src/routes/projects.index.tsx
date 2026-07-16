@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { SlidersHorizontal } from "lucide-react";
 import { PropertyCard } from "@/components/PropertyCard";
@@ -18,20 +18,54 @@ export const Route = createFileRoute("/projects/")({
       { property: "og:description", content: "Browse our curated portfolio of luxury residences." },
     ],
   }),
+  validateSearch: (search: Record<string, unknown>) => ({
+    status: search.status as string | undefined,
+  }),
   component: ProjectsPage,
 });
 
 const statusFilters: (ProjectStatus | "All")[] = ["All", "Ongoing", "Completed", "Upcoming"];
-const categoryFilters: (ProjectCategory | "All")[] = ["All", "Apartment", "Villa", "Plots", "Commercial", "Educational"];
+const categoryFilters: (ProjectCategory | "All")[] = [
+  "All",
+  "Apartment",
+  "Villa",
+  "Plots",
+  "Commercial",
+  "Educational",
+];
 
 function ProjectsPage() {
   const [status, setStatus] = useState<(typeof statusFilters)[number]>("All");
   const [category, setCategory] = useState<(typeof categoryFilters)[number]>("All");
   const [sort, setSort] = useState<"featured" | "price-asc" | "price-desc">("featured");
 
+  const search = Route.useSearch();
+  const navigate = Route.useNavigate();
+
+  useEffect(() => {
+    switch (search.status?.toLowerCase()) {
+      case "ongoing":
+        setStatus("Ongoing");
+        break;
+
+      case "completed":
+        setStatus("Completed");
+        break;
+
+      case "upcoming":
+        setStatus("Upcoming");
+        break;
+
+      default:
+        setStatus("All");
+    }
+  }, [search.status]);
+
   const filtered = useMemo(() => {
     let list = projects.filter(
-      (p) => (status === "All" || p.status === status) && (category === "All" || p.category === category),
+      (p) =>
+        (status === "All" || p.status === status) &&
+        (category === "All" || p.category === category),
     );
     if (sort === "price-asc") list = [...list].sort((a, b) => a.priceFrom - b.priceFrom);
     if (sort === "price-desc") list = [...list].sort((a, b) => b.priceFrom - a.priceFrom);
@@ -53,20 +87,44 @@ function ProjectsPage() {
         <div className="mt-10 rounded-3xl bg-card p-5 neu">
           <div className="flex flex-wrap items-center gap-6">
             <div>
-              <p className="mb-2 text-[0.65rem] uppercase tracking-wider text-muted-foreground">Status</p>
+              <p className="mb-2 text-[0.65rem] uppercase tracking-wider text-muted-foreground">
+                Status
+              </p>
               <div className="flex flex-wrap gap-2">
                 {statusFilters.map((s) => (
-                  <FilterPill key={s} active={status === s} onClick={() => setStatus(s)}>
+                  <FilterPill
+                    key={s}
+                    active={status === s}
+                    onClick={() => {
+                      navigate({
+                        search: {
+                          status: s === "All" ? undefined : s.toLowerCase(),
+                        },
+                      });
+                    }}
+                  >
                     {s}
                   </FilterPill>
                 ))}
               </div>
             </div>
             <div>
-              <p className="mb-2 text-[0.65rem] uppercase tracking-wider text-muted-foreground">Type</p>
+              <p className="mb-2 text-[0.65rem] uppercase tracking-wider text-muted-foreground">
+                Type
+              </p>
               <div className="flex flex-wrap gap-2">
                 {categoryFilters.map((c) => (
-                  <FilterPill key={c} active={category === c} onClick={() => setCategory(c)}>
+                  <FilterPill
+                    key={c}
+                    active={category === c}
+                    onClick={() => {
+                      navigate({
+                        search: {
+                          status: c === "All" ? undefined : c.toLowerCase(),
+                        },
+                      });
+                    }}
+                  >
                     {c}
                   </FilterPill>
                 ))}
@@ -90,7 +148,8 @@ function ProjectsPage() {
         </div>
 
         <p className="mt-8 text-sm text-muted-foreground">
-          Showing <span className="font-semibold text-foreground">{filtered.length}</span> residences
+          Showing <span className="font-semibold text-foreground">{filtered.length}</span>{" "}
+          residences
         </p>
 
         <div className="mt-6 grid gap-8 pb-12 md:grid-cols-2 lg:grid-cols-3">
@@ -99,7 +158,9 @@ function ProjectsPage() {
           ))}
         </div>
         {filtered.length === 0 && (
-          <p className="py-20 text-center text-muted-foreground">No residences match these filters yet.</p>
+          <p className="py-20 text-center text-muted-foreground">
+            No residences match these filters yet.
+          </p>
         )}
       </div>
     </div>
@@ -120,7 +181,9 @@ function FilterPill({
       onClick={onClick}
       className={cn(
         "rounded-xl px-4 py-2 text-sm font-medium transition-all",
-        active ? "bg-gradient-obsidian text-background" : "text-muted-foreground neu-sm hover:text-foreground",
+        active
+          ? "bg-gradient-obsidian text-background"
+          : "text-muted-foreground neu-sm hover:text-foreground",
       )}
     >
       {children}

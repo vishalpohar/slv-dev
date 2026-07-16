@@ -1,11 +1,13 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Quote, Crown, Award, Shield, TrendingUp } from "lucide-react";
+import { ArrowRight, Quote, Crown, Award, Shield, TrendingUp, Star, UserIcon } from "lucide-react";
 import { HeroSection } from "@/components/home/HeroSection";
 import { PropertyCard } from "@/components/PropertyCard";
 import { Reveal } from "@/components/Reveal";
 import { projects, testimonials } from "@/data/projects";
 import aboutImage from "@/assets/project-1.jpg";
 import aboutImage2 from "@/assets/project-2.jpg";
+import avatar from "@/assets/testimonials/user-icon.jpg";
+import thumbsUp from "@/assets/testimonials/thumbs-up.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -113,7 +115,7 @@ function Index() {
                   src={aboutImage}
                   alt="An SLV Builders gated community in the Vijayawada–Amaravati region"
                   loading="lazy"
-                  className="aspect-[3/4] w-full object-fill transition-transform duration-700 hover:scale-105"
+                  className="aspect-[3/4] w-full object-cover transition-transform duration-700 hover:scale-105"
                 />
               </div>
               <div className="mt-20 w-1/3 overflow-hidden rounded-md md:rounded-2xl shadow-xl">
@@ -121,7 +123,7 @@ function Index() {
                   src={aboutImage2}
                   alt="Interior detail of an SLV residence"
                   loading="lazy"
-                  className="aspect-[3/5] w-full object-fill transition-transform duration-700 hover:scale-105"
+                  className="aspect-[3/5] w-full object-cover transition-transform duration-700 hover:scale-105"
                 />
               </div>
             </div>
@@ -135,7 +137,9 @@ function Index() {
               }}
             >
               <p className="font-display text-2xl font-bold text-white">20+</p>
-              <p className="text-[0.65rem] uppercase tracking-widest text-white/60">Years of Trust</p>
+              <p className="text-[0.65rem] uppercase tracking-widest text-white/60">
+                Years of Trust
+              </p>
             </div>
           </div>
         </Reveal>
@@ -226,6 +230,7 @@ function Index() {
             </div>
             <Link
               to="/projects"
+              search={{ status: undefined }}
               className="group flex items-center gap-2 rounded-full border border-gold/30 px-5 py-2.5 text-sm font-bold text-foreground transition-all duration-300 hover:border-gold hover:bg-gradient-gold hover:text-gold-foreground"
             >
               View All Projects
@@ -361,6 +366,78 @@ function Index() {
         </Reveal>
       </section>
 
+      {/* ── Testimonial — optional ── */}
+      <section className="relative overflow-hidden pb-[250px]">
+        {/* Background glow */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute left-1/2 top-[65%] h-[400px] w-[400px] -translate-x-1/2 rounded-full bg-lime-400/20 blur-[120px]" />
+          <div className="absolute left-[45%] top-[20%] h-[260px] w-[260px] rounded-full bg-blue-500/15 blur-[100px]" />
+        </div>
+
+        <div className="relative mx-auto max-w-4xl px-6">
+          {/* Avatar */}
+          <div className="absolute left-20 -top-15 z-30">
+            <div className="h-32 w-32 overflow-hidden rounded-full border-[5px] border-white/20 bg-[#e5e4e0] shadow-2xl">
+              <img src={avatar} alt="Customer" className="h-full w-full object-cover" />
+            </div>
+          </div>
+
+          {/* Rating pill */}
+          <div className="absolute right-20 top-8 z-30">
+            <div className="flex items-center gap-1 rounded-full border border-white/15 bg-[#353535]/90 px-8 py-3 backdrop-blur-xl shadow-2xl">
+              {[...Array(5)].map((_, i) => (
+                <Star key={i} className="h-5 w-5 fill-yellow-400 text-yellow-400" />
+              ))}
+            </div>
+          </div>
+
+          {/* Main card */}
+          <div className="relative mt-24 overflow-visible rounded-[36px] border border-white/15 bg-[#1f1f1f]/80 px-16 py-24 backdrop-blur-xl shadow-[0_30px_100px_rgba(0,0,0,0.55)]">
+            {/* Holographic reflections */}
+            <div className="absolute left-0 top-0 h-full w-full overflow-hidden rounded-[36px]">
+              <div className="absolute left-[15%] top-[10%] h-32 w-32 rounded-full bg-blue-500/10 blur-[80px]" />
+              <div className="absolute right-[20%] top-[20%] h-40 w-40 rounded-full bg-purple-500/10 blur-[80px]" />
+              <div className="absolute bottom-[10%] left-[35%] h-40 w-40 rounded-full bg-lime-400/10 blur-[90px]" />
+            </div>
+
+            {/* Title */}
+            <h2
+              className="relative z-10 text-center text-6xl font-bold mt-4"
+              style={{
+                color: "#C8FF28",
+                textShadow: "0 0 30px rgba(200,255,40,0.35)",
+              }}
+            >
+              Awesome Work!
+            </h2>
+
+            {/* Quote */}
+            <p className="relative z-10 mx-auto mt-10 max-w-3xl text-center text-3xl leading-relaxed text-white/90">
+              I had a truly wonderful experience! I'm absolutely thrilled with the outstanding
+              outcome of the project. Everything exceeded my expectations!
+            </p>
+
+            {/* Customer */}
+            <div className="relative z-10 mt-12 text-center">
+              <p className="text-sm font-bold uppercase tracking-[0.35em] text-white">
+                John Carter
+              </p>
+
+              <p className="mt-2 text-xs uppercase tracking-[0.25em] text-white/50">
+                Luxury Villa Owner
+              </p>
+            </div>
+
+            {/* Chrome thumbs */}
+            <img
+              src={thumbsUp}
+              alt="Thumbs Up"
+              className="absolute -bottom-10 right-0 z-20 w-[230px] drop-shadow-[0_25px_50px_rgba(0,0,0,0.65)]"
+            />
+          </div>
+        </div>
+      </section>
+
       {/* ── Final CTA — split royal ── */}
       <section className="px-6 pb-24">
         <Reveal
@@ -415,6 +492,7 @@ function Index() {
             </Link>
             <Link
               to="/projects"
+              search={{ status: undefined }}
               className="flex items-center gap-3 rounded-2xl border border-white/20 px-10 py-5 text-xs font-bold uppercase tracking-[0.2em] text-white transition-all duration-300 hover:bg-white/10 hover:border-white/40"
             >
               Explore Projects
