@@ -56,6 +56,16 @@ import anjaniFloor2 from "@/assets/anjani-floor-2.jpg";
 import anjaniFloor3 from "@/assets/anjani-floor-3.jpg";
 import anjaniBrochure from "@/assets/SLV-Anjani-Heights-Brochure.pdf";
 
+import ssbgElevation1 from "@/assets/ssbg-elevation-1.jpg";
+import ssbgElevation2 from "@/assets/ssbg-elevation-2.jpg";
+import ssbgElevation3 from "@/assets/ssbg-elevation-3.jpg";
+import ssbgElevation4 from "@/assets/ssbg-elevation-4.jpg";
+import ssbgMasterPlan from "@/assets/ssbg-master-plan.jpg";
+import ssbgLayout from "@/assets/ssbg-layout.jpg";
+import ssbgFloorEast from "@/assets/ssbg-floor-east.jpg";
+import ssbgFloorWest from "@/assets/ssbg-floor-west.jpg";
+import ssbgBrochure from "@/assets/SLV-SSBG-Enclave-Brochure.pdf";
+
 export type ProjectStatus = "Ongoing" | "Completed" | "Upcoming";
 export type ProjectCategory = "Villa" | "Apartment" | "Plots" | "Commercial" | "Educational";
 
@@ -564,47 +574,72 @@ export const projects: Project[] = [
     id: "12",
     slug: "slv-ssbg-enclave",
     name: "SLV SSBG Enclave",
-    tagline: "99 premium residences redefining Bhimavaram living",
+    tagline: "99 signature style apartments — where comfort and convenience converge",
     category: "Apartment",
     status: "Completed",
     location: "Bhimavaram",
     city: "Bhimavaram",
     priceFrom: 4500000,
-    bedrooms: "2 & 3 BHK",
-    sqftFrom: 1200,
-    sqftTo: 2100,
-    launchDate: "Delivered Mar 2019",
-    image: img(3),
-    gallery: gallery(3),
+    bedrooms: "3 & 4 BHK",
+    sqftFrom: 1588,
+    sqftTo: 3125,
+    launchDate: "Delivered 2019",
+    image: ssbgElevation1,
+    gallery: [
+      ssbgElevation1,
+      ssbgElevation2,
+      ssbgElevation3,
+      ssbgElevation4,
+      ssbgMasterPlan,
+    ],
     description:
-      "SLV SSBG Enclave — the grandest project in Bhimavaram with 99 luxury residences across 1,98,000 sq ft. Completed in 2019, the project brought a new standard of gated community living to the city with a comprehensive amenity package.",
+      "SLV Gowri is a stunning collection of apartments with unique planning and architecture. Spread over 5 floors with 20 apartments on each, the 3 & 4 bedroom apartments offer the ultimate canvas for inspired living. We see things differently and seep through the perception that hometown is a different standard of living. Bringing you a home where luxury meets your roots and where you can enlighten yourself with the true comfort of home while experiencing a contemporary, purpose-built property. These light-filled enormous homes impart utmost comfort, with spectacular views enriched by nature.",
     amenities: [
-      "Grand Clubhouse",
-      "Swimming Pool",
-      "Gymnasium",
-      "Children's Park",
-      "Landscaped Gardens",
-      "Indoor Games",
-      "Gated Security",
+      "Gated Community with Grand Entrance",
+      "99 Signature Style Apartments",
+      "1588 to 3125 sft., 3 & 4 BHK Apartments",
+      "Covered Parking for all Apartments",
+      "Automatic Water Level Controller",
+      "Excellent Landscaping",
+      "Visitors Lounge",
+      "Mobile Phone Operated Main Gates",
+      "Indoor Swimming Pool with Separate Kids Pool",
+      "Gated Security & 24/7 CCTV",
       "Power Backup",
       "Rainwater Harvesting",
     ],
     specifications: [
-      { label: "Units", value: "99 Apartments" },
-      { label: "Total Area", value: "1,98,000 sq ft" },
-      { label: "Commencement", value: "May 2018" },
-      { label: "Completion", value: "Mar 2019" },
+      { label: "Structure", value: "RCC framed structure to withstand wind & seismic loads." },
+      { label: "Super Structure", value: "AAC blocks masonry with special adhesive." },
+      { label: "Plastering", value: "Plastering with sponge finish." },
+      { label: "Wood Work - Main Door", value: "Teak wood frames with teak wood shutter with polish and hardware of reputed make." },
+      { label: "Wood Work - Internal Doors", value: "Teak wood frames with flush shutter with paint finish & hardware of reputed make." },
+      { label: "Windows", value: "UPVC Windows and UPVC French doors of Rehau or equivalent make." },
+      { label: "Flooring", value: "Living, Dining, Bedroom & Kitchen with vitrified tiles of premium quality. Bathrooms with acid-resistant, anti-skid ceramic tiles." },
+      { label: "Cladding & Dadding", value: "Kitchen: Ceramic tiles dado up to 4' height above kitchen platform. Bathroom: Glazed ceramic tiles dado up to 7' height. Utility/Wash: Glazed ceramic tiles dado up to 3' height." },
+      { label: "Painting", value: "External: Two coats exterior acrylic emulsion paint of Asian or equivalent make over one coat of primer. Internal: Smooth wall putty finish with acrylic emulsion of Asian or equivalent make over one coat of primer." },
+      { label: "Toilets", value: "EWC with flush tank of Cera/Parry or equivalent make. Wash basin of Cera/Parryware or equivalent make. Hot & cold-water diverter system. Provision for geysers and exhaust fans. Chrome plated CP fittings of Jaquar/Mark/Plumber or equivalent make." },
+      { label: "Plumbing", value: "Concealed best quality PVC/CPVC/UPVC pipes of Ashirvad or equivalent make." },
+      { label: "Electrical", value: "3 Phase power supply for each flat with individual meter. Concealed copper wiring of anchor or equivalent make. Power outlets for AC in all bedrooms and main hall. MCBs for each distribution board. Modular switches of Legrand Arteor or equivalent make." },
+      { label: "Kitchen", value: "Provision for supply of treated and sweet water connections (MMC) at one point. Kitchen platform with black granite and sink of Carysil or equivalent make. Electrical provisions for fixing water purifier, exhaust fan and chimney." },
+      { label: "Intercom Connectivity", value: "Telephone points in Master Bedroom and Living rooms. Intercom facility connecting all flats and security." },
+      { label: "Cable TV", value: "Provision for cable connection in Living room." },
+      { label: "Lifts", value: "High speed automatic passenger lifts with rescue device with V3F for energy efficiency." },
+      { label: "Generators", value: "D.G. set back-up with acoustic enclosure & AMF for common areas, lifts, pumps, essential areas. Back-up of 500 watts for 3BHK & 800 watts for 4BHK for each flat supplied to select power points in all rooms." },
     ],
     proximity: [
-      { label: "Bhimavaram Town Centre", distance: "2 km" },
-      { label: "Schools", distance: "1 km" },
-      { label: "Hospital", distance: "2 km" },
-      { label: "Railway Station", distance: "3 km" },
+      { label: "Aditya School, Bhashyam School", distance: "Nearby" },
+      { label: "Bhimavaram Town Station & State Highways", distance: "5 km" },
+      { label: "Public & Private Buses", distance: "Easy connectivity" },
+      { label: "Hospitals & Markets", distance: "Close proximity" },
     ],
     floorPlans: [
-      { type: "2 BHK", sqft: 1200, image: img(3) },
-      { type: "3 BHK", sqft: 2100, image: img(1) },
+      { type: "Master Plan", sqft: 198000, image: ssbgLayout },
+      { type: "Typical Floor Plan", sqft: 1917, image: ssbgMasterPlan },
+      { type: "East Facing Floor Plan", sqft: 1917, image: ssbgFloorEast },
+      { type: "West Facing Floor Plan", sqft: 1911, image: ssbgFloorWest },
     ],
+    brochureUrl: ssbgBrochure,
   },
   // ── 13 ──────────────────────────────────────────────
   {
