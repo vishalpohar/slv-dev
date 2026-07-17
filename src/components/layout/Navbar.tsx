@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, Fragment } from "react";
 import { Link, useRouterState } from "@tanstack/react-router";
 import { Menu, X, Phone, Crown, ChevronDown, ArrowUpRight } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -8,7 +8,11 @@ const ourStoryLinks = [
   { label: "About Us", to: "/about" },
   // { label: "Management", to: "/about" },
   { label: "Gallery", to: "/projects" },
-  { label: "Buyer's Guide", to: "/buyers-guide" },
+];
+
+const buyersGuideLinks = [
+  { label: "EMI Calculator", to: "/emi-calculator" },
+  { label: "FAQ'S", to: "/faq" },
 ];
 
 const projectLinks = [
@@ -31,6 +35,7 @@ export function Navbar() {
   const [mobileOurStoryOpen, setMobileOurStoryOpen] = useState(false);
   const [mobileProjectsOpen, setMobileProjectsOpen] = useState(false);
   const [mobileWorkOpen, setMobileWorkOpen] = useState(false);
+  const [mobileBuyersGuideOpen, setMobileBuyersGuideOpen] = useState(false);
 
   const pathname = useRouterState({ select: (s) => s.location.pathname });
 
@@ -224,23 +229,36 @@ export function Navbar() {
             </div>
           </div>
 
-          {/* EMI */}
-          <Link
-            to="/emi-calculator"
-            onClick={() => scrollToTopIfSamePage("/emi-calculator")}
-            className={cn(
-              "rounded-lg px-3 py-2 text-[0.82rem] font-medium transition-all duration-300",
-              pathname === "/emi-calculator"
-                ? scrolled
-                  ? "text-foreground"
-                  : "text-white"
-                : scrolled
-                  ? "text-black/50 hover:text-foreground"
-                  : "text-white/70 hover:text-white",
-            )}
-          >
-            EMI Calculator
-          </Link>
+          {/* Buyer's Guide */}
+          <div className="relative group">
+            <button
+              className={cn(
+                "flex items-center gap-1 rounded-lg px-3 py-2 text-[0.82rem] font-medium transition-all duration-300 cursor-pointer",
+                scrolled ? "text-black/50 hover:text-foreground" : "text-white/70 hover:text-white",
+              )}
+            >
+              Buyer's Guide
+              <ChevronDown className="h-3 w-3 transition-transform group-hover:rotate-180" />
+            </button>
+
+            <div className="absolute left-0 top-full hidden min-w-[200px] rounded-2xl border border-white/10 bg-white shadow-xl p-2 group-hover:block">
+              {buyersGuideLinks.map((item, idx) => (
+                <Fragment key={item.label}>
+                  <Link
+                    to={item.to}
+                    onClick={() => scrollToTopIfSamePage(item.to)}
+                    className="flex items-center justify-between rounded-lg px-4 py-3 text-sm font-medium text-gray-700 hover:text-gold transition-colors"
+                  >
+                    {item.label}
+                    <ArrowUpRight className="h-3 w-3" />
+                  </Link>
+                  {idx < buyersGuideLinks.length - 1 && (
+                    <div className="mx-4 h-px bg-gray-100" />
+                  )}
+                </Fragment>
+              ))}
+            </div>
+          </div>
 
           {/* Contact */}
           <Link
@@ -376,13 +394,31 @@ export function Navbar() {
                 </Link>
               ))}
 
-            <Link
-              to="/emi-calculator"
-              onClick={() => scrollToTopIfSamePage("/emi-calculator")}
-              className="rounded-xl px-4 py-3 text-gold"
+            <button
+              onClick={() => setMobileBuyersGuideOpen((o) => !o)}
+              className="flex items-center justify-between rounded-xl px-4 py-3 text-gold"
             >
-              EMI Calculator
-            </Link>
+              Buyer's Guide
+              <ChevronDown
+                className={`h-4 w-4 transition-transform ${mobileBuyersGuideOpen ? "rotate-180" : ""}`}
+              />
+            </button>
+
+            {mobileBuyersGuideOpen &&
+              buyersGuideLinks.map((item) => (
+                <Link
+                  key={item.label}
+                  to={item.to}
+                  onClick={() => {
+                    scrollToTopIfSamePage(item.to);
+                    setMobileBuyersGuideOpen(false);
+                    setOpen((o) => !o);
+                  }}
+                  className="pl-8 py-2 text-sm text-gold/70"
+                >
+                  {item.label}
+                </Link>
+              ))}
 
             <Link
               to="/contact"
