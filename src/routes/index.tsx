@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Quote, Crown, Award, Shield, TrendingUp, Star, UserIcon } from "lucide-react";
+import { ArrowRight, Quote, Crown, Award, Shield, TrendingUp, Star } from "lucide-react";
 import { HeroSection } from "@/components/home/HeroSection";
 import { PropertyCard } from "@/components/PropertyCard";
 import { Reveal } from "@/components/Reveal";
@@ -230,7 +230,7 @@ function Index() {
             </div>
             <Link
               to="/projects"
-              search={{ status: undefined }}
+              search={{ status: "ongoing" }}
               className="group flex items-center gap-2 rounded-full border border-gold/30 px-5 py-2.5 text-sm font-bold text-foreground transition-all duration-300 hover:border-gold hover:bg-gradient-gold hover:text-gold-foreground"
             >
               View All Projects
@@ -239,7 +239,7 @@ function Index() {
           </Reveal>
 
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {projects.slice(0, 3).map((p, i) => (
+            {projects.filter(p => p.status === "Ongoing").slice(0, 3).map((p, i) => (
               <Reveal key={p.id} delay={i * 100}>
                 <PropertyCard project={p} />
               </Reveal>

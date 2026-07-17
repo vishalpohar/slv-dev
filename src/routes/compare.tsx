@@ -27,7 +27,7 @@ function ComparePage() {
         <p className="mt-2 max-w-md text-muted-foreground">
           Add up to 3 residences using the compare icon on any property card.
         </p>
-        <Link to="/projects" className="mt-6 rounded-xl bg-gradient-gold px-6 py-3 text-sm font-semibold text-gold-foreground">
+        <Link to="/projects" search={{ status: undefined }} className="mt-6 rounded-xl bg-gradient-gold px-6 py-3 text-sm font-semibold text-gold-foreground">
           Browse Projects
         </Link>
       </div>
