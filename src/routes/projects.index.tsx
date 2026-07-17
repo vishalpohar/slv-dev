@@ -1,6 +1,5 @@
 import { useMemo, useState, useEffect } from "react";
 import { createFileRoute } from "@tanstack/react-router";
-import { SlidersHorizontal } from "lucide-react";
 import { PropertyCard } from "@/components/PropertyCard";
 import { projects, type ProjectCategory, type ProjectStatus } from "@/data/projects";
 import { cn } from "@/lib/utils";
@@ -31,13 +30,11 @@ const categoryFilters: (ProjectCategory | "All")[] = [
   "Villa",
   "Plots",
   "Commercial",
-  "Educational",
 ];
 
 function ProjectsPage() {
   const [status, setStatus] = useState<(typeof statusFilters)[number]>("All");
   const [category, setCategory] = useState<(typeof categoryFilters)[number]>("All");
-  const [sort, setSort] = useState<"featured" | "price-asc" | "price-desc">("featured");
 
   const search = Route.useSearch();
   const navigate = Route.useNavigate();
@@ -62,15 +59,12 @@ function ProjectsPage() {
   }, [search.status]);
 
   const filtered = useMemo(() => {
-    let list = projects.filter(
+    return projects.filter(
       (p) =>
         (status === "All" || p.status === status) &&
         (category === "All" || p.category === category),
     );
-    if (sort === "price-asc") list = [...list].sort((a, b) => a.priceFrom - b.priceFrom);
-    if (sort === "price-desc") list = [...list].sort((a, b) => b.priceFrom - a.priceFrom);
-    return list;
-  }, [status, category, sort]);
+  }, [status, category]);
 
   return (
     <div className="pt-32">
@@ -120,20 +114,7 @@ function ProjectsPage() {
                 ))}
               </div>
             </div>
-            <div className="ml-auto">
-              <p className="mb-2 flex items-center gap-1.5 text-[0.65rem] uppercase tracking-wider text-muted-foreground">
-                <SlidersHorizontal className="h-3 w-3" /> Sort
-              </p>
-              <select
-                value={sort}
-                onChange={(e) => setSort(e.target.value as typeof sort)}
-                className="rounded-xl bg-background px-4 py-2.5 text-sm font-medium text-foreground neu-pressed focus:outline-none"
-              >
-                <option value="featured">Featured</option>
-                <option value="price-asc">Price: Low to High</option>
-                <option value="price-desc">Price: High to Low</option>
-              </select>
-            </div>
+
           </div>
         </div>
 
