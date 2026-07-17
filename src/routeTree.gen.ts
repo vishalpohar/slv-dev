@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as FaqRouteImport } from './routes/faq'
 import { Route as EmiCalculatorRouteImport } from './routes/emi-calculator'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CompareRouteImport } from './routes/compare'
@@ -24,6 +25,11 @@ import { Route as ApiChatRouteImport } from './routes/api/chat'
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FaqRoute = FaqRouteImport.update({
+  id: '/faq',
+  path: '/faq',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EmiCalculatorRoute = EmiCalculatorRouteImport.update({
@@ -85,6 +91,7 @@ export interface FileRoutesByFullPath {
   '/compare': typeof CompareRoute
   '/contact': typeof ContactRoute
   '/emi-calculator': typeof EmiCalculatorRoute
+  '/faq': typeof FaqRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/api/chat': typeof ApiChatRoute
   '/projects/$slug': typeof ProjectsSlugRoute
@@ -98,6 +105,7 @@ export interface FileRoutesByTo {
   '/compare': typeof CompareRoute
   '/contact': typeof ContactRoute
   '/emi-calculator': typeof EmiCalculatorRoute
+  '/faq': typeof FaqRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/api/chat': typeof ApiChatRoute
   '/projects/$slug': typeof ProjectsSlugRoute
@@ -112,6 +120,7 @@ export interface FileRoutesById {
   '/compare': typeof CompareRoute
   '/contact': typeof ContactRoute
   '/emi-calculator': typeof EmiCalculatorRoute
+  '/faq': typeof FaqRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/api/chat': typeof ApiChatRoute
   '/projects/$slug': typeof ProjectsSlugRoute
@@ -127,6 +136,7 @@ export interface FileRouteTypes {
     | '/compare'
     | '/contact'
     | '/emi-calculator'
+    | '/faq'
     | '/sitemap.xml'
     | '/api/chat'
     | '/projects/$slug'
@@ -140,6 +150,7 @@ export interface FileRouteTypes {
     | '/compare'
     | '/contact'
     | '/emi-calculator'
+    | '/faq'
     | '/sitemap.xml'
     | '/api/chat'
     | '/projects/$slug'
@@ -153,6 +164,7 @@ export interface FileRouteTypes {
     | '/compare'
     | '/contact'
     | '/emi-calculator'
+    | '/faq'
     | '/sitemap.xml'
     | '/api/chat'
     | '/projects/$slug'
@@ -167,6 +179,7 @@ export interface RootRouteChildren {
   CompareRoute: typeof CompareRoute
   ContactRoute: typeof ContactRoute
   EmiCalculatorRoute: typeof EmiCalculatorRoute
+  FaqRoute: typeof FaqRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   ApiChatRoute: typeof ApiChatRoute
   ProjectsSlugRoute: typeof ProjectsSlugRoute
@@ -180,6 +193,13 @@ declare module '@tanstack/react-router' {
       path: '/sitemap.xml'
       fullPath: '/sitemap.xml'
       preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/faq': {
+      id: '/faq'
+      path: '/faq'
+      fullPath: '/faq'
+      preLoaderRoute: typeof FaqRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/emi-calculator': {
@@ -263,6 +283,7 @@ const rootRouteChildren: RootRouteChildren = {
   CompareRoute: CompareRoute,
   ContactRoute: ContactRoute,
   EmiCalculatorRoute: EmiCalculatorRoute,
+  FaqRoute: FaqRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   ApiChatRoute: ApiChatRoute,
   ProjectsSlugRoute: ProjectsSlugRoute,
