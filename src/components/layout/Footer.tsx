@@ -23,6 +23,22 @@ const projectLinks = [
   { label: "Completed Projects", to: "/projects", search: { status: "completed" } },
 ] as const;
 
+const message = encodeURIComponent(
+  `Hello SLV Builders & Developers,
+
+I came across your website and I'm interested in learning more about your projects.
+
+Could you please share details regarding:
+• Available properties
+• Pricing and payment plans
+• Project locations
+• Site visit availability
+
+Looking forward to hearing from you.
+
+Thank you.`,
+);
+
 export function Footer() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
 
@@ -218,7 +234,7 @@ export function Footer() {
             </li>
             <li>
               <a
-                href="https://wa.me/919859595939"
+                href={`https://wa.me/919859595939?text=${message}`}
                 className="group flex items-center gap-3 transition-all duration-300 hover:text-gold"
               >
                 <span

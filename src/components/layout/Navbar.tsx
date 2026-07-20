@@ -252,9 +252,7 @@ export function Navbar() {
                     {item.label}
                     <ArrowUpRight className="h-3 w-3" />
                   </Link>
-                  {idx < buyersGuideLinks.length - 1 && (
-                    <div className="mx-4 h-px bg-gray-100" />
-                  )}
+                  {idx < buyersGuideLinks.length - 1 && <div className="mx-4 h-px bg-gray-100" />}
                 </Fragment>
               ))}
             </div>
@@ -317,7 +315,7 @@ export function Navbar() {
 
             <button
               onClick={() => setMobileOurStoryOpen((o) => !o)}
-              className="flex items-center justify-between rounded-xl px-4 py-3 text-gold"
+              className="flex items-center justify-between rounded-xl px-4 py-3 text-gold cursor-pointer"
             >
               Our Story
               <ChevronDown
@@ -343,7 +341,7 @@ export function Navbar() {
 
             <button
               onClick={() => setMobileProjectsOpen((o) => !o)}
-              className="flex items-center justify-between rounded-xl px-4 py-3 text-gold"
+              className="flex items-center justify-between rounded-xl px-4 py-3 text-gold cursor-pointer"
             >
               Projects
               <ChevronDown
@@ -370,7 +368,7 @@ export function Navbar() {
 
             <button
               onClick={() => setMobileWorkOpen((o) => !o)}
-              className="flex items-center justify-between rounded-xl px-4 py-3 text-gold"
+              className="flex items-center justify-between rounded-xl px-4 py-3 text-gold cursor-pointer"
             >
               Work With Us
               <ChevronDown
@@ -396,7 +394,7 @@ export function Navbar() {
 
             <button
               onClick={() => setMobileBuyersGuideOpen((o) => !o)}
-              className="flex items-center justify-between rounded-xl px-4 py-3 text-gold"
+              className="flex items-center justify-between rounded-xl px-4 py-3 text-gold cursor-pointer"
             >
               Buyer's Guide
               <ChevronDown

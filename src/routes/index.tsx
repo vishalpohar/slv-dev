@@ -65,6 +65,7 @@ const accolades = [
 
 function Index() {
   const featured = testimonials[0];
+  const ongoingProjects = projects.filter((p) => p.status === "Ongoing");
 
   return (
     <>
@@ -239,7 +240,7 @@ function Index() {
           </Reveal>
 
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {projects.slice(0, 3).map((p, i) => (
+            {ongoingProjects.slice(0, 3).map((p, i) => (
               <Reveal key={p.id} delay={i * 100}>
                 <PropertyCard project={p} />
               </Reveal>

@@ -49,7 +49,7 @@ export function HeroSection() {
       {/* Main content */}
       <div className="relative z-10 mx-auto w-full max-w-6xl px-6 pt-28 pb-4 text-center text-white">
         {/* Headline with word-by-word reveal and shimmer gold */}
-        <Link to="/projects">
+        <Link to="/projects" search={{ status: undefined }}>
           <button className="inline-flex items-center gap-2 animate-fade-up stagger-7 mx-auto rounded-full bg-gradient-gold px-8 py-4 text-sm font-bold text-black hover:shadow-lg hover:shadow-gold/30">
             <p>Explore Our Projects</p> <MoveRight />
           </button>
