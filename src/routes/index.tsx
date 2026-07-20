@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Quote, Crown, Award, Shield, TrendingUp, Star, UserIcon } from "lucide-react";
+import { ArrowRight, Quote, Crown, Award, Shield, TrendingUp, Star } from "lucide-react";
 import { HeroSection } from "@/components/home/HeroSection";
 import { PropertyCard } from "@/components/PropertyCard";
 import { Reveal } from "@/components/Reveal";
