@@ -231,7 +231,7 @@ function Index() {
             </div>
             <Link
               to="/projects"
-              search={{ status: "ongoing" }}
+              search={{ status: undefined }}
               className="group flex items-center gap-2 rounded-full border border-gold/30 px-5 py-2.5 text-sm font-bold text-foreground transition-all duration-300 hover:border-gold hover:bg-gradient-gold hover:text-gold-foreground"
             >
               View All Projects
