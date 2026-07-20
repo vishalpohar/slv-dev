@@ -7,7 +7,11 @@ export const Route = createFileRoute("/compare")({
   head: () => ({
     meta: [
       { title: "Compare Residences — SLV Builders" },
-      { name: "description", content: "Compare luxury residences side by side across price, area, amenities, and launch." },
+      {
+        name: "description",
+        content:
+          "Compare luxury residences side by side across price, area, amenities, and launch.",
+      },
     ],
   }),
   component: ComparePage,
@@ -23,11 +27,17 @@ function ComparePage() {
         <span className="flex h-16 w-16 items-center justify-center rounded-2xl bg-card neu text-gold">
           <Scale className="h-7 w-7" />
         </span>
-        <h1 className="mt-6 font-display text-3xl font-bold text-foreground">No residences to compare</h1>
+        <h1 className="mt-6 font-display text-3xl font-bold text-foreground">
+          No residences to compare
+        </h1>
         <p className="mt-2 max-w-md text-muted-foreground">
           Add up to 3 residences using the compare icon on any property card.
         </p>
-        <Link to="/projects" search={{ status: undefined }} className="mt-6 rounded-xl bg-gradient-gold px-6 py-3 text-sm font-semibold text-gold-foreground">
+        <Link
+          to="/projects"
+          search={{ status: undefined }}
+          className="mt-6 rounded-xl bg-gradient-gold px-6 py-3 text-sm font-semibold text-gold-foreground"
+        >
           Browse Projects
         </Link>
       </div>
@@ -37,7 +47,10 @@ function ComparePage() {
   const rows: { label: string; render: (p: (typeof selected)[number]) => React.ReactNode }[] = [
     { label: "Price From", render: (p) => formatPrice(p.priceFrom) },
     { label: "Configurations", render: (p) => p.bedrooms },
-    { label: "Area (sqft)", render: (p) => `${p.sqftFrom.toLocaleString()} - ${p.sqftTo.toLocaleString()}` },
+    {
+      label: "Area (sqft)",
+      render: (p) => `${p.sqftFrom.toLocaleString()} - ${p.sqftTo.toLocaleString()}`,
+    },
     { label: "Status", render: (p) => p.status },
     { label: "Location", render: (p) => `${p.location}, ${p.city}` },
     { label: "Launch", render: (p) => p.launchDate },
@@ -47,10 +60,15 @@ function ComparePage() {
   return (
     <div className="mx-auto max-w-7xl px-6 pb-12 pt-32">
       <p className="section-label text-gold">Side by Side</p>
-      <h1 className="mt-3 font-display text-4xl font-bold text-foreground sm:text-6xl">Compare Residences</h1>
+      <h1 className="mt-3 font-display text-4xl font-bold text-foreground sm:text-6xl">
+        Compare Residences
+      </h1>
 
       <div className="mt-10 overflow-x-auto">
-        <div className="grid min-w-[640px] gap-4" style={{ gridTemplateColumns: `200px repeat(${selected.length}, 1fr)` }}>
+        <div
+          className="grid min-w-[640px] gap-4"
+          style={{ gridTemplateColumns: `200px repeat(${selected.length}, 1fr)` }}
+        >
           <div />
           {selected.map((p) => (
             <div key={p.id} className="relative overflow-hidden rounded-3xl bg-card neu">
@@ -75,7 +93,10 @@ function ComparePage() {
                 {row.label}
               </div>
               {selected.map((p) => (
-                <div key={p.id} className="flex items-center rounded-2xl bg-card px-4 py-4 text-sm text-muted-foreground neu-sm">
+                <div
+                  key={p.id}
+                  className="flex items-center rounded-2xl bg-card px-4 py-4 text-sm text-muted-foreground neu-sm"
+                >
                   {row.render(p)}
                 </div>
               ))}

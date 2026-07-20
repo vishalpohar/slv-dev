@@ -32,24 +32,12 @@ const workLinks = [
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-  const [desktopOurStoryOpen, setDesktopOurStoryOpen] = useState(false);
-  const [desktopWorkOpen, setDesktopWorkOpen] = useState(false);
   const [mobileOurStoryOpen, setMobileOurStoryOpen] = useState(false);
   const [mobileProjectsOpen, setMobileProjectsOpen] = useState(false);
   const [mobileWorkOpen, setMobileWorkOpen] = useState(false);
   const [mobileBuyersGuideOpen, setMobileBuyersGuideOpen] = useState(false);
 
   const pathname = useRouterState({ select: (s) => s.location.pathname });
-
-  const handleDesktopOurStory = () => {
-    setDesktopOurStoryOpen(!desktopOurStoryOpen);
-    setDesktopWorkOpen(false);
-  };
-
-  const handleDesktopWorkOpen = () => {
-    setDesktopWorkOpen(!desktopWorkOpen);
-    setDesktopOurStoryOpen(false);
-  };
 
   const scrollToTopIfSamePage = (target: string) => {
     if (pathname === target) {
@@ -166,7 +154,6 @@ export function Navbar() {
                       to={item.to}
                       onClick={() => {
                         scrollToTopIfSamePage(item.to);
-                        setDesktopOurStoryOpen(false);
                       }}
                       className="flex items-center justify-between text-sm text-white/70 hover:text-gold"
                     >
@@ -230,7 +217,6 @@ export function Navbar() {
                       to={item.to}
                       onClick={() => {
                         scrollToTopIfSamePage(item.to);
-                        setDesktopWorkOpen(false);
                       }}
                       className="flex items-center justify-between text-sm text-white/70 hover:text-gold"
                     >
@@ -266,9 +252,7 @@ export function Navbar() {
                     {item.label}
                     <ArrowUpRight className="h-3 w-3" />
                   </Link>
-                  {idx < buyersGuideLinks.length - 1 && (
-                    <div className="mx-4 h-px bg-gray-100" />
-                  )}
+                  {idx < buyersGuideLinks.length - 1 && <div className="mx-4 h-px bg-gray-100" />}
                 </Fragment>
               ))}
             </div>
@@ -331,7 +315,7 @@ export function Navbar() {
 
             <button
               onClick={() => setMobileOurStoryOpen((o) => !o)}
-              className="flex items-center justify-between rounded-xl px-4 py-3 text-gold"
+              className="flex items-center justify-between rounded-xl px-4 py-3 text-gold cursor-pointer"
             >
               Our Story
               <ChevronDown
@@ -357,7 +341,7 @@ export function Navbar() {
 
             <button
               onClick={() => setMobileProjectsOpen((o) => !o)}
-              className="flex items-center justify-between rounded-xl px-4 py-3 text-gold"
+              className="flex items-center justify-between rounded-xl px-4 py-3 text-gold cursor-pointer"
             >
               Projects
               <ChevronDown
@@ -384,7 +368,7 @@ export function Navbar() {
 
             <button
               onClick={() => setMobileWorkOpen((o) => !o)}
-              className="flex items-center justify-between rounded-xl px-4 py-3 text-gold"
+              className="flex items-center justify-between rounded-xl px-4 py-3 text-gold cursor-pointer"
             >
               Work With Us
               <ChevronDown
@@ -410,7 +394,7 @@ export function Navbar() {
 
             <button
               onClick={() => setMobileBuyersGuideOpen((o) => !o)}
-              className="flex items-center justify-between rounded-xl px-4 py-3 text-gold"
+              className="flex items-center justify-between rounded-xl px-4 py-3 text-gold cursor-pointer"
             >
               Buyer's Guide
               <ChevronDown

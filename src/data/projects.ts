@@ -2,69 +2,69 @@ import project1 from "@/assets/project-1.jpg";
 import project2 from "@/assets/project-2.jpg";
 import project3 from "@/assets/project-3.jpg";
 
-import prideElevation1 from "@/assets/pride-elevation-1.jpg";
-import prideElevation2 from "@/assets/pride-elevation-2.jpg";
-import prideElevation3 from "@/assets/pride-elevation-3.jpg";
-import prideElevation4 from "@/assets/pride-elevation-4.jpg";
-import prideClubhouse from "@/assets/pride-clubhouse.jpg";
-import prideFloorA from "@/assets/pride-floor-a.jpg";
-import prideFloorB from "@/assets/pride-floor-b.jpg";
-import prideFloorC from "@/assets/pride-floor-c.jpg";
-import prideFloorD from "@/assets/pride-floor-d.jpg";
-import prideFloorE from "@/assets/pride-floor-e.jpg";
-import prideFloorF from "@/assets/pride-floor-f.jpg";
-import prideFloorG from "@/assets/pride-floor-g.jpg";
-import prideLayout from "@/assets/pride-layout.jpg";
-import prideBrochure from "@/assets/Slv-Amaravathi-Pride.pdf";
-import amaravathiGrandBrochure from "@/assets/SLV-Amaravathi-Grand-2.pdf";
+import prideElevation1 from "@/assets/projects/slv-amaravati-pride/pride-elevation-1.jpg";
+import prideElevation2 from "@/assets/projects/slv-amaravati-pride/pride-elevation-2.jpg";
+import prideElevation3 from "@/assets/projects/slv-amaravati-pride/pride-elevation-3.jpg";
+import prideElevation4 from "@/assets/projects/slv-amaravati-pride/pride-elevation-4.jpg";
+import prideClubhouse from "@/assets/projects/slv-amaravati-pride/pride-clubhouse.jpg";
+import prideFloorA from "@/assets/projects/slv-amaravati-pride/pride-floor-a.jpg";
+import prideFloorB from "@/assets/projects/slv-amaravati-pride/pride-floor-b.jpg";
+import prideFloorC from "@/assets/projects/slv-amaravati-pride/pride-floor-c.jpg";
+import prideFloorD from "@/assets/projects/slv-amaravati-pride/pride-floor-d.jpg";
+import prideFloorE from "@/assets/projects/slv-amaravati-pride/pride-floor-e.jpg";
+import prideFloorF from "@/assets/projects/slv-amaravati-pride/pride-floor-f.jpg";
+import prideFloorG from "@/assets/projects/slv-amaravati-pride/pride-floor-g.jpg";
+import prideLayout from "@/assets/projects/slv-amaravati-pride/pride-layout.jpg";
+import prideBrochure from "@/assets/projects/slv-amaravati-pride/Slv-Amaravathi-Pride.pdf";
 
-import gmAerial from "@/assets/gm-aerial.jpg";
-import gmBaBlock from "@/assets/gm-ba-block.jpg";
-import gmCBlock from "@/assets/gm-c-block.jpg";
-import gmClubhouse from "@/assets/gm-clubhouse.jpg";
-import gmClubhouseInterior from "@/assets/gm-clubhouse-interior.webp";
-import gmFloorEast1 from "@/assets/gm-floor-east1.webp";
-import gmFloorWest1 from "@/assets/gm-floor-west1.webp";
-import gmFloorEast2 from "@/assets/gm-floor-east2.webp";
-import gmFloorWest2 from "@/assets/gm-floor-west2.webp";
-import gmMasterLayout from "@/assets/gm-master-layout.webp";
-import gmLogoedImage from "@/assets/gl-Greenland-01.png";
+import gmAerial from "@/assets/projects/slv-green-meadows/gm-aerial.jpg";
+import gmBaBlock from "@/assets/projects/slv-green-meadows/gm-ba-block.jpg";
+import gmCBlock from "@/assets/projects/slv-green-meadows/gm-c-block.jpg";
+import gmClubhouse from "@/assets/projects/slv-green-meadows/gm-clubhouse.jpg";
+import gmClubhouseInterior from "@/assets/projects/slv-green-meadows/gm-clubhouse-interior.webp";
+import gmFloorEast1 from "@/assets/projects/slv-green-meadows/gm-floor-east1.webp";
+import gmFloorWest1 from "@/assets/projects/slv-green-meadows/gm-floor-west1.webp";
+import gmFloorEast2 from "@/assets/projects/slv-green-meadows/gm-floor-east2.webp";
+import gmFloorWest2 from "@/assets/projects/slv-green-meadows/gm-floor-west2.webp";
+import gmMasterLayout from "@/assets/projects/slv-green-meadows/gm-master-layout.webp";
+import gmLogoedImage from "@/assets/projects/slv-green-meadows/SLV_Green_Logoimg.png";
 
-import glLogo from "@/assets/gl-Greenland-01.png";
-import glLayout from "@/assets/gl-SLV-Greenlan_Layout-scaled.webp";
-import glLocationHighlights from "@/assets/gl-Location-Hignlights.webp";
-import glInfra from "@/assets/gl-SLV-Infra-01.png";
-import glWestFacing from "@/assets/gl-west-Faceing-1536x1424.webp";
+import glLogo from "@/assets/projects/slv-green-lands/gl-Greenland-01.png";
+import glLayout from "@/assets/projects/slv-green-lands/gl-SLV-Greenlan_Layout-scaled.webp";
+import glLocationHighlights from "@/assets/projects/slv-green-lands/gl-Location-Hignlights.webp";
+import glInfra from "@/assets/projects/slv-green-lands/gl-SLV-Infra-01.png";
+import glWestFacing from "@/assets/projects/slv-green-lands/gl-west-Faceing-1536x1424.webp";
 
-import ag2Aerial from "@/assets/ag2-aerial.jpg";
-import ag2BaBlock from "@/assets/ag2-ba-block.jpg";
-import ag2CBlock from "@/assets/ag2-c-block.jpg";
-import ag2Clubhouse from "@/assets/ag2-clubhouse.jpg";
-import ag2FloorA from "@/assets/ag2-floor-a.jpg";
-import ag2FloorB from "@/assets/ag2-floor-b.jpg";
-import ag2FloorC from "@/assets/ag2-floor-c.jpg";
-import ag2SitePlan from "@/assets/ag2-site-plan.jpg";
+import ag2Aerial from "@/assets/projects/amaravathi-grand-2/ag2-aerial.jpg";
+import ag2BaBlock from "@/assets/projects/amaravathi-grand-2/ag2-ba-block.jpg";
+import ag2CBlock from "@/assets/projects/amaravathi-grand-2/ag2-c-block.jpg";
+import ag2Clubhouse from "@/assets/projects/amaravathi-grand-2/ag2-clubhouse.jpg";
+import ag2FloorA from "@/assets/projects/amaravathi-grand-2/ag2-floor-a.jpg";
+import ag2FloorB from "@/assets/projects/amaravathi-grand-2/ag2-floor-b.jpg";
+import ag2FloorC from "@/assets/projects/amaravathi-grand-2/ag2-floor-c.jpg";
+import ag2SitePlan from "@/assets/projects/amaravathi-grand-2/ag2-site-plan.jpg";
+import amaravathiGrandBrochure from "@/assets/projects/amaravathi-grand-2/SLV-Amaravathi-Grand-2.pdf";
 
-import anjaniElevation1 from "@/assets/anjani-elevation-1.jpg";
-import anjaniElevation2 from "@/assets/anjani-elevation-2.jpg";
-import anjaniElevation3 from "@/assets/anjani-elevation-3.jpg";
-import anjaniElevation4 from "@/assets/anjani-elevation-4.jpg";
-import anjaniClubhouse from "@/assets/anjani-clubhouse.jpg";
-import anjaniLayout from "@/assets/anjani-layout.jpg";
-import anjaniFloor1 from "@/assets/anjani-floor-1.jpg";
-import anjaniFloor2 from "@/assets/anjani-floor-2.jpg";
-import anjaniFloor3 from "@/assets/anjani-floor-3.jpg";
-import anjaniBrochure from "@/assets/SLV-Anjani-Heights-Brochure.pdf";
+import anjaniElevation1 from "@/assets/projects/slv-anjani-heights/anjani-elevation-1.jpg";
+import anjaniElevation2 from "@/assets/projects/slv-anjani-heights/anjani-elevation-2.jpg";
+import anjaniElevation3 from "@/assets/projects/slv-anjani-heights/anjani-elevation-3.jpg";
+import anjaniElevation4 from "@/assets/projects/slv-anjani-heights/anjani-elevation-4.jpg";
+import anjaniClubhouse from "@/assets/projects/slv-anjani-heights/anjani-clubhouse.jpg";
+import anjaniLayout from "@/assets/projects/slv-anjani-heights/anjani-layout.jpg";
+import anjaniFloor1 from "@/assets/projects/slv-anjani-heights/anjani-floor-1.jpg";
+import anjaniFloor2 from "@/assets/projects/slv-anjani-heights/anjani-floor-2.jpg";
+import anjaniFloor3 from "@/assets/projects/slv-anjani-heights/anjani-floor-3.jpg";
+import anjaniBrochure from "@/assets/projects/slv-anjani-heights/SLV-Anjani-Heights-Brochure.pdf";
 
-import ssbgElevation1 from "@/assets/ssbg-elevation-1.jpg";
-import ssbgElevation2 from "@/assets/ssbg-elevation-2.jpg";
-import ssbgElevation3 from "@/assets/ssbg-elevation-3.jpg";
-import ssbgElevation4 from "@/assets/ssbg-elevation-4.jpg";
-import ssbgMasterPlan from "@/assets/ssbg-master-plan.jpg";
-import ssbgLayout from "@/assets/ssbg-layout.jpg";
-import ssbgFloorEast from "@/assets/ssbg-floor-east.jpg";
-import ssbgFloorWest from "@/assets/ssbg-floor-west.jpg";
-import ssbgBrochure from "@/assets/SLV-SSBG-Enclave-Brochure.pdf";
+import ssbgElevation1 from "@/assets/projects/slv-ssbg-enclave/ssbg-elevation-1.jpg";
+import ssbgElevation2 from "@/assets/projects/slv-ssbg-enclave/ssbg-elevation-2.jpg";
+import ssbgElevation3 from "@/assets/projects/slv-ssbg-enclave/ssbg-elevation-3.jpg";
+import ssbgElevation4 from "@/assets/projects/slv-ssbg-enclave/ssbg-elevation-4.jpg";
+import ssbgMasterPlan from "@/assets/projects/slv-ssbg-enclave/ssbg-master-plan.jpg";
+import ssbgLayout from "@/assets/projects/slv-ssbg-enclave/ssbg-layout.jpg";
+import ssbgFloorEast from "@/assets/projects/slv-ssbg-enclave/ssbg-floor-east.jpg";
+import ssbgFloorWest from "@/assets/projects/slv-ssbg-enclave/ssbg-floor-west.jpg";
+import ssbgBrochure from "@/assets/projects/slv-ssbg-enclave/SLV-SSBG-Enclave-Brochure.pdf";
 
 export type ProjectStatus = "Ongoing" | "Completed" | "Upcoming";
 export type ProjectCategory = "Villa" | "Apartment" | "Plots" | "Commercial" | "Educational";
@@ -123,12 +123,7 @@ export const projects: Project[] = [
     gallery: gallery(1),
     description:
       "SLV Tower was the first milestone of the SLV journey — a landmark 48-unit residential tower in Bhimavaram that set the standard for quality construction and timely delivery. Completed in 2008, the project established the brand's promise of reliability in the Coastal Andhra region.",
-    amenities: [
-      "Gated Security",
-      "Power Backup",
-      "Stilt Parking",
-      "Landscaped Entrance",
-    ],
+    amenities: ["Gated Security", "Power Backup", "Stilt Parking", "Landscaped Entrance"],
     specifications: [
       { label: "Units", value: "48 Apartments" },
       { label: "Total Area", value: "58,000 sq ft" },
@@ -165,12 +160,7 @@ export const projects: Project[] = [
     gallery: gallery(2),
     description:
       "SLV Rayalam offered 31 well-planned apartments to families seeking quality homes in Bhimavaram. Completed in 2010, the project reinforced SLV's reputation for honest construction and on-time handover.",
-    amenities: [
-      "Gated Security",
-      "Power Backup",
-      "Car Parking",
-      "Common Garden",
-    ],
+    amenities: ["Gated Security", "Power Backup", "Car Parking", "Common Garden"],
     specifications: [
       { label: "Units", value: "31 Apartments" },
       { label: "Total Area", value: "46,500 sq ft" },
@@ -250,12 +240,7 @@ export const projects: Project[] = [
     gallery: gallery(1),
     description:
       "SLV's foray into educational infrastructure — the Government ITI College at Undi showcases the company's commitment to social development beyond residential construction. Completed in 2010, the project was delivered with the same quality standards applied to SLV's residential portfolio.",
-    amenities: [
-      "Classrooms & Labs",
-      "Administrative Block",
-      "Boundary Wall",
-      "Parking Area",
-    ],
+    amenities: ["Classrooms & Labs", "Administrative Block", "Boundary Wall", "Parking Area"],
     specifications: [
       { label: "Type", value: "Educational Institution" },
       { label: "Total Area", value: "10,000 sq ft" },
@@ -268,9 +253,7 @@ export const projects: Project[] = [
       { label: "Bus Stand", distance: "1 km" },
       { label: "Hospital", distance: "3 km" },
     ],
-    floorPlans: [
-      { type: "Educational Block", sqft: 10000, image: img(1) },
-    ],
+    floorPlans: [{ type: "Educational Block", sqft: 10000, image: img(1) }],
   },
   // ── 5 ──────────────────────────────────────────────
   {
@@ -291,12 +274,7 @@ export const projects: Project[] = [
     gallery: gallery(2),
     description:
       "SLV Raghavendra Towers marked the group's expansion beyond Andhra Pradesh into Karnataka. The 30-unit project in Siriguppa was delivered in 2012, bringing SLV's trusted construction quality to a new region.",
-    amenities: [
-      "Gated Security",
-      "Power Backup",
-      "Car Parking",
-      "Common Garden",
-    ],
+    amenities: ["Gated Security", "Power Backup", "Car Parking", "Common Garden"],
     specifications: [
       { label: "Units", value: "30 Apartments" },
       { label: "Total Area", value: "35,000 sq ft" },
@@ -333,12 +311,7 @@ export const projects: Project[] = [
     gallery: gallery(3),
     description:
       "SLV Gangothri Towers — 34 homes in Bhimavaram built with the timeless values of quality and trust. Completed in 2012, the project delivered on its promise of spacious, well-finished apartments for families.",
-    amenities: [
-      "Gated Security",
-      "Power Backup",
-      "Stilt Parking",
-      "Landscaped Garden",
-    ],
+    amenities: ["Gated Security", "Power Backup", "Stilt Parking", "Landscaped Garden"],
     specifications: [
       { label: "Units", value: "34 Apartments" },
       { label: "Total Area", value: "50,000 sq ft" },
@@ -375,12 +348,7 @@ export const projects: Project[] = [
     gallery: gallery(1),
     description:
       "SLV Gokul Towers delivered 17 quality homes in Bhimavaram, continuing the company's tradition of building residences that stand the test of time. Completed in 2014, the project features spacious floor plans suited for growing families.",
-    amenities: [
-      "Gated Security",
-      "Power Backup",
-      "Car Parking",
-      "Common Space",
-    ],
+    amenities: ["Gated Security", "Power Backup", "Car Parking", "Common Space"],
     specifications: [
       { label: "Units", value: "17 Apartments" },
       { label: "Total Area", value: "25,000 sq ft" },
@@ -417,12 +385,7 @@ export const projects: Project[] = [
     gallery: gallery(2),
     description:
       "SLV Sagiranga Raju Towers honoured a legacy with 10 thoughtfully designed residences in Bhimavaram. Delivered in 2014 alongside Gokul Towers, the project exemplifies the builder's consistent approach to quality in every project regardless of scale.",
-    amenities: [
-      "Gated Security",
-      "Power Backup",
-      "Car Parking",
-      "Open Terrace",
-    ],
+    amenities: ["Gated Security", "Power Backup", "Car Parking", "Open Terrace"],
     specifications: [
       { label: "Units", value: "10 Apartments" },
       { label: "Total Area", value: "18,000 sq ft" },
@@ -459,12 +422,7 @@ export const projects: Project[] = [
     gallery: gallery(3),
     description:
       "SLV Sai Srushti Enclave — a serene enclave of 10 homes in Bhimavaram. Completed in 2014, the project brought affordable quality housing to families seeking a peaceful residential environment.",
-    amenities: [
-      "Gated Security",
-      "Power Backup",
-      "Car Parking",
-      "Garden Area",
-    ],
+    amenities: ["Gated Security", "Power Backup", "Car Parking", "Garden Area"],
     specifications: [
       { label: "Units", value: "10 Apartments" },
       { label: "Total Area", value: "13,000 sq ft" },
@@ -546,12 +504,7 @@ export const projects: Project[] = [
     gallery: gallery(2),
     description:
       "SLV Syam Enclave — 20 premium residences built with care for families who value quality and community. Completed in 2016, the project continues the SLV tradition of delivering homes that exceed expectations.",
-    amenities: [
-      "Gated Security",
-      "Power Backup",
-      "Car Parking",
-      "Landscaped Entrance",
-    ],
+    amenities: ["Gated Security", "Power Backup", "Car Parking", "Landscaped Entrance"],
     specifications: [
       { label: "Units", value: "20 Apartments" },
       { label: "Total Area", value: "32,000 sq ft" },
@@ -660,13 +613,7 @@ export const projects: Project[] = [
     gallery: gallery(1),
     description:
       "SLV Syam Complex — a landmark 40,000 sq ft commercial development in Bhimavaram. Completed in 2018, the complex provides premium retail and office spaces designed for businesses seeking a prestigious Bhimavaram address.",
-    amenities: [
-      "Ample Parking",
-      "Power Backup",
-      "Lifts",
-      "Security & CCTV",
-      "Fire Safety",
-    ],
+    amenities: ["Ample Parking", "Power Backup", "Lifts", "Security & CCTV", "Fire Safety"],
     specifications: [
       { label: "Type", value: "Commercial Complex" },
       { label: "Total Area", value: "40,000 sq ft" },
@@ -679,9 +626,7 @@ export const projects: Project[] = [
       { label: "Bus Stand", distance: "1 km" },
       { label: "Market", distance: "0.5 km" },
     ],
-    floorPlans: [
-      { type: "Commercial Unit", sqft: 40000, image: img(1) },
-    ],
+    floorPlans: [{ type: "Commercial Unit", sqft: 40000, image: img(1) }],
   },
   // ── 14 ──────────────────────────────────────────────
   {
@@ -870,13 +815,7 @@ export const projects: Project[] = [
     sqftTo: 1860,
     launchDate: "Ongoing — Dec 2025",
     image: prideElevation1,
-    gallery: [
-      prideElevation1,
-      prideElevation2,
-      prideElevation3,
-      prideElevation4,
-      prideClubhouse,
-    ],
+    gallery: [prideElevation1, prideElevation2, prideElevation3, prideElevation4, prideClubhouse],
     description:
       "Imagine being welcomed in a grandiose of a community full of glittering advantages. Imagine finding superlative lifestyle indulgences that you would gladly accept at SLV AMARAVATHI PRIDE. Lead a lifestyle in your spacious, sun-kissed and airy apartments that has enough room to accommodate your towering stature. 410 beautifully designed apartments enveloped in landscaped spaces, wide drive ways and of course a clubhouse which is studded with opulent features.",
     amenities: [
@@ -896,17 +835,53 @@ export const projects: Project[] = [
       "Rainwater Harvesting",
     ],
     specifications: [
-      { label: "Structure", value: "RCC framed structure designed to withstand wind and seismic loads." },
+      {
+        label: "Structure",
+        value: "RCC framed structure designed to withstand wind and seismic loads.",
+      },
       { label: "Super Structure", value: "ACC blocks masonry with special adhesive." },
-      { label: "Wood Work - Main Door", value: "Teak wood frames with teak wood shutter with polish and reputed hardware." },
-      { label: "Wood Work - Internal Doors", value: "Teak wood frames with flush shutter with paint finish and reputed hardware." },
-      { label: "Windows & French Doors", value: "UPVC windows and French doors of Rehau or equivalent make." },
-      { label: "Flooring", value: "Premium quality vitrified tiles in living, dining, bedroom, and kitchen. Acid-resistant, anti-skid ceramic tiles in bathrooms." },
-      { label: "Cladding & Dadoing", value: "Ceramic tiles dado up to 4' in kitchen, 7' in bathrooms, and 3' in utility/wash area." },
-      { label: "Kitchen", value: "Black granite platform with Carysil or equivalent sink. MMC sweet water connection and provisions for chimney, purifier, and exhaust." },
-      { label: "Painting", value: "Two coats exterior acrylic emulsion (external); smooth wall putty finish with acrylic emulsion (internal) of Asian or equivalent make." },
-      { label: "Toilets & CP Fittings", value: "Cera/Parryware sanitary ware. Jaquar/Mark/Plumber or equivalent chrome plated CP fittings. Hot and cold water diverter." },
-      { label: "Electrical & Cable TV", value: "3 Phase power supply. Concealed copper wiring with Legrand Arteor or equivalent modular switches. MCBs. TV point in Living." },
+      {
+        label: "Wood Work - Main Door",
+        value: "Teak wood frames with teak wood shutter with polish and reputed hardware.",
+      },
+      {
+        label: "Wood Work - Internal Doors",
+        value: "Teak wood frames with flush shutter with paint finish and reputed hardware.",
+      },
+      {
+        label: "Windows & French Doors",
+        value: "UPVC windows and French doors of Rehau or equivalent make.",
+      },
+      {
+        label: "Flooring",
+        value:
+          "Premium quality vitrified tiles in living, dining, bedroom, and kitchen. Acid-resistant, anti-skid ceramic tiles in bathrooms.",
+      },
+      {
+        label: "Cladding & Dadoing",
+        value:
+          "Ceramic tiles dado up to 4' in kitchen, 7' in bathrooms, and 3' in utility/wash area.",
+      },
+      {
+        label: "Kitchen",
+        value:
+          "Black granite platform with Carysil or equivalent sink. MMC sweet water connection and provisions for chimney, purifier, and exhaust.",
+      },
+      {
+        label: "Painting",
+        value:
+          "Two coats exterior acrylic emulsion (external); smooth wall putty finish with acrylic emulsion (internal) of Asian or equivalent make.",
+      },
+      {
+        label: "Toilets & CP Fittings",
+        value:
+          "Cera/Parryware sanitary ware. Jaquar/Mark/Plumber or equivalent chrome plated CP fittings. Hot and cold water diverter.",
+      },
+      {
+        label: "Electrical & Cable TV",
+        value:
+          "3 Phase power supply. Concealed copper wiring with Legrand Arteor or equivalent modular switches. MCBs. TV point in Living.",
+      },
     ],
     proximity: [
       { label: "Chennai-Kolkata Highway (NH-16)", distance: "100 meters (2 min)" },
@@ -1034,14 +1009,7 @@ export const projects: Project[] = [
     sqftTo: 1800,
     launchDate: "Delivered Dec 2022",
     image: gmLogoedImage,
-    gallery: [
-      gmLogoedImage,
-      gmAerial,
-      gmBaBlock,
-      gmCBlock,
-      gmClubhouse,
-      gmClubhouseInterior,
-    ],
+    gallery: [gmLogoedImage, gmAerial, gmBaBlock, gmCBlock, gmClubhouse, gmClubhouseInterior],
     description:
       "Minutes away from the Medha IT park and Ramavarappadu Junction, and miles away from the madness and hustle and bustle of the city, SLV Green Meadows is nestled in a serene abode of pristinely natural premises. Set in a picturesque location of greenery, SLV Green Meadows gives you a unique feeling of living in consonance with nature and lets you live on the frontier of excellence with its distinct amenities like Swimming Pool with Sundeck area, Indoor Games, Party Lawn with Barbeque Counter, Doctor on Call and various others. Located close to the major pulse points in the city, SLV Green Meadows connects you with all important places in a seamless route.",
     amenities: [
@@ -1063,12 +1031,35 @@ export const projects: Project[] = [
       "Power Backup & Solar Energy",
     ],
     specifications: [
-      { label: "Structure", value: "RCC framed structure designed to withstand wind and seismic loads." },
-      { label: "Flooring", value: "Premium quality vitrified tiles in living, dining, bedrooms, and kitchen. Anti-skid ceramic tiles in toilets." },
-      { label: "Doors & Windows", value: "Teak wood main door frame and shutter with polish. UPVC window frames with safety grills." },
-      { label: "Kitchen", value: "Black granite kitchen platform with stainless steel sink and sweet water connection." },
-      { label: "Electrical", value: "Concealed copper wiring with modular switches. MCB distribution board and generator backup." },
-      { label: "Painting", value: "Smooth wall putty finish with premium emulsion paints for interiors; weather-shield paint for exteriors." },
+      {
+        label: "Structure",
+        value: "RCC framed structure designed to withstand wind and seismic loads.",
+      },
+      {
+        label: "Flooring",
+        value:
+          "Premium quality vitrified tiles in living, dining, bedrooms, and kitchen. Anti-skid ceramic tiles in toilets.",
+      },
+      {
+        label: "Doors & Windows",
+        value:
+          "Teak wood main door frame and shutter with polish. UPVC window frames with safety grills.",
+      },
+      {
+        label: "Kitchen",
+        value:
+          "Black granite kitchen platform with stainless steel sink and sweet water connection.",
+      },
+      {
+        label: "Electrical",
+        value:
+          "Concealed copper wiring with modular switches. MCB distribution board and generator backup.",
+      },
+      {
+        label: "Painting",
+        value:
+          "Smooth wall putty finish with premium emulsion paints for interiors; weather-shield paint for exteriors.",
+      },
     ],
     proximity: [
       { label: "Ramavarappadu Junction & Flyover", distance: "500 meters (1 min)" },
@@ -1102,12 +1093,7 @@ export const projects: Project[] = [
     sqftTo: 3320,
     launchDate: "Delivered",
     image: ag2Aerial,
-    gallery: [
-      ag2Aerial,
-      ag2BaBlock,
-      ag2CBlock,
-      ag2Clubhouse,
-    ],
+    gallery: [ag2Aerial, ag2BaBlock, ag2CBlock, ag2Clubhouse],
     description:
       "It’s not any other house. It’s a royal home with a multitude of amenities and facilities that blow you off your feet. Opulence and luxury make their signature on every aspect of this extraordinary structure of elegance. Rediscover the true meaning of luxury and let it define your elevated lifestyle. Immerse yourself in an ambience that pays a befitting tribute to your distinguished presence. A true touchstone to your distinct persona, SLV Amaravathi Grand II premium residential gated community is an emblem of grandeur that makes you entitled to experience royal bliss in the truest sense of the word.",
     amenities: [
@@ -1133,7 +1119,11 @@ export const projects: Project[] = [
       { label: "Units", value: "160 Signature Style Apartments" },
       { label: "Sizes", value: "2032 to 3320 sq ft" },
       { label: "Apartment Types", value: "3 & 4 BHK" },
-      { label: "Site Address", value: "SLV Amaravathi Grand II, Sunrise Meadows, D.No: 49-4-21, Division - 1, Gunadala, Vijayawada - 520 004" },
+      {
+        label: "Site Address",
+        value:
+          "SLV Amaravathi Grand II, Sunrise Meadows, D.No: 49-4-21, Division - 1, Gunadala, Vijayawada - 520 004",
+      },
     ],
     proximity: [
       { label: "Ramavarappadu Junction", distance: "2 km" },
@@ -1305,12 +1295,7 @@ export const projects: Project[] = [
     sqftTo: 2700,
     launchDate: "Delivered",
     image: glLogo,
-    gallery: [
-      glLogo,
-      glLayout,
-      glLocationHighlights,
-      glInfra,
-    ],
+    gallery: [glLogo, glLayout, glLocationHighlights, glInfra],
     description:
       "Introducing SLV Green Lands: an extraordinary addition to our esteemed portfolio. Here, amidst the tranquil expanse of Guntupalli, Vijayawada lies your perfect abode. Within our project, we transcend mere luxury, offering mirrors that reflect the unique essence of every resident. Bask in the comfort of your home, where every detail whispers tales of comfort and contentment. This is SLV Green Lands – where you find a place worthy of being called your home.",
     amenities: [
@@ -1473,9 +1458,7 @@ export const projects: Project[] = [
       { label: "Banks & ATMs", distance: "0.3 km" },
       { label: "Hotels", distance: "1 km" },
     ],
-    floorPlans: [
-      { type: "Commercial Floor", sqft: 136500, image: img(1) },
-    ],
+    floorPlans: [{ type: "Commercial Floor", sqft: 136500, image: img(1) }],
   },
   // ── 29 ──────────────────────────────────────────────
   {
@@ -1518,9 +1501,7 @@ export const projects: Project[] = [
       { label: "Banks & ATMs", distance: "0.3 km" },
       { label: "Hotels", distance: "1 km" },
     ],
-    floorPlans: [
-      { type: "Commercial Floor", sqft: 245000, image: img(2) },
-    ],
+    floorPlans: [{ type: "Commercial Floor", sqft: 245000, image: img(2) }],
   },
   // ── 30 ──────────────────────────────────────────────
   {
@@ -1561,9 +1542,7 @@ export const projects: Project[] = [
       { label: "Banks", distance: "1 km" },
       { label: "Hospital", distance: "2 km" },
     ],
-    floorPlans: [
-      { type: "Commercial Floor", sqft: 137000, image: img(3) },
-    ],
+    floorPlans: [{ type: "Commercial Floor", sqft: 137000, image: img(3) }],
   },
   // ── 31 ──────────────────────────────────────────────
   {
