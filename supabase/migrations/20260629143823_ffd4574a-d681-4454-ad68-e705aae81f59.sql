@@ -2,7 +2,7 @@
 -- They are still usable inside RLS policy expressions (policy quals are not
 -- subject to per-caller EXECUTE checks), but can no longer be invoked via
 -- /rest/v1/rpc by anon or authenticated.
-REVOKE EXECUTE ON FUNCTION public.has_role(uuid, app_role) FROM anon, authenticated, public;
+REVOKE EXECUTE ON FUNCTION public.has_role(app_role, uuid) FROM anon, authenticated, public;
 REVOKE EXECUTE ON FUNCTION public.is_staff(uuid) FROM anon, authenticated, public;
 
 -- 2. Replace permissive always-true INSERT policies with validated checks.
