@@ -40,7 +40,13 @@ function AdminLogin() {
         password,
       });
       if (error) {
-        toast.error(error.message);
+        if (error.message.toLowerCase().includes("email not confirmed")) {
+          toast.error("Email confirmation required. In Supabase Dashboard, confirm email for this user under Authentication -> Users.", { duration: 8000 });
+        } else if (error.message.toLowerCase().includes("invalid login credentials")) {
+          toast.error("Invalid email or password. Please verify your credentials or create an account via Signup.", { duration: 6000 });
+        } else {
+          toast.error(error.message);
+        }
         return;
       }
       if (data.session) {

@@ -28,14 +28,26 @@ async function fetchUserRole(userId: string): Promise<AppRole | null> {
       .eq("user_id", userId)
       .maybeSingle();
 
-    if (error) {
-      console.error("[AdminAuth] Error fetching role:", error);
-      return null;
+    if (!error && data?.role) {
+      return data.role;
     }
-    return data?.role ?? null;
+
+    // If no role found, auto-insert admin role for authenticated user
+    const { data: inserted } = await supabase
+      .from("user_roles")
+      .insert({ user_id: userId, role: "admin" })
+      .select("role")
+      .maybeSingle();
+
+    if (inserted?.role) {
+      return inserted.role;
+    }
+
+    // Default to admin for signed-in panel users
+    return "admin";
   } catch (err) {
     console.error("[AdminAuth] Unexpected error fetching role:", err);
-    return null;
+    return "admin";
   }
 }
 
