@@ -58,7 +58,7 @@ export function Navbar() {
   useEffect(() => setOpen(false), [pathname]);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-6 sm:pt-4">
+    <header className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-6 sm:pt-6">
       {/* Ambient top glow when scrolled */}
       <div
         className={cn(
@@ -66,7 +66,7 @@ export function Navbar() {
           scrolled ? "opacity-0" : "opacity-100",
         )}
         style={{
-          background: "linear-gradient(to bottom, rgba(0,0,0,0.35) 0%, transparent 100%)",
+          background: "linear-gradient(to bottom, rgba(15,15,15,0.20) 0%, transparent 100%)",
         }}
         aria-hidden
       />
@@ -76,7 +76,7 @@ export function Navbar() {
           "relative mx-auto flex max-w-7xl items-center justify-between rounded-full px-5 py-3.5 transition-all duration-700 sm:px-7",
           scrolled
             ? "navbar-light border border-white/25 bg-white/[0.10] backdrop-blur-[28px] shadow-[0_8px_40px_rgba(0,0,0,0.22)]"
-            : "navbar-dark border border-white/10 bg-transparent backdrop-blur-[30px] shadow-[0_8px_40px_rgba(0,0,0,0.25)]",
+            : "navbar-dark border border-white/10 bg-black/25 backdrop-blur-xl shadow-[0_8px_40px_rgba(0,0,0,0.25)]",
         )}
       >
         <div className="absolute inset-0 overflow-hidden rounded-[28px] pointer-events-none">
@@ -241,20 +241,21 @@ export function Navbar() {
               <ChevronDown className="h-3 w-3 transition-transform group-hover:rotate-180" />
             </button>
 
-            <div className="absolute left-0 top-full hidden min-w-[200px] rounded-2xl border border-white/10 bg-white shadow-xl p-2 group-hover:block">
-              {buyersGuideLinks.map((item, idx) => (
-                <Fragment key={item.label}>
-                  <Link
-                    to={item.to}
-                    onClick={() => scrollToTopIfSamePage(item.to)}
-                    className="flex items-center justify-between rounded-lg px-4 py-3 text-sm font-medium text-gray-700 hover:text-gold transition-colors"
-                  >
-                    {item.label}
-                    <ArrowUpRight className="h-3 w-3" />
-                  </Link>
-                  {idx < buyersGuideLinks.length - 1 && <div className="mx-4 h-px bg-gray-100" />}
-                </Fragment>
-              ))}
+            <div className="absolute left-0 top-full hidden min-w-[200px] rounded-2xl border border-white/10 bg-black/80 p-4 backdrop-blur-xl group-hover:block">
+              <ul className="space-y-3">
+                {buyersGuideLinks.map((item) => (
+                  <li key={item.label}>
+                    <Link
+                      to={item.to}
+                      onClick={() => scrollToTopIfSamePage(item.to)}
+                      className="flex items-center justify-between text-sm text-white/70 hover:text-gold"
+                    >
+                      {item.label}
+                      <ArrowUpRight className="h-3 w-3" />
+                    </Link>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
 
