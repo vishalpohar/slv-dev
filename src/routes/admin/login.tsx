@@ -40,17 +40,24 @@ function AdminLogin() {
         password,
       });
       if (error) {
-        toast.error(error.message);
+        setIsLoading(false);
+        if (error.message.toLowerCase().includes("email not confirmed")) {
+          toast.error("Email confirmation required. Please check your inbox for the confirmation email, or confirm the user in Supabase Dashboard under Authentication -> Users.", { duration: 9000 });
+        } else if (error.message.toLowerCase().includes("invalid login credentials")) {
+          toast.error("Invalid email or password. Note: If you signed up recently, ensure you confirmed your email via the inbox link or via Supabase Users panel.", { duration: 9000 });
+        } else {
+          toast.error(error.message);
+        }
         return;
       }
       if (data.session) {
         toast.success("Signed in successfully");
+        setIsLoading(false);
         navigate({ to: "/admin" });
       }
     } catch (err) {
-      toast.error("An unexpected error occurred");
-    } finally {
       setIsLoading(false);
+      toast.error("An unexpected error occurred");
     }
   };
 

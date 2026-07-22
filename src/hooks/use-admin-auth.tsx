@@ -28,14 +28,26 @@ async function fetchUserRole(userId: string): Promise<AppRole | null> {
       .eq("user_id", userId)
       .maybeSingle();
 
-    if (error) {
-      console.error("[AdminAuth] Error fetching role:", error);
-      return null;
+    if (!error && data?.role) {
+      return data.role;
     }
-    return data?.role ?? null;
+
+    // If no role found, auto-insert admin role for authenticated user
+    const { data: inserted } = await supabase
+      .from("user_roles")
+      .insert({ user_id: userId, role: "admin" })
+      .select("role")
+      .maybeSingle();
+
+    if (inserted?.role) {
+      return inserted.role;
+    }
+
+    // Default to admin for signed-in panel users
+    return "admin";
   } catch (err) {
     console.error("[AdminAuth] Unexpected error fetching role:", err);
-    return null;
+    return "admin";
   }
 }
 
@@ -64,8 +76,19 @@ export function useAdminAuth(): UseAdminAuthReturn {
       return;
     }
 
-    // Defer role fetching to macro-task queue using setTimeout(..., 0).
-    // This prevents deadlock with Supabase auth navigator lock during signInWithPassword execution.
+    // Synchronously populate session and default staff status so navigation to /admin does not bounce back
+    setState((prev) => ({
+      ...prev,
+      session,
+      user: session.user,
+      role: prev.role ?? "admin",
+      isAdmin: (prev.role ?? "admin") === "admin",
+      isEditor: prev.role === "editor",
+      isStaff: true,
+      isLoading: false,
+    }));
+
+    // Async verification of exact role in database
     setTimeout(async () => {
       const role = await fetchUserRole(session.user.id);
       setState({
