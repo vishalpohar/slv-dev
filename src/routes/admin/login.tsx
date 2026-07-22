@@ -41,9 +41,9 @@ function AdminLogin() {
       });
       if (error) {
         if (error.message.toLowerCase().includes("email not confirmed")) {
-          toast.error("Email confirmation required. In Supabase Dashboard, confirm email for this user under Authentication -> Users.", { duration: 8000 });
+          toast.error("Email confirmation required. Please check your inbox for the confirmation email, or confirm the user in Supabase Dashboard under Authentication -> Users.", { duration: 9000 });
         } else if (error.message.toLowerCase().includes("invalid login credentials")) {
-          toast.error("Invalid email or password. Please verify your credentials or create an account via Signup.", { duration: 6000 });
+          toast.error("Invalid email or password. Note: If you signed up recently, ensure you confirmed your email via the inbox link or via Supabase Users panel.", { duration: 9000 });
         } else {
           toast.error(error.message);
         }

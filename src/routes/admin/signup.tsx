@@ -53,8 +53,8 @@ function AdminSignup() {
         navigate({ to: "/admin" });
       } else {
         toast.success(
-          "Account created! If email confirmation is enabled in your Supabase project, check your inbox or confirm in Supabase Dashboard.",
-          { duration: 8000 },
+          `Account created! A confirmation email was sent to ${email.trim()}. Please check your inbox and click the confirmation link before signing in.`,
+          { duration: 10000 },
         );
         navigate({ to: "/admin/login" });
       }
