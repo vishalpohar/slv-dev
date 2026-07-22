@@ -291,7 +291,7 @@ export function Navbar() {
             onClick={() => setOpen((o) => !o)}
             aria-label="Toggle menu"
             className={cn(
-              "flex h-10 w-10 items-center justify-center rounded-xl transition-all duration-300 lg:hidden",
+              "flex h-10 w-10 items-center justify-center rounded-xl transition-all duration-300 lg:hidden cursor-pointer",
               scrolled ? "text-foreground hover:bg-secondary" : "text-gold hover:bg-white/15",
             )}
           >

@@ -228,10 +228,7 @@ function ProjectDetails() {
                       color: "rgba(255,255,255,0.9)",
                     }}
                   >
-                    <MapPin
-                      className="h-3 w-3 flex-shrink-0"
-                      style={{ color: "oklch(0.72 0.13 82)" }}
-                    />
+                    <MapPin className="h-3 w-3 shrink-0" style={{ color: "oklch(0.72 0.13 82)" }} />
                     {project.location}
                   </span>
                   <span
@@ -242,7 +239,7 @@ function ProjectDetails() {
                       color: "oklch(0.13 0.005 265)",
                     }}
                   >
-                    <Eye className="h-3 w-3 flex-shrink-0" />
+                    <Eye className="h-3 w-3 shrink-0" />
                     View Fullscreen
                   </span>
                   <span
@@ -273,7 +270,7 @@ function ProjectDetails() {
                 onClick={() => setActiveImg(i)}
                 aria-label={`View image ${i + 1}`}
                 className={cn(
-                  "group relative aspect-[16/10] overflow-hidden rounded-2xl transition-all duration-300",
+                  "group relative aspect-[16/10] overflow-hidden rounded-2xl transition-all duration-300 cursor-pointer",
                   activeImg === i
                     ? "scale-[1.03] ring-2 ring-gold"
                     : "opacity-55 hover:opacity-100 hover:scale-[1.015]",
@@ -354,20 +351,20 @@ function ProjectDetails() {
             </p>
           </div>
           <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center">
-            <div>
+            {/* <div>
               <p className="text-xs uppercase tracking-wider text-muted-foreground">
                 Starting from
               </p>
               <p className="font-display text-3xl font-bold text-foreground">
                 {formatPrice(project.priceFrom)}
               </p>
-            </div>
+            </div> */}
             <div className="flex gap-2">
               <button
                 onClick={() => toggleWishlist(project.id)}
                 aria-label="Wishlist"
                 className={cn(
-                  "flex h-12 w-12 items-center justify-center rounded-xl",
+                  "flex h-12 w-12 items-center justify-center rounded-xl cursor-pointer",
                   wished ? "neu-pressed text-rose-500" : "neu-sm",
                 )}
               >
@@ -377,7 +374,7 @@ function ProjectDetails() {
                 onClick={() => toggleCompare(project.id)}
                 aria-label="Compare"
                 className={cn(
-                  "flex h-12 w-12 items-center justify-center rounded-xl",
+                  "flex h-12 w-12 items-center justify-center rounded-xl cursor-pointer",
                   comparing ? "neu-pressed text-gold-foreground" : "neu-sm",
                 )}
               >
@@ -414,7 +411,7 @@ function ProjectDetails() {
               key={t}
               onClick={() => setTab(t)}
               className={cn(
-                "rounded-xl px-5 py-2.5 text-sm font-medium transition-all",
+                "rounded-xl px-5 py-2.5 text-sm font-medium transition-all cursor-pointer",
                 tab === t ? "neu text-foreground" : "text-muted-foreground hover:text-foreground",
               )}
             >
@@ -460,14 +457,14 @@ function ProjectDetails() {
                   <button
                     type="button"
                     onClick={() => setShowBrochure(true)}
-                    className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-gold py-3 text-sm font-semibold text-gold-foreground"
+                    className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-gold py-3 text-sm font-semibold text-gold-foreground cursor-pointer"
                   >
                     <Download className="h-4 w-4" /> Download Brochure
                   </button>
                 )}
                 <Link
                   to="/contact"
-                  className="mt-3 flex items-center justify-center gap-2 rounded-xl border border-white/20 py-3 text-sm font-semibold text-background hover:bg-white/10"
+                  className="mt-3 flex items-center justify-center gap-2 rounded-xl border border-white/20 py-3 text-sm font-semibold text-background hover:bg-white/10 cursor-pointer"
                 >
                   Enquire Now
                 </Link>

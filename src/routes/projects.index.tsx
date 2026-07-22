@@ -3,6 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { PropertyCard } from "@/components/PropertyCard";
 import { projects, type ProjectCategory, type ProjectStatus } from "@/data/projects";
 import { cn } from "@/lib/utils";
+import { Search } from "lucide-react";
 
 export const Route = createFileRoute("/projects/")({
   head: () => ({
@@ -35,6 +36,7 @@ const categoryFilters: (ProjectCategory | "All")[] = [
 function ProjectsPage() {
   const [status, setStatus] = useState<(typeof statusFilters)[number]>("All");
   const [category, setCategory] = useState<(typeof categoryFilters)[number]>("All");
+  const [query, setQuery] = useState("");
 
   const search = Route.useSearch();
   const navigate = Route.useNavigate();
@@ -62,9 +64,10 @@ function ProjectsPage() {
     return projects.filter(
       (p) =>
         (status === "All" || p.status === status) &&
-        (category === "All" || p.category === category),
+        (category === "All" || p.category === category) &&
+        p.name.toLowerCase().includes(query.toLowerCase()),
     );
-  }, [status, category]);
+  }, [status, category, query]);
 
   return (
     <div className="pt-32">
@@ -78,43 +81,69 @@ function ProjectsPage() {
         </p>
 
         {/* Filter bar */}
-        <div className="mt-10 rounded-3xl bg-card p-5 neu">
-          <div className="flex flex-wrap items-center gap-6">
-            <div>
-              <p className="mb-2 text-[0.65rem] uppercase tracking-wider text-muted-foreground">
-                Status
-              </p>
-              <div className="flex flex-wrap gap-2">
-                {statusFilters.map((s) => (
-                  <FilterPill
-                    key={s}
-                    active={status === s}
-                    onClick={() => {
-                      navigate({
-                        search: {
-                          status: s === "All" ? undefined : s.toLowerCase(),
-                        },
-                      });
-                    }}
-                  >
-                    {s}
-                  </FilterPill>
-                ))}
-              </div>
-            </div>
-            <div>
-              <p className="mb-2 text-[0.65rem] uppercase tracking-wider text-muted-foreground">
-                Type
-              </p>
-              <div className="flex flex-wrap gap-2">
-                {categoryFilters.map((c) => (
-                  <FilterPill key={c} active={category === c} onClick={() => setCategory(c)}>
-                    {c}
-                  </FilterPill>
-                ))}
-              </div>
-            </div>
+        <div className="mt-10 rounded-3xl bg-card p-6 neu space-y-6">
+          <div className="flex items-center gap-6 flex-wrap">
+            {/* Search */}
+            <div className="relative w-full max-w-2xl">
+              <Search
+                className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground"
+                size={18}
+              />
 
+              <input
+                type="search"
+                value={query}
+                placeholder="Search project name..."
+                onChange={(e) => setQuery(e.target.value)}
+                className="h-12 w-full rounded-2xl border border-border bg-background pl-11 pr-10 text-sm outline-none transition-all placeholder:text-muted-foreground focus:border-gold focus:ring-2 focus:ring-gold/20"
+              />
+              {query && (
+                <button
+                  onClick={() => setQuery("")}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                >
+                  ✕
+                </button>
+              )}
+            </div>
+            <div className="flex flex-wrap gap-6">
+              {/* Status */}
+              <div>
+                <p className="mb-2 text-[0.65rem] uppercase tracking-wider text-muted-foreground">
+                  Status
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {statusFilters.map((s) => (
+                    <FilterPill
+                      key={s}
+                      active={status === s}
+                      onClick={() => {
+                        navigate({
+                          search: {
+                            status: s === "All" ? undefined : s.toLowerCase(),
+                          },
+                        });
+                      }}
+                    >
+                      {s}
+                    </FilterPill>
+                  ))}
+                </div>
+              </div>
+              {/* Type */}
+              <div>
+                <p className="mb-2 text-[0.65rem] uppercase tracking-wider text-muted-foreground">
+                  Type
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {categoryFilters.map((c) => (
+                    <FilterPill key={c} active={category === c} onClick={() => setCategory(c)}>
+                      {c}
+                    </FilterPill>
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 

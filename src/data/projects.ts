@@ -66,6 +66,14 @@ import ssbgFloorEast from "@/assets/projects/slv-ssbg-enclave/ssbg-floor-east.jp
 import ssbgFloorWest from "@/assets/projects/slv-ssbg-enclave/ssbg-floor-west.jpg";
 import ssbgBrochure from "@/assets/projects/slv-ssbg-enclave/SLV-SSBG-Enclave-Brochure.pdf";
 
+import ag3main from "@/assets/projects/amaravathi-grand-3/ag3-main.webp";
+import ag3view2 from "@/assets/projects/amaravathi-grand-3/ag3-2.webp";
+import ag3view3 from "@/assets/projects/amaravathi-grand-3/ag3-3.webp";
+import ag3plan3bhk from "@/assets/projects/amaravathi-grand-3/ag3-3bhk.jpg";
+import ag3plan4bhk1 from "@/assets/projects/amaravathi-grand-3/ag3-4bhk-1.jpg";
+import ag3plan4bhk2 from "@/assets/projects/amaravathi-grand-3/ag3-4bhk-2.jpg";
+import amaravathiGrand3Brochure from "@/assets/projects/amaravathi-grand-3/slv-amaravathi-grand-3-brochure.pdf";
+
 export type ProjectStatus = "Ongoing" | "Completed" | "Upcoming";
 export type ProjectCategory = "Villa" | "Apartment" | "Plots" | "Commercial" | "Educational";
 
@@ -538,13 +546,7 @@ export const projects: Project[] = [
     sqftTo: 3125,
     launchDate: "Delivered 2019",
     image: ssbgElevation1,
-    gallery: [
-      ssbgElevation1,
-      ssbgElevation2,
-      ssbgElevation3,
-      ssbgElevation4,
-      ssbgMasterPlan,
-    ],
+    gallery: [ssbgElevation1, ssbgElevation2, ssbgElevation3, ssbgElevation4, ssbgMasterPlan],
     description:
       "SLV Gowri is a stunning collection of apartments with unique planning and architecture. Spread over 5 floors with 20 apartments on each, the 3 & 4 bedroom apartments offer the ultimate canvas for inspired living. We see things differently and seep through the perception that hometown is a different standard of living. Bringing you a home where luxury meets your roots and where you can enlighten yourself with the true comfort of home while experiencing a contemporary, purpose-built property. These light-filled enormous homes impart utmost comfort, with spectacular views enriched by nature.",
     amenities: [
@@ -565,20 +567,68 @@ export const projects: Project[] = [
       { label: "Structure", value: "RCC framed structure to withstand wind & seismic loads." },
       { label: "Super Structure", value: "AAC blocks masonry with special adhesive." },
       { label: "Plastering", value: "Plastering with sponge finish." },
-      { label: "Wood Work - Main Door", value: "Teak wood frames with teak wood shutter with polish and hardware of reputed make." },
-      { label: "Wood Work - Internal Doors", value: "Teak wood frames with flush shutter with paint finish & hardware of reputed make." },
-      { label: "Windows", value: "UPVC Windows and UPVC French doors of Rehau or equivalent make." },
-      { label: "Flooring", value: "Living, Dining, Bedroom & Kitchen with vitrified tiles of premium quality. Bathrooms with acid-resistant, anti-skid ceramic tiles." },
-      { label: "Cladding & Dadding", value: "Kitchen: Ceramic tiles dado up to 4' height above kitchen platform. Bathroom: Glazed ceramic tiles dado up to 7' height. Utility/Wash: Glazed ceramic tiles dado up to 3' height." },
-      { label: "Painting", value: "External: Two coats exterior acrylic emulsion paint of Asian or equivalent make over one coat of primer. Internal: Smooth wall putty finish with acrylic emulsion of Asian or equivalent make over one coat of primer." },
-      { label: "Toilets", value: "EWC with flush tank of Cera/Parry or equivalent make. Wash basin of Cera/Parryware or equivalent make. Hot & cold-water diverter system. Provision for geysers and exhaust fans. Chrome plated CP fittings of Jaquar/Mark/Plumber or equivalent make." },
-      { label: "Plumbing", value: "Concealed best quality PVC/CPVC/UPVC pipes of Ashirvad or equivalent make." },
-      { label: "Electrical", value: "3 Phase power supply for each flat with individual meter. Concealed copper wiring of anchor or equivalent make. Power outlets for AC in all bedrooms and main hall. MCBs for each distribution board. Modular switches of Legrand Arteor or equivalent make." },
-      { label: "Kitchen", value: "Provision for supply of treated and sweet water connections (MMC) at one point. Kitchen platform with black granite and sink of Carysil or equivalent make. Electrical provisions for fixing water purifier, exhaust fan and chimney." },
-      { label: "Intercom Connectivity", value: "Telephone points in Master Bedroom and Living rooms. Intercom facility connecting all flats and security." },
+      {
+        label: "Wood Work - Main Door",
+        value: "Teak wood frames with teak wood shutter with polish and hardware of reputed make.",
+      },
+      {
+        label: "Wood Work - Internal Doors",
+        value: "Teak wood frames with flush shutter with paint finish & hardware of reputed make.",
+      },
+      {
+        label: "Windows",
+        value: "UPVC Windows and UPVC French doors of Rehau or equivalent make.",
+      },
+      {
+        label: "Flooring",
+        value:
+          "Living, Dining, Bedroom & Kitchen with vitrified tiles of premium quality. Bathrooms with acid-resistant, anti-skid ceramic tiles.",
+      },
+      {
+        label: "Cladding & Dadding",
+        value:
+          "Kitchen: Ceramic tiles dado up to 4' height above kitchen platform. Bathroom: Glazed ceramic tiles dado up to 7' height. Utility/Wash: Glazed ceramic tiles dado up to 3' height.",
+      },
+      {
+        label: "Painting",
+        value:
+          "External: Two coats exterior acrylic emulsion paint of Asian or equivalent make over one coat of primer. Internal: Smooth wall putty finish with acrylic emulsion of Asian or equivalent make over one coat of primer.",
+      },
+      {
+        label: "Toilets",
+        value:
+          "EWC with flush tank of Cera/Parry or equivalent make. Wash basin of Cera/Parryware or equivalent make. Hot & cold-water diverter system. Provision for geysers and exhaust fans. Chrome plated CP fittings of Jaquar/Mark/Plumber or equivalent make.",
+      },
+      {
+        label: "Plumbing",
+        value: "Concealed best quality PVC/CPVC/UPVC pipes of Ashirvad or equivalent make.",
+      },
+      {
+        label: "Electrical",
+        value:
+          "3 Phase power supply for each flat with individual meter. Concealed copper wiring of anchor or equivalent make. Power outlets for AC in all bedrooms and main hall. MCBs for each distribution board. Modular switches of Legrand Arteor or equivalent make.",
+      },
+      {
+        label: "Kitchen",
+        value:
+          "Provision for supply of treated and sweet water connections (MMC) at one point. Kitchen platform with black granite and sink of Carysil or equivalent make. Electrical provisions for fixing water purifier, exhaust fan and chimney.",
+      },
+      {
+        label: "Intercom Connectivity",
+        value:
+          "Telephone points in Master Bedroom and Living rooms. Intercom facility connecting all flats and security.",
+      },
       { label: "Cable TV", value: "Provision for cable connection in Living room." },
-      { label: "Lifts", value: "High speed automatic passenger lifts with rescue device with V3F for energy efficiency." },
-      { label: "Generators", value: "D.G. set back-up with acoustic enclosure & AMF for common areas, lifts, pumps, essential areas. Back-up of 500 watts for 3BHK & 800 watts for 4BHK for each flat supplied to select power points in all rooms." },
+      {
+        label: "Lifts",
+        value:
+          "High speed automatic passenger lifts with rescue device with V3F for energy efficiency.",
+      },
+      {
+        label: "Generators",
+        value:
+          "D.G. set back-up with acoustic enclosure & AMF for common areas, lifts, pumps, essential areas. Back-up of 500 watts for 3BHK & 800 watts for 4BHK for each flat supplied to select power points in all rooms.",
+      },
     ],
     proximity: [
       { label: "Aditya School, Bhashyam School", distance: "Nearby" },
@@ -723,33 +773,74 @@ export const projects: Project[] = [
       "D.G. Generator Backup",
     ],
     specifications: [
-      { label: "Structure", value: "RCC framed structure designed to withstand wind and seismic loads." },
+      {
+        label: "Structure",
+        value: "RCC framed structure designed to withstand wind and seismic loads.",
+      },
       { label: "Super Structure", value: "Light weight brick masonry in cement mortar." },
       { label: "Plastering", value: "Plastering with sponge finish." },
-      { label: "Wood Work", value: "Main door: Teak wood frame and shutter with polish. Internal doors: Teak wood frames with flush shutter with paint finish and hardware of reputed brand. Windows: uPVC windows and French doors of reputed brand." },
-      { label: "Painting", value: "External: Two coats exterior acrylic emulsion of Asian paint or equivalent brand over one coat of primer. Internal: Smooth wall putty finish with acrylic emulsion of Asian paints or equivalent brand over one coat primer." },
-      { label: "Toilets", value: "All toilets will consist of EWC with flush tank of Hindustan/Parryware or equivalent brand. Hot & Cold water mixer with showers. Provision for geysers in all toilets. Chrome plated CP fittings Jaguar/Mark/Plumber or equivalent brand." },
+      {
+        label: "Wood Work",
+        value:
+          "Main door: Teak wood frame and shutter with polish. Internal doors: Teak wood frames with flush shutter with paint finish and hardware of reputed brand. Windows: uPVC windows and French doors of reputed brand.",
+      },
+      {
+        label: "Painting",
+        value:
+          "External: Two coats exterior acrylic emulsion of Asian paint or equivalent brand over one coat of primer. Internal: Smooth wall putty finish with acrylic emulsion of Asian paints or equivalent brand over one coat primer.",
+      },
+      {
+        label: "Toilets",
+        value:
+          "All toilets will consist of EWC with flush tank of Hindustan/Parryware or equivalent brand. Hot & Cold water mixer with showers. Provision for geysers in all toilets. Chrome plated CP fittings Jaguar/Mark/Plumber or equivalent brand.",
+      },
       { label: "Plumbing", value: "Concealed best quality PVC / CPVC / uPVC pipes." },
-      { label: "Flooring", value: "Vitrified Tiles in Living, Dining, Bedroom & Kitchen. Acid-resistant, anti-skid ceramic tiles in bathrooms. Glazed ceramic tiles dado up to 7' height in bathrooms and 3' height in utility/wash." },
-      { label: "Electrical", value: "Concealed copper wiring of Anchor or equivalent. Power outlets for air-conditioners in all bedrooms. Power plugs for cooking range, chimney, refrigerator, microwave oven, and mixer/grinder in kitchen. Miniature circuit breakers (MCB) for each distribution board. Modular switches of Legrand or equivalent." },
-      { label: "Kitchen", value: "Provision for supply of treated and sweet water connections at one point with provision for fixing water purifiers, exhaust fan, and chimney." },
-      { label: "Intercom", value: "Telephone points in master bedroom and living areas, intercom facility connecting with the security." },
-      { label: "Cable TV", value: "Provision for cable TV connection in living room and master bedroom." },
+      {
+        label: "Flooring",
+        value:
+          "Vitrified Tiles in Living, Dining, Bedroom & Kitchen. Acid-resistant, anti-skid ceramic tiles in bathrooms. Glazed ceramic tiles dado up to 7' height in bathrooms and 3' height in utility/wash.",
+      },
+      {
+        label: "Electrical",
+        value:
+          "Concealed copper wiring of Anchor or equivalent. Power outlets for air-conditioners in all bedrooms. Power plugs for cooking range, chimney, refrigerator, microwave oven, and mixer/grinder in kitchen. Miniature circuit breakers (MCB) for each distribution board. Modular switches of Legrand or equivalent.",
+      },
+      {
+        label: "Kitchen",
+        value:
+          "Provision for supply of treated and sweet water connections at one point with provision for fixing water purifiers, exhaust fan, and chimney.",
+      },
+      {
+        label: "Intercom",
+        value:
+          "Telephone points in master bedroom and living areas, intercom facility connecting with the security.",
+      },
+      {
+        label: "Cable TV",
+        value: "Provision for cable TV connection in living room and master bedroom.",
+      },
       { label: "Lifts", value: "High speed automatic passenger lifts with rescue device room." },
-      { label: "Generators", value: "D.G. set back-up with acoustic enclosure & AMF for common areas, lifts, pumps, essential areas and selected points in each flat (800 watts)." }
+      {
+        label: "Generators",
+        value:
+          "D.G. set back-up with acoustic enclosure & AMF for common areas, lifts, pumps, essential areas and selected points in each flat (800 watts).",
+      },
     ],
     proximity: [
       { label: "National Highway (NH-16 / NH-65 ORR)", distance: "700 meters" },
       { label: "Bus Stop / Public Transport", distance: "500 meters" },
-      { label: "Pinnamaneni Siddhartha Medical College", distance: "Close proximity (Walking distance)" },
+      {
+        label: "Pinnamaneni Siddhartha Medical College",
+        distance: "Close proximity (Walking distance)",
+      },
       { label: "Gannavaram International Airport", distance: "4 km" },
-      { label: "Vijayawada Bus Stand (PNBS)", distance: "10 km" }
+      { label: "Vijayawada Bus Stand (PNBS)", distance: "10 km" },
     ],
     floorPlans: [
       { type: "Master Layout Plan", sqft: 204000, image: anjaniLayout },
       { type: "Floor Plan 01 (Typical)", sqft: 1080, image: anjaniFloor1 },
       { type: "Floor Plan 02 (Typical)", sqft: 1400, image: anjaniFloor2 },
-      { type: "Floor Plan 03 (Typical)", sqft: 1720, image: anjaniFloor3 }
+      { type: "Floor Plan 03 (Typical)", sqft: 1720, image: anjaniFloor3 },
     ],
     brochureUrl: anjaniBrochure,
   },
@@ -1195,7 +1286,7 @@ export const projects: Project[] = [
     id: "23",
     slug: "slv-amaravathi-grand-3",
     name: "SLV Amaravathi Grand-3",
-    tagline: "The Grand trilogy — 214 homes at Gunadala",
+    tagline: "An abode of Opulence",
     category: "Apartment",
     status: "Completed",
     location: "Gunadala",
@@ -1205,25 +1296,35 @@ export const projects: Project[] = [
     sqftFrom: 1300,
     sqftTo: 2200,
     launchDate: "Delivered Aug 2024",
-    image: img(2),
-    gallery: gallery(2),
+    image: ag3main,
+    gallery: [ag3main, ag3view2, ag3view3],
     description:
-      "SLV Amaravathi Grand-3 completes the trilogy — 214 premium residences at Gunadala, Vijayawada across 5,56,400 sq ft. Delivered in 2024, Grand-3 sets the pinnacle of the series with elevated design, premium specifications, and a world-class amenity suite.",
+      "Step into a world of community living at SLV Amaravathi Grand III, where you’ll cherish the symphony of luxury and pride. Nestled in a tranquil enclave, our thoughtfully designed and spacious 3BHK and 4BHK flats offer the perfect blend of modern comforts and serene surroundings. Enjoy the convenience of residing close to prominent landmarks, ensuring easy access to the heartbeat of the city while relishing the tranquility of a peaceful retreat. With premium finishes and a commitment to Vaastu compliance, each home is meticulously crafted to provide a contemporary living experience that exudes elegance and sophistication. At SLV Amaravathi Grand III, we understand that investing in a home goes beyond bricks and mortar; it is an investment in your sense of pride and a place where your family can flourish. Our project is not just a space; it’s a canvas for creating cherished memories and building a legacy.",
     amenities: [
-      "Sky-level Clubhouse",
-      "Rooftop Pool",
-      "Advanced Gymnasium",
-      "Landscaped Rooftop Garden",
-      "Business Lounge",
-      "Multipurpose Hall",
-      "High-speed Elevators",
-      "EV Charging Stations",
+      "Gym",
+      "Visitor's Lounge",
+      "Table Tennis & Snooker Room",
+      "Indoor Badminton Courts",
+      "Multi-purpose Hall",
+      "Mini Theatre Hall",
+      "Cafeteria",
+      "Guest Suites",
+      "Spa & Beauty Saloon",
+      "Beauty Parlour",
+      "Yoga & Meditation Hall",
+      "Swimming Pool with Children's Pool",
+      "Visitor's Lounge",
     ],
     specifications: [
-      { label: "Units", value: "214 Apartments" },
-      { label: "Total Area", value: "5,56,400 sq ft" },
-      { label: "Commencement", value: "Mar 2023" },
-      { label: "Completion", value: "Aug 2024" },
+      { label: "Blocks", value: "4 Blocks" },
+      { label: "Units", value: "160 exquisitely designed apartments" },
+      { label: "Sizes", value: "2325, 2850, & 3250 sq ft" },
+      { label: "Apartment Types", value: "3 & 4 BHK" },
+      {
+        label: "Site Address",
+        value:
+          "SLV Amaravathi Grand III, D.No: 49-4-21, Inner Ring Road, Gunadala, Vijayawada – 520 004",
+      },
     ],
     proximity: [
       { label: "Gunadala Centre", distance: "1 km" },
@@ -1232,9 +1333,11 @@ export const projects: Project[] = [
       { label: "Government Hospital", distance: "2 km" },
     ],
     floorPlans: [
-      { type: "2 BHK", sqft: 1300, image: img(2) },
-      { type: "3 BHK", sqft: 2200, image: img(3) },
+      { type: "3 BHK", sqft: 2325, image: ag3plan3bhk },
+      { type: "4 BHK", sqft: 2850, image: ag3plan4bhk1 },
+      { type: "4 BHK", sqft: 3250, image: ag3plan4bhk2 },
     ],
+    brochureUrl: amaravathiGrand3Brochure,
   },
   // ── 24 ──────────────────────────────────────────────
   {

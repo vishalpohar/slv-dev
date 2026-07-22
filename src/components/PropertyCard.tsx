@@ -78,10 +78,10 @@ export function PropertyCard({ project }: { project: Project }) {
           <p className="text-[0.6rem] uppercase tracking-[0.25em] text-white/60">
             {project.category}
           </p>
-          <p className="font-display text-2xl font-semibold text-white">
+          {/* <p className="font-display text-2xl font-semibold text-white">
             {formatPrice(project.priceFrom)}
             <span className="text-base font-light text-white/60">+</span>
-          </p>
+          </p> */}
         </div>
       </div>
 
