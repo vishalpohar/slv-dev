@@ -40,6 +40,7 @@ function AdminLogin() {
         password,
       });
       if (error) {
+        setIsLoading(false);
         if (error.message.toLowerCase().includes("email not confirmed")) {
           toast.error("Email confirmation required. Please check your inbox for the confirmation email, or confirm the user in Supabase Dashboard under Authentication -> Users.", { duration: 9000 });
         } else if (error.message.toLowerCase().includes("invalid login credentials")) {
@@ -51,12 +52,12 @@ function AdminLogin() {
       }
       if (data.session) {
         toast.success("Signed in successfully");
+        setIsLoading(false);
         navigate({ to: "/admin" });
       }
     } catch (err) {
-      toast.error("An unexpected error occurred");
-    } finally {
       setIsLoading(false);
+      toast.error("An unexpected error occurred");
     }
   };
 
