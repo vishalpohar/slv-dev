@@ -76,8 +76,19 @@ export function useAdminAuth(): UseAdminAuthReturn {
       return;
     }
 
-    // Defer role fetching to macro-task queue using setTimeout(..., 0).
-    // This prevents deadlock with Supabase auth navigator lock during signInWithPassword execution.
+    // Synchronously populate session and default staff status so navigation to /admin does not bounce back
+    setState((prev) => ({
+      ...prev,
+      session,
+      user: session.user,
+      role: prev.role ?? "admin",
+      isAdmin: (prev.role ?? "admin") === "admin",
+      isEditor: prev.role === "editor",
+      isStaff: true,
+      isLoading: false,
+    }));
+
+    // Async verification of exact role in database
     setTimeout(async () => {
       const role = await fetchUserRole(session.user.id);
       setState({
