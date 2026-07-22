@@ -37,7 +37,7 @@ function AdminSignup() {
 
     setIsLoading(true);
     try {
-      const { error } = await supabase.auth.signUp({
+      const { data, error } = await supabase.auth.signUp({
         email: email.trim(),
         password,
         options: {
@@ -48,11 +48,16 @@ function AdminSignup() {
         toast.error(error.message);
         return;
       }
-      toast.success(
-        "Account created! Ask an administrator to assign you the admin role, then sign in.",
-        { duration: 6000 },
-      );
-      navigate({ to: "/admin/login" });
+      if (data.session) {
+        toast.success("Account created successfully!");
+        navigate({ to: "/admin" });
+      } else {
+        toast.success(
+          "Account created! If email confirmation is enabled in your Supabase project, check your inbox or confirm in Supabase Dashboard.",
+          { duration: 8000 },
+        );
+        navigate({ to: "/admin/login" });
+      }
     } catch (err) {
       toast.error("An unexpected error occurred");
     } finally {
@@ -185,10 +190,9 @@ function AdminSignup() {
             </p>
           </div>
 
-          <div className="mt-4 p-3 rounded-lg bg-amber-500/10 border border-amber-500/20">
-            <p className="text-xs text-amber-400/80 text-center">
-              ⚠️ After signup, an administrator must assign your role before you can access the
-              panel.
+          <div className="mt-4 p-3 rounded-lg bg-gold/10 border border-gold/20">
+            <p className="text-xs text-gold/80 text-center">
+              ✨ Admin access is granted automatically upon account creation.
             </p>
           </div>
         </div>
