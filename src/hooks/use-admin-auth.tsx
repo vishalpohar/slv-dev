@@ -21,17 +21,22 @@ interface UseAdminAuthReturn extends AdminAuthState {
 }
 
 async function fetchUserRole(userId: string): Promise<AppRole | null> {
-  const { data, error } = await supabase
-    .from("user_roles")
-    .select("role")
-    .eq("user_id", userId)
-    .maybeSingle();
+  try {
+    const { data, error } = await supabase
+      .from("user_roles")
+      .select("role")
+      .eq("user_id", userId)
+      .maybeSingle();
 
-  if (error) {
-    console.error("[AdminAuth] Error fetching role:", error);
+    if (error) {
+      console.error("[AdminAuth] Error fetching role:", error);
+      return null;
+    }
+    return data?.role ?? null;
+  } catch (err) {
+    console.error("[AdminAuth] Unexpected error fetching role:", err);
     return null;
   }
-  return data?.role ?? null;
 }
 
 export function useAdminAuth(): UseAdminAuthReturn {
@@ -45,21 +50,23 @@ export function useAdminAuth(): UseAdminAuthReturn {
     isLoading: true,
   });
 
-  const updateStateFromSession = useCallback(
-    async (session: Session | null) => {
-      if (!session?.user) {
-        setState({
-          session: null,
-          user: null,
-          role: null,
-          isAdmin: false,
-          isEditor: false,
-          isStaff: false,
-          isLoading: false,
-        });
-        return;
-      }
+  const updateStateFromSession = useCallback((session: Session | null) => {
+    if (!session?.user) {
+      setState({
+        session: null,
+        user: null,
+        role: null,
+        isAdmin: false,
+        isEditor: false,
+        isStaff: false,
+        isLoading: false,
+      });
+      return;
+    }
 
+    // Defer role fetching to macro-task queue using setTimeout(..., 0).
+    // This prevents deadlock with Supabase auth navigator lock during signInWithPassword execution.
+    setTimeout(async () => {
       const role = await fetchUserRole(session.user.id);
       setState({
         session,
@@ -70,28 +77,45 @@ export function useAdminAuth(): UseAdminAuthReturn {
         isStaff: role === "admin" || role === "editor",
         isLoading: false,
       });
-    },
-    [],
-  );
+    }, 0);
+  }, []);
 
   useEffect(() => {
+    let mounted = true;
+
     // Get initial session
     supabase.auth.getSession().then(({ data: { session } }) => {
-      updateStateFromSession(session);
+      if (mounted) {
+        updateStateFromSession(session);
+      }
     });
 
     // Listen for auth changes
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {
-      updateStateFromSession(session);
+      if (mounted) {
+        updateStateFromSession(session);
+      }
     });
 
-    return () => subscription.unsubscribe();
+    return () => {
+      mounted = false;
+      subscription.unsubscribe();
+    };
   }, [updateStateFromSession]);
 
   const signOut = useCallback(async () => {
     await supabase.auth.signOut();
+    setState({
+      session: null,
+      user: null,
+      role: null,
+      isAdmin: false,
+      isEditor: false,
+      isStaff: false,
+      isLoading: false,
+    });
   }, []);
 
   const refreshRole = useCallback(async () => {
