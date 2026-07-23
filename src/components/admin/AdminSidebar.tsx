@@ -1,8 +1,11 @@
 import { Link, useRouterState } from "@tanstack/react-router";
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
 import {
   LayoutDashboard,
   Building2,
   MessageSquare,
+  Inbox,
   Image,
   LogOut,
   ChevronLeft,
@@ -18,6 +21,7 @@ const navItems = [
   { to: "/admin", label: "Dashboard", icon: LayoutDashboard, exact: true },
   { to: "/admin/projects", label: "Projects", icon: Building2 },
   { to: "/admin/enquiries", label: "Enquiries", icon: MessageSquare },
+  { to: "/admin/messages", label: "Messages", icon: Inbox },
   { to: "/admin/media", label: "Media", icon: Image },
 ];
 
@@ -30,6 +34,26 @@ interface AdminSidebarProps {
 export function AdminSidebar({ userEmail, userRole, onSignOut }: AdminSidebarProps) {
   const [collapsed, setCollapsed] = useState(false);
   const pathname = useRouterState({ select: (s) => s.location.pathname });
+
+  const { data: unreadCount = 0 } = useQuery({
+    queryKey: ["admin-unread-registration-count"],
+
+    queryFn: async () => {
+      const { count, error } = await supabase
+        .from("work_registrations")
+        .select("*", {
+          count: "exact",
+          head: true,
+        })
+        .eq("viewed", false);
+
+      if (error) throw error;
+
+      return count ?? 0;
+    },
+
+    refetchInterval: 30000,
+  });
 
   return (
     <TooltipProvider delayDuration={0}>
@@ -60,9 +84,7 @@ export function AdminSidebar({ userEmail, userRole, onSignOut }: AdminSidebarPro
         {/* Navigation */}
         <nav className="flex-1 p-2 space-y-1 overflow-y-auto">
           {navItems.map(({ to, label, icon: Icon, exact }) => {
-            const isActive = exact
-              ? pathname === to
-              : pathname.startsWith(to) && to !== "/admin";
+            const isActive = exact ? pathname === to : pathname.startsWith(to) && to !== "/admin";
             const isDashboard = to === "/admin" && pathname === "/admin";
             const active = exact ? isDashboard : isActive;
 
@@ -77,14 +99,32 @@ export function AdminSidebar({ userEmail, userRole, onSignOut }: AdminSidebarPro
                   collapsed && "justify-center px-0",
                 )}
               >
-                <Icon
-                  className={cn(
-                    "flex-shrink-0 w-5 h-5 transition-colors duration-200",
-                    active ? "text-gold" : "text-white/50 group-hover:text-white",
+                {/* Icon + collapsed unread badge */}
+                <div className="relative flex-shrink-0">
+                  <Icon
+                    className={cn(
+                      "w-5 h-5 transition-colors duration-200",
+                      active ? "text-gold" : "text-white/50 group-hover:text-white",
+                    )}
+                  />
+
+                  {/* When sidebar is collapsed, attach count to icon */}
+                  {collapsed && to === "/admin/messages" && unreadCount > 0 && (
+                    <span className="absolute -right-2.5 -top-2.5 flex min-w-4 h-4 items-center justify-center rounded-full bg-gold px-1 text-[9px] font-bold leading-none text-obsidian shadow-sm">
+                      {unreadCount > 99 ? "99+" : unreadCount}
+                    </span>
                   )}
-                />
+                </div>
+
                 {!collapsed && <span className="truncate">{label}</span>}
-                {active && !collapsed && (
+
+                {/* Normal expanded-sidebar count */}
+                {!collapsed && to === "/admin/messages" && unreadCount > 0 && (
+                  <span className="ml-auto flex min-w-5 h-5 items-center justify-center rounded-full bg-gold px-1.5 text-[10px] font-bold text-obsidian">
+                    {unreadCount > 99 ? "99+" : unreadCount}
+                  </span>
+                )}
+                {active && !collapsed && (to !== "/admin/messages" || unreadCount === 0) && (
                   <span className="ml-auto w-1.5 h-1.5 rounded-full bg-gold animate-pulse-gold" />
                 )}
               </Link>

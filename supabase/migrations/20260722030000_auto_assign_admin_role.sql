@@ -11,6 +11,8 @@ CREATE POLICY "Users can insert own profile"
 
 DROP POLICY IF EXISTS "Users can insert their initial role" ON public.user_roles;
 DROP POLICY IF EXISTS "Admin can insert roles" ON public.user_roles;
+DROP POLICY IF EXISTS "Allow insert user_roles for self and admin"
+ON public.user_roles;
 CREATE POLICY "Allow insert user_roles for self and admin"
   ON public.user_roles FOR INSERT
   TO authenticated

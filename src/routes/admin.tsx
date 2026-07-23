@@ -23,6 +23,10 @@ function AdminLayout() {
     "/admin/": { title: "Dashboard", subtitle: "Welcome back to SLV Admin" },
     "/admin/projects": { title: "Projects", subtitle: "Manage your property listings" },
     "/admin/enquiries": { title: "Enquiries", subtitle: "Track and manage leads" },
+    "/admin/messages": {
+      title: "Messages",
+      subtitle: "Review work registration applications",
+    },
     "/admin/media": { title: "Media Library", subtitle: "Images, videos & brochures" },
   };
   const pageInfo = pageTitles[pathname] ?? { title: "Admin", subtitle: "" };
@@ -71,8 +75,8 @@ function AdminLayout() {
           <div>
             <h2 className="text-2xl font-bold text-foreground">Access Denied</h2>
             <p className="mt-2 text-muted-foreground">
-              Your account ({user?.email}) does not have admin or editor privileges. Contact a system
-              administrator to be granted access.
+              Your account ({user?.email}) does not have admin or editor privileges. Contact a
+              system administrator to be granted access.
             </p>
           </div>
           <Button
@@ -101,11 +105,7 @@ function AdminLayout() {
 
       {/* Main content area */}
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
-        <AdminHeader
-          title={pageInfo.title}
-          subtitle={pageInfo.subtitle}
-          userEmail={user?.email}
-        />
+        <AdminHeader title={pageInfo.title} subtitle={pageInfo.subtitle} userEmail={user?.email} />
         <main className="flex-1 overflow-y-auto p-6">
           <Outlet />
         </main>

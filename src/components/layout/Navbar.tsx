@@ -318,7 +318,7 @@ export function Navbar() {
 
       {/* Mobile menu */}
       {open && (
-        <div className="mx-auto mt-2 max-w-7xl animate-slide-down rounded-2xl border-white/10 bg-transparent backdrop-blur-[30px] border p-3 lg:hidden shadow-2xl">
+        <div className="mx-auto mt-2 max-w-7xl max-h-[calc(100dvh-100px)] overflow-y-auto overscroll-contain [scrollbar-width:thin] animate-slide-down rounded-2xl border border-white/10 bg-black/60 p-3 backdrop-blur-[30px] lg:hidden shadow-2xl">
           {/* Crown accent */}
           <div className="mb-2 flex items-center gap-2 px-3 py-1.5 border-b border-border/50">
             <Crown className="h-3.5 w-3.5 text-gold" />

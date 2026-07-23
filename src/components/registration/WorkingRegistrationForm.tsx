@@ -232,6 +232,7 @@ export function WorkRegistrationForm({
         form_data: formData,
 
         document_paths: documentPaths,
+        viewed: false,
       });
 
       if (insertError) {

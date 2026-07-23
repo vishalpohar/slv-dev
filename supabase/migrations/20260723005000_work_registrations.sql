@@ -51,6 +51,8 @@ ENABLE ROW LEVEL SECURITY;
 -- 3. PUBLIC INSERT POLICY
 -- Visitors can submit registration forms
 -- ============================================================
+DROP POLICY IF EXISTS "Anyone can submit work registration"
+ON public.work_registrations;
 
 CREATE POLICY "Anyone can submit work registration"
 ON public.work_registrations
@@ -65,6 +67,8 @@ WITH CHECK (
 -- 4. STAFF SELECT POLICY
 -- Only admins/editors can read applications
 -- ============================================================
+DROP POLICY IF EXISTS "Staff can view work registrations"
+ON public.work_registrations;
 
 CREATE POLICY "Staff can view work registrations"
 ON public.work_registrations
@@ -80,6 +84,8 @@ USING (
 -- 5. STAFF UPDATE POLICY
 -- Admins/editors can update application status/notes
 -- ============================================================
+DROP POLICY IF EXISTS "Staff can update work registrations"
+ON public.work_registrations;
 
 CREATE POLICY "Staff can update work registrations"
 ON public.work_registrations
@@ -118,6 +124,8 @@ ON CONFLICT (id) DO NOTHING;
 -- ============================================================
 -- 7. ALLOW REGISTRATION DOCUMENT UPLOADS
 -- ============================================================
+DROP POLICY IF EXISTS "Anyone can upload registration documents"
+ON storage.objects;
 
 CREATE POLICY "Anyone can upload registration documents"
 ON storage.objects
