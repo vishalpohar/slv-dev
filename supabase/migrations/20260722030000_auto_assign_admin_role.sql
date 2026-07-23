@@ -7,13 +7,14 @@ DROP POLICY IF EXISTS "Users can insert own profile" ON public.profiles;
 CREATE POLICY "Users can insert own profile"
   ON public.profiles FOR INSERT
   TO authenticated
-  WITH CHECK (id = auth.uid());
+  WITH CHECK (id = (SELECT auth.uid()));
 
 DROP POLICY IF EXISTS "Users can insert their initial role" ON public.user_roles;
-CREATE POLICY "Users can insert their initial role"
+DROP POLICY IF EXISTS "Admin can insert roles" ON public.user_roles;
+CREATE POLICY "Allow insert user_roles for self and admin"
   ON public.user_roles FOR INSERT
   TO authenticated
-  WITH CHECK (user_id = auth.uid());
+  WITH CHECK (user_id = (SELECT auth.uid()) OR (SELECT public.has_role('admin'::app_role, auth.uid())));
 
 -- 2. Update handle_new_user trigger function to auto-assign admin role & sync profile details
 CREATE OR REPLACE FUNCTION public.handle_new_user()

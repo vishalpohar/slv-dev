@@ -26,7 +26,7 @@ CREATE POLICY "Staff can list project-media"
   TO authenticated
   USING (
     bucket_id = 'project-media'
-    AND public.is_staff(auth.uid())
+    AND (SELECT public.is_staff(auth.uid()))
   );
 
 -- ──────────────────────────────────────────────────────────
@@ -42,5 +42,5 @@ CREATE POLICY "Staff can list brochures"
   TO authenticated
   USING (
     bucket_id = 'brochures'
-    AND public.is_staff(auth.uid())
+    AND (SELECT public.is_staff(auth.uid()))
   );
