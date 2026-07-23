@@ -22,11 +22,26 @@ const projectLinks = [
 ];
 
 const workLinks = [
-  { label: "Careers", to: "/careers" },
-  { label: "Architect & Consultant", to: "/careers" },
-  { label: "Contractor Registration", to: "/careers" },
-  { label: "Vendors & Suppliers", to: "/careers" },
-  { label: "Land Proposals", to: "/contact" },
+  {
+    label: "Careers",
+    to: "/careers",
+  },
+  {
+    label: "Architect & Consultant",
+    to: "/architect-consultant-registration",
+  },
+  {
+    label: "Contractor Registration",
+    to: "/contractor-registration",
+  },
+  {
+    label: "Vendors & Suppliers",
+    to: "/vendors-suppliers-registration",
+  },
+  {
+    label: "Land Proposals",
+    to: "/contact",
+  },
 ];
 
 export function Navbar() {
