@@ -28,26 +28,15 @@ async function fetchUserRole(userId: string): Promise<AppRole | null> {
       .eq("user_id", userId)
       .maybeSingle();
 
-    if (!error && data?.role) {
-      return data.role;
+    if (error) {
+      console.error("[AdminAuth] Failed to fetch role:", error);
+      return null;
     }
 
-    // If no role found, auto-insert admin role for authenticated user
-    const { data: inserted } = await supabase
-      .from("user_roles")
-      .insert({ user_id: userId, role: "admin" })
-      .select("role")
-      .maybeSingle();
-
-    if (inserted?.role) {
-      return inserted.role;
-    }
-
-    // Default to admin for signed-in panel users
-    return "admin";
+    return data?.role ?? null;
   } catch (err) {
     console.error("[AdminAuth] Unexpected error fetching role:", err);
-    return "admin";
+    return null;
   }
 }
 
@@ -62,7 +51,7 @@ export function useAdminAuth(): UseAdminAuthReturn {
     isLoading: true,
   });
 
-  const updateStateFromSession = useCallback((session: Session | null) => {
+  const updateStateFromSession = useCallback(async (session: Session | null) => {
     if (!session?.user) {
       setState({
         session: null,
@@ -77,30 +66,28 @@ export function useAdminAuth(): UseAdminAuthReturn {
     }
 
     // Synchronously populate session and default staff status so navigation to /admin does not bounce back
-    setState((prev) => ({
-      ...prev,
+    setState({
       session,
       user: session.user,
-      role: prev.role ?? "admin",
-      isAdmin: (prev.role ?? "admin") === "admin",
-      isEditor: prev.role === "editor",
-      isStaff: true,
-      isLoading: false,
-    }));
+      role: null,
+      isAdmin: false,
+      isEditor: false,
+      isStaff: false,
+      isLoading: true,
+    });
 
     // Async verification of exact role in database
-    setTimeout(async () => {
-      const role = await fetchUserRole(session.user.id);
-      setState({
-        session,
-        user: session.user,
-        role,
-        isAdmin: role === "admin",
-        isEditor: role === "editor",
-        isStaff: role === "admin" || role === "editor",
-        isLoading: false,
-      });
-    }, 0);
+    const role = await fetchUserRole(session.user.id);
+
+    setState({
+      session,
+      user: session.user,
+      role,
+      isAdmin: role === "admin",
+      isEditor: role === "editor",
+      isStaff: role === "admin" || role === "editor",
+      isLoading: false,
+    });
   }, []);
 
   useEffect(() => {
