@@ -10,20 +10,30 @@
 -- ──────────────────────────────────────────────────────────
 ALTER TABLE public.buyers_guide ENABLE ROW LEVEL SECURITY;
 
--- Public visitors can read published guides
+-- Public visitors and staff can read guides (staff can view unpublished)
 DROP POLICY IF EXISTS "Public can view published buyers_guide" ON public.buyers_guide;
-CREATE POLICY "Public can view published buyers_guide"
+DROP POLICY IF EXISTS "Staff can manage buyers_guide" ON public.buyers_guide;
+CREATE POLICY "Allow select buyers_guide for public and staff"
   ON public.buyers_guide FOR SELECT
   TO public
-  USING (is_published = true);
+  USING (is_published = true OR (SELECT public.is_staff(auth.uid())));
 
--- Staff (admin/editor) can do everything
-DROP POLICY IF EXISTS "Staff can manage buyers_guide" ON public.buyers_guide;
-CREATE POLICY "Staff can manage buyers_guide"
-  ON public.buyers_guide FOR ALL
+-- Staff (admin/editor) write operations
+CREATE POLICY "Staff can insert buyers_guide"
+  ON public.buyers_guide FOR INSERT
   TO authenticated
-  USING (public.is_staff(auth.uid()))
-  WITH CHECK (public.is_staff(auth.uid()));
+  WITH CHECK ((SELECT public.is_staff(auth.uid())));
+
+CREATE POLICY "Staff can update buyers_guide"
+  ON public.buyers_guide FOR UPDATE
+  TO authenticated
+  USING ((SELECT public.is_staff(auth.uid())))
+  WITH CHECK ((SELECT public.is_staff(auth.uid())));
+
+CREATE POLICY "Staff can delete buyers_guide"
+  ON public.buyers_guide FOR DELETE
+  TO authenticated
+  USING ((SELECT public.is_staff(auth.uid())));
 
 -- ──────────────────────────────────────────────────────────
 -- 2. seo_metadata — enable RLS + policies
@@ -37,10 +47,20 @@ CREATE POLICY "Public can read seo_metadata"
   TO public
   USING (true);
 
--- Staff (admin/editor) can insert/update/delete SEO metadata
+-- Staff (admin/editor) write operations
 DROP POLICY IF EXISTS "Staff can manage seo_metadata" ON public.seo_metadata;
-CREATE POLICY "Staff can manage seo_metadata"
-  ON public.seo_metadata FOR ALL
+CREATE POLICY "Staff can insert seo_metadata"
+  ON public.seo_metadata FOR INSERT
   TO authenticated
-  USING (public.is_staff(auth.uid()))
-  WITH CHECK (public.is_staff(auth.uid()));
+  WITH CHECK ((SELECT public.is_staff(auth.uid())));
+
+CREATE POLICY "Staff can update seo_metadata"
+  ON public.seo_metadata FOR UPDATE
+  TO authenticated
+  USING ((SELECT public.is_staff(auth.uid())))
+  WITH CHECK ((SELECT public.is_staff(auth.uid())));
+
+CREATE POLICY "Staff can delete seo_metadata"
+  ON public.seo_metadata FOR DELETE
+  TO authenticated
+  USING ((SELECT public.is_staff(auth.uid())));
