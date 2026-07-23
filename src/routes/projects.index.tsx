@@ -74,7 +74,7 @@ function ProjectsPage() {
       <div className="mx-auto max-w-7xl px-6">
         <p className="section-label text-gold">Our Portfolio</p>
         <h1 className="mt-3 font-display text-4xl font-bold text-foreground sm:text-6xl">
-          Find Your Residence
+          Find Your Projects
         </h1>
         <p className="mt-4 max-w-2xl text-muted-foreground">
           Refine by status, type, and price to discover the home that matches your aspirations.

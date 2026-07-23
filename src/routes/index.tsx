@@ -414,7 +414,7 @@ function Index() {
                   textShadow: "0 0 30px rgba(200,255,40,0.35)",
                 }}
               >
-                Awesome Work!
+                A Dream Come True!
               </h2>
 
               {/* Quote */}
@@ -426,11 +426,11 @@ function Index() {
               {/* Customer */}
               <div className="mt-8 text-center sm:mt-10 lg:mt-12">
                 <p className="text-xs font-bold uppercase tracking-[0.2em] text-white sm:text-sm sm:tracking-[0.35em]">
-                  John Carter
+                  Arjun
                 </p>
 
                 <p className="mt-2 text-[10px] uppercase tracking-[0.15em] text-white/50 sm:text-xs sm:tracking-[0.25em]">
-                  Luxury Villa Owner
+                  House Owner
                 </p>
               </div>
             </div>
