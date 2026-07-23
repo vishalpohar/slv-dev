@@ -2,14 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { StatsCard } from "@/components/admin/StatsCard";
-import {
-  Building2,
-  MessageSquare,
-  Image,
-  TrendingUp,
-  ArrowRight,
-  Clock,
-} from "lucide-react";
+import { Building2, MessageSquare, Image, TrendingUp, ArrowRight, Clock } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 
@@ -29,9 +22,7 @@ function AdminDashboard() {
   const { data: projectStats, isLoading: loadingProjects } = useQuery({
     queryKey: ["admin-stats-projects"],
     queryFn: async () => {
-      const { count } = await supabase
-        .from("projects")
-        .select("*", { count: "exact", head: true });
+      const { count } = await supabase.from("projects").select("*", { count: "exact", head: true });
       const { count: published } = await supabase
         .from("projects")
         .select("*", { count: "exact", head: true })
@@ -123,12 +114,7 @@ function AdminDashboard() {
           accent="green"
           loading={loadingMedia}
         />
-        <StatsCard
-          label="Conversion Rate"
-          value="—"
-          icon={TrendingUp}
-          accent="red"
-        />
+        <StatsCard label="Conversion Rate" value="—" icon={TrendingUp} accent="red" />
       </div>
 
       {/* Quick Actions */}

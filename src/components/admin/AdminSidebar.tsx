@@ -60,9 +60,7 @@ export function AdminSidebar({ userEmail, userRole, onSignOut }: AdminSidebarPro
         {/* Navigation */}
         <nav className="flex-1 p-2 space-y-1 overflow-y-auto">
           {navItems.map(({ to, label, icon: Icon, exact }) => {
-            const isActive = exact
-              ? pathname === to
-              : pathname.startsWith(to) && to !== "/admin";
+            const isActive = exact ? pathname === to : pathname.startsWith(to) && to !== "/admin";
             const isDashboard = to === "/admin" && pathname === "/admin";
             const active = exact ? isDashboard : isActive;
 

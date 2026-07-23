@@ -4,10 +4,10 @@ import { cn } from "@/lib/utils";
 type RevealDirection = "up" | "left" | "right" | "fade";
 
 const dirMap: Record<RevealDirection, { hidden: string; shown: string }> = {
-  up:    { hidden: "translate-y-8 opacity-0",  shown: "translate-y-0 opacity-100" },
-  left:  { hidden: "-translate-x-8 opacity-0", shown: "translate-x-0 opacity-100" },
-  right: { hidden: "translate-x-8 opacity-0",  shown: "translate-x-0 opacity-100" },
-  fade:  { hidden: "opacity-0 scale-95",        shown: "opacity-100 scale-100" },
+  up: { hidden: "translate-y-8 opacity-0", shown: "translate-y-0 opacity-100" },
+  left: { hidden: "-translate-x-8 opacity-0", shown: "translate-x-0 opacity-100" },
+  right: { hidden: "translate-x-8 opacity-0", shown: "translate-x-0 opacity-100" },
+  fade: { hidden: "opacity-0 scale-95", shown: "opacity-100 scale-100" },
 };
 
 export function Reveal({
@@ -34,7 +34,10 @@ export function Reveal({
     if (!el) return;
     const io = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) { setShown(true); io.disconnect(); }
+        if (entry.isIntersecting) {
+          setShown(true);
+          io.disconnect();
+        }
       },
       { threshold: 0.1, rootMargin: "0px 0px -6% 0px" },
     );
@@ -56,4 +59,3 @@ export function Reveal({
     </Tag>
   );
 }
-

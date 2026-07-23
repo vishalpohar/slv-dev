@@ -83,12 +83,12 @@ function EMICalculator() {
     const interest = totalVal - amount;
 
     const schedule: {
-  month: number;
-  emi: number;
-  principal: number;
-  interest: number;
-  balance: number;
-}[] = [];
+      month: number;
+      emi: number;
+      principal: number;
+      interest: number;
+      balance: number;
+    }[] = [];
     let balance = amount;
     for (let month = 1; month <= n; month++) {
       const interestPayment = balance * r;
@@ -276,8 +276,12 @@ function EMICalculator() {
                   >
                     <td className="px-4 py-4 border-r border-border">{item.month}</td>
                     <td className="px-4 py-4 border-r border-border">{formatCurrency(item.emi)}</td>
-                    <td className="px-4 py-4 border-r border-border text-green-600 font-medium">{formatCurrency(item.principal)}</td>
-                    <td className="px-4 py-4 border-r border-border text-gold font-medium">{formatCurrency(item.interest)}</td>
+                    <td className="px-4 py-4 border-r border-border text-green-600 font-medium">
+                      {formatCurrency(item.principal)}
+                    </td>
+                    <td className="px-4 py-4 border-r border-border text-gold font-medium">
+                      {formatCurrency(item.interest)}
+                    </td>
                     <td className="px-4 py-4 font-medium">{formatCurrency(item.balance)}</td>
                   </tr>
                 ))}

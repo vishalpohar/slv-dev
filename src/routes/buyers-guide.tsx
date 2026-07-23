@@ -13,7 +13,10 @@ export const Route = createFileRoute("/buyers-guide")({
           "Everything you need to know before buying a luxury home — from RERA and home loans to registration, due diligence, and possession. Plus 15 frequently asked questions answered.",
       },
       { property: "og:title", content: "Buyer's Guide & FAQs — SLV Builders" },
-      { property: "og:description", content: "A step-by-step guide to buying your luxury home with confidence." },
+      {
+        property: "og:description",
+        content: "A step-by-step guide to buying your luxury home with confidence.",
+      },
     ],
   }),
   component: BuyersGuide,
@@ -131,7 +134,6 @@ function BuyersGuide() {
   return (
     <div className="pt-32 pb-24">
       <div className="mx-auto max-w-4xl px-6">
-
         {/* ── Hero Header ── */}
         <div className="text-center">
           <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-card neu text-gold">
@@ -159,14 +161,14 @@ function BuyersGuide() {
                 <ChevronDown
                   className={cn(
                     "h-5 w-5 text-gold transition-transform duration-300",
-                    openStep === i && "rotate-180"
+                    openStep === i && "rotate-180",
                   )}
                 />
               </button>
               <div
                 className={cn(
                   "grid transition-all duration-300",
-                  openStep === i ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
+                  openStep === i ? "grid-rows-[1fr]" : "grid-rows-[0fr]",
                 )}
               >
                 <div className="overflow-hidden">
@@ -197,7 +199,8 @@ function BuyersGuide() {
             Got Questions?
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
-            Find answers about SLV Builders & Developers' projects, policies, and processes — directly from the source.
+            Find answers about SLV Builders & Developers' projects, policies, and processes —
+            directly from the source.
           </p>
         </div>
 
@@ -226,7 +229,7 @@ function BuyersGuide() {
                 "group overflow-hidden rounded-2xl border transition-all duration-300",
                 openFaq === i
                   ? "border-gold/40 bg-card shadow-[0_4px_20px_rgba(0,0,0,0.08)]"
-                  : "border-border bg-card neu-sm hover:border-gold/20"
+                  : "border-border bg-card neu-sm hover:border-gold/20",
               )}
             >
               <button
@@ -240,7 +243,7 @@ function BuyersGuide() {
                     "mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-xs font-bold transition-colors duration-300",
                     openFaq === i
                       ? "bg-gradient-gold text-gold-foreground"
-                      : "bg-muted text-muted-foreground group-hover:bg-gradient-gold group-hover:text-gold-foreground"
+                      : "bg-muted text-muted-foreground group-hover:bg-gradient-gold group-hover:text-gold-foreground",
                   )}
                 >
                   {i + 1}
@@ -250,7 +253,9 @@ function BuyersGuide() {
                   <span
                     className={cn(
                       "font-display text-base font-semibold leading-snug transition-colors duration-200",
-                      openFaq === i ? "text-gold" : "text-foreground group-hover:text-foreground/90"
+                      openFaq === i
+                        ? "text-gold"
+                        : "text-foreground group-hover:text-foreground/90",
                     )}
                   >
                     {faq.q}
@@ -264,7 +269,7 @@ function BuyersGuide() {
                 <ChevronDown
                   className={cn(
                     "mt-0.5 h-5 w-5 shrink-0 transition-transform duration-300",
-                    openFaq === i ? "rotate-180 text-gold" : "text-muted-foreground"
+                    openFaq === i ? "rotate-180 text-gold" : "text-muted-foreground",
                   )}
                 />
               </button>
@@ -273,7 +278,7 @@ function BuyersGuide() {
               <div
                 className={cn(
                   "grid transition-all duration-300 ease-in-out",
-                  openFaq === i ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
+                  openFaq === i ? "grid-rows-[1fr]" : "grid-rows-[0fr]",
                 )}
               >
                 <div className="overflow-hidden">
@@ -299,7 +304,8 @@ function BuyersGuide() {
                 Talk to Our Experts
               </h3>
               <p className="mt-2 text-sm text-muted-foreground">
-                Our relationship managers are available to guide you through every step of your home buying journey.
+                Our relationship managers are available to guide you through every step of your home
+                buying journey.
               </p>
             </div>
             <div className="relative flex shrink-0 flex-col gap-3 sm:items-end">
@@ -320,7 +326,6 @@ function BuyersGuide() {
             </div>
           </div>
         </div>
-
       </div>
     </div>
   );

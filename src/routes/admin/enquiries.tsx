@@ -4,16 +4,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import type { Tables, Enums } from "@/integrations/supabase/types";
-import {
-  Search,
-  MessageSquare,
-  Eye,
-  Clock,
-  Phone,
-  Mail,
-  StickyNote,
-  Loader2,
-} from "lucide-react";
+import { Search, MessageSquare, Eye, Clock, Phone, Mail, StickyNote, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -108,8 +99,8 @@ function EnquiriesManagement() {
       queryClient.invalidateQueries({ queryKey: ["admin-leads"] });
       toast.success("Notes saved");
       setViewingLead((prev) => (prev ? { ...prev, notes: editNotes || null } : prev));
-    } catch (err: any) {
-      toast.error(err.message);
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : String(err));
     } finally {
       setSavingNotes(false);
     }

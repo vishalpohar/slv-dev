@@ -1,6 +1,15 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState, useMemo } from "react";
-import { ChevronDown, HelpCircle, Search, Sparkles, Phone, Mail, ThumbsUp, ThumbsDown } from "lucide-react";
+import {
+  ChevronDown,
+  HelpCircle,
+  Search,
+  Sparkles,
+  Phone,
+  Mail,
+  ThumbsUp,
+  ThumbsDown,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/faq")({
@@ -13,7 +22,10 @@ export const Route = createFileRoute("/faq")({
           "Have questions about SLV Builders & Developers? Read our FAQs on property locations, customization, RERA compliance, amenities, and more.",
       },
       { property: "og:title", content: "Frequently Asked Questions — SLV Builders" },
-      { property: "og:description", content: "Answers to all your questions about our premium residential & layout projects." },
+      {
+        property: "og:description",
+        content: "Answers to all your questions about our premium residential & layout projects.",
+      },
     ],
   }),
   component: FaqPage,
@@ -97,7 +109,16 @@ const faqs = [
   },
 ];
 
-const categories = ["All", "General", "Projects", "Locations", "Amenities", "Quality", "Support", "Pricing"];
+const categories = [
+  "All",
+  "General",
+  "Projects",
+  "Locations",
+  "Amenities",
+  "Quality",
+  "Support",
+  "Pricing",
+];
 
 function FaqPage() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -110,8 +131,7 @@ function FaqPage() {
       const matchesSearch =
         faq.q.toLowerCase().includes(searchQuery.toLowerCase()) ||
         faq.a.toLowerCase().includes(searchQuery.toLowerCase());
-      const matchesCategory =
-        selectedCategory === "All" || faq.category === selectedCategory;
+      const matchesCategory = selectedCategory === "All" || faq.category === selectedCategory;
       return matchesSearch && matchesCategory;
     });
   }, [searchQuery, selectedCategory]);
@@ -123,7 +143,6 @@ function FaqPage() {
   return (
     <div className="pt-32 pb-24 min-h-screen bg-background">
       <div className="mx-auto max-w-4xl px-6">
-        
         {/* Header Section */}
         <div className="text-center animate-fade-in">
           <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-card neu text-gold animate-float">
@@ -134,7 +153,8 @@ function FaqPage() {
             Frequently Asked Questions
           </h1>
           <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
-            Clear, transparent answers about SLV Builders & Developers' luxury residences, layout projects, quality standards, and policies.
+            Clear, transparent answers about SLV Builders & Developers' luxury residences, layout
+            projects, quality standards, and policies.
           </p>
         </div>
 
@@ -176,7 +196,7 @@ function FaqPage() {
                 "px-4 py-2 rounded-xl text-xs font-medium transition-all duration-300",
                 selectedCategory === category
                   ? "bg-gradient-gold text-gold-foreground shadow-md scale-[1.04]"
-                  : "bg-card border border-border text-muted-foreground hover:border-gold/30 hover:text-foreground neu-sm"
+                  : "bg-card border border-border text-muted-foreground hover:border-gold/30 hover:text-foreground neu-sm",
               )}
             >
               {category}
@@ -196,7 +216,7 @@ function FaqPage() {
                     "group overflow-hidden rounded-2xl border transition-all duration-350",
                     openFaq === i
                       ? "border-gold/40 bg-card shadow-[0_8px_30px_rgba(0,0,0,0.06)]"
-                      : "border-border bg-card neu-sm hover:border-gold/30"
+                      : "border-border bg-card neu-sm hover:border-gold/30",
                   )}
                 >
                   <button
@@ -209,7 +229,7 @@ function FaqPage() {
                         "mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-xs font-bold transition-colors duration-300",
                         openFaq === i
                           ? "bg-gradient-gold text-gold-foreground"
-                          : "bg-muted text-muted-foreground group-hover:bg-gradient-gold group-hover:text-gold-foreground"
+                          : "bg-muted text-muted-foreground group-hover:bg-gradient-gold group-hover:text-gold-foreground",
                       )}
                     >
                       {originalIndex + 1}
@@ -219,7 +239,9 @@ function FaqPage() {
                       <span
                         className={cn(
                           "font-display text-base font-semibold leading-snug transition-colors duration-200",
-                          openFaq === i ? "text-gold" : "text-foreground group-hover:text-foreground/90"
+                          openFaq === i
+                            ? "text-gold"
+                            : "text-foreground group-hover:text-foreground/90",
                         )}
                       >
                         {faq.q}
@@ -232,7 +254,7 @@ function FaqPage() {
                     <ChevronDown
                       className={cn(
                         "mt-0.5 h-5 w-5 shrink-0 transition-transform duration-300",
-                        openFaq === i ? "rotate-180 text-gold" : "text-muted-foreground"
+                        openFaq === i ? "rotate-180 text-gold" : "text-muted-foreground",
                       )}
                     />
                   </button>
@@ -240,7 +262,7 @@ function FaqPage() {
                   <div
                     className={cn(
                       "grid transition-all duration-300 ease-in-out",
-                      openFaq === i ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
+                      openFaq === i ? "grid-rows-[1fr]" : "grid-rows-[0fr]",
                     )}
                   >
                     <div className="overflow-hidden">
@@ -251,7 +273,7 @@ function FaqPage() {
                             {faq.a}
                           </p>
                         </div>
-                        
+
                         {/* Interactive Helpfulness Feedback */}
                         <div className="ml-11 flex items-center justify-between border-t border-border/50 pt-4 text-xs text-muted-foreground">
                           <span>Was this answer helpful?</span>
@@ -262,7 +284,7 @@ function FaqPage() {
                                 "flex items-center gap-1 px-3 py-1.5 rounded-lg border transition-all duration-200",
                                 helpfulFeedback[originalIndex] === "yes"
                                   ? "bg-gold/10 border-gold/40 text-gold"
-                                  : "border-border/60 hover:bg-muted/50 hover:text-foreground"
+                                  : "border-border/60 hover:bg-muted/50 hover:text-foreground",
                               )}
                             >
                               <ThumbsUp className="h-3 w-3" />
@@ -274,7 +296,7 @@ function FaqPage() {
                                 "flex items-center gap-1 px-3 py-1.5 rounded-lg border transition-all duration-200",
                                 helpfulFeedback[originalIndex] === "no"
                                   ? "bg-destructive/10 border-destructive/40 text-destructive"
-                                  : "border-border/60 hover:bg-muted/50 hover:text-foreground"
+                                  : "border-border/60 hover:bg-muted/50 hover:text-foreground",
                               )}
                             >
                               <ThumbsDown className="h-3 w-3" />
@@ -282,7 +304,6 @@ function FaqPage() {
                             </button>
                           </div>
                         </div>
-
                       </div>
                     </div>
                   </div>
@@ -292,8 +313,12 @@ function FaqPage() {
           ) : (
             <div className="text-center py-12 rounded-2xl border border-dashed border-border bg-card/50">
               <Sparkles className="mx-auto h-8 w-8 text-gold/40 mb-3" />
-              <p className="text-foreground font-semibold">No questions found matching your search</p>
-              <p className="text-muted-foreground text-sm mt-1">Try checking a different category or search term.</p>
+              <p className="text-foreground font-semibold">
+                No questions found matching your search
+              </p>
+              <p className="text-muted-foreground text-sm mt-1">
+                Try checking a different category or search term.
+              </p>
             </div>
           )}
         </div>
@@ -302,14 +327,15 @@ function FaqPage() {
         <div className="mt-16 overflow-hidden rounded-3xl bg-gradient-royal p-px animate-fade-up">
           <div className="relative flex flex-col items-center gap-6 rounded-3xl bg-card px-8 py-10 text-center md:flex-row md:text-left">
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-gold/5 to-transparent rounded-3xl" />
-            
+
             <div className="relative flex-1">
               <span className="section-label text-gold">Still have questions?</span>
               <h3 className="mt-2 font-display text-2xl font-bold text-foreground">
                 Get In Touch With Us
               </h3>
               <p className="mt-2 text-sm text-muted-foreground">
-                Our support team and relation managers are here to assist you with any query regarding bookings, documentation, layout plans, or site visits.
+                Our support team and relation managers are here to assist you with any query
+                regarding bookings, documentation, layout plans, or site visits.
               </p>
             </div>
 
@@ -331,7 +357,6 @@ function FaqPage() {
             </div>
           </div>
         </div>
-
       </div>
     </div>
   );

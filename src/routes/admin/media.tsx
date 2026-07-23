@@ -108,8 +108,10 @@ function GalleryTab() {
         });
         if (dbError) throw dbError;
         successCount++;
-      } catch (err: any) {
-        toast.error(`Failed to upload ${file.name}: ${err.message}`);
+      } catch (err) {
+        toast.error(
+          `Failed to upload ${file.name}: ${err instanceof Error ? err.message : String(err)}`,
+        );
       }
     }
     if (successCount > 0) {
@@ -201,7 +203,10 @@ function GalleryTab() {
       ) : (
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
           {items.map((item) => (
-            <div key={item.id} className="group relative royal-card rounded-xl overflow-hidden aspect-square">
+            <div
+              key={item.id}
+              className="group relative royal-card rounded-xl overflow-hidden aspect-square"
+            >
               <img
                 src={item.image_url}
                 alt={item.title ?? "Gallery image"}
@@ -283,8 +288,8 @@ function BrochuresTab() {
         return { ...f, publicUrl: urlData.publicUrl };
       });
       setFiles(withUrls);
-    } catch (err: any) {
-      toast.error(err.message);
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : String(err));
     } finally {
       setLoadingFiles(false);
     }
@@ -306,8 +311,8 @@ function BrochuresTab() {
       if (error) throw error;
       toast.success("Brochure uploaded");
       await loadFiles();
-    } catch (err: any) {
-      toast.error(err.message);
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : String(err));
     } finally {
       setUploading(false);
       if (fileRef.current) fileRef.current.value = "";
@@ -316,14 +321,12 @@ function BrochuresTab() {
 
   const handleDelete = async (name: string) => {
     try {
-      const { error } = await supabase.storage
-        .from("brochures")
-        .remove([`brochures/${name}`]);
+      const { error } = await supabase.storage.from("brochures").remove([`brochures/${name}`]);
       if (error) throw error;
       toast.success("Brochure deleted");
       await loadFiles();
-    } catch (err: any) {
-      toast.error(err.message);
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : String(err));
     } finally {
       setDeletingPath(null);
     }
@@ -397,7 +400,11 @@ function BrochuresTab() {
               <div className="flex items-center gap-1 flex-shrink-0">
                 {file.publicUrl && (
                   <a href={file.publicUrl} target="_blank" rel="noopener noreferrer" download>
-                    <Button variant="ghost" size="icon" className="h-8 w-8 text-muted-foreground hover:text-foreground">
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="h-8 w-8 text-muted-foreground hover:text-foreground"
+                    >
                       <Download className="w-4 h-4" />
                     </Button>
                   </a>
@@ -463,7 +470,7 @@ function VideosTab() {
         return { ...f, publicUrl: urlData.publicUrl };
       });
       setFiles(withUrls);
-    } catch (err: any) {
+    } catch (err) {
       console.error(err);
     } finally {
       setLoadingFiles(false);
@@ -486,8 +493,8 @@ function VideosTab() {
       if (error) throw error;
       toast.success("Video uploaded");
       await loadFiles();
-    } catch (err: any) {
-      toast.error(err.message);
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : String(err));
     } finally {
       setUploading(false);
       if (fileRef.current) fileRef.current.value = "";
@@ -500,8 +507,8 @@ function VideosTab() {
       if (error) throw error;
       toast.success("Video deleted");
       await loadFiles();
-    } catch (err: any) {
-      toast.error(err.message);
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : String(err));
     } finally {
       setDeletingPath(null);
     }
@@ -540,9 +547,7 @@ function VideosTab() {
               </div>
               <div className="text-center">
                 <p className="text-sm font-medium">Click to upload video</p>
-                <p className="text-xs text-muted-foreground mt-0.5">
-                  MP4, WebM, MOV — up to 50 MB
-                </p>
+                <p className="text-xs text-muted-foreground mt-0.5">MP4, WebM, MOV — up to 50 MB</p>
               </div>
             </>
           )}
@@ -577,7 +582,11 @@ function VideosTab() {
               <div className="flex items-center gap-1 flex-shrink-0">
                 {file.publicUrl && (
                   <a href={file.publicUrl} target="_blank" rel="noopener noreferrer">
-                    <Button variant="ghost" size="icon" className="h-8 w-8 text-muted-foreground hover:text-foreground">
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="h-8 w-8 text-muted-foreground hover:text-foreground"
+                    >
                       <ExternalLink className="w-4 h-4" />
                     </Button>
                   </a>
