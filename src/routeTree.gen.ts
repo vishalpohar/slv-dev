@@ -23,8 +23,14 @@ import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ProjectsIndexRouteImport } from './routes/projects.index'
+import { Route as AdminIndexRouteImport } from './routes/admin/index'
 import { Route as ProjectsSlugRouteImport } from './routes/projects.$slug'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
+import { Route as AdminSignupRouteImport } from './routes/admin/signup'
+import { Route as AdminProjectsRouteImport } from './routes/admin/projects'
+import { Route as AdminMediaRouteImport } from './routes/admin/media'
+import { Route as AdminLoginRouteImport } from './routes/admin/login'
+import { Route as AdminEnquiriesRouteImport } from './routes/admin/enquiries'
 
 const VendorsSuppliersRegistrationRoute =
   VendorsSuppliersRegistrationRouteImport.update({
@@ -98,6 +104,11 @@ const ProjectsIndexRoute = ProjectsIndexRouteImport.update({
   path: '/projects/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminRoute,
+} as any)
 const ProjectsSlugRoute = ProjectsSlugRouteImport.update({
   id: '/projects/$slug',
   path: '/projects/$slug',
@@ -108,11 +119,36 @@ const ApiChatRoute = ApiChatRouteImport.update({
   path: '/api/chat',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminSignupRoute = AdminSignupRouteImport.update({
+  id: '/signup',
+  path: '/signup',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminProjectsRoute = AdminProjectsRouteImport.update({
+  id: '/projects',
+  path: '/projects',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminMediaRoute = AdminMediaRouteImport.update({
+  id: '/media',
+  path: '/media',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminLoginRoute = AdminLoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminEnquiriesRoute = AdminEnquiriesRouteImport.update({
+  id: '/enquiries',
+  path: '/enquiries',
+  getParentRoute: () => AdminRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/admin': typeof AdminRoute
+  '/admin': typeof AdminRouteWithChildren
   '/architect-consultant-registration': typeof ArchitectConsultantRegistrationRoute
   '/buyers-guide': typeof BuyersGuideRoute
   '/careers': typeof CareersRoute
@@ -123,14 +159,19 @@ export interface FileRoutesByFullPath {
   '/faq': typeof FaqRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/vendors-suppliers-registration': typeof VendorsSuppliersRegistrationRoute
+  '/admin/enquiries': typeof AdminEnquiriesRoute
+  '/admin/login': typeof AdminLoginRoute
+  '/admin/media': typeof AdminMediaRoute
+  '/admin/projects': typeof AdminProjectsRoute
+  '/admin/signup': typeof AdminSignupRoute
   '/api/chat': typeof ApiChatRoute
   '/projects/$slug': typeof ProjectsSlugRoute
+  '/admin/': typeof AdminIndexRoute
   '/projects/': typeof ProjectsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/admin': typeof AdminRoute
   '/architect-consultant-registration': typeof ArchitectConsultantRegistrationRoute
   '/buyers-guide': typeof BuyersGuideRoute
   '/careers': typeof CareersRoute
@@ -141,15 +182,21 @@ export interface FileRoutesByTo {
   '/faq': typeof FaqRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/vendors-suppliers-registration': typeof VendorsSuppliersRegistrationRoute
+  '/admin/enquiries': typeof AdminEnquiriesRoute
+  '/admin/login': typeof AdminLoginRoute
+  '/admin/media': typeof AdminMediaRoute
+  '/admin/projects': typeof AdminProjectsRoute
+  '/admin/signup': typeof AdminSignupRoute
   '/api/chat': typeof ApiChatRoute
   '/projects/$slug': typeof ProjectsSlugRoute
+  '/admin': typeof AdminIndexRoute
   '/projects': typeof ProjectsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/admin': typeof AdminRoute
+  '/admin': typeof AdminRouteWithChildren
   '/architect-consultant-registration': typeof ArchitectConsultantRegistrationRoute
   '/buyers-guide': typeof BuyersGuideRoute
   '/careers': typeof CareersRoute
@@ -160,8 +207,14 @@ export interface FileRoutesById {
   '/faq': typeof FaqRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/vendors-suppliers-registration': typeof VendorsSuppliersRegistrationRoute
+  '/admin/enquiries': typeof AdminEnquiriesRoute
+  '/admin/login': typeof AdminLoginRoute
+  '/admin/media': typeof AdminMediaRoute
+  '/admin/projects': typeof AdminProjectsRoute
+  '/admin/signup': typeof AdminSignupRoute
   '/api/chat': typeof ApiChatRoute
   '/projects/$slug': typeof ProjectsSlugRoute
+  '/admin/': typeof AdminIndexRoute
   '/projects/': typeof ProjectsIndexRoute
 }
 export interface FileRouteTypes {
@@ -180,14 +233,19 @@ export interface FileRouteTypes {
     | '/faq'
     | '/sitemap.xml'
     | '/vendors-suppliers-registration'
+    | '/admin/enquiries'
+    | '/admin/login'
+    | '/admin/media'
+    | '/admin/projects'
+    | '/admin/signup'
     | '/api/chat'
     | '/projects/$slug'
+    | '/admin/'
     | '/projects/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
-    | '/admin'
     | '/architect-consultant-registration'
     | '/buyers-guide'
     | '/careers'
@@ -198,8 +256,14 @@ export interface FileRouteTypes {
     | '/faq'
     | '/sitemap.xml'
     | '/vendors-suppliers-registration'
+    | '/admin/enquiries'
+    | '/admin/login'
+    | '/admin/media'
+    | '/admin/projects'
+    | '/admin/signup'
     | '/api/chat'
     | '/projects/$slug'
+    | '/admin'
     | '/projects'
   id:
     | '__root__'
@@ -216,15 +280,21 @@ export interface FileRouteTypes {
     | '/faq'
     | '/sitemap.xml'
     | '/vendors-suppliers-registration'
+    | '/admin/enquiries'
+    | '/admin/login'
+    | '/admin/media'
+    | '/admin/projects'
+    | '/admin/signup'
     | '/api/chat'
     | '/projects/$slug'
+    | '/admin/'
     | '/projects/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
-  AdminRoute: typeof AdminRoute
+  AdminRoute: typeof AdminRouteWithChildren
   ArchitectConsultantRegistrationRoute: typeof ArchitectConsultantRegistrationRoute
   BuyersGuideRoute: typeof BuyersGuideRoute
   CareersRoute: typeof CareersRoute
@@ -340,6 +410,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProjectsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/': {
+      id: '/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/projects/$slug': {
       id: '/projects/$slug'
       path: '/projects/$slug'
@@ -354,13 +431,68 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiChatRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/signup': {
+      id: '/admin/signup'
+      path: '/signup'
+      fullPath: '/admin/signup'
+      preLoaderRoute: typeof AdminSignupRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/projects': {
+      id: '/admin/projects'
+      path: '/projects'
+      fullPath: '/admin/projects'
+      preLoaderRoute: typeof AdminProjectsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/media': {
+      id: '/admin/media'
+      path: '/media'
+      fullPath: '/admin/media'
+      preLoaderRoute: typeof AdminMediaRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/login': {
+      id: '/admin/login'
+      path: '/login'
+      fullPath: '/admin/login'
+      preLoaderRoute: typeof AdminLoginRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/enquiries': {
+      id: '/admin/enquiries'
+      path: '/enquiries'
+      fullPath: '/admin/enquiries'
+      preLoaderRoute: typeof AdminEnquiriesRouteImport
+      parentRoute: typeof AdminRoute
+    }
   }
 }
+
+interface AdminRouteChildren {
+  AdminEnquiriesRoute: typeof AdminEnquiriesRoute
+  AdminLoginRoute: typeof AdminLoginRoute
+  AdminMediaRoute: typeof AdminMediaRoute
+  AdminProjectsRoute: typeof AdminProjectsRoute
+  AdminSignupRoute: typeof AdminSignupRoute
+  AdminIndexRoute: typeof AdminIndexRoute
+}
+
+const AdminRouteChildren: AdminRouteChildren = {
+  AdminEnquiriesRoute: AdminEnquiriesRoute,
+  AdminLoginRoute: AdminLoginRoute,
+  AdminMediaRoute: AdminMediaRoute,
+  AdminProjectsRoute: AdminProjectsRoute,
+  AdminSignupRoute: AdminSignupRoute,
+  AdminIndexRoute: AdminIndexRoute,
+}
+
+const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
-  AdminRoute: AdminRoute,
+  AdminRoute: AdminRouteWithChildren,
   ArchitectConsultantRegistrationRoute: ArchitectConsultantRegistrationRoute,
   BuyersGuideRoute: BuyersGuideRoute,
   CareersRoute: CareersRoute,
