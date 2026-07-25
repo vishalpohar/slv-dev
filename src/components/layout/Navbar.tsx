@@ -216,6 +216,38 @@ export function Navbar() {
             </div>
           </div>
 
+          {/* Work With Us */}
+          <div className="relative group">
+            <button
+              className={cn(
+                "flex items-center gap-1 rounded-lg px-3 py-2 text-[0.82rem] font-medium transition-all duration-300 cursor-pointer",
+                scrolled ? "text-black/50 hover:text-foreground" : "text-white/70 hover:text-white",
+              )}
+            >
+              Work With Us
+              <ChevronDown className="h-3 w-3 transition-transform group-hover:rotate-180" />
+            </button>
+
+            <div className="absolute left-0 top-full hidden min-w-[260px] rounded-2xl border border-white/10 bg-black/80 p-4 backdrop-blur-xl group-hover:block">
+              <ul className="space-y-3">
+                {workLinks.map((item) => (
+                  <li key={item.label}>
+                    <Link
+                      to={item.to}
+                      onClick={() => {
+                        scrollToTopIfSamePage(item.to);
+                      }}
+                      className="flex items-center justify-between text-sm text-white/70 hover:text-gold"
+                    >
+                      {item.label}
+                      <ArrowUpRight className="h-3 w-3" />
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
           
           {/* Buyer's Guide */}
           <div className="relative group">
