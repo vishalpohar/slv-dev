@@ -458,6 +458,51 @@ export type Database = {
         };
         Relationships: [];
       };
+      work_registrations: {
+        Row: {
+          applicant_name: string;
+          created_at: string;
+          document_paths: Json;
+          email: string;
+          form_data: Json;
+          id: string;
+          notes: string | null;
+          phone: string;
+          registration_type: string;
+          status: string;
+          updated_at: string;
+          viewed: boolean;
+        };
+        Insert: {
+          applicant_name: string;
+          created_at?: string;
+          document_paths?: Json;
+          email: string;
+          form_data?: Json;
+          id?: string;
+          notes?: string | null;
+          phone: string;
+          registration_type: string;
+          status?: string;
+          updated_at?: string;
+          viewed?: boolean;
+        };
+        Update: {
+          applicant_name?: string;
+          created_at?: string;
+          document_paths?: Json;
+          email?: string;
+          form_data?: Json;
+          id?: string;
+          notes?: string | null;
+          phone?: string;
+          registration_type?: string;
+          status?: string;
+          updated_at?: string;
+          viewed?: boolean;
+        };
+        Relationships: [];
+      };
     };
     Views: {
       [_ in never]: never;
