@@ -70,9 +70,12 @@ export function AdminSidebar({ userEmail, userRole, onSignOut }: AdminSidebarPro
             collapsed && "justify-center px-2",
           )}
         >
-          <div className="flex-shrink-0 w-8 h-8 rounded-lg bg-gradient-gold flex items-center justify-center shadow-lg overflow-hidden">
-            <img src={slvLogo} alt="SLV" className="w-full h-full object-contain" />
-          </div>
+            <div className={cn(
+              "flex-shrink-0 overflow-hidden",
+              collapsed ? "h-8 w-auto" : "h-12 w-auto",
+            )}>
+              <img src={slvLogo} alt="SLV" className="h-full object-contain" />
+            </div>
           {!collapsed && (
             <div className="animate-fade-in">
               <p className="text-xs font-bold tracking-widest text-gold uppercase">SLV</p>
