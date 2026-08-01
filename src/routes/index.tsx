@@ -368,72 +368,78 @@ function Index() {
       </section>
 
       {/* ── Testimonial — optional ── */}
-      <section className="relative overflow-hidden pb-[250px]">
+      <section className="relative overflow-hidden pb-32 pt-16 sm:pb-40 sm:pt-20 lg:pb-[250px]">
         {/* Background glow */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute left-1/2 top-[65%] h-[400px] w-[400px] -translate-x-1/2 rounded-full bg-lime-400/20 blur-[120px]" />
-          <div className="absolute left-[45%] top-[20%] h-[260px] w-[260px] rounded-full bg-blue-500/15 blur-[100px]" />
+        <div className="pointer-events-none absolute inset-0 overflow-hidden">
+          <div className="absolute left-1/2 top-[65%] h-[250px] w-[250px] -translate-x-1/2 rounded-full bg-lime-400/20 blur-[90px] sm:h-[350px] sm:w-[350px] lg:h-[400px] lg:w-[400px] lg:blur-[120px]" />
+          <div className="absolute left-[35%] top-[15%] h-[180px] w-[180px] rounded-full bg-blue-500/15 blur-[70px] sm:h-[230px] sm:w-[230px] lg:left-[45%] lg:h-[260px] lg:w-[260px] lg:blur-[100px]" />
         </div>
 
-        <div className="relative mx-auto max-w-4xl px-6">
-          {/* Avatar */}
-          <div className="absolute left-20 -top-15 z-30">
-            <div className="h-32 w-32 overflow-hidden rounded-full border-[5px] border-white/20 bg-[#e5e4e0] shadow-2xl">
-              <img src={avatar} alt="Customer" className="h-full w-full object-cover" />
-            </div>
-          </div>
-
-          {/* Rating pill */}
-          <div className="absolute right-20 top-8 z-30">
-            <div className="flex items-center gap-1 rounded-full border border-white/15 bg-[#353535]/90 px-8 py-3 backdrop-blur-xl shadow-2xl">
-              {[...Array(5)].map((_, i) => (
-                <Star key={i} className="h-5 w-5 fill-yellow-400 text-yellow-400" />
-              ))}
-            </div>
-          </div>
-
+        <div className="relative mx-auto w-full max-w-4xl px-4 sm:px-6 lg:px-8">
           {/* Main card */}
-          <div className="relative mt-24 overflow-visible rounded-[36px] border border-white/15 bg-[#1f1f1f]/80 px-16 py-24 backdrop-blur-xl shadow-[0_30px_100px_rgba(0,0,0,0.55)]">
+          <div className="relative mt-14 overflow-visible rounded-[24px] border border-white/15 bg-[#1f1f1f]/80 px-5 pb-24 pt-20 shadow-[0_20px_70px_rgba(0,0,0,0.45)] backdrop-blur-xl sm:mt-20 sm:rounded-[30px] sm:px-10 sm:pb-28 sm:pt-24 lg:mt-24 lg:rounded-[36px] lg:px-16 lg:py-24 lg:pb-28 lg:shadow-[0_30px_100px_rgba(0,0,0,0.55)]">
             {/* Holographic reflections */}
-            <div className="absolute left-0 top-0 h-full w-full overflow-hidden rounded-[36px]">
-              <div className="absolute left-[15%] top-[10%] h-32 w-32 rounded-full bg-blue-500/10 blur-[80px]" />
-              <div className="absolute right-[20%] top-[20%] h-40 w-40 rounded-full bg-purple-500/10 blur-[80px]" />
-              <div className="absolute bottom-[10%] left-[35%] h-40 w-40 rounded-full bg-lime-400/10 blur-[90px]" />
+            <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-[24px] sm:rounded-[30px] lg:rounded-[36px]">
+              <div className="absolute left-[10%] top-[10%] h-24 w-24 rounded-full bg-blue-500/10 blur-[60px] sm:h-32 sm:w-32 sm:blur-[80px]" />
+              <div className="absolute right-[10%] top-[25%] h-28 w-28 rounded-full bg-purple-500/10 blur-[60px] sm:h-40 sm:w-40 sm:blur-[80px]" />
+              <div className="absolute bottom-[10%] left-[30%] h-28 w-28 rounded-full bg-lime-400/10 blur-[70px] sm:h-40 sm:w-40 sm:blur-[90px]" />
             </div>
 
-            {/* Title */}
-            <h2
-              className="relative z-10 text-center text-6xl font-bold mt-4"
-              style={{
-                color: "#C8FF28",
-                textShadow: "0 0 30px rgba(200,255,40,0.35)",
-              }}
-            >
-              Awesome Work!
-            </h2>
+            {/* Avatar */}
+            <div className="absolute -top-12 left-5 z-30 sm:-top-14 sm:left-10 lg:-top-16 lg:left-16">
+              <div className="h-24 w-24 overflow-hidden rounded-full border-4 border-white/20 bg-[#e5e4e0] shadow-2xl sm:h-28 sm:w-28 lg:h-32 lg:w-32 lg:border-[5px]">
+                <img src={avatar} alt="Customer" className="h-full w-full object-cover" />
+              </div>
+            </div>
 
-            {/* Quote */}
-            <p className="relative z-10 mx-auto mt-10 max-w-3xl text-center text-3xl leading-relaxed text-white/90">
-              I had a truly wonderful experience! I'm absolutely thrilled with the outstanding
-              outcome of the project. Everything exceeded my expectations!
-            </p>
+            {/* Rating pill */}
+            <div className="absolute right-4 top-5 z-30 sm:right-8 sm:top-7 lg:right-16 lg:top-8">
+              <div className="flex items-center gap-0.5 rounded-full border border-white/15 bg-[#353535]/90 px-3 py-2 shadow-2xl backdrop-blur-xl sm:gap-1 sm:px-5 sm:py-2.5 lg:px-8 lg:py-3">
+                {[...Array(5)].map((_, i) => (
+                  <Star
+                    key={i}
+                    className="h-3.5 w-3.5 fill-yellow-400 text-yellow-400 sm:h-4 sm:w-4 lg:h-5 lg:w-5"
+                  />
+                ))}
+              </div>
+            </div>
 
-            {/* Customer */}
-            <div className="relative z-10 mt-12 text-center">
-              <p className="text-sm font-bold uppercase tracking-[0.35em] text-white">
-                John Carter
+            {/* Content */}
+            <div className="relative z-10">
+              {/* Title */}
+              <h2
+                className="mt-3 text-center text-3xl font-bold leading-tight sm:mt-4 sm:text-4xl md:text-5xl lg:text-6xl"
+                style={{
+                  color: "#C8FF28",
+                  textShadow: "0 0 30px rgba(200,255,40,0.35)",
+                }}
+              >
+                A Dream Come True!
+              </h2>
+
+              {/* Quote */}
+              <p className="mx-auto mt-6 max-w-3xl text-center text-base leading-relaxed text-white/90 sm:mt-8 sm:text-xl md:text-2xl lg:mt-10 lg:text-3xl">
+                I had a truly wonderful experience! I'm absolutely thrilled with the outstanding
+                outcome of the project. Everything exceeded my expectations!
               </p>
 
-              <p className="mt-2 text-xs uppercase tracking-[0.25em] text-white/50">
-                Luxury Villa Owner
-              </p>
+              {/* Customer */}
+              <div className="mt-8 text-center sm:mt-10 lg:mt-12">
+                <p className="text-xs font-bold uppercase tracking-[0.2em] text-white sm:text-sm sm:tracking-[0.35em]">
+                  Arjun
+                </p>
+
+                <p className="mt-2 text-[10px] uppercase tracking-[0.15em] text-white/50 sm:text-xs sm:tracking-[0.25em]">
+                  House Owner
+                </p>
+              </div>
             </div>
 
             {/* Chrome thumbs */}
             <img
               src={thumbsUp}
               alt="Thumbs Up"
-              className="absolute -bottom-10 right-0 z-20 w-[230px] drop-shadow-[0_25px_50px_rgba(0,0,0,0.65)]"
+              className="pointer-events-none absolute -bottom-8 right-0 z-20 w-[115px] drop-shadow-[0_15px_30px_rgba(0,0,0,0.65)] sm:-bottom-10 sm:w-[160px] md:w-[190px] lg:w-[230px]"
             />
           </div>
         </div>

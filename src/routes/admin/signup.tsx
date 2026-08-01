@@ -2,10 +2,11 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
-import { Crown, Eye, EyeOff, UserPlus, Loader2 } from "lucide-react";
+import { Eye, EyeOff, UserPlus, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import logo from "@/assets/slv-logo.png";
 
 export const Route = createFileRoute("/admin/signup")({
   component: AdminSignup,
@@ -66,7 +67,7 @@ function AdminSignup() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-royal flex items-center justify-center px-4 py-12">
+    <div className="relative flex min-h-screen items-center justify-center bg-gradient-royal px-4 py-6 sm:py-10 md:py-12">
       {/* Background decoration */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-40 -right-40 w-96 h-96 rounded-full bg-gold/5 blur-3xl" />
@@ -74,14 +75,18 @@ function AdminSignup() {
       </div>
 
       <div className="relative w-full max-w-md">
-        <div className="glass-dark rounded-2xl border border-white/10 p-8 shadow-2xl">
+        <div className="glass-dark rounded-2xl border border-white/10 p-5 shadow-2xl sm:p-8">
           {/* Logo */}
-          <div className="flex flex-col items-center mb-8">
-            <div className="w-16 h-16 rounded-2xl bg-gradient-gold flex items-center justify-center shadow-xl mb-4 animate-float">
-              <Crown className="w-8 h-8 text-obsidian" />
-            </div>
-            <h1 className="text-2xl font-bold text-white font-display">Create Account</h1>
-            <p className="text-sm text-white/50 mt-1">Request access to SLV Admin</p>
+          <div className="mb-6 flex flex-col items-center text-center sm:mb-8">
+            <img
+              src={logo}
+              alt="SLV Builders & Developers"
+              className="mb-3 h-auto w-[120px] object-contain sm:w-[145px] md:w-[160px]"
+            />
+            <h1 className="font-display text-xl font-bold text-white sm:text-2xl">
+              Create Account
+            </h1>
+            <p className="mt-1 text-xs text-white/50 sm:text-sm">Request access to SLV Admin</p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">

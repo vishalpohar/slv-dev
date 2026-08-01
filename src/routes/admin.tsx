@@ -23,6 +23,10 @@ function AdminLayout() {
     "/admin/": { title: "Dashboard", subtitle: "Welcome back to SLV Admin" },
     "/admin/projects": { title: "Projects", subtitle: "Manage your property listings" },
     "/admin/enquiries": { title: "Enquiries", subtitle: "Track and manage leads" },
+    "/admin/messages": {
+      title: "Messages",
+      subtitle: "Review work registration applications",
+    },
     "/admin/media": { title: "Media Library", subtitle: "Images, videos & brochures" },
   };
   const pageInfo = pageTitles[pathname] ?? { title: "Admin", subtitle: "" };

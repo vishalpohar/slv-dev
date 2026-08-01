@@ -9,13 +9,16 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as VendorsSuppliersRegistrationRouteImport } from './routes/vendors-suppliers-registration'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as EmiCalculatorRouteImport } from './routes/emi-calculator'
+import { Route as ContractorRegistrationRouteImport } from './routes/contractor-registration'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CompareRouteImport } from './routes/compare'
 import { Route as CareersRouteImport } from './routes/careers'
 import { Route as BuyersGuideRouteImport } from './routes/buyers-guide'
+import { Route as ArchitectConsultantRegistrationRouteImport } from './routes/architect-consultant-registration'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
@@ -25,10 +28,17 @@ import { Route as ProjectsSlugRouteImport } from './routes/projects.$slug'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
 import { Route as AdminSignupRouteImport } from './routes/admin/signup'
 import { Route as AdminProjectsRouteImport } from './routes/admin/projects'
+import { Route as AdminMessagesRouteImport } from './routes/admin/messages'
 import { Route as AdminMediaRouteImport } from './routes/admin/media'
 import { Route as AdminLoginRouteImport } from './routes/admin/login'
 import { Route as AdminEnquiriesRouteImport } from './routes/admin/enquiries'
 
+const VendorsSuppliersRegistrationRoute =
+  VendorsSuppliersRegistrationRouteImport.update({
+    id: '/vendors-suppliers-registration',
+    path: '/vendors-suppliers-registration',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
@@ -42,6 +52,11 @@ const FaqRoute = FaqRouteImport.update({
 const EmiCalculatorRoute = EmiCalculatorRouteImport.update({
   id: '/emi-calculator',
   path: '/emi-calculator',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContractorRegistrationRoute = ContractorRegistrationRouteImport.update({
+  id: '/contractor-registration',
+  path: '/contractor-registration',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactRoute = ContactRouteImport.update({
@@ -64,6 +79,12 @@ const BuyersGuideRoute = BuyersGuideRouteImport.update({
   path: '/buyers-guide',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ArchitectConsultantRegistrationRoute =
+  ArchitectConsultantRegistrationRouteImport.update({
+    id: '/architect-consultant-registration',
+    path: '/architect-consultant-registration',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const AdminRoute = AdminRouteImport.update({
   id: '/admin',
   path: '/admin',
@@ -109,6 +130,11 @@ const AdminProjectsRoute = AdminProjectsRouteImport.update({
   path: '/projects',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminMessagesRoute = AdminMessagesRouteImport.update({
+  id: '/messages',
+  path: '/messages',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminMediaRoute = AdminMediaRouteImport.update({
   id: '/media',
   path: '/media',
@@ -129,16 +155,20 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/admin': typeof AdminRouteWithChildren
+  '/architect-consultant-registration': typeof ArchitectConsultantRegistrationRoute
   '/buyers-guide': typeof BuyersGuideRoute
   '/careers': typeof CareersRoute
   '/compare': typeof CompareRoute
   '/contact': typeof ContactRoute
+  '/contractor-registration': typeof ContractorRegistrationRoute
   '/emi-calculator': typeof EmiCalculatorRoute
   '/faq': typeof FaqRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/vendors-suppliers-registration': typeof VendorsSuppliersRegistrationRoute
   '/admin/enquiries': typeof AdminEnquiriesRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/media': typeof AdminMediaRoute
+  '/admin/messages': typeof AdminMessagesRoute
   '/admin/projects': typeof AdminProjectsRoute
   '/admin/signup': typeof AdminSignupRoute
   '/api/chat': typeof ApiChatRoute
@@ -149,16 +179,20 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/architect-consultant-registration': typeof ArchitectConsultantRegistrationRoute
   '/buyers-guide': typeof BuyersGuideRoute
   '/careers': typeof CareersRoute
   '/compare': typeof CompareRoute
   '/contact': typeof ContactRoute
+  '/contractor-registration': typeof ContractorRegistrationRoute
   '/emi-calculator': typeof EmiCalculatorRoute
   '/faq': typeof FaqRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/vendors-suppliers-registration': typeof VendorsSuppliersRegistrationRoute
   '/admin/enquiries': typeof AdminEnquiriesRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/media': typeof AdminMediaRoute
+  '/admin/messages': typeof AdminMessagesRoute
   '/admin/projects': typeof AdminProjectsRoute
   '/admin/signup': typeof AdminSignupRoute
   '/api/chat': typeof ApiChatRoute
@@ -171,16 +205,20 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/admin': typeof AdminRouteWithChildren
+  '/architect-consultant-registration': typeof ArchitectConsultantRegistrationRoute
   '/buyers-guide': typeof BuyersGuideRoute
   '/careers': typeof CareersRoute
   '/compare': typeof CompareRoute
   '/contact': typeof ContactRoute
+  '/contractor-registration': typeof ContractorRegistrationRoute
   '/emi-calculator': typeof EmiCalculatorRoute
   '/faq': typeof FaqRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/vendors-suppliers-registration': typeof VendorsSuppliersRegistrationRoute
   '/admin/enquiries': typeof AdminEnquiriesRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/media': typeof AdminMediaRoute
+  '/admin/messages': typeof AdminMessagesRoute
   '/admin/projects': typeof AdminProjectsRoute
   '/admin/signup': typeof AdminSignupRoute
   '/api/chat': typeof ApiChatRoute
@@ -194,16 +232,20 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/admin'
+    | '/architect-consultant-registration'
     | '/buyers-guide'
     | '/careers'
     | '/compare'
     | '/contact'
+    | '/contractor-registration'
     | '/emi-calculator'
     | '/faq'
     | '/sitemap.xml'
+    | '/vendors-suppliers-registration'
     | '/admin/enquiries'
     | '/admin/login'
     | '/admin/media'
+    | '/admin/messages'
     | '/admin/projects'
     | '/admin/signup'
     | '/api/chat'
@@ -214,16 +256,20 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/about'
+    | '/architect-consultant-registration'
     | '/buyers-guide'
     | '/careers'
     | '/compare'
     | '/contact'
+    | '/contractor-registration'
     | '/emi-calculator'
     | '/faq'
     | '/sitemap.xml'
+    | '/vendors-suppliers-registration'
     | '/admin/enquiries'
     | '/admin/login'
     | '/admin/media'
+    | '/admin/messages'
     | '/admin/projects'
     | '/admin/signup'
     | '/api/chat'
@@ -235,16 +281,20 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/admin'
+    | '/architect-consultant-registration'
     | '/buyers-guide'
     | '/careers'
     | '/compare'
     | '/contact'
+    | '/contractor-registration'
     | '/emi-calculator'
     | '/faq'
     | '/sitemap.xml'
+    | '/vendors-suppliers-registration'
     | '/admin/enquiries'
     | '/admin/login'
     | '/admin/media'
+    | '/admin/messages'
     | '/admin/projects'
     | '/admin/signup'
     | '/api/chat'
@@ -257,13 +307,16 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   AdminRoute: typeof AdminRouteWithChildren
+  ArchitectConsultantRegistrationRoute: typeof ArchitectConsultantRegistrationRoute
   BuyersGuideRoute: typeof BuyersGuideRoute
   CareersRoute: typeof CareersRoute
   CompareRoute: typeof CompareRoute
   ContactRoute: typeof ContactRoute
+  ContractorRegistrationRoute: typeof ContractorRegistrationRoute
   EmiCalculatorRoute: typeof EmiCalculatorRoute
   FaqRoute: typeof FaqRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  VendorsSuppliersRegistrationRoute: typeof VendorsSuppliersRegistrationRoute
   ApiChatRoute: typeof ApiChatRoute
   ProjectsSlugRoute: typeof ProjectsSlugRoute
   ProjectsIndexRoute: typeof ProjectsIndexRoute
@@ -271,6 +324,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/vendors-suppliers-registration': {
+      id: '/vendors-suppliers-registration'
+      path: '/vendors-suppliers-registration'
+      fullPath: '/vendors-suppliers-registration'
+      preLoaderRoute: typeof VendorsSuppliersRegistrationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sitemap.xml': {
       id: '/sitemap.xml'
       path: '/sitemap.xml'
@@ -290,6 +350,13 @@ declare module '@tanstack/react-router' {
       path: '/emi-calculator'
       fullPath: '/emi-calculator'
       preLoaderRoute: typeof EmiCalculatorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contractor-registration': {
+      id: '/contractor-registration'
+      path: '/contractor-registration'
+      fullPath: '/contractor-registration'
+      preLoaderRoute: typeof ContractorRegistrationRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact': {
@@ -318,6 +385,13 @@ declare module '@tanstack/react-router' {
       path: '/buyers-guide'
       fullPath: '/buyers-guide'
       preLoaderRoute: typeof BuyersGuideRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/architect-consultant-registration': {
+      id: '/architect-consultant-registration'
+      path: '/architect-consultant-registration'
+      fullPath: '/architect-consultant-registration'
+      preLoaderRoute: typeof ArchitectConsultantRegistrationRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin': {
@@ -383,6 +457,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminProjectsRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/messages': {
+      id: '/admin/messages'
+      path: '/messages'
+      fullPath: '/admin/messages'
+      preLoaderRoute: typeof AdminMessagesRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/media': {
       id: '/admin/media'
       path: '/media'
@@ -411,6 +492,7 @@ interface AdminRouteChildren {
   AdminEnquiriesRoute: typeof AdminEnquiriesRoute
   AdminLoginRoute: typeof AdminLoginRoute
   AdminMediaRoute: typeof AdminMediaRoute
+  AdminMessagesRoute: typeof AdminMessagesRoute
   AdminProjectsRoute: typeof AdminProjectsRoute
   AdminSignupRoute: typeof AdminSignupRoute
   AdminIndexRoute: typeof AdminIndexRoute
@@ -420,6 +502,7 @@ const AdminRouteChildren: AdminRouteChildren = {
   AdminEnquiriesRoute: AdminEnquiriesRoute,
   AdminLoginRoute: AdminLoginRoute,
   AdminMediaRoute: AdminMediaRoute,
+  AdminMessagesRoute: AdminMessagesRoute,
   AdminProjectsRoute: AdminProjectsRoute,
   AdminSignupRoute: AdminSignupRoute,
   AdminIndexRoute: AdminIndexRoute,
@@ -431,13 +514,16 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   AdminRoute: AdminRouteWithChildren,
+  ArchitectConsultantRegistrationRoute: ArchitectConsultantRegistrationRoute,
   BuyersGuideRoute: BuyersGuideRoute,
   CareersRoute: CareersRoute,
   CompareRoute: CompareRoute,
   ContactRoute: ContactRoute,
+  ContractorRegistrationRoute: ContractorRegistrationRoute,
   EmiCalculatorRoute: EmiCalculatorRoute,
   FaqRoute: FaqRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  VendorsSuppliersRegistrationRoute: VendorsSuppliersRegistrationRoute,
   ApiChatRoute: ApiChatRoute,
   ProjectsSlugRoute: ProjectsSlugRoute,
   ProjectsIndexRoute: ProjectsIndexRoute,

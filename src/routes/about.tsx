@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Eye, Rocket, PenTool, ArrowRight, Quote } from "lucide-react";
+import { Eye, Rocket, PenTool, ArrowRight, Quote, Award, Trophy, Medal, ShieldCheck, Star, Users, Handshake, Sparkles, HardHat, Building2 } from "lucide-react";
+//npimport { Eye, Rocket, PenTool, ArrowRight, Quote } from "lucide-react";
 import { Reveal } from "@/components/Reveal";
 import heroImage from "@/assets/about_slv.jpg";
 import amaravathi from "@/assets/amaravathi.png";
@@ -64,6 +65,72 @@ const journey = [
     desc: "With 20 residential projects, 2 commercial projects, and an educational institute, SLV is a proud member of CREDAI–Vijayawada, IGBC, and NAREDCO — every project RERA approved.",
   },
 ];
+const awards = [
+  {
+    icon: Trophy,
+    year: "2023",
+    title: "Developer of the Year — Andhra Pradesh",
+    body: "Recognised by the Real Estate Excellence Council for consistent on-time delivery across residential portfolios.",
+  },
+  {
+    icon: Award,
+    year: "2022",
+    title: "Best Gated Community Project",
+    body: "Awarded to SLV Anjani Heights for design innovation, green cover, and community-first amenities.",
+  },
+  {
+    icon: ShieldCheck,
+    year: "2021",
+    title: "RERA Compliance Excellence",
+    body: "100% RERA-approved portfolio recognised for transparent titles, disclosures, and buyer protection.",
+  },
+  {
+    icon: Medal,
+    year: "2020",
+    title: "CREDAI Quality Construction Award",
+    body: "Honoured by CREDAI–Vijayawada for engineering standards and structural quality benchmarks.",
+  },
+  {
+    icon: Star,
+    year: "2019",
+    title: "Customer Trust Award",
+    body: "Voted among the most trusted builders in the Amaravati region by homeowner surveys.",
+  },
+  {
+    icon: Sparkles,
+    year: "2018",
+    title: "IGBC Green Building Recognition",
+    body: "Acknowledged by the Indian Green Building Council for sustainable design and material choices.",
+  },
+];
+
+const workWithUs = [
+  {
+    icon: Users,
+    title: "Home Buyers",
+    desc: "Discover RERA-approved apartments, villas, and plots crafted around your family's next chapter.",
+    cta: "Explore Projects",
+  },
+  {
+    icon: Handshake,
+    title: "Channel Partners",
+    desc: "Partner with a 19-year-old brand known for transparent pricing, timely delivery, and reliable payouts.",
+    cta: "Become a Partner",
+  },
+  {
+    icon: HardHat,
+    title: "Contractors & Vendors",
+    desc: "Join our approved supplier network for civil, MEP, interiors, and material supply across active sites.",
+    cta: "Get Empanelled",
+  },
+  {
+    icon: Building2,
+    title: "Landowners",
+    desc: "Unlock the value of your land through joint developments with a builder trusted by 5,000+ families.",
+    cta: "Propose a Site",
+  },
+];
+
 
 function AboutPage() {
   return (
@@ -265,6 +332,46 @@ function AboutPage() {
         </div>
       </section>
 
+            {/* ---------- Awards & Recognition ---------- */}
+      <section className="mx-auto mt-28 max-w-7xl px-6">
+        <Reveal>
+          <div className="text-center">
+            <p className="section-label text-gold">Recognition</p>
+            <h2 className="mt-4 font-display text-3xl font-bold text-foreground sm:text-5xl">
+              Awards & <span className="text-gradient-gold">Recognition</span>
+            </h2>
+            <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
+              Milestones earned through trust, timely delivery, and uncompromised quality.
+            </p>
+          </div>
+        </Reveal>
+
+        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {awards.map((a, i) => {
+            const Icon = a.icon;
+            return (
+              <Reveal key={a.title} delay={i * 90}>
+                <div className="group relative h-full overflow-hidden rounded-3xl bg-card p-8 neu">
+                  <div className="flex items-start justify-between">
+                    <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-gold text-gold-foreground">
+                      <Icon className="h-6 w-6" />
+                    </span>
+                    <span className="font-display text-3xl font-bold text-gold/30 transition-colors group-hover:text-gold/50">
+                      {a.year}
+                    </span>
+                  </div>
+                  <h3 className="mt-6 font-display text-xl font-semibold text-foreground">
+                    {a.title}
+                  </h3>
+                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{a.body}</p>
+                </div>
+              </Reveal>
+            );
+          })}
+        </div>
+      </section>
+
+
       {/* ---------- Founder quote ---------- */}
       <section className="mx-auto mt-28 max-w-4xl px-6">
         <Reveal>
@@ -279,6 +386,47 @@ function AboutPage() {
           </div>
         </Reveal>
       </section>
+
+            {/* ---------- Work With Us ---------- */}
+      <section className="mx-auto mt-28 max-w-7xl px-6">
+        <Reveal>
+          <div className="text-center">
+            <p className="section-label text-gold">Collaborate</p>
+            <h2 className="mt-4 font-display text-3xl font-bold text-foreground sm:text-5xl">
+              Work <span className="text-gradient-gold">With Us</span>
+            </h2>
+            <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
+              Whether you're buying a home, partnering on sales, supplying our sites, or bringing us
+              your land — there's a place for you in the SLV story.
+            </p>
+          </div>
+        </Reveal>
+
+        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {workWithUs.map((w, i) => {
+            const Icon = w.icon;
+            return (
+              <Reveal key={w.title} delay={i * 100}>
+                <div className="group flex h-full flex-col rounded-3xl bg-gradient-obsidian p-8 text-background">
+                  <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gold/15 text-gold ring-1 ring-gold/30">
+                    <Icon className="h-6 w-6" />
+                  </span>
+                  <h3 className="mt-6 font-display text-xl font-semibold">{w.title}</h3>
+                  <p className="mt-3 flex-1 text-sm leading-relaxed text-background/65">{w.desc}</p>
+                  <Link
+                    to="/contact"
+                    className="group/link mt-6 inline-flex items-center gap-2 text-sm font-semibold text-gold"
+                  >
+                    {w.cta}
+                    <ArrowRight className="h-4 w-4 transition-transform group-hover/link:translate-x-1" />
+                  </Link>
+                </div>
+              </Reveal>
+            );
+          })}
+        </div>
+      </section>
+
 
       {/* ---------- CTA ---------- */}
       <section className="mx-auto mt-24 max-w-7xl px-6">
