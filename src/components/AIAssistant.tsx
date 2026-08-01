@@ -44,31 +44,37 @@ export function AIAssistant() {
     if (open) setTimeout(() => inputRef.current?.focus(), 300);
   }, [open]);
 
-  const submit = useCallback((text: string) => {
-    const value = text.trim();
-    if (!value || isTyping) return;
+  const submit = useCallback(
+    (text: string) => {
+      const value = text.trim();
+      if (!value || isTyping) return;
 
-    const userMsg: ChatMessage = {
-      id: `user-${Date.now()}`,
-      role: "user",
-      text: value,
-    };
-    setMessages((prev) => [...prev, userMsg]);
-    setInput("");
-    setIsTyping(true);
-
-    // Simulate a brief "thinking" delay for natural UX
-    setTimeout(() => {
-      const response = generateResponse(value);
-      const botMsg: ChatMessage = {
-        id: `bot-${Date.now()}`,
-        role: "assistant",
-        text: response,
+      const userMsg: ChatMessage = {
+        id: `user-${Date.now()}`,
+        role: "user",
+        text: value,
       };
-      setMessages((prev) => [...prev, botMsg]);
-      setIsTyping(false);
-    }, 400 + Math.random() * 400);
-  }, [isTyping]);
+      setMessages((prev) => [...prev, userMsg]);
+      setInput("");
+      setIsTyping(true);
+
+      // Simulate a brief "thinking" delay for natural UX
+      setTimeout(
+        () => {
+          const response = generateResponse(value);
+          const botMsg: ChatMessage = {
+            id: `bot-${Date.now()}`,
+            role: "assistant",
+            text: response,
+          };
+          setMessages((prev) => [...prev, botMsg]);
+          setIsTyping(false);
+        },
+        400 + Math.random() * 400,
+      );
+    },
+    [isTyping],
+  );
 
   return (
     <>
@@ -101,7 +107,9 @@ export function AIAssistant() {
               </span>
               <div className="leading-tight">
                 <p className="font-display text-lg font-semibold">SLV Property Assistant</p>
-                <p className="text-[0.65rem] uppercase tracking-wider text-gold">Smart Search · Online</p>
+                <p className="text-[0.65rem] uppercase tracking-wider text-gold">
+                  Smart Search · Online
+                </p>
               </div>
             </div>
             <button
@@ -122,8 +130,8 @@ export function AIAssistant() {
                     <Bot className="h-4 w-4" />
                   </span>
                   <div className="max-w-[85%] rounded-2xl rounded-tl-sm bg-white/10 p-4 text-sm text-background/90">
-                    Namaste! I'm your SLV property advisor. Tell me your budget, preferred area, and home type — I'll
-                    suggest the best-matching SLV projects instantly.
+                    Namaste! I'm your SLV property advisor. Tell me your budget, preferred area, and
+                    home type — I'll suggest the best-matching SLV projects instantly.
                   </div>
                 </div>
                 <div className="flex flex-wrap gap-2 pl-11">
@@ -228,7 +236,8 @@ export function AIAssistant() {
               </button>
             </form>
             <p className="mt-2 text-center text-[0.65rem] text-background/40">
-              Answers are based on SLV project catalog — confirm details with our team before deciding.
+              Answers are based on SLV project catalog — confirm details with our team before
+              deciding.
             </p>
           </div>
         </div>

@@ -157,7 +157,12 @@ function ProjectsManagement() {
         cover_image: data.cover_image || null,
         brochure_url: data.brochure_url || null,
         map_embed: data.map_embed || null,
-        amenities: data.amenities ? data.amenities.split(",").map((s) => s.trim()).filter(Boolean) : [],
+        amenities: data.amenities
+          ? data.amenities
+              .split(",")
+              .map((s) => s.trim())
+              .filter(Boolean)
+          : [],
         is_featured: data.is_featured,
         is_published: data.is_published,
         sort_order: Number(data.sort_order) || 0,
@@ -193,7 +198,12 @@ function ProjectsManagement() {
           cover_image: data.cover_image || null,
           brochure_url: data.brochure_url || null,
           map_embed: data.map_embed || null,
-          amenities: data.amenities ? data.amenities.split(",").map((s) => s.trim()).filter(Boolean) : [],
+          amenities: data.amenities
+            ? data.amenities
+                .split(",")
+                .map((s) => s.trim())
+                .filter(Boolean)
+            : [],
           is_featured: data.is_featured,
           is_published: data.is_published,
           sort_order: Number(data.sort_order) || 0,
@@ -256,8 +266,8 @@ function ProjectsManagement() {
       const { data } = supabase.storage.from("project-media").getPublicUrl(path);
       setForm((f) => ({ ...f, cover_image: data.publicUrl }));
       toast.success("Image uploaded");
-    } catch (err: any) {
-      toast.error(err.message ?? "Upload failed");
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Upload failed");
     } finally {
       setUploadingCover(false);
     }
@@ -277,8 +287,8 @@ function ProjectsManagement() {
       const { data } = supabase.storage.from("brochures").getPublicUrl(path);
       setForm((f) => ({ ...f, brochure_url: data.publicUrl }));
       toast.success("Brochure uploaded");
-    } catch (err: any) {
-      toast.error(err.message ?? "Upload failed");
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Upload failed");
     } finally {
       setUploadingBrochure(false);
     }
@@ -463,9 +473,7 @@ function ProjectsManagement() {
                       </Badge>
                     </td>
                     <td className="px-4 py-3 text-xs text-muted-foreground whitespace-nowrap">
-                      {project.price_from
-                        ? `₹${(project.price_from / 100000).toFixed(0)}L`
-                        : "—"}
+                      {project.price_from ? `₹${(project.price_from / 100000).toFixed(0)}L` : "—"}
                     </td>
                     <td className="px-4 py-3">
                       <Switch
@@ -588,7 +596,9 @@ function ProjectsManagement() {
                     <Input
                       id="slug"
                       value={form.slug}
-                      onChange={(e) => setForm((f) => ({ ...f, slug: generateSlug(e.target.value) }))}
+                      onChange={(e) =>
+                        setForm((f) => ({ ...f, slug: generateSlug(e.target.value) }))
+                      }
                       placeholder="slv-grandeur"
                       required
                     />
@@ -807,7 +817,13 @@ function ProjectsManagement() {
                           if (file) handleCoverUpload(file);
                         }}
                       />
-                      <Button type="button" variant="outline" disabled={uploadingCover} className="gap-2 whitespace-nowrap" asChild>
+                      <Button
+                        type="button"
+                        variant="outline"
+                        disabled={uploadingCover}
+                        className="gap-2 whitespace-nowrap"
+                        asChild
+                      >
                         <span>
                           {uploadingCover ? (
                             <Loader2 className="w-4 h-4 animate-spin" />
@@ -857,7 +873,13 @@ function ProjectsManagement() {
                           if (file) handleBrochureUpload(file);
                         }}
                       />
-                      <Button type="button" variant="outline" disabled={uploadingBrochure} className="gap-2 whitespace-nowrap" asChild>
+                      <Button
+                        type="button"
+                        variant="outline"
+                        disabled={uploadingBrochure}
+                        className="gap-2 whitespace-nowrap"
+                        asChild
+                      >
                         <span>
                           {uploadingBrochure ? (
                             <Loader2 className="w-4 h-4 animate-spin" />
@@ -906,9 +928,7 @@ function ProjectsManagement() {
               onClick={() => deletingId && deleteMutation.mutate(deletingId)}
               className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
             >
-              {deleteMutation.isPending ? (
-                <Loader2 className="w-4 h-4 animate-spin mr-2" />
-              ) : null}
+              {deleteMutation.isPending ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : null}
               Delete
             </AlertDialogAction>
           </AlertDialogFooter>

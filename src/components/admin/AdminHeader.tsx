@@ -20,9 +20,7 @@ export function AdminHeader({ title, subtitle, userEmail }: AdminHeaderProps) {
       {/* Page title */}
       <div className="flex-1 min-w-0">
         <h1 className="text-xl font-bold text-foreground truncate">{title}</h1>
-        {subtitle && (
-          <p className="text-xs text-muted-foreground mt-0.5 truncate">{subtitle}</p>
-        )}
+        {subtitle && <p className="text-xs text-muted-foreground mt-0.5 truncate">{subtitle}</p>}
       </div>
 
       {/* Search bar */}
@@ -35,7 +33,11 @@ export function AdminHeader({ title, subtitle, userEmail }: AdminHeaderProps) {
       </div>
 
       {/* Notification bell */}
-      <Button variant="ghost" size="icon" className="relative text-muted-foreground hover:text-foreground">
+      <Button
+        variant="ghost"
+        size="icon"
+        className="relative text-muted-foreground hover:text-foreground"
+      >
         <Bell className="w-5 h-5" />
         <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-gold animate-pulse-gold" />
       </Button>

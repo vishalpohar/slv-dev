@@ -10,10 +10,10 @@ import {
   LogOut,
   ChevronLeft,
   ChevronRight,
-  Crown,
 } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
+import slvLogo from "@/assets/slv-logo.png";
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
@@ -70,8 +70,8 @@ export function AdminSidebar({ userEmail, userRole, onSignOut }: AdminSidebarPro
             collapsed && "justify-center px-2",
           )}
         >
-          <div className="flex-shrink-0 w-8 h-8 rounded-lg bg-gradient-gold flex items-center justify-center shadow-lg">
-            <Crown className="w-4 h-4 text-obsidian" />
+          <div className="flex-shrink-0 w-8 h-8 rounded-lg bg-gradient-gold flex items-center justify-center shadow-lg overflow-hidden">
+            <img src={slvLogo} alt="SLV" className="w-full h-full object-contain" />
           </div>
           {!collapsed && (
             <div className="animate-fade-in">

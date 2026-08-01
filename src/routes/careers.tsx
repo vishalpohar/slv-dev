@@ -15,7 +15,10 @@ export const Route = createFileRoute("/careers")({
           "Join SLV Builders & Developers. Explore open roles in sales, design, and marketing, and submit your application online.",
       },
       { property: "og:title", content: "Careers — SLV Builders" },
-      { property: "og:description", content: "Build your career with India's luxury real estate leader." },
+      {
+        property: "og:description",
+        content: "Build your career with India's luxury real estate leader.",
+      },
     ],
   }),
   component: CareersPage,
@@ -76,7 +79,9 @@ function Dropzone() {
         <p className="mt-4 font-medium text-foreground">
           {drag ? "Drop your resume here" : "Drag & drop your resume / CV"}
         </p>
-        <p className="mt-1 text-sm text-muted-foreground">or click to browse · PDF or DOC · max 5MB</p>
+        <p className="mt-1 text-sm text-muted-foreground">
+          or click to browse · PDF or DOC · max 5MB
+        </p>
       </div>
 
       {file && (
@@ -94,7 +99,10 @@ function Dropzone() {
             </button>
           </div>
           <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-muted">
-            <div className="h-full rounded-full bg-gradient-gold transition-all" style={{ width: `${progress}%` }} />
+            <div
+              className="h-full rounded-full bg-gradient-gold transition-all"
+              style={{ width: `${progress}%` }}
+            />
           </div>
         </div>
       )}
@@ -129,18 +137,36 @@ function CareersPage() {
                   className="flex w-full items-center justify-between px-5 py-4 text-left"
                 >
                   <span>
-                    <span className="block font-display text-lg font-semibold text-foreground">{job.title}</span>
+                    <span className="block font-display text-lg font-semibold text-foreground">
+                      {job.title}
+                    </span>
                     <span className="mt-1 flex flex-wrap gap-x-4 gap-y-1 text-xs text-muted-foreground">
-                      <span className="flex items-center gap-1"><Briefcase className="h-3 w-3 text-gold" /> {job.department}</span>
-                      <span className="flex items-center gap-1"><MapPin className="h-3 w-3 text-gold" /> {job.location}</span>
+                      <span className="flex items-center gap-1">
+                        <Briefcase className="h-3 w-3 text-gold" /> {job.department}
+                      </span>
+                      <span className="flex items-center gap-1">
+                        <MapPin className="h-3 w-3 text-gold" /> {job.location}
+                      </span>
                       <span>{job.type}</span>
                     </span>
                   </span>
-                  <ChevronDown className={cn("h-5 w-5 shrink-0 text-gold transition-transform", open === i && "rotate-180")} />
+                  <ChevronDown
+                    className={cn(
+                      "h-5 w-5 shrink-0 text-gold transition-transform",
+                      open === i && "rotate-180",
+                    )}
+                  />
                 </button>
-                <div className={cn("grid transition-all duration-300", open === i ? "grid-rows-[1fr]" : "grid-rows-[0fr]")}>
+                <div
+                  className={cn(
+                    "grid transition-all duration-300",
+                    open === i ? "grid-rows-[1fr]" : "grid-rows-[0fr]",
+                  )}
+                >
                   <div className="overflow-hidden">
-                    <p className="px-5 pb-5 text-sm leading-relaxed text-muted-foreground">{job.description}</p>
+                    <p className="px-5 pb-5 text-sm leading-relaxed text-muted-foreground">
+                      {job.description}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -157,9 +183,22 @@ function CareersPage() {
                 toast.success("Application submitted! Our HR team will be in touch.");
               }}
             >
-              <input required placeholder="Full Name" className="w-full rounded-xl bg-background px-4 py-3 text-sm neu-pressed focus:outline-none" />
-              <input required type="email" placeholder="Email Address" className="w-full rounded-xl bg-background px-4 py-3 text-sm neu-pressed focus:outline-none" />
-              <input required placeholder="Phone Number" className="w-full rounded-xl bg-background px-4 py-3 text-sm neu-pressed focus:outline-none" />
+              <input
+                required
+                placeholder="Full Name"
+                className="w-full rounded-xl bg-background px-4 py-3 text-sm neu-pressed focus:outline-none"
+              />
+              <input
+                required
+                type="email"
+                placeholder="Email Address"
+                className="w-full rounded-xl bg-background px-4 py-3 text-sm neu-pressed focus:outline-none"
+              />
+              <input
+                required
+                placeholder="Phone Number"
+                className="w-full rounded-xl bg-background px-4 py-3 text-sm neu-pressed focus:outline-none"
+              />
               <Dropzone />
               <button className="w-full rounded-xl bg-gradient-gold py-3.5 text-sm font-semibold text-gold-foreground transition-transform hover:scale-[1.01]">
                 Submit Application

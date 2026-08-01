@@ -1,10 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700;800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700;800&display=swap");
 @import "tailwindcss";
 @source "../src";
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
-
 
 /*
  * SLV Builders — Royal Luxury Design System v2
@@ -361,13 +360,13 @@
 }
 
 .navbar-dark {
-  --shine-color-1: rgba(255,255,255,0.02);
-  --shine-color-2: rgba(255,255,255,0.15);
+  --shine-color-1: rgba(255, 255, 255, 0.02);
+  --shine-color-2: rgba(255, 255, 255, 0.15);
 }
 
 .navbar-light {
-  --shine-color-1: rgba(255,255,255,0.05);
-  --shine-color-2: rgba(255,255,255,0.35);
+  --shine-color-1: rgba(255, 255, 255, 0.05);
+  --shine-color-2: rgba(255, 255, 255, 0.35);
 }
 
 .navbar-shine {
