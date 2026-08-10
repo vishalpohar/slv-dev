@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as WorkshopRouteImport } from './routes/workshop'
 import { Route as VendorsSuppliersRegistrationRouteImport } from './routes/vendors-suppliers-registration'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as FaqRouteImport } from './routes/faq'
@@ -33,6 +34,11 @@ import { Route as AdminMediaRouteImport } from './routes/admin/media'
 import { Route as AdminLoginRouteImport } from './routes/admin/login'
 import { Route as AdminEnquiriesRouteImport } from './routes/admin/enquiries'
 
+const WorkshopRoute = WorkshopRouteImport.update({
+  id: '/workshop',
+  path: '/workshop',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const VendorsSuppliersRegistrationRoute =
   VendorsSuppliersRegistrationRouteImport.update({
     id: '/vendors-suppliers-registration',
@@ -165,6 +171,7 @@ export interface FileRoutesByFullPath {
   '/faq': typeof FaqRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/vendors-suppliers-registration': typeof VendorsSuppliersRegistrationRoute
+  '/workshop': typeof WorkshopRoute
   '/admin/enquiries': typeof AdminEnquiriesRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/media': typeof AdminMediaRoute
@@ -189,6 +196,7 @@ export interface FileRoutesByTo {
   '/faq': typeof FaqRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/vendors-suppliers-registration': typeof VendorsSuppliersRegistrationRoute
+  '/workshop': typeof WorkshopRoute
   '/admin/enquiries': typeof AdminEnquiriesRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/media': typeof AdminMediaRoute
@@ -215,6 +223,7 @@ export interface FileRoutesById {
   '/faq': typeof FaqRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/vendors-suppliers-registration': typeof VendorsSuppliersRegistrationRoute
+  '/workshop': typeof WorkshopRoute
   '/admin/enquiries': typeof AdminEnquiriesRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/media': typeof AdminMediaRoute
@@ -242,6 +251,7 @@ export interface FileRouteTypes {
     | '/faq'
     | '/sitemap.xml'
     | '/vendors-suppliers-registration'
+    | '/workshop'
     | '/admin/enquiries'
     | '/admin/login'
     | '/admin/media'
@@ -266,6 +276,7 @@ export interface FileRouteTypes {
     | '/faq'
     | '/sitemap.xml'
     | '/vendors-suppliers-registration'
+    | '/workshop'
     | '/admin/enquiries'
     | '/admin/login'
     | '/admin/media'
@@ -291,6 +302,7 @@ export interface FileRouteTypes {
     | '/faq'
     | '/sitemap.xml'
     | '/vendors-suppliers-registration'
+    | '/workshop'
     | '/admin/enquiries'
     | '/admin/login'
     | '/admin/media'
@@ -317,6 +329,7 @@ export interface RootRouteChildren {
   FaqRoute: typeof FaqRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   VendorsSuppliersRegistrationRoute: typeof VendorsSuppliersRegistrationRoute
+  WorkshopRoute: typeof WorkshopRoute
   ApiChatRoute: typeof ApiChatRoute
   ProjectsSlugRoute: typeof ProjectsSlugRoute
   ProjectsIndexRoute: typeof ProjectsIndexRoute
@@ -324,6 +337,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/workshop': {
+      id: '/workshop'
+      path: '/workshop'
+      fullPath: '/workshop'
+      preLoaderRoute: typeof WorkshopRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/vendors-suppliers-registration': {
       id: '/vendors-suppliers-registration'
       path: '/vendors-suppliers-registration'
@@ -524,6 +544,7 @@ const rootRouteChildren: RootRouteChildren = {
   FaqRoute: FaqRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   VendorsSuppliersRegistrationRoute: VendorsSuppliersRegistrationRoute,
+  WorkshopRoute: WorkshopRoute,
   ApiChatRoute: ApiChatRoute,
   ProjectsSlugRoute: ProjectsSlugRoute,
   ProjectsIndexRoute: ProjectsIndexRoute,
