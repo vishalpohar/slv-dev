@@ -1,7 +1,9 @@
 import { useMemo, useState, useEffect } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { PropertyCard } from "@/components/PropertyCard";
-import { projects, type ProjectCategory, type ProjectStatus } from "@/data/projects";
+import { type ProjectCategory, type ProjectStatus, projects as staticProjects } from "@/data/projects";
+import { supabase } from "@/integrations/supabase/client";
+import { mapSupabaseToProject } from "@/data/projects";
 import { cn } from "@/lib/utils";
 import { Search } from "lucide-react";
 
@@ -21,6 +23,36 @@ export const Route = createFileRoute("/projects/")({
   validateSearch: (search: Record<string, unknown>) => ({
     status: search.status as string | undefined,
   }),
+  loader: async () => {
+    // Always start with the 34 static projects
+    const allProjects = [...staticProjects];
+
+    // Try to fetch any DB projects (admin-added)
+    const { data, error } = await supabase
+      .from("projects")
+      .select("*")
+      .eq("is_published", true)
+      .order("sort_order", { ascending: true });
+
+    console.log("[ProjectsLoader] DB fetch result:", { count: data?.length, error, firstRow: data?.[0] });
+
+    if (data && data.length > 0) {
+      const dbProjects = data.map(mapSupabaseToProject);
+      // Merge: DB projects override static ones by slug, new DB-only projects are appended
+      for (const dbP of dbProjects) {
+        const idx = allProjects.findIndex((s) => s.slug === dbP.slug);
+        if (idx >= 0) {
+          allProjects[idx] = dbP; // override static with DB version
+        } else {
+          console.log("[ProjectsLoader] Appending new DB project:", dbP.slug, dbP.name);
+          allProjects.push(dbP); // append new admin-added project
+        }
+      }
+    }
+
+    console.log("[ProjectsLoader] Total projects:", allProjects.length);
+    return { projects: allProjects };
+  },
   component: ProjectsPage,
 });
 
@@ -40,6 +72,7 @@ function ProjectsPage() {
 
   const search = Route.useSearch();
   const navigate = Route.useNavigate();
+  const { projects } = Route.useLoaderData();
 
   useEffect(() => {
     switch (search.status?.toLowerCase()) {
@@ -65,9 +98,9 @@ function ProjectsPage() {
       (p) =>
         (status === "All" || p.status === status) &&
         (category === "All" || p.category === category) &&
-        p.name.toLowerCase().includes(query.toLowerCase()),
+        (p.name || "").toLowerCase().includes(query.toLowerCase()),
     );
-  }, [status, category, query]);
+  }, [projects, status, category, query]);
 
   return (
     <div className="pt-32">

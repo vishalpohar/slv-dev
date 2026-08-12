@@ -309,6 +309,8 @@ export type Database = {
           sort_order: number;
           specifications: Json;
           sqft_from: number | null;
+          sqft_to: number | null;
+          launch_date: string | null;
           status: Database["public"]["Enums"]["project_status"];
           tagline: string | null;
           updated_at: string;
@@ -337,6 +339,8 @@ export type Database = {
           sort_order?: number;
           specifications?: Json;
           sqft_from?: number | null;
+          sqft_to?: number | null;
+          launch_date?: string | null;
           status?: Database["public"]["Enums"]["project_status"];
           tagline?: string | null;
           updated_at?: string;
@@ -365,6 +369,8 @@ export type Database = {
           sort_order?: number;
           specifications?: Json;
           sqft_from?: number | null;
+          sqft_to?: number | null;
+          launch_date?: string | null;
           status?: Database["public"]["Enums"]["project_status"];
           tagline?: string | null;
           updated_at?: string;

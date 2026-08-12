@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
+import { projects as staticProjects } from "@/data/projects";
 import { toast } from "sonner";
 import type { Tables } from "@/integrations/supabase/types";
 import {
@@ -14,6 +15,11 @@ import {
   X,
   Upload,
   ExternalLink,
+  FileDown,
+  GripVertical,
+  MapPin,
+  ListChecks,
+  Image as ImageIcon,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -61,6 +67,11 @@ const statusColors: Record<ProjectStatus, string> = {
   Upcoming: "bg-amber-500/15 text-amber-600 border-amber-500/20",
 };
 
+// ── Helpers for JSONB sub-structures ──
+type SpecItem = { label: string; value: string };
+type NearbyItem = { label: string; distance: string };
+type FloorPlanItem = { type: string; sqft: string; image: string };
+
 type ProjectFormData = {
   name: string;
   slug: string;
@@ -73,11 +84,17 @@ type ProjectFormData = {
   bedrooms: string;
   price_from: string;
   sqft_from: string;
+  sqft_to: string;
+  launch_date: string;
   rera_number: string;
   cover_image: string;
   brochure_url: string;
   map_embed: string;
-  amenities: string;
+  amenities: string[];
+  gallery: string[];
+  specifications: SpecItem[];
+  nearby: NearbyItem[];
+  floor_plans: FloorPlanItem[];
   is_featured: boolean;
   is_published: boolean;
   sort_order: string;
@@ -95,11 +112,17 @@ const defaultForm: ProjectFormData = {
   bedrooms: "",
   price_from: "",
   sqft_from: "",
+  sqft_to: "",
+  launch_date: "",
   rera_number: "",
   cover_image: "",
   brochure_url: "",
   map_embed: "",
-  amenities: "",
+  amenities: [],
+  gallery: [],
+  specifications: [],
+  nearby: [],
+  floor_plans: [],
   is_featured: false,
   is_published: false,
   sort_order: "0",
@@ -114,6 +137,73 @@ function generateSlug(name: string): string {
     .replace(/-+/g, "-");
 }
 
+// ── CSV Export helper ──
+function exportProjectsCSV(projects: Project[]) {
+  const headers = [
+    "Name",
+    "Slug",
+    "Status",
+    "Category",
+    "City",
+    "Location",
+    "Bedrooms",
+    "Price From",
+    "Sqft From",
+    "Sqft To",
+    "Launch Date",
+    "RERA",
+    "Amenities",
+    "Published",
+    "Featured",
+    "Created",
+  ];
+  const rows = projects.map((p) => [
+    p.name,
+    p.slug,
+    p.status,
+    p.category ?? "",
+    p.city ?? "",
+    p.location ?? "",
+    p.bedrooms ?? "",
+    p.price_from?.toString() ?? "",
+    p.sqft_from?.toString() ?? "",
+    (p as Record<string, unknown>).sqft_to?.toString() ?? "",
+    (p as Record<string, unknown>).launch_date?.toString() ?? "",
+    p.rera_number ?? "",
+    Array.isArray(p.amenities) ? (p.amenities as string[]).join("; ") : "",
+    p.is_published ? "Yes" : "No",
+    p.is_featured ? "Yes" : "No",
+    new Date(p.created_at).toLocaleDateString(),
+  ]);
+
+  const csvContent = [headers, ...rows]
+    .map((row) => row.map((cell) => `"${String(cell).replace(/"/g, '""')}"`).join(","))
+    .join("\n");
+
+  const BOM = "\uFEFF";
+  const blob = new Blob([BOM + csvContent], { type: "text/csv;charset=utf-8;" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `slv-projects-${new Date().toISOString().slice(0, 10)}.csv`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+// ── Upload helper ──
+async function uploadToStorage(
+  bucket: string,
+  folder: string,
+  file: File,
+): Promise<string> {
+  const ext = file.name.split(".").pop();
+  const path = `${folder}/${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
+  const { error } = await supabase.storage.from(bucket).upload(path, file, { upsert: true });
+  if (error) throw error;
+  const { data } = supabase.storage.from(bucket).getPublicUrl(path);
+  return data.publicUrl;
+}
+
 function ProjectsManagement() {
   const queryClient = useQueryClient();
   const [search, setSearch] = useState("");
@@ -124,6 +214,14 @@ function ProjectsManagement() {
   const [form, setForm] = useState<ProjectFormData>(defaultForm);
   const [uploadingCover, setUploadingCover] = useState(false);
   const [uploadingBrochure, setUploadingBrochure] = useState(false);
+  const [uploadingGallery, setUploadingGallery] = useState(false);
+  const [uploadingFloorPlan, setUploadingFloorPlan] = useState<number | null>(null);
+  const [isSeeding, setIsSeeding] = useState(false);
+
+  // ── New amenity / spec / nearby input states ──
+  const [newAmenity, setNewAmenity] = useState("");
+  const [newSpec, setNewSpec] = useState<SpecItem>({ label: "", value: "" });
+  const [newNearby, setNewNearby] = useState<NearbyItem>({ label: "", distance: "" });
 
   // Fetch projects
   const { data: projects = [], isLoading } = useQuery({
@@ -138,35 +236,43 @@ function ProjectsManagement() {
     },
   });
 
+  // ── Build payload from form ──
+  const buildPayload = (data: ProjectFormData) => ({
+    name: data.name,
+    slug: data.slug || generateSlug(data.name),
+    tagline: data.tagline || null,
+    description: data.description || null,
+    status: data.status,
+    category: data.category || null,
+    city: data.city || null,
+    location: data.location || null,
+    bedrooms: data.bedrooms || null,
+    price_from: data.price_from ? Number(data.price_from) : null,
+    sqft_from: data.sqft_from ? Number(data.sqft_from) : null,
+    sqft_to: data.sqft_to ? Number(data.sqft_to) : null,
+    launch_date: data.launch_date || null,
+    rera_number: data.rera_number || null,
+    cover_image: data.cover_image || null,
+    brochure_url: data.brochure_url || null,
+    map_embed: data.map_embed || null,
+    amenities: data.amenities,
+    gallery: data.gallery,
+    specifications: data.specifications,
+    nearby: data.nearby,
+    floor_plans: data.floor_plans.map((fp) => ({
+      type: fp.type,
+      sqft: fp.sqft ? Number(fp.sqft) : 0,
+      image: fp.image,
+    })),
+    is_featured: data.is_featured,
+    is_published: data.is_published,
+    sort_order: Number(data.sort_order) || 0,
+  });
+
   // Create project
   const createMutation = useMutation({
     mutationFn: async (data: ProjectFormData) => {
-      const { error } = await supabase.from("projects").insert({
-        name: data.name,
-        slug: data.slug || generateSlug(data.name),
-        tagline: data.tagline || null,
-        description: data.description || null,
-        status: data.status,
-        category: data.category || null,
-        city: data.city || null,
-        location: data.location || null,
-        bedrooms: data.bedrooms || null,
-        price_from: data.price_from ? Number(data.price_from) : null,
-        sqft_from: data.sqft_from ? Number(data.sqft_from) : null,
-        rera_number: data.rera_number || null,
-        cover_image: data.cover_image || null,
-        brochure_url: data.brochure_url || null,
-        map_embed: data.map_embed || null,
-        amenities: data.amenities
-          ? data.amenities
-              .split(",")
-              .map((s) => s.trim())
-              .filter(Boolean)
-          : [],
-        is_featured: data.is_featured,
-        is_published: data.is_published,
-        sort_order: Number(data.sort_order) || 0,
-      });
+      const { error } = await supabase.from("projects").insert(buildPayload(data));
       if (error) throw error;
     },
     onSuccess: () => {
@@ -182,32 +288,7 @@ function ProjectsManagement() {
     mutationFn: async ({ id, data }: { id: string; data: ProjectFormData }) => {
       const { error } = await supabase
         .from("projects")
-        .update({
-          name: data.name,
-          slug: data.slug || generateSlug(data.name),
-          tagline: data.tagline || null,
-          description: data.description || null,
-          status: data.status,
-          category: data.category || null,
-          city: data.city || null,
-          location: data.location || null,
-          bedrooms: data.bedrooms || null,
-          price_from: data.price_from ? Number(data.price_from) : null,
-          sqft_from: data.sqft_from ? Number(data.sqft_from) : null,
-          rera_number: data.rera_number || null,
-          cover_image: data.cover_image || null,
-          brochure_url: data.brochure_url || null,
-          map_embed: data.map_embed || null,
-          amenities: data.amenities
-            ? data.amenities
-                .split(",")
-                .map((s) => s.trim())
-                .filter(Boolean)
-            : [],
-          is_featured: data.is_featured,
-          is_published: data.is_published,
-          sort_order: Number(data.sort_order) || 0,
-        })
+        .update(buildPayload(data))
         .eq("id", id);
       if (error) throw error;
     },
@@ -252,20 +333,14 @@ function ProjectsManagement() {
     onError: (err: Error) => toast.error(err.message),
   });
 
-  // Cover image upload
+  // ── Upload handlers ──
   const handleCoverUpload = async (file: File) => {
     if (!file) return;
     setUploadingCover(true);
     try {
-      const ext = file.name.split(".").pop();
-      const path = `covers/${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
-      const { error: uploadError } = await supabase.storage
-        .from("project-media")
-        .upload(path, file, { upsert: true });
-      if (uploadError) throw uploadError;
-      const { data } = supabase.storage.from("project-media").getPublicUrl(path);
-      setForm((f) => ({ ...f, cover_image: data.publicUrl }));
-      toast.success("Image uploaded");
+      const url = await uploadToStorage("project-media", "covers", file);
+      setForm((f) => ({ ...f, cover_image: url }));
+      toast.success("Cover image uploaded");
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Upload failed");
     } finally {
@@ -273,19 +348,12 @@ function ProjectsManagement() {
     }
   };
 
-  // Brochure upload
   const handleBrochureUpload = async (file: File) => {
     if (!file) return;
     setUploadingBrochure(true);
     try {
-      const ext = file.name.split(".").pop();
-      const path = `brochures/${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
-      const { error: uploadError } = await supabase.storage
-        .from("brochures")
-        .upload(path, file, { upsert: true });
-      if (uploadError) throw uploadError;
-      const { data } = supabase.storage.from("brochures").getPublicUrl(path);
-      setForm((f) => ({ ...f, brochure_url: data.publicUrl }));
+      const url = await uploadToStorage("brochures", "brochures", file);
+      setForm((f) => ({ ...f, brochure_url: url }));
       toast.success("Brochure uploaded");
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Upload failed");
@@ -294,14 +362,53 @@ function ProjectsManagement() {
     }
   };
 
+  const handleGalleryUpload = async (files: FileList) => {
+    setUploadingGallery(true);
+    try {
+      const urls: string[] = [];
+      for (const file of Array.from(files)) {
+        const url = await uploadToStorage("project-media", "gallery", file);
+        urls.push(url);
+      }
+      setForm((f) => ({ ...f, gallery: [...f.gallery, ...urls] }));
+      toast.success(`${urls.length} image(s) uploaded`);
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Upload failed");
+    } finally {
+      setUploadingGallery(false);
+    }
+  };
+
+  const handleFloorPlanImageUpload = async (file: File, index: number) => {
+    setUploadingFloorPlan(index);
+    try {
+      const url = await uploadToStorage("project-media", "floor-plans", file);
+      setForm((f) => {
+        const plans = [...f.floor_plans];
+        plans[index] = { ...plans[index], image: url };
+        return { ...f, floor_plans: plans };
+      });
+      toast.success("Floor plan image uploaded");
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Upload failed");
+    } finally {
+      setUploadingFloorPlan(null);
+    }
+  };
+
+  // ── Form open/close ──
   const openCreate = () => {
     setEditingProject(null);
     setForm(defaultForm);
+    setNewAmenity("");
+    setNewSpec({ label: "", value: "" });
+    setNewNearby({ label: "", distance: "" });
     setShowForm(true);
   };
 
   const openEdit = (p: Project) => {
     setEditingProject(p);
+    const raw = p as Record<string, unknown>;
     setForm({
       name: p.name,
       slug: p.slug,
@@ -314,15 +421,32 @@ function ProjectsManagement() {
       bedrooms: p.bedrooms ?? "",
       price_from: p.price_from?.toString() ?? "",
       sqft_from: p.sqft_from?.toString() ?? "",
+      sqft_to: (raw.sqft_to as number)?.toString() ?? "",
+      launch_date: (raw.launch_date as string) ?? "",
       rera_number: p.rera_number ?? "",
       cover_image: p.cover_image ?? "",
       brochure_url: p.brochure_url ?? "",
       map_embed: p.map_embed ?? "",
-      amenities: Array.isArray(p.amenities) ? (p.amenities as string[]).join(", ") : "",
+      amenities: Array.isArray(p.amenities) ? (p.amenities as string[]) : [],
+      gallery: Array.isArray(p.gallery) ? (p.gallery as string[]) : [],
+      specifications: Array.isArray(p.specifications)
+        ? (p.specifications as SpecItem[])
+        : [],
+      nearby: Array.isArray(p.nearby) ? (p.nearby as NearbyItem[]) : [],
+      floor_plans: Array.isArray(p.floor_plans)
+        ? (p.floor_plans as { type: string; sqft: number; image: string }[]).map((fp) => ({
+            type: fp.type ?? "",
+            sqft: fp.sqft?.toString() ?? "",
+            image: fp.image ?? "",
+          }))
+        : [],
       is_featured: p.is_featured,
       is_published: p.is_published,
       sort_order: p.sort_order.toString(),
     });
+    setNewAmenity("");
+    setNewSpec({ label: "", value: "" });
+    setNewNearby({ label: "", distance: "" });
     setShowForm(true);
   };
 
@@ -379,6 +503,15 @@ function ProjectsManagement() {
             <SelectItem value="Upcoming">Upcoming</SelectItem>
           </SelectContent>
         </Select>
+        <Button
+          variant="outline"
+          className="gap-2 h-9"
+          onClick={() => exportProjectsCSV(projects)}
+          disabled={projects.length === 0}
+        >
+          <FileDown className="w-4 h-4" />
+          Export Excel
+        </Button>
         <Button
           onClick={openCreate}
           className="bg-gradient-gold text-obsidian font-semibold hover:opacity-90 gap-2 h-9"
@@ -554,9 +687,11 @@ function ProjectsManagement() {
         </p>
       )}
 
-      {/* Create / Edit Dialog */}
+      {/* ═══════════════════════════════════════════════════════════
+          CREATE / EDIT DIALOG — 5 Tabs
+      ═══════════════════════════════════════════════════════════ */}
       <Dialog open={showForm} onOpenChange={(o) => !o && closeForm()}>
-        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+        <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle className="text-xl font-bold">
               {editingProject ? "Edit Project" : "New Project"}
@@ -565,13 +700,17 @@ function ProjectsManagement() {
 
           <form onSubmit={handleSubmit} className="space-y-0">
             <Tabs defaultValue="basic" className="w-full">
-              <TabsList className="grid w-full grid-cols-3 mb-6">
-                <TabsTrigger value="basic">Basic Info</TabsTrigger>
-                <TabsTrigger value="details">Details</TabsTrigger>
-                <TabsTrigger value="media">Media</TabsTrigger>
+              <TabsList className="grid w-full grid-cols-5 mb-6">
+                <TabsTrigger value="basic" className="text-xs sm:text-sm">Basic Info</TabsTrigger>
+                <TabsTrigger value="details" className="text-xs sm:text-sm">Details</TabsTrigger>
+                <TabsTrigger value="media" className="text-xs sm:text-sm">Media</TabsTrigger>
+                <TabsTrigger value="amenities" className="text-xs sm:text-sm">Amenities & Specs</TabsTrigger>
+                <TabsTrigger value="location" className="text-xs sm:text-sm">Location & Plans</TabsTrigger>
               </TabsList>
 
-              {/* Basic Info Tab */}
+              {/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+                  TAB 1: Basic Info
+              ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
               <TabsContent value="basic" className="space-y-4">
                 <div className="grid grid-cols-2 gap-4">
                   <div className="col-span-2 space-y-1.5">
@@ -616,13 +755,13 @@ function ProjectsManagement() {
                   </div>
 
                   <div className="col-span-2 space-y-1.5">
-                    <Label htmlFor="description">Description</Label>
+                    <Label htmlFor="description">Overview / Project Vision</Label>
                     <Textarea
                       id="description"
                       value={form.description}
                       onChange={(e) => setForm((f) => ({ ...f, description: e.target.value }))}
-                      placeholder="Describe the project…"
-                      rows={4}
+                      placeholder="Describe the project vision, community, and key highlights…"
+                      rows={5}
                     />
                   </div>
 
@@ -645,12 +784,22 @@ function ProjectsManagement() {
 
                   <div className="space-y-1.5">
                     <Label htmlFor="category">Category</Label>
-                    <Input
-                      id="category"
-                      value={form.category}
-                      onChange={(e) => setForm((f) => ({ ...f, category: e.target.value }))}
-                      placeholder="Villa / Apartment / Penthouse"
-                    />
+                    <Select
+                      value={form.category || "__none"}
+                      onValueChange={(v) => setForm((f) => ({ ...f, category: v === "__none" ? "" : v }))}
+                    >
+                      <SelectTrigger id="category">
+                        <SelectValue placeholder="Select category" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="__none">Select…</SelectItem>
+                        <SelectItem value="Apartment">Apartment</SelectItem>
+                        <SelectItem value="Villa">Villa</SelectItem>
+                        <SelectItem value="Plots">Plots</SelectItem>
+                        <SelectItem value="Commercial">Commercial</SelectItem>
+                        <SelectItem value="Educational">Educational</SelectItem>
+                      </SelectContent>
+                    </Select>
                   </div>
 
                   <div className="space-y-1.5">
@@ -669,7 +818,28 @@ function ProjectsManagement() {
                       id="location"
                       value={form.location}
                       onChange={(e) => setForm((f) => ({ ...f, location: e.target.value }))}
-                      placeholder="Benz Circle"
+                      placeholder="Mangalagiri"
+                    />
+                  </div>
+
+                  <div className="space-y-1.5">
+                    <Label htmlFor="launch_date">Launch / Delivery Date</Label>
+                    <Input
+                      id="launch_date"
+                      value={form.launch_date}
+                      onChange={(e) => setForm((f) => ({ ...f, launch_date: e.target.value }))}
+                      placeholder="Ongoing — Dec 2025"
+                    />
+                  </div>
+
+                  <div className="space-y-1.5">
+                    <Label htmlFor="sort_order">Sort Order</Label>
+                    <Input
+                      id="sort_order"
+                      type="number"
+                      value={form.sort_order}
+                      onChange={(e) => setForm((f) => ({ ...f, sort_order: e.target.value }))}
+                      placeholder="0"
                     />
                   </div>
 
@@ -700,16 +870,18 @@ function ProjectsManagement() {
                 </div>
               </TabsContent>
 
-              {/* Details Tab */}
+              {/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+                  TAB 2: Details
+              ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
               <TabsContent value="details" className="space-y-4">
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-1.5">
-                    <Label htmlFor="bedrooms">Bedrooms</Label>
+                    <Label htmlFor="bedrooms">Configurations</Label>
                     <Input
                       id="bedrooms"
                       value={form.bedrooms}
                       onChange={(e) => setForm((f) => ({ ...f, bedrooms: e.target.value }))}
-                      placeholder="3BHK, 4BHK"
+                      placeholder="2 & 3 BHK"
                     />
                   </div>
 
@@ -731,7 +903,18 @@ function ProjectsManagement() {
                       type="number"
                       value={form.sqft_from}
                       onChange={(e) => setForm((f) => ({ ...f, sqft_from: e.target.value }))}
-                      placeholder="1200"
+                      placeholder="1180"
+                    />
+                  </div>
+
+                  <div className="space-y-1.5">
+                    <Label htmlFor="sqft_to">Area To (sq.ft)</Label>
+                    <Input
+                      id="sqft_to"
+                      type="number"
+                      value={form.sqft_to}
+                      onChange={(e) => setForm((f) => ({ ...f, sqft_to: e.target.value }))}
+                      placeholder="1860"
                     />
                   </div>
 
@@ -744,42 +927,12 @@ function ProjectsManagement() {
                       placeholder="RERA-12345"
                     />
                   </div>
-
-                  <div className="space-y-1.5">
-                    <Label htmlFor="sort_order">Sort Order</Label>
-                    <Input
-                      id="sort_order"
-                      type="number"
-                      value={form.sort_order}
-                      onChange={(e) => setForm((f) => ({ ...f, sort_order: e.target.value }))}
-                      placeholder="0"
-                    />
-                  </div>
-
-                  <div className="col-span-2 space-y-1.5">
-                    <Label htmlFor="amenities">Amenities (comma-separated)</Label>
-                    <Textarea
-                      id="amenities"
-                      value={form.amenities}
-                      onChange={(e) => setForm((f) => ({ ...f, amenities: e.target.value }))}
-                      placeholder="Swimming Pool, Gym, Clubhouse, Garden…"
-                      rows={3}
-                    />
-                  </div>
-
-                  <div className="col-span-2 space-y-1.5">
-                    <Label htmlFor="map_embed">Map Embed URL</Label>
-                    <Input
-                      id="map_embed"
-                      value={form.map_embed}
-                      onChange={(e) => setForm((f) => ({ ...f, map_embed: e.target.value }))}
-                      placeholder="https://maps.google.com/maps?..."
-                    />
-                  </div>
                 </div>
               </TabsContent>
 
-              {/* Media Tab */}
+              {/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+                  TAB 3: Media (Cover, Gallery, Brochure)
+              ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
               <TabsContent value="media" className="space-y-6">
                 {/* Cover Image */}
                 <div className="space-y-3">
@@ -837,6 +990,115 @@ function ProjectsManagement() {
                   </div>
                 </div>
 
+                {/* Gallery Images */}
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <Label>Gallery Images ({form.gallery.length})</Label>
+                    <label className="cursor-pointer">
+                      <input
+                        type="file"
+                        accept="image/*"
+                        multiple
+                        className="hidden"
+                        onChange={(e) => {
+                          if (e.target.files?.length) handleGalleryUpload(e.target.files);
+                          e.target.value = "";
+                        }}
+                      />
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        disabled={uploadingGallery}
+                        className="gap-2"
+                        asChild
+                      >
+                        <span>
+                          {uploadingGallery ? (
+                            <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                          ) : (
+                            <Plus className="w-3.5 h-3.5" />
+                          )}
+                          Add Images
+                        </span>
+                      </Button>
+                    </label>
+                  </div>
+                  {form.gallery.length > 0 ? (
+                    <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
+                      {form.gallery.map((url, i) => (
+                        <div
+                          key={i}
+                          className="relative group aspect-square rounded-lg overflow-hidden border border-border"
+                        >
+                          <img
+                            src={url}
+                            alt={`Gallery ${i + 1}`}
+                            className="w-full h-full object-cover"
+                          />
+                          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors flex items-center justify-center">
+                            <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                              {i > 0 && (
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    setForm((f) => {
+                                      const g = [...f.gallery];
+                                      [g[i - 1], g[i]] = [g[i], g[i - 1]];
+                                      return { ...f, gallery: g };
+                                    });
+                                  }}
+                                  className="w-6 h-6 rounded bg-white/90 flex items-center justify-center text-xs font-bold text-gray-700"
+                                  title="Move left"
+                                >
+                                  ←
+                                </button>
+                              )}
+                              {i < form.gallery.length - 1 && (
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    setForm((f) => {
+                                      const g = [...f.gallery];
+                                      [g[i], g[i + 1]] = [g[i + 1], g[i]];
+                                      return { ...f, gallery: g };
+                                    });
+                                  }}
+                                  className="w-6 h-6 rounded bg-white/90 flex items-center justify-center text-xs font-bold text-gray-700"
+                                  title="Move right"
+                                >
+                                  →
+                                </button>
+                              )}
+                              <button
+                                type="button"
+                                onClick={() =>
+                                  setForm((f) => ({
+                                    ...f,
+                                    gallery: f.gallery.filter((_, idx) => idx !== i),
+                                  }))
+                                }
+                                className="w-6 h-6 rounded bg-red-500 flex items-center justify-center text-white"
+                                title="Remove"
+                              >
+                                <X className="w-3 h-3" />
+                              </button>
+                            </div>
+                          </div>
+                          <div className="absolute bottom-1 left-1 px-1.5 py-0.5 rounded text-[10px] font-bold bg-black/60 text-white">
+                            {i + 1}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="border-2 border-dashed border-border rounded-xl py-8 text-center text-sm text-muted-foreground">
+                      <ImageIcon className="w-8 h-8 mx-auto mb-2 opacity-30" />
+                      No gallery images yet. Click "Add Images" to upload.
+                    </div>
+                  )}
+                </div>
+
                 {/* Brochure */}
                 <div className="space-y-3">
                   <Label>Brochure (PDF)</Label>
@@ -891,6 +1153,423 @@ function ProjectsManagement() {
                       </Button>
                     </label>
                   </div>
+                </div>
+              </TabsContent>
+
+              {/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+                  TAB 4: Amenities & Specifications
+              ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
+              <TabsContent value="amenities" className="space-y-6">
+                {/* Amenities */}
+                <div className="space-y-3">
+                  <div className="flex items-center gap-2">
+                    <ListChecks className="w-4 h-4 text-gold" />
+                    <Label className="text-base font-semibold">Amenities ({form.amenities.length})</Label>
+                  </div>
+                  <div className="flex gap-2">
+                    <Input
+                      value={newAmenity}
+                      onChange={(e) => setNewAmenity(e.target.value)}
+                      placeholder="e.g. Swimming Pool"
+                      className="flex-1"
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                          e.preventDefault();
+                          if (newAmenity.trim()) {
+                            setForm((f) => ({ ...f, amenities: [...f.amenities, newAmenity.trim()] }));
+                            setNewAmenity("");
+                          }
+                        }
+                      }}
+                    />
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      onClick={() => {
+                        if (newAmenity.trim()) {
+                          setForm((f) => ({ ...f, amenities: [...f.amenities, newAmenity.trim()] }));
+                          setNewAmenity("");
+                        }
+                      }}
+                      className="gap-1"
+                    >
+                      <Plus className="w-3.5 h-3.5" /> Add
+                    </Button>
+                  </div>
+                  {form.amenities.length > 0 && (
+                    <div className="flex flex-wrap gap-2">
+                      {form.amenities.map((a, i) => (
+                        <Badge
+                          key={i}
+                          variant="secondary"
+                          className="gap-1.5 pl-3 pr-1.5 py-1.5 text-sm"
+                        >
+                          {a}
+                          <button
+                            type="button"
+                            onClick={() =>
+                              setForm((f) => ({
+                                ...f,
+                                amenities: f.amenities.filter((_, idx) => idx !== i),
+                              }))
+                            }
+                            className="ml-1 rounded-full hover:bg-destructive/20 p-0.5"
+                          >
+                            <X className="w-3 h-3" />
+                          </button>
+                        </Badge>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                <hr className="border-border/50" />
+
+                {/* Specifications */}
+                <div className="space-y-3">
+                  <div className="flex items-center gap-2">
+                    <GripVertical className="w-4 h-4 text-gold" />
+                    <Label className="text-base font-semibold">Specifications ({form.specifications.length})</Label>
+                  </div>
+                  <div className="flex gap-2">
+                    <Input
+                      value={newSpec.label}
+                      onChange={(e) => setNewSpec((s) => ({ ...s, label: e.target.value }))}
+                      placeholder="Label (e.g. Structure)"
+                      className="flex-1"
+                    />
+                    <Input
+                      value={newSpec.value}
+                      onChange={(e) => setNewSpec((s) => ({ ...s, value: e.target.value }))}
+                      placeholder="Value (e.g. RCC framed…)"
+                      className="flex-1"
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                          e.preventDefault();
+                          if (newSpec.label.trim() && newSpec.value.trim()) {
+                            setForm((f) => ({
+                              ...f,
+                              specifications: [
+                                ...f.specifications,
+                                { label: newSpec.label.trim(), value: newSpec.value.trim() },
+                              ],
+                            }));
+                            setNewSpec({ label: "", value: "" });
+                          }
+                        }
+                      }}
+                    />
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      onClick={() => {
+                        if (newSpec.label.trim() && newSpec.value.trim()) {
+                          setForm((f) => ({
+                            ...f,
+                            specifications: [
+                              ...f.specifications,
+                              { label: newSpec.label.trim(), value: newSpec.value.trim() },
+                            ],
+                          }));
+                          setNewSpec({ label: "", value: "" });
+                        }
+                      }}
+                      className="gap-1 shrink-0"
+                    >
+                      <Plus className="w-3.5 h-3.5" /> Add
+                    </Button>
+                  </div>
+                  {form.specifications.length > 0 && (
+                    <div className="space-y-2">
+                      {form.specifications.map((spec, i) => (
+                        <div
+                          key={i}
+                          className="flex items-start gap-3 p-3 rounded-lg border border-border bg-muted/10"
+                        >
+                          <div className="flex-1 min-w-0">
+                            <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
+                              {spec.label}
+                            </p>
+                            <p className="text-sm text-foreground mt-0.5">{spec.value}</p>
+                          </div>
+                          <button
+                            type="button"
+                            onClick={() =>
+                              setForm((f) => ({
+                                ...f,
+                                specifications: f.specifications.filter((_, idx) => idx !== i),
+                              }))
+                            }
+                            className="shrink-0 text-muted-foreground hover:text-destructive"
+                          >
+                            <X className="w-4 h-4" />
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </TabsContent>
+
+              {/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+                  TAB 5: Location & Floor Plans
+              ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
+              <TabsContent value="location" className="space-y-6">
+                {/* Nearby / Geo-Spatial Insights */}
+                <div className="space-y-3">
+                  <div className="flex items-center gap-2">
+                    <MapPin className="w-4 h-4 text-gold" />
+                    <Label className="text-base font-semibold">Geo-Spatial Insights ({form.nearby.length})</Label>
+                  </div>
+                  <div className="flex gap-2">
+                    <Input
+                      value={newNearby.label}
+                      onChange={(e) => setNewNearby((n) => ({ ...n, label: e.target.value }))}
+                      placeholder="Place (e.g. AIIMS Hospital)"
+                      className="flex-1"
+                    />
+                    <Input
+                      value={newNearby.distance}
+                      onChange={(e) => setNewNearby((n) => ({ ...n, distance: e.target.value }))}
+                      placeholder="Distance (e.g. 3 km)"
+                      className="w-32"
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                          e.preventDefault();
+                          if (newNearby.label.trim() && newNearby.distance.trim()) {
+                            setForm((f) => ({
+                              ...f,
+                              nearby: [
+                                ...f.nearby,
+                                { label: newNearby.label.trim(), distance: newNearby.distance.trim() },
+                              ],
+                            }));
+                            setNewNearby({ label: "", distance: "" });
+                          }
+                        }
+                      }}
+                    />
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      onClick={() => {
+                        if (newNearby.label.trim() && newNearby.distance.trim()) {
+                          setForm((f) => ({
+                            ...f,
+                            nearby: [
+                              ...f.nearby,
+                              { label: newNearby.label.trim(), distance: newNearby.distance.trim() },
+                            ],
+                          }));
+                          setNewNearby({ label: "", distance: "" });
+                        }
+                      }}
+                      className="gap-1 shrink-0"
+                    >
+                      <Plus className="w-3.5 h-3.5" /> Add
+                    </Button>
+                  </div>
+                  {form.nearby.length > 0 && (
+                    <div className="grid gap-2 sm:grid-cols-2">
+                      {form.nearby.map((item, i) => (
+                        <div
+                          key={i}
+                          className="flex items-center justify-between gap-2 p-3 rounded-lg border border-border bg-muted/10"
+                        >
+                          <span className="text-sm text-foreground">{item.label}</span>
+                          <div className="flex items-center gap-2">
+                            <span className="text-sm font-semibold text-gold-foreground whitespace-nowrap">
+                              {item.distance}
+                            </span>
+                            <button
+                              type="button"
+                              onClick={() =>
+                                setForm((f) => ({
+                                  ...f,
+                                  nearby: f.nearby.filter((_, idx) => idx !== i),
+                                }))
+                              }
+                              className="text-muted-foreground hover:text-destructive"
+                            >
+                              <X className="w-3.5 h-3.5" />
+                            </button>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                <hr className="border-border/50" />
+
+                {/* Map Embed */}
+                <div className="space-y-1.5">
+                  <Label htmlFor="map_embed">Map Embed URL</Label>
+                  <Input
+                    id="map_embed"
+                    value={form.map_embed}
+                    onChange={(e) => setForm((f) => ({ ...f, map_embed: e.target.value }))}
+                    placeholder="https://maps.google.com/maps?..."
+                  />
+                </div>
+
+                <hr className="border-border/50" />
+
+                {/* Floor Plans */}
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <ImageIcon className="w-4 h-4 text-gold" />
+                      <Label className="text-base font-semibold">Floor Plans ({form.floor_plans.length})</Label>
+                    </div>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      onClick={() =>
+                        setForm((f) => ({
+                          ...f,
+                          floor_plans: [...f.floor_plans, { type: "", sqft: "", image: "" }],
+                        }))
+                      }
+                      className="gap-1"
+                    >
+                      <Plus className="w-3.5 h-3.5" /> Add Plan
+                    </Button>
+                  </div>
+
+                  {form.floor_plans.length > 0 ? (
+                    <div className="space-y-3">
+                      {form.floor_plans.map((fp, i) => (
+                        <div
+                          key={i}
+                          className="p-4 rounded-xl border border-border bg-muted/10 space-y-3"
+                        >
+                          <div className="flex items-center justify-between">
+                            <span className="text-xs font-semibold text-muted-foreground">
+                              Floor Plan #{i + 1}
+                            </span>
+                            <button
+                              type="button"
+                              onClick={() =>
+                                setForm((f) => ({
+                                  ...f,
+                                  floor_plans: f.floor_plans.filter((_, idx) => idx !== i),
+                                }))
+                              }
+                              className="text-muted-foreground hover:text-destructive"
+                            >
+                              <X className="w-4 h-4" />
+                            </button>
+                          </div>
+                          <div className="grid grid-cols-2 gap-3">
+                            <div className="space-y-1">
+                              <Label className="text-xs">Type</Label>
+                              <Input
+                                value={fp.type}
+                                onChange={(e) =>
+                                  setForm((f) => {
+                                    const plans = [...f.floor_plans];
+                                    plans[i] = { ...plans[i], type: e.target.value };
+                                    return { ...f, floor_plans: plans };
+                                  })
+                                }
+                                placeholder="e.g. 3 BHK"
+                              />
+                            </div>
+                            <div className="space-y-1">
+                              <Label className="text-xs">Sqft</Label>
+                              <Input
+                                type="number"
+                                value={fp.sqft}
+                                onChange={(e) =>
+                                  setForm((f) => {
+                                    const plans = [...f.floor_plans];
+                                    plans[i] = { ...plans[i], sqft: e.target.value };
+                                    return { ...f, floor_plans: plans };
+                                  })
+                                }
+                                placeholder="1400"
+                              />
+                            </div>
+                          </div>
+                          {/* Floor plan image */}
+                          {fp.image && (
+                            <div className="relative w-full h-32 rounded-lg overflow-hidden border border-border">
+                              <img
+                                src={fp.image}
+                                alt={`Floor plan ${fp.type}`}
+                                className="w-full h-full object-contain bg-white"
+                              />
+                              <button
+                                type="button"
+                                onClick={() =>
+                                  setForm((f) => {
+                                    const plans = [...f.floor_plans];
+                                    plans[i] = { ...plans[i], image: "" };
+                                    return { ...f, floor_plans: plans };
+                                  })
+                                }
+                                className="absolute top-1 right-1 w-6 h-6 rounded-full bg-black/60 flex items-center justify-center text-white hover:bg-black/80"
+                              >
+                                <X className="w-3 h-3" />
+                              </button>
+                            </div>
+                          )}
+                          <div className="flex gap-2">
+                            <Input
+                              value={fp.image}
+                              onChange={(e) =>
+                                setForm((f) => {
+                                  const plans = [...f.floor_plans];
+                                  plans[i] = { ...plans[i], image: e.target.value };
+                                  return { ...f, floor_plans: plans };
+                                })
+                              }
+                              placeholder="Image URL or upload"
+                              className="flex-1"
+                            />
+                            <label className="cursor-pointer">
+                              <input
+                                type="file"
+                                accept="image/*"
+                                className="hidden"
+                                onChange={(e) => {
+                                  const file = e.target.files?.[0];
+                                  if (file) handleFloorPlanImageUpload(file, i);
+                                }}
+                              />
+                              <Button
+                                type="button"
+                                variant="outline"
+                                size="sm"
+                                disabled={uploadingFloorPlan === i}
+                                className="gap-1"
+                                asChild
+                              >
+                                <span>
+                                  {uploadingFloorPlan === i ? (
+                                    <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                                  ) : (
+                                    <Upload className="w-3.5 h-3.5" />
+                                  )}
+                                  Upload
+                                </span>
+                              </Button>
+                            </label>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="border-2 border-dashed border-border rounded-xl py-8 text-center text-sm text-muted-foreground">
+                      <ImageIcon className="w-8 h-8 mx-auto mb-2 opacity-30" />
+                      No floor plans yet. Click "Add Plan" to add one.
+                    </div>
+                  )}
                 </div>
               </TabsContent>
             </Tabs>

@@ -106,6 +106,34 @@ export interface Project {
   imageFit?: "cover" | "contain";
 }
 
+import type { Tables } from "@/integrations/supabase/types";
+
+export function mapSupabaseToProject(row: Tables<"projects">): Project {
+  return {
+    id: row.id,
+    slug: row.slug,
+    name: row.name,
+    tagline: row.tagline || "",
+    category: (row.category as ProjectCategory) || "Apartment",
+    status: (row.status as ProjectStatus) || "Ongoing",
+    location: row.location || "",
+    city: row.city || "",
+    priceFrom: row.price_from || 0,
+    bedrooms: row.bedrooms || "",
+    sqftFrom: row.sqft_from || 0,
+    sqftTo: (row as any).sqft_to || 0,
+    launchDate: (row as any).launch_date || "",
+    image: row.cover_image || "",
+    gallery: Array.isArray(row.gallery) ? (row.gallery as string[]) : [],
+    description: row.description || "",
+    amenities: Array.isArray(row.amenities) ? (row.amenities as string[]) : [],
+    specifications: Array.isArray(row.specifications) ? (row.specifications as any) : [],
+    proximity: Array.isArray(row.nearby) ? (row.nearby as any) : [],
+    floorPlans: Array.isArray(row.floor_plans) ? (row.floor_plans as any) : [],
+    brochureUrl: row.brochure_url || undefined,
+  };
+}
+
 // Cycle through available images
 const imgs = [project1, project2, project3];
 const img = (n: number) => imgs[(n - 1) % 3];

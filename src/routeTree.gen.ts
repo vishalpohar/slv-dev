@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as WorkshopRouteImport } from './routes/workshop'
 import { Route as VendorsSuppliersRegistrationRouteImport } from './routes/vendors-suppliers-registration'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as SeedRouteImport } from './routes/seed'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as EmiCalculatorRouteImport } from './routes/emi-calculator'
 import { Route as ContractorRegistrationRouteImport } from './routes/contractor-registration'
@@ -48,6 +49,11 @@ const VendorsSuppliersRegistrationRoute =
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SeedRoute = SeedRouteImport.update({
+  id: '/seed',
+  path: '/seed',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FaqRoute = FaqRouteImport.update({
@@ -169,6 +175,7 @@ export interface FileRoutesByFullPath {
   '/contractor-registration': typeof ContractorRegistrationRoute
   '/emi-calculator': typeof EmiCalculatorRoute
   '/faq': typeof FaqRoute
+  '/seed': typeof SeedRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/vendors-suppliers-registration': typeof VendorsSuppliersRegistrationRoute
   '/workshop': typeof WorkshopRoute
@@ -194,6 +201,7 @@ export interface FileRoutesByTo {
   '/contractor-registration': typeof ContractorRegistrationRoute
   '/emi-calculator': typeof EmiCalculatorRoute
   '/faq': typeof FaqRoute
+  '/seed': typeof SeedRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/vendors-suppliers-registration': typeof VendorsSuppliersRegistrationRoute
   '/workshop': typeof WorkshopRoute
@@ -221,6 +229,7 @@ export interface FileRoutesById {
   '/contractor-registration': typeof ContractorRegistrationRoute
   '/emi-calculator': typeof EmiCalculatorRoute
   '/faq': typeof FaqRoute
+  '/seed': typeof SeedRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/vendors-suppliers-registration': typeof VendorsSuppliersRegistrationRoute
   '/workshop': typeof WorkshopRoute
@@ -249,6 +258,7 @@ export interface FileRouteTypes {
     | '/contractor-registration'
     | '/emi-calculator'
     | '/faq'
+    | '/seed'
     | '/sitemap.xml'
     | '/vendors-suppliers-registration'
     | '/workshop'
@@ -274,6 +284,7 @@ export interface FileRouteTypes {
     | '/contractor-registration'
     | '/emi-calculator'
     | '/faq'
+    | '/seed'
     | '/sitemap.xml'
     | '/vendors-suppliers-registration'
     | '/workshop'
@@ -300,6 +311,7 @@ export interface FileRouteTypes {
     | '/contractor-registration'
     | '/emi-calculator'
     | '/faq'
+    | '/seed'
     | '/sitemap.xml'
     | '/vendors-suppliers-registration'
     | '/workshop'
@@ -327,6 +339,7 @@ export interface RootRouteChildren {
   ContractorRegistrationRoute: typeof ContractorRegistrationRoute
   EmiCalculatorRoute: typeof EmiCalculatorRoute
   FaqRoute: typeof FaqRoute
+  SeedRoute: typeof SeedRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   VendorsSuppliersRegistrationRoute: typeof VendorsSuppliersRegistrationRoute
   WorkshopRoute: typeof WorkshopRoute
@@ -356,6 +369,13 @@ declare module '@tanstack/react-router' {
       path: '/sitemap.xml'
       fullPath: '/sitemap.xml'
       preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/seed': {
+      id: '/seed'
+      path: '/seed'
+      fullPath: '/seed'
+      preLoaderRoute: typeof SeedRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/faq': {
@@ -542,6 +562,7 @@ const rootRouteChildren: RootRouteChildren = {
   ContractorRegistrationRoute: ContractorRegistrationRoute,
   EmiCalculatorRoute: EmiCalculatorRoute,
   FaqRoute: FaqRoute,
+  SeedRoute: SeedRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   VendorsSuppliersRegistrationRoute: VendorsSuppliersRegistrationRoute,
   WorkshopRoute: WorkshopRoute,
