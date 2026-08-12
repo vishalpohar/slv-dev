@@ -269,6 +269,116 @@ function ProjectsManagement() {
     sort_order: Number(data.sort_order) || 0,
   });
 
+  const handleSeedStaticProjects = async () => {
+    setIsSeeding(true);
+    toast.loading("Migrating projects & images to Supabase... this may take a minute.");
+    
+    try {
+      let successCount = 0;
+      for (const p of staticProjects) {
+        // Upload cover image
+        let cover_url = p.image || null;
+        if (cover_url && cover_url.startsWith("/")) {
+          try {
+            const res = await fetch(cover_url);
+            const blob = await res.blob();
+            const file = new File([blob], `cover-${p.slug}.jpg`, { type: blob.type });
+            cover_url = await uploadToStorage("project-media", "covers", file);
+          } catch (e) {
+            console.error("Failed to upload cover for", p.name, e);
+          }
+        }
+
+        // Upload gallery images
+        const gallery_urls = [];
+        if (p.gallery && p.gallery.length > 0) {
+          for (let i = 0; i < p.gallery.length; i++) {
+            let gUrl = p.gallery[i];
+            if (gUrl && gUrl.startsWith("/")) {
+              try {
+                const res = await fetch(gUrl);
+                const blob = await res.blob();
+                const file = new File([blob], `gallery-${p.slug}-${i}.jpg`, { type: blob.type });
+                gUrl = await uploadToStorage("project-media", "gallery", file);
+              } catch (e) {
+                console.error("Failed to upload gallery image for", p.name, e);
+              }
+            }
+            gallery_urls.push(gUrl);
+          }
+        }
+
+        // Upload brochure
+        let brochureUrl = p.brochureUrl || null;
+        if (brochureUrl && brochureUrl.startsWith("/")) {
+          try {
+            const res = await fetch(brochureUrl);
+            const blob = await res.blob();
+            const file = new File([blob], `brochure-${p.slug}.pdf`, { type: blob.type });
+            brochureUrl = await uploadToStorage("brochures", "brochures", file);
+          } catch (e) {
+            console.error("Failed to upload brochure for", p.name, e);
+          }
+        }
+
+        // Upload floor plans
+        const floorPlans = [];
+        if (p.floorPlans && p.floorPlans.length > 0) {
+          for (let i = 0; i < p.floorPlans.length; i++) {
+            let fp = { ...p.floorPlans[i] };
+            if (fp.image && fp.image.startsWith("/")) {
+              try {
+                const res = await fetch(fp.image);
+                const blob = await res.blob();
+                const file = new File([blob], `floorplan-${p.slug}-${i}.jpg`, { type: blob.type });
+                fp.image = await uploadToStorage("project-media", "gallery", file);
+              } catch (e) {
+                console.error("Failed to upload floor plan for", p.name, e);
+              }
+            }
+            floorPlans.push(fp);
+          }
+        }
+
+        const payload = {
+          slug: p.slug,
+          name: p.name,
+          tagline: p.tagline || null,
+          category: p.category,
+          status: p.status,
+          location: p.location || null,
+          city: p.city || null,
+          price_from: p.priceFrom || null,
+          bedrooms: p.bedrooms || null,
+          sqft_from: p.sqftFrom || null,
+          sqft_to: p.sqftTo || null,
+          launch_date: p.launchDate || null,
+          cover_image: cover_url,
+          gallery: gallery_urls,
+          description: p.description || null,
+          amenities: p.amenities || [],
+          specifications: p.specifications || [],
+          nearby: p.proximity || [],
+          floor_plans: floorPlans,
+          brochure_url: brochureUrl,
+          is_published: true,
+          sort_order: parseInt(p.id) || 0,
+        };
+
+        const { error } = await supabase.from("projects").upsert(payload, { onConflict: "slug" });
+        if (!error) successCount++;
+      }
+      toast.dismiss();
+      toast.success(`Successfully migrated ${successCount} projects and uploaded all their images!`);
+      queryClient.invalidateQueries({ queryKey: ["admin-projects"] });
+    } catch (err: any) {
+      toast.dismiss();
+      toast.error("Failed to migrate: " + err.message);
+    } finally {
+      setIsSeeding(false);
+    }
+  };
+
   // Create project
   const createMutation = useMutation({
     mutationFn: async (data: ProjectFormData) => {
@@ -518,6 +628,15 @@ function ProjectsManagement() {
         >
           <Plus className="w-4 h-4" />
           Add Project
+        </Button>
+        <Button
+          variant="outline"
+          className="gap-2 bg-muted/30"
+          onClick={handleSeedStaticProjects}
+          disabled={isSeeding}
+        >
+          {isSeeding ? <Loader2 size={16} className="animate-spin" /> : <Upload size={16} />} 
+          {isSeeding ? "Migrating..." : "Migrate Static Projects"}
         </Button>
       </div>
 
