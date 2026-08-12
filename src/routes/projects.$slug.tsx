@@ -16,15 +16,50 @@ import {
   Home,
   Eye,
 } from "lucide-react";
-import { getProject, projects, formatPrice } from "@/data/projects";
+import { formatPrice, projects as staticProjects } from "@/data/projects";
+import { supabase } from "@/integrations/supabase/client";
+import { mapSupabaseToProject } from "@/data/projects";
 import { useStore } from "@/store/useStore";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/projects/$slug")({
-  loader: ({ params }) => {
-    const project = getProject(params.slug);
+  loader: async ({ params }) => {
+    // First try Supabase
+    const { data } = await supabase
+      .from("projects")
+      .select("*")
+      .eq("slug", params.slug)
+      .single();
+
+    let project;
+    if (data) {
+      project = mapSupabaseToProject(data);
+    } else {
+      // Fallback to static data
+      project = staticProjects.find((p) => p.slug === params.slug);
+    }
+
     if (!project) throw notFound();
-    return { project };
+
+    // Get related projects: try DB first, fallback to static
+    const { data: moreData } = await supabase
+      .from("projects")
+      .select("*")
+      .eq("is_published", true)
+      .neq("slug", params.slug)
+      .limit(3);
+
+    let moreProjects;
+    if (moreData && moreData.length > 0) {
+      moreProjects = moreData.map(mapSupabaseToProject);
+    } else {
+      // Fallback to static related projects
+      moreProjects = staticProjects
+        .filter((p) => p.slug !== params.slug)
+        .slice(0, 3);
+    }
+
+    return { project, moreProjects };
   },
   head: ({ loaderData }) => {
     const p = loaderData?.project;
@@ -58,7 +93,7 @@ export const Route = createFileRoute("/projects/$slug")({
 const tabs = ["Overview", "Amenities & Specs", "Floor Plans"] as const;
 
 function ProjectDetails() {
-  const { project } = Route.useLoaderData();
+  const { project, moreProjects } = Route.useLoaderData();
   const { isWishlisted, toggleWishlist, isComparing, toggleCompare } = useStore();
   const [tab, setTab] = useState<(typeof tabs)[number]>("Overview");
   const [activeImg, setActiveImg] = useState(0);
@@ -553,9 +588,7 @@ function ProjectDetails() {
       <section className="mx-auto w-full max-w-7xl px-4 py-14 sm:px-6 sm:py-20 lg:px-8">
         <h2 className="font-display text-2xl font-semibold text-foreground">More Residences</h2>
         <div className="mt-6 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6">
-          {projects
-            .filter((p) => p.id !== project.id)
-            .map((p) => (
+          {moreProjects.map((p) => (
               <Link
                 key={p.id}
                 to="/projects/$slug"

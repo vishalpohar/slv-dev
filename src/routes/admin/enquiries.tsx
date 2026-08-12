@@ -1,10 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import type { Tables, Enums } from "@/integrations/supabase/types";
-import { Search, MessageSquare, Eye, Clock, Phone, Mail, StickyNote, Loader2 } from "lucide-react";
+import { Search, MessageSquare, Eye, Clock, Phone, Mail, StickyNote, Loader2, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -60,6 +60,86 @@ function EnquiriesManagement() {
   const [viewingLead, setViewingLead] = useState<Lead | null>(null);
   const [editNotes, setEditNotes] = useState("");
   const [savingNotes, setSavingNotes] = useState(false);
+
+  // Fetch all projects for ID-to-name mapping
+  const { data: projectsList = [] } = useQuery({
+    queryKey: ["admin-projects-lookup"],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("projects")
+        .select("id, name");
+      if (error) throw error;
+      return data;
+    },
+  });
+
+  const projectMap = useMemo(() => {
+    return new Map(projectsList.map((p) => [p.id, p.name]));
+  }, [projectsList]);
+
+  // Export filtered enquiries in Excel-compatible CSV format
+  const downloadExcel = () => {
+    if (filtered.length === 0) {
+      toast.error("No enquiries to export");
+      return;
+    }
+
+    const headers = [
+      "Name",
+      "Email",
+      "Phone",
+      "Project Interest",
+      "Source",
+      "Status",
+      "Date Created",
+      "Message",
+      "Notes"
+    ];
+
+    const csvRows = [
+      headers.join(","),
+      ...filtered.map((lead) => {
+        const projectName = lead.project_id
+          ? (projectMap.get(lead.project_id) || "Unknown Project")
+          : "General Enquiry";
+        const dateStr = new Date(lead.created_at).toLocaleDateString("en-IN", {
+          day: "2-digit",
+          month: "short",
+          year: "numeric",
+        });
+
+        const escapeCSV = (val: string | null | undefined) => {
+          if (val === null || val === undefined) return '""';
+          const formatted = val.replace(/"/g, '""');
+          return `"${formatted}"`;
+        };
+
+        return [
+          escapeCSV(lead.name),
+          escapeCSV(lead.email),
+          escapeCSV(lead.phone),
+          escapeCSV(projectName),
+          escapeCSV(lead.source),
+          escapeCSV(lead.status),
+          escapeCSV(dateStr),
+          escapeCSV(lead.message),
+          escapeCSV(lead.notes),
+        ].join(",");
+      }),
+    ];
+
+    const csvContent = csvRows.join("\n");
+    const blob = new Blob(["\uFEFF" + csvContent], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.setAttribute("href", url);
+    link.setAttribute("download", `enquiries_${new Date().toISOString().split("T")[0]}.csv`);
+    link.style.visibility = "hidden";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    toast.success("Excel/CSV export completed");
+  };
 
   const { data: leads = [], isLoading } = useQuery({
     queryKey: ["admin-leads"],
@@ -182,6 +262,16 @@ function EnquiriesManagement() {
             ))}
           </SelectContent>
         </Select>
+        
+        <Button
+          onClick={downloadExcel}
+          variant="outline"
+          className="h-9 gap-2 border-gold/30 hover:border-gold/50 text-gold hover:text-gold hover:bg-gold/10 sm:ml-auto"
+        >
+          <Download className="w-4 h-4" />
+          Export Excel
+        </Button>
+
         <p className="text-xs text-muted-foreground whitespace-nowrap">
           {filtered.length} of {leads.length} leads
         </p>
@@ -389,6 +479,16 @@ function EnquiriesManagement() {
                     })}
                   </p>
                 </div>
+              </div>
+
+              {/* Project Info */}
+              <div className="p-3 rounded-lg bg-muted/20 border border-border/60">
+                <p className="text-xs text-muted-foreground mb-1">Interested Project</p>
+                <p className="text-sm font-semibold text-foreground">
+                  {viewingLead.project_id
+                    ? (projectMap.get(viewingLead.project_id) || "Unknown Project")
+                    : "General Enquiry"}
+                </p>
               </div>
 
               {/* Message */}
