@@ -18,6 +18,7 @@ import {
   Users,
   Handshake,
   HardHat,
+  ArrowDown,
 } from "lucide-react";
 import {
   LineChart,
@@ -302,218 +303,191 @@ function AboutPage() {
         LEFT — Editorial Hero Copy
     ====================================================== */}
           <Reveal>
-            <div className="relative z-10 max-w-2xl">
-              {/* Eyebrow */}
+            <div className="max-w-xl xl:max-w-lg">
               <div className="flex items-center gap-3">
-                <span className="section-label text-gold tracking-[0.24em]">
-                  About SLV Developers
-                </span>
-
-                <span className="h-px w-8 sm:w-12" style={{ background: "var(--gradient-gold)" }} />
+                <p className="section-label tracking-[0.28em] text-gold">ABOUT SLV DEVELOPERS</p>
+                <span className="h-px w-10 bg-gradient-gold sm:w-16" />
               </div>
 
-              {/* Desktop-only metadata */}
-              <div className="mt-4 hidden items-center gap-3 text-[9px] font-semibold uppercase tracking-[0.22em] text-muted-foreground sm:flex">
-                <span>Est. 2007</span>
+              <div className="mt-6 flex flex-wrap items-center gap-x-3 gap-y-2 text-[9px] font-bold uppercase tracking-[0.22em] text-muted-foreground sm:text-[10px]">
+                <span>EST. 2007</span>
                 <span className="text-gold/40">•</span>
                 <span>Andhra Pradesh</span>
                 <span className="text-gold/40">•</span>
-                <span>Trusted Legacy</span>
+                <span>TRUSTED LEGACY</span>
               </div>
 
-              {/* Main Hero Statement */}
-              <div className="mt-7 sm:mt-8">
-                <h1 className="font-display text-foreground">
-                  <span className="block text-[clamp(3rem,15vw,5rem)] font-semibold leading-[0.85] tracking-[-0.04em]">
-                    Building
-                  </span>
+              <h1 className="mt-7 font-display text-[clamp(2rem,4vw,5.5rem)] font-semibold leading-[0.9] tracking-[-0.04em] text-foreground">
+                Building
+                <br />
+                <span className="italic font-normal text-gradient-gold">Legacies</span>
+              </h1>
 
-                  <span className="relative mt-2 block w-fit pb-3 text-[clamp(3rem,15vw,5rem)] font-medium italic leading-[0.85] tracking-[-0.04em] text-gradient-gold sm:mt-3 sm:pb-5 sm:text-[5rem] lg:text-[6rem]">
-                    Legacies
-                  </span>
-                </h1>
+              {/* Near 20 years */}
+              <div className="mt-5 flex items-end sm:mt-7">
+                <span className="mr-2 pb-2 font-display text-sm italic text-foreground/60 sm:mr-3 sm:text-xl">
+                  near
+                </span>
 
-                {/* Near 20 years */}
-                <div className="mt-5 flex items-end sm:mt-7">
-                  <span className="mr-2 pb-2 font-display text-sm italic text-foreground/60 sm:mr-3 sm:text-xl">
-                    near
-                  </span>
-
-                  <CountUp
-                    end={20}
-                    className="
+                <CountUp
+                  end={20}
+                  className="
             font-display
-            text-[clamp(4.5rem,22vw,7rem)]
+            text-[clamp(2rem,4vw,5.5rem)]
             font-semibold
             leading-[0.78]
             tracking-[-0.05em]
             text-gradient-gold
             drop-shadow-[0_8px_28px_rgba(212,175,55,0.22)]
           "
-                  />
+                />
 
-                  <div className="mb-1 ml-2 border-l border-gold/30 pl-3 sm:ml-4 sm:pl-4">
-                    <p className="font-display text-sm italic text-foreground/80 sm:text-xl">
-                      years
-                    </p>
+                <div className="mb-1 ml-2 border-l border-gold/30 pl-3 sm:ml-4 sm:pl-4">
+                  <p className="font-display text-sm italic text-foreground/80 sm:text-md">years</p>
 
-                    <p className="text-[7px] font-bold uppercase tracking-[0.24em] text-muted-foreground sm:text-[9px]">
-                      of trust
-                    </p>
-                  </div>
-                </div>
-
-                {/* Short supporting line */}
-                <div className="mt-6 max-w-md sm:mt-7">
-                  <div className="flex items-center gap-3">
-                    <span
-                      className="h-px w-10 shrink-0 sm:w-14"
-                      style={{ background: "var(--gradient-gold)" }}
-                    />
-
-                    <span className="h-1 w-1 rotate-45 bg-gold" />
-                  </div>
-
-                  <p className="mt-4 text-sm leading-relaxed text-muted-foreground sm:text-base lg:text-lg">
-                    Thoughtfully crafted homes and communities,
-                    <span className="text-foreground/80"> built on trust since 2007.</span>
+                  <p className="text-[7px] font-bold uppercase tracking-[0.24em] text-muted-foreground sm:text-[9px]">
+                    of trust
                   </p>
                 </div>
+              </div>
 
-                {/* Desktop-only longer story */}
-                <p className="mt-6 hidden max-w-xl text-sm leading-relaxed text-muted-foreground md:block lg:text-lg">
-                  From a humble beginning in Bhimavaram to communities across the Vijayawada and
-                  Amaravati region, SLV has grown by keeping one promise at the heart of every
-                  project — build with trust, deliver with purpose.
-                </p>
+              <div className="mt-8 flex max-w-xl items-center gap-3">
+                <span className="h-px w-12 bg-gradient-gold sm:w-16" />
+                <span className="h-1.5 w-1.5 rotate-45 bg-gold" />
+                <span className="h-px flex-1 bg-gold/20" />
+              </div>
 
-                {/* Heritage line */}
-                <div className="mt-7 max-w-md sm:mt-8">
-                  <div className="flex items-center gap-3 text-gold/70">
-                    <span className="font-mono text-[9px] tracking-[0.2em] sm:text-[10px]">
-                      2007
-                    </span>
+              <p className="mt-7 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg lg:text-xl">
+                Thoughtfully crafted homes and communities, built on trust since 2007.
+              </p>
 
-                    <span className="h-px flex-1 bg-gradient-to-r from-gold/60 to-gold/10" />
+              <p className="mt-7 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg lg:text-xl">
+                From a humble beginning in Bhimavaram to communities across the Vijayawada and
+                Amaravati region, SLV has grown by keeping one promise at the heart of every project
+                — build with trust, deliver with purpose.
+              </p>
 
-                    <span className="font-mono text-[9px] tracking-[0.2em] sm:text-[10px]">
-                      2026
-                    </span>
-                  </div>
+              {/* Heritage line */}
+              <div className="mt-7 max-w-md sm:mt-8">
+                <div className="flex items-center gap-3 text-gold/70">
+                  <span className="font-mono text-[9px] tracking-[0.2em] sm:text-[10px]">2007</span>
 
-                  <div className="mt-2 flex justify-between text-[7px] uppercase tracking-[0.16em] text-muted-foreground sm:text-[8px]">
-                    <span>Founded in Bhimavaram</span>
-                    <span>A name families trust</span>
-                  </div>
+                  <span className="h-px flex-1 bg-gradient-to-r from-gold/60 to-gold/10" />
+
+                  <span className="font-mono text-[9px] tracking-[0.2em] sm:text-[10px]">2026</span>
                 </div>
 
-                {/* CTA */}
-                <div className="mt-7 flex flex-wrap gap-2.5 sm:mt-9 sm:gap-3">
-                  {/* Our Journey */}
-                  <a
-                    href="#our-journey"
-                    className="
-      inline-flex
-      items-center
-      gap-2
-      rounded-xl
-      bg-gradient-gold
-      px-4
-      py-2.5
-      text-[9px]
-      font-bold
-      uppercase
-      tracking-[0.16em]
-      text-gold-foreground
-      shadow-lg
-      transition-all
-      duration-300
-      hover:-translate-y-0.5
-      hover:shadow-xl
-      sm:px-5
-      sm:py-3
-      sm:text-[10px]
-      cursor-pointer
-    "
-                  >
-                    Our Journey
-                    <ArrowRight className="h-3 w-3" />
-                  </a>
-
-                  {/* Explore Projects */}
-                  <Link
-                    to="/projects"
-                    search={{ status: undefined }}
-                    className="
-      inline-flex
-      items-center
-      rounded-xl
-      border
-      border-border
-      bg-card/50
-      px-4
-      py-2.5
-      text-[9px]
-      font-bold
-      uppercase
-      tracking-[0.16em]
-      text-foreground
-      backdrop-blur-sm
-      transition-all
-      duration-300
-      hover:border-gold/50
-      hover:bg-gold/5
-      sm:px-5
-      sm:py-3
-      sm:text-[10px]
-      cursor-pointer
-    "
-                  >
-                    Explore Projects
-                  </Link>
-
-                  {/* Company Brochure */}
-                  <button
-                    type="button"
-                    onClick={() => {
-                      // Add brochure download functionality later
-                    }}
-                    className="
-      group
-      inline-flex
-      items-center
-      gap-2
-      rounded-xl
-      border
-      border-gold/30
-      bg-gold/5
-      px-4
-      py-2.5
-      text-[9px]
-      font-bold
-      uppercase
-      tracking-[0.16em]
-      text-foreground
-      backdrop-blur-sm
-      transition-all
-      duration-300
-      hover:border-gold
-      hover:bg-gold/10
-      hover:text-gold
-      sm:px-5
-      sm:py-3
-      sm:text-[10px]
-      cursor-pointer
-    "
-                  >
-                    <Download className="h-3.5 w-3.5 text-gold transition-transform duration-300 group-hover:-translate-y-0.5" />
-                    Company Brochure
-                  </button>
+                <div className="mt-2 flex justify-between text-[7px] uppercase tracking-[0.16em] text-muted-foreground sm:text-[8px]">
+                  <span>Founded in Bhimavaram</span>
+                  <span>A name families trust</span>
                 </div>
+              </div>
+
+              {/* CTA */}
+              <div className="mt-7 flex flex-wrap gap-2.5 sm:mt-9 sm:gap-3">
+                {/* Our Journey */}
+                <a
+                  href="#our-journey"
+                  className="
+                  inline-flex
+                  items-center
+                  gap-2
+                  rounded-xl
+                  bg-gradient-gold
+                  px-4
+                  py-2.5
+                  text-[9px]
+                  font-bold
+                  uppercase
+                  tracking-[0.16em]
+                  text-gold-foreground
+                  shadow-lg
+                  transition-all
+                  duration-300
+                  hover:-translate-y-0.5
+                  hover:shadow-xl
+                  sm:px-5
+                  sm:py-3
+                  sm:text-[10px]
+                  cursor-pointer
+                "
+                >
+                  Our Journey
+                  <ArrowRight className="h-3 w-3" />
+                </a>
+
+                {/* Explore Projects */}
+                <Link
+                  to="/projects"
+                  search={{ status: undefined }}
+                  className="
+                      inline-flex
+                      items-center
+                      rounded-xl
+                      border
+                      border-border
+                      bg-card/50
+                      px-4
+                      py-2.5
+                      text-[9px]
+                      font-bold
+                      uppercase
+                      tracking-[0.16em]
+                      text-foreground
+                      backdrop-blur-sm
+                      transition-all
+                      duration-300
+                      hover:border-gold/50
+                      hover:bg-gold/5
+                      sm:px-5
+                      sm:py-3
+                      sm:text-[10px]
+                      cursor-pointer
+                    "
+                >
+                  Explore Projects
+                </Link>
+
+                {/* Company Brochure */}
+                <button
+                  type="button"
+                  onClick={() => {
+                    // Add brochure download functionality later
+                  }}
+                  className="
+                    group
+                    inline-flex
+                    items-center
+                    gap-2
+                    rounded-xl
+                    border
+                    border-gold/30
+                    bg-gold/5
+                    px-4
+                    py-2.5
+                    text-[9px]
+                    font-bold
+                    uppercase
+                    tracking-[0.16em]
+                    text-foreground
+                    backdrop-blur-sm
+                    transition-all
+                    duration-300
+                    hover:border-gold
+                    hover:bg-gold/10
+                    hover:text-gold
+                    sm:px-5
+                    sm:py-3
+                    sm:text-[10px]
+                    cursor-pointer
+                    "
+                >
+                  <Download className="h-3.5 w-3.5 text-gold transition-transform duration-300 group-hover:-translate-y-0.5" />
+                  Company Brochure
+                </button>
               </div>
             </div>
           </Reveal>
-
           {/* =====================================================
         RIGHT — Cinematic Image
     ====================================================== */}
@@ -598,11 +572,11 @@ function AboutPage() {
 
                 {/* Image caption */}
                 <div className="absolute inset-x-0 bottom-0 p-5 sm:p-7">
-                  <p className="text-[9px] font-bold uppercase tracking-[0.28em] text-gold">
+                  <p className="text-[7px] font-bold uppercase tracking-[0.28em] text-gold">
                     A legacy in motion
                   </p>
 
-                  <p className="mt-2 max-w-md font-display text-xl font-semibold leading-tight text-white sm:text-2xl lg:text-3xl">
+                  <p className="mt-2 max-w-md font-display text-xs font-semibold leading-tight text-white sm:text-2xl lg:text-3xl">
                     Creating places
                     <br />
                     people are proud to call home.
@@ -617,35 +591,35 @@ function AboutPage() {
               <div
                 className="
             absolute
-            -bottom-7
-            right-4
+            -bottom-5
+            right-0
             z-20
             min-w-[135px]
             rounded-2xl
             border
             border-white/10
             bg-gradient-obsidian
-            px-5
-            py-4
+            px-3
+            py-2
             text-white
             shadow-2xl
             sm:-bottom-8
             sm:right-8
             sm:min-w-[160px]
-            sm:px-6
-            sm:py-5
+            sm:px-4
+            sm:py-3
           "
               >
-                <p className="text-[8px] font-bold uppercase tracking-[0.25em] text-white/45">
+                <p className="text-[6px] font-bold uppercase tracking-[0.25em] text-white/45">
                   Established
                 </p>
 
                 <div className="mt-1 flex items-baseline gap-2">
-                  <span className="font-display text-2xl font-bold text-gold sm:text-3xl">
+                  <span className="font-display text-sm font-bold text-gold sm:text-3xl">
                     2007
                   </span>
 
-                  <span className="text-[9px] text-white/45 sm:text-[10px]">Bhimavaram</span>
+                  <span className="text-[6px] text-white/45 sm:text-[10px]">Bhimavaram</span>
                 </div>
               </div>
 

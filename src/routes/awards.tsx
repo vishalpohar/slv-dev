@@ -21,6 +21,7 @@ import { cn } from "@/lib/utils";
 // Replace these later with images uploaded from your Admin Panel / Supabase.
 // -----------------------------------------------------------------------------
 import heroAwardImage from "@/assets/about_slv.jpg";
+import leadershipImage from "@/assets/penmetsa_srinivasa_raju.png"
 import awardImage1 from "@/assets/project-1.jpg";
 import awardImage2 from "@/assets/project-2.jpg";
 import awardImage3 from "@/assets/project-3.jpg";
@@ -546,11 +547,11 @@ function AwardsPage() {
                   <CornerMarks />
 
                   <div className="absolute inset-x-0 bottom-0 p-5 sm:p-7 lg:p-9">
-                    <p className="text-[8px] font-bold uppercase tracking-[0.28em] text-gold sm:text-[9px] lg:text-[10px]">
+                    <p className="text-[7px] font-bold uppercase tracking-[0.28em] text-gold sm:text-[9px] lg:text-[10px]">
                       SLV Builders & Developers
                     </p>
 
-                    <p className="mt-2 max-w-md font-display text-xl font-semibold leading-tight text-white sm:text-2xl lg:text-3xl">
+                    <p className="mt-2 max-w-md font-display text-sm font-semibold leading-tight text-white sm:text-xl lg:text-2xl">
                       A legacy built
                       <br />
                       on trust.
@@ -563,9 +564,8 @@ function AwardsPage() {
                   className="
         absolute
         -bottom-5
-        left-1/2
+        right-4
         z-20
-        -translate-x-1/2
         whitespace-nowrap
         rounded-2xl
         border border-white/10
@@ -578,11 +578,11 @@ function AwardsPage() {
         sm:px-7 sm:py-3
       "
                 >
-                  <p className="text-[7px] font-bold uppercase tracking-[0.24em] text-white/40">
+                  <p className="text-[6px] font-bold uppercase tracking-[0.24em] text-white/40">
                     Recognition
                   </p>
 
-                  <p className="mt-0.5 font-display text-base font-semibold text-gold sm:text-lg">
+                  <p className="mt-0.5 font-display text-sm font-semibold text-gold sm:text-lg">
                     Andhra Pradesh
                   </p>
                 </div>
@@ -709,7 +709,7 @@ function AwardsPage() {
               <div className="relative mx-auto w-full max-w-md">
                 <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.04]">
                   <img
-                    src={heroAwardImage}
+                    src={leadershipImage}
                     alt="Penmetsa Srinivasa Raju"
                     className="aspect-[4/5] w-full object-cover"
                     loading="lazy"

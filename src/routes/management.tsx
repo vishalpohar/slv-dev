@@ -179,7 +179,7 @@ function ManagementPage() {
                   <span>Trust & Quality</span>
                 </div>
 
-                <h1 className="mt-7 font-display text-[clamp(3.1rem,8vw,7rem)] font-semibold leading-[0.88] tracking-[-0.045em] text-foreground">
+                <h1 className="mt-7 font-display text-[clamp(2rem,4vw,5.5rem)] font-semibold leading-[0.88] tracking-[-0.045em] text-foreground">
                   Leadership
                   <br />
                   <span className="italic font-normal text-gradient-gold">with purpose.</span>
@@ -255,7 +255,7 @@ function ManagementPage() {
                       Sri Lakshmi Venkateswara Group
                     </p>
 
-                    <h2 className="mt-2 max-w-lg font-display text-2xl font-semibold leading-tight text-white sm:text-3xl lg:text-4xl">
+                    <h2 className="mt-2 max-w-lg font-display text-base font-semibold leading-tight text-white sm:text-xl lg:text-2xl">
                       Building with vision.
                       <br />
                       Leading with trust.
@@ -265,11 +265,11 @@ function ManagementPage() {
 
                 {/* Floating year card */}
                 <div className="absolute -bottom-6 right-4 z-20 rounded-2xl border border-white/10 bg-black/85 px-5 py-4 text-white shadow-2xl backdrop-blur-xl sm:-bottom-7 sm:right-7 sm:px-7 sm:py-5">
-                  <p className="text-[8px] font-bold uppercase tracking-[0.24em] text-white/40">
+                  <p className="text-[6px] font-bold uppercase tracking-[0.24em] text-white/40">
                     Entered Construction
                   </p>
 
-                  <p className="mt-1 font-display text-3xl font-bold text-gold">2007</p>
+                  <p className="mt-1 font-display text-sm font-bold text-gold">2007</p>
                 </div>
               </div>
             </Reveal>

@@ -418,7 +418,7 @@ function CSRPage() {
                   <span className="hidden h-px w-12 bg-gradient-gold sm:block" />
                 </div>
 
-                <h1 className="mt-7 font-display text-[clamp(3rem,10vw,6.5rem)] font-semibold leading-[0.9] tracking-[-0.04em] text-foreground">
+                <h1 className="mt-7 font-display text-[clamp(2rem,4vw,5.5rem)] font-semibold leading-[0.9] tracking-[-0.04em] text-foreground">
                   Building
                   <br />
                   <span className="italic font-normal text-gradient-gold">beyond buildings.</span>
