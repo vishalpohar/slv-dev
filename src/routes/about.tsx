@@ -1,7 +1,17 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Eye, Rocket, PenTool, ArrowRight, Quote, Award, Trophy, Medal, ShieldCheck, Star, Users, Handshake, Sparkles, HardHat, Building2 } from "lucide-react";
-//npimport { Eye, Rocket, PenTool, ArrowRight, Quote } from "lucide-react";
 import { Reveal } from "@/components/Reveal";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
+
 import heroImage from "@/assets/about_slv.jpg";
 import amaravathi from "@/assets/amaravathi.png";
 import journey2 from "@/assets/project-2.jpg";
@@ -37,11 +47,7 @@ const stats = [
 const pillars = [
   { letter: "T", title: "Trust", desc: "Earned at every handshake, walkthrough, and handover." },
   { letter: "T", title: "Teamwork", desc: "Architects, engineers, and managers moving as one." },
-  {
-    letter: "T",
-    title: "Timely Delivery",
-    desc: "Every project handed over on the promised date.",
-  },
+  { letter: "T", title: "Timely Delivery", desc: "Every project handed over on the promised date." },
   { letter: "T", title: "Transparency", desc: "Clear titles, clear pricing, and no surprises." },
 ];
 
@@ -65,76 +71,41 @@ const journey = [
     desc: "With 20 residential projects, 2 commercial projects, and an educational institute, SLV is a proud member of CREDAI–Vijayawada, IGBC, and NAREDCO — every project RERA approved.",
   },
 ];
+
 const awards = [
-  {
-    icon: Trophy,
-    year: "2023",
-    title: "Developer of the Year — Andhra Pradesh",
-    body: "Recognised by the Real Estate Excellence Council for consistent on-time delivery across residential portfolios.",
-  },
-  {
-    icon: Award,
-    year: "2022",
-    title: "Best Gated Community Project",
-    body: "Awarded to SLV Anjani Heights for design innovation, green cover, and community-first amenities.",
-  },
-  {
-    icon: ShieldCheck,
-    year: "2021",
-    title: "RERA Compliance Excellence",
-    body: "100% RERA-approved portfolio recognised for transparent titles, disclosures, and buyer protection.",
-  },
-  {
-    icon: Medal,
-    year: "2020",
-    title: "CREDAI Quality Construction Award",
-    body: "Honoured by CREDAI–Vijayawada for engineering standards and structural quality benchmarks.",
-  },
-  {
-    icon: Star,
-    year: "2019",
-    title: "Customer Trust Award",
-    body: "Voted among the most trusted builders in the Amaravati region by homeowner surveys.",
-  },
-  {
-    icon: Sparkles,
-    year: "2018",
-    title: "IGBC Green Building Recognition",
-    body: "Acknowledged by the Indian Green Building Council for sustainable design and material choices.",
-  },
+  { icon: Trophy, year: "2023", title: "Developer of the Year — Andhra Pradesh", body: "Recognised by the Real Estate Excellence Council for consistent on-time delivery across residential portfolios." },
+  { icon: Award, year: "2022", title: "Best Gated Community Project", body: "Awarded to SLV Anjani Heights for design innovation, green cover, and community-first amenities." },
+  { icon: ShieldCheck, year: "2021", title: "RERA Compliance Excellence", body: "100% RERA-approved portfolio recognised for transparent titles, disclosures, and buyer protection." },
+  { icon: Medal, year: "2020", title: "CREDAI Quality Construction Award", body: "Honoured by CREDAI–Vijayawada for engineering standards and structural quality benchmarks." },
+  { icon: Star, year: "2019", title: "Customer Trust Award", body: "Voted among the most trusted builders in the Amaravati region by homeowner surveys." },
+  { icon: Sparkles, year: "2018", title: "IGBC Green Building Recognition", body: "Acknowledged by the Indian Green Building Council for sustainable design and material choices." },
 ];
 
 const workWithUs = [
-  {
-    icon: Users,
-    title: "Home Buyers",
-    desc: "Discover RERA-approved apartments, villas, and plots crafted around your family's next chapter.",
-    cta: "Explore Projects",
-  },
-  {
-    icon: Handshake,
-    title: "Channel Partners",
-    desc: "Partner with a 19-year-old brand known for transparent pricing, timely delivery, and reliable payouts.",
-    cta: "Become a Partner",
-  },
-  {
-    icon: HardHat,
-    title: "Contractors & Vendors",
-    desc: "Join our approved supplier network for civil, MEP, interiors, and material supply across active sites.",
-    cta: "Get Empanelled",
-  },
-  {
-    icon: Building2,
-    title: "Landowners",
-    desc: "Unlock the value of your land through joint developments with a builder trusted by 5,000+ families.",
-    cta: "Propose a Site",
-  },
+  { icon: Users, title: "Home Buyers", desc: "Discover RERA-approved apartments, villas, and plots crafted around your family's next chapter.", cta: "Explore Projects" },
+  { icon: Handshake, title: "Channel Partners", desc: "Partner with a 19-year-old brand known for transparent pricing, timely delivery, and reliable payouts.", cta: "Become a Partner" },
+  { icon: HardHat, title: "Contractors & Vendors", desc: "Join our approved supplier network for civil, MEP, interiors, and material supply across active sites.", cta: "Get Empanelled" },
+  { icon: Building2, title: "Landowners", desc: "Unlock the value of your land through joint developments with a builder trusted by 5,000+ families.", cta: "Propose a Site" },
 ];
 
 
+
+const growthData = [
+  { year: "2021", clients: 40, projects: 20, completed: 10 },
+  { year: "2022", clients: 60, projects: 30, completed: 18 },
+  { year: "2023", clients: 80, projects: 45, completed: 25 },
+  { year: "2024", clients: 100, projects: 55, completed: 35 },
+  { year: "2025", clients: 110, projects: 65, completed: 42 },
+  { year: "2026", clients: 120, projects: 75, completed: 50 },
+];
+
 function AboutPage() {
+  const projectPortfolio = { completed: 42, ongoing: 12, upcoming: 6 };
+  const total = projectPortfolio.completed + projectPortfolio.ongoing + projectPortfolio.upcoming;
+
   return (
-    <div className="overflow-hidden">
+    <>
+      <div className="overflow-hidden"></div>
       {/* ---------- Legacy Hero ---------- */}
       <section className="mx-auto max-w-7xl px-6 pt-36">
         <div className="grid items-center gap-12 lg:grid-cols-[0.9fr_1.1fr]">
@@ -216,6 +187,38 @@ function AboutPage() {
           </div>
         </Reveal>
       </section>
+{/* ---------- Growth Chart ---------- */}
+<section className="mx-auto mt-20 max-w-5xl px-6">
+  <Reveal>
+    <div className="rounded-[2rem] bg-card p-8 neu">
+      <div className="text-center mb-8">
+        <p className="text-sm uppercase tracking-[0.3em] text-gold">
+          Our Journey
+        </p>
+        <h3 className="mt-4 font-display text-5xl font-bold text-foreground">
+          Growth
+        </h3>
+        <p className="mt-2 text-muted-foreground">
+          Building digital experiences that create impact.
+        </p>
+      </div>
+
+      <ResponsiveContainer width="100%" height={350}>
+        <LineChart data={growthData}>
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="year" />
+          <YAxis />
+          <Tooltip />
+          <Legend />
+          <Line type="monotone" dataKey="clients" stroke="#d4af37" strokeWidth={3} dot={{ r: 5 }} name="Clients" />
+          <Line type="monotone" dataKey="projects" stroke="#8884d8" strokeWidth={3} dot={{ r: 5 }} name="Projects" />
+          <Line type="monotone" dataKey="completed" stroke="#82ca9d" strokeWidth={3} dot={{ r: 5 }} name="Completed Projects" />
+        </LineChart>
+      </ResponsiveContainer>
+    </div>
+  </Reveal>
+</section>
+
 
       {/* ---------- Vision & Mission ---------- */}
       <section className="mx-auto mt-24 max-w-7xl px-6">
@@ -451,6 +454,6 @@ function AboutPage() {
           </div>
         </Reveal>
       </section>
-    </div>
-  );
+    </>
+  );  
 }
