@@ -47,8 +47,6 @@ export const Route = createFileRoute("/")({
 
     const ongoingProjects = (data ?? []).map(mapSupabaseToProject);
 
-    console.log("[HomeLoader] Ongoing projects:", ongoingProjects);
-
     return {
       ongoingProjects,
     };
