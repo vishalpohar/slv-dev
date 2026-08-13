@@ -4,6 +4,13 @@ import { HeroSection } from "@/components/home/HeroSection";
 import { PropertyCard } from "@/components/PropertyCard";
 import { Reveal } from "@/components/Reveal";
 import { projects, testimonials } from "@/data/projects";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 import aboutImage from "@/assets/project-1.jpg";
 import aboutImage2 from "@/assets/project-2.jpg";
 import avatar from "@/assets/testimonials/user-icon.jpg";
@@ -239,13 +246,26 @@ function Index() {
             </Link>
           </Reveal>
 
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {ongoingProjects.slice(0, 3).map((p, i) => (
-              <Reveal key={p.id} delay={i * 100}>
-                <PropertyCard project={p} />
-              </Reveal>
-            ))}
-          </div>
+          <Carousel
+            opts={{
+              align: "start",
+            }}
+            className="w-full"
+          >
+            <CarouselContent>
+              {ongoingProjects.map((p, i) => (
+                <CarouselItem key={p.id} className="md:basis-1/2 lg:basis-1/3">
+                  <Reveal delay={i * 100}>
+                    <PropertyCard project={p} />
+                  </Reveal>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <div className="hidden md:block">
+              <CarouselPrevious className="-left-4 lg:-left-6 border-gold/30 text-gold hover:border-gold hover:bg-gold hover:text-gold-foreground bg-background/80 backdrop-blur-sm" />
+              <CarouselNext className="-right-4 lg:-right-6 border-gold/30 text-gold hover:border-gold hover:bg-gold hover:text-gold-foreground bg-background/80 backdrop-blur-sm" />
+            </div>
+          </Carousel>
         </div>
       </section>
 
