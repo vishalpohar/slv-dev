@@ -239,30 +239,45 @@ function EMICalculator() {
         </div>
         {/* Amortization Schedule */}
         <div className="mt-12 overflow-hidden rounded-3xl bg-background neu">
-          <div className="border-b p-6">
+          {/* Header */}
+          <div className="border-b border-border p-6">
             <h2 className="font-display text-2xl font-bold">Amortization Schedule</h2>
-            <p className="text-muted-foreground mt-2">
+
+            <p className="mt-2 text-sm text-muted-foreground">
               Breakdown of principal and interest payments over time.
             </p>
           </div>
 
-          <div className="overflow-x-auto rounded-b-3xl">
-            <table className="w-full text-center">
-              <thead className="bg-secondary/40 border-b border-border">
+          {/* Scrollable table */}
+          <div
+            className="
+      max-h-[500px]
+      overflow-auto
+      rounded-b-3xl
+      [scrollbar-width:thin]
+      mb-5
+    "
+          >
+            <table className="w-full min-w-[700px] text-center">
+              <thead className="sticky top-0 z-10 border-b border-border bg-secondary/95 backdrop-blur-md">
                 <tr>
-                  <th className="px-4 py-4 border-r border-border font-semibold text-sm text-muted-foreground uppercase tracking-wider">
+                  <th className="border-r border-border px-4 py-4 text-sm font-semibold uppercase tracking-wider text-muted-foreground">
                     Month
                   </th>
-                  <th className="px-4 py-4 border-r border-border font-semibold text-sm text-muted-foreground uppercase tracking-wider">
+
+                  <th className="border-r border-border px-4 py-4 text-sm font-semibold uppercase tracking-wider text-muted-foreground">
                     EMI
                   </th>
-                  <th className="px-4 py-4 border-r border-border font-semibold text-sm text-muted-foreground uppercase tracking-wider">
+
+                  <th className="border-r border-border px-4 py-4 text-sm font-semibold uppercase tracking-wider text-muted-foreground">
                     Principal
                   </th>
-                  <th className="px-4 py-4 border-r border-border font-semibold text-sm text-muted-foreground uppercase tracking-wider">
+
+                  <th className="border-r border-border px-4 py-4 text-sm font-semibold uppercase tracking-wider text-muted-foreground">
                     Interest
                   </th>
-                  <th className="px-4 py-4 font-semibold text-sm text-muted-foreground uppercase tracking-wider">
+
+                  <th className="px-4 py-4 text-sm font-semibold uppercase tracking-wider text-muted-foreground">
                     Balance
                   </th>
                 </tr>
@@ -272,16 +287,20 @@ function EMICalculator() {
                 {schedule.slice(0, showAll ? schedule.length : 12).map((item) => (
                   <tr
                     key={item.month}
-                    className="border-b border-border hover:bg-secondary/20 transition-colors duration-200"
+                    className="border-b border-border transition-colors duration-200 hover:bg-secondary/20"
                   >
-                    <td className="px-4 py-4 border-r border-border">{item.month}</td>
-                    <td className="px-4 py-4 border-r border-border">{formatCurrency(item.emi)}</td>
-                    <td className="px-4 py-4 border-r border-border text-green-600 font-medium">
+                    <td className="border-r border-border px-4 py-4">{item.month}</td>
+
+                    <td className="border-r border-border px-4 py-4">{formatCurrency(item.emi)}</td>
+
+                    <td className="border-r border-border px-4 py-4 font-medium text-green-600">
                       {formatCurrency(item.principal)}
                     </td>
-                    <td className="px-4 py-4 border-r border-border text-gold font-medium">
+
+                    <td className="border-r border-border px-4 py-4 font-medium text-gold">
                       {formatCurrency(item.interest)}
                     </td>
+
                     <td className="px-4 py-4 font-medium">{formatCurrency(item.balance)}</td>
                   </tr>
                 ))}
@@ -290,10 +309,11 @@ function EMICalculator() {
           </div>
         </div>
 
-        <div className="p-6 text-center">
+        {/* Schedule controls */}
+        <div className="flex justify-center p-6">
           <button
             onClick={() => setShowAll(!showAll)}
-            className="rounded-xl bg-gradient-gold px-5 py-3 text-gold-foreground font-semibold cursor-pointer"
+            className="rounded-xl bg-gradient-gold px-5 py-3 font-semibold text-gold-foreground transition-all duration-300 hover:-translate-y-0.5"
           >
             {showAll ? "Show Less" : "View Full Schedule"}
           </button>

@@ -13,13 +13,16 @@ import { Route as WorkshopRouteImport } from './routes/workshop'
 import { Route as VendorsSuppliersRegistrationRouteImport } from './routes/vendors-suppliers-registration'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as SeedRouteImport } from './routes/seed'
+import { Route as ManagementRouteImport } from './routes/management'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as EmiCalculatorRouteImport } from './routes/emi-calculator'
+import { Route as CsrRouteImport } from './routes/csr'
 import { Route as ContractorRegistrationRouteImport } from './routes/contractor-registration'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CompareRouteImport } from './routes/compare'
 import { Route as CareersRouteImport } from './routes/careers'
 import { Route as BuyersGuideRouteImport } from './routes/buyers-guide'
+import { Route as AwardsRouteImport } from './routes/awards'
 import { Route as ArchitectConsultantRegistrationRouteImport } from './routes/architect-consultant-registration'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AboutRouteImport } from './routes/about'
@@ -56,6 +59,11 @@ const SeedRoute = SeedRouteImport.update({
   path: '/seed',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ManagementRoute = ManagementRouteImport.update({
+  id: '/management',
+  path: '/management',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const FaqRoute = FaqRouteImport.update({
   id: '/faq',
   path: '/faq',
@@ -64,6 +72,11 @@ const FaqRoute = FaqRouteImport.update({
 const EmiCalculatorRoute = EmiCalculatorRouteImport.update({
   id: '/emi-calculator',
   path: '/emi-calculator',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CsrRoute = CsrRouteImport.update({
+  id: '/csr',
+  path: '/csr',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContractorRegistrationRoute = ContractorRegistrationRouteImport.update({
@@ -89,6 +102,11 @@ const CareersRoute = CareersRouteImport.update({
 const BuyersGuideRoute = BuyersGuideRouteImport.update({
   id: '/buyers-guide',
   path: '/buyers-guide',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AwardsRoute = AwardsRouteImport.update({
+  id: '/awards',
+  path: '/awards',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ArchitectConsultantRegistrationRoute =
@@ -168,13 +186,16 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/admin': typeof AdminRouteWithChildren
   '/architect-consultant-registration': typeof ArchitectConsultantRegistrationRoute
+  '/awards': typeof AwardsRoute
   '/buyers-guide': typeof BuyersGuideRoute
   '/careers': typeof CareersRoute
   '/compare': typeof CompareRoute
   '/contact': typeof ContactRoute
   '/contractor-registration': typeof ContractorRegistrationRoute
+  '/csr': typeof CsrRoute
   '/emi-calculator': typeof EmiCalculatorRoute
   '/faq': typeof FaqRoute
+  '/management': typeof ManagementRoute
   '/seed': typeof SeedRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/vendors-suppliers-registration': typeof VendorsSuppliersRegistrationRoute
@@ -194,13 +215,16 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/architect-consultant-registration': typeof ArchitectConsultantRegistrationRoute
+  '/awards': typeof AwardsRoute
   '/buyers-guide': typeof BuyersGuideRoute
   '/careers': typeof CareersRoute
   '/compare': typeof CompareRoute
   '/contact': typeof ContactRoute
   '/contractor-registration': typeof ContractorRegistrationRoute
+  '/csr': typeof CsrRoute
   '/emi-calculator': typeof EmiCalculatorRoute
   '/faq': typeof FaqRoute
+  '/management': typeof ManagementRoute
   '/seed': typeof SeedRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/vendors-suppliers-registration': typeof VendorsSuppliersRegistrationRoute
@@ -222,13 +246,16 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/admin': typeof AdminRouteWithChildren
   '/architect-consultant-registration': typeof ArchitectConsultantRegistrationRoute
+  '/awards': typeof AwardsRoute
   '/buyers-guide': typeof BuyersGuideRoute
   '/careers': typeof CareersRoute
   '/compare': typeof CompareRoute
   '/contact': typeof ContactRoute
   '/contractor-registration': typeof ContractorRegistrationRoute
+  '/csr': typeof CsrRoute
   '/emi-calculator': typeof EmiCalculatorRoute
   '/faq': typeof FaqRoute
+  '/management': typeof ManagementRoute
   '/seed': typeof SeedRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/vendors-suppliers-registration': typeof VendorsSuppliersRegistrationRoute
@@ -251,13 +278,16 @@ export interface FileRouteTypes {
     | '/about'
     | '/admin'
     | '/architect-consultant-registration'
+    | '/awards'
     | '/buyers-guide'
     | '/careers'
     | '/compare'
     | '/contact'
     | '/contractor-registration'
+    | '/csr'
     | '/emi-calculator'
     | '/faq'
+    | '/management'
     | '/seed'
     | '/sitemap.xml'
     | '/vendors-suppliers-registration'
@@ -277,13 +307,16 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/architect-consultant-registration'
+    | '/awards'
     | '/buyers-guide'
     | '/careers'
     | '/compare'
     | '/contact'
     | '/contractor-registration'
+    | '/csr'
     | '/emi-calculator'
     | '/faq'
+    | '/management'
     | '/seed'
     | '/sitemap.xml'
     | '/vendors-suppliers-registration'
@@ -304,13 +337,16 @@ export interface FileRouteTypes {
     | '/about'
     | '/admin'
     | '/architect-consultant-registration'
+    | '/awards'
     | '/buyers-guide'
     | '/careers'
     | '/compare'
     | '/contact'
     | '/contractor-registration'
+    | '/csr'
     | '/emi-calculator'
     | '/faq'
+    | '/management'
     | '/seed'
     | '/sitemap.xml'
     | '/vendors-suppliers-registration'
@@ -332,13 +368,16 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   AdminRoute: typeof AdminRouteWithChildren
   ArchitectConsultantRegistrationRoute: typeof ArchitectConsultantRegistrationRoute
+  AwardsRoute: typeof AwardsRoute
   BuyersGuideRoute: typeof BuyersGuideRoute
   CareersRoute: typeof CareersRoute
   CompareRoute: typeof CompareRoute
   ContactRoute: typeof ContactRoute
   ContractorRegistrationRoute: typeof ContractorRegistrationRoute
+  CsrRoute: typeof CsrRoute
   EmiCalculatorRoute: typeof EmiCalculatorRoute
   FaqRoute: typeof FaqRoute
+  ManagementRoute: typeof ManagementRoute
   SeedRoute: typeof SeedRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   VendorsSuppliersRegistrationRoute: typeof VendorsSuppliersRegistrationRoute
@@ -378,6 +417,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SeedRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/management': {
+      id: '/management'
+      path: '/management'
+      fullPath: '/management'
+      preLoaderRoute: typeof ManagementRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/faq': {
       id: '/faq'
       path: '/faq'
@@ -390,6 +436,13 @@ declare module '@tanstack/react-router' {
       path: '/emi-calculator'
       fullPath: '/emi-calculator'
       preLoaderRoute: typeof EmiCalculatorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/csr': {
+      id: '/csr'
+      path: '/csr'
+      fullPath: '/csr'
+      preLoaderRoute: typeof CsrRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contractor-registration': {
@@ -425,6 +478,13 @@ declare module '@tanstack/react-router' {
       path: '/buyers-guide'
       fullPath: '/buyers-guide'
       preLoaderRoute: typeof BuyersGuideRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/awards': {
+      id: '/awards'
+      path: '/awards'
+      fullPath: '/awards'
+      preLoaderRoute: typeof AwardsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/architect-consultant-registration': {
@@ -555,13 +615,16 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   AdminRoute: AdminRouteWithChildren,
   ArchitectConsultantRegistrationRoute: ArchitectConsultantRegistrationRoute,
+  AwardsRoute: AwardsRoute,
   BuyersGuideRoute: BuyersGuideRoute,
   CareersRoute: CareersRoute,
   CompareRoute: CompareRoute,
   ContactRoute: ContactRoute,
   ContractorRegistrationRoute: ContractorRegistrationRoute,
+  CsrRoute: CsrRoute,
   EmiCalculatorRoute: EmiCalculatorRoute,
   FaqRoute: FaqRoute,
+  ManagementRoute: ManagementRoute,
   SeedRoute: SeedRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   VendorsSuppliersRegistrationRoute: VendorsSuppliersRegistrationRoute,

@@ -16,6 +16,8 @@ import {
   CheckCircle2,
   XCircle,
   Clock3,
+  FileSpreadsheet,
+  FileDown,
 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
@@ -23,6 +25,8 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
+import { exportRegistrationsToExcel } from "@/lib/exports/excel";
+import { exportRegistrationsToPDF } from "@/lib/exports/pdf";
 
 export const Route = createFileRoute("/admin/messages")({
   component: RegistrationMessages,
@@ -43,7 +47,7 @@ const statusLabels: Record<string, string> = {
   rejected: "Rejected",
 };
 
-function formatFieldName(key: string) {
+export function formatFieldName(key: string) {
   return key.replace(/_/g, " ").replace(/\b\w/g, (char) => char.toUpperCase());
 }
 
@@ -254,16 +258,44 @@ function RegistrationMessages() {
         </div>
       </div>
 
-      {/* Search */}
-      <div className="relative max-w-xl">
-        <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+      {/* Search + Export */}
+      <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+        {/* Search */}
+        <div className="relative w-full max-w-xl">
+          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
 
-        <Input
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          placeholder="Search applications..."
-          className="pl-10"
-        />
+          <Input
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Search applications..."
+            className="pl-10"
+          />
+        </div>
+
+        {/* Export buttons */}
+        <div className="flex flex-wrap gap-2">
+          <Button
+            type="button"
+            variant="outline"
+            onClick={() => exportRegistrationsToExcel(registrations)}
+            disabled={isLoading || registrations.length === 0}
+            className="gap-2"
+          >
+            <FileSpreadsheet className="h-4 w-4 text-emerald-600" />
+            Export Excel
+          </Button>
+
+          <Button
+            type="button"
+            variant="outline"
+            onClick={() => exportRegistrationsToPDF(registrations)}
+            disabled={isLoading || registrations.length === 0}
+            className="gap-2"
+          >
+            <FileDown className="h-4 w-4 text-red-500" />
+            Export PDF
+          </Button>
+        </div>
       </div>
 
       {/* Messages */}

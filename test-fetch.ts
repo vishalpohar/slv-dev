@@ -5,7 +5,7 @@ async function run() {
   try {
     const res = await fetch(req, { headers: { 'x-test': '1' } });
   } catch (e) {
-    console.error("Caught:", e.message);
+    console.error("Caught:", e instanceof Error ? e.message : String(e));
   }
 }
 run();

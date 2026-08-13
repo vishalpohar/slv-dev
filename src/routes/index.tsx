@@ -3,7 +3,8 @@ import { ArrowRight, Quote, Crown, Award, Shield, TrendingUp, Star } from "lucid
 import { HeroSection } from "@/components/home/HeroSection";
 import { PropertyCard } from "@/components/PropertyCard";
 import { Reveal } from "@/components/Reveal";
-import { projects, testimonials } from "@/data/projects";
+import { testimonials, mapSupabaseToProject } from "@/data/projects";
+import { supabase } from "@/integrations/supabase/client";
 import {
   Carousel,
   CarouselContent,
@@ -15,6 +16,7 @@ import aboutImage from "@/assets/project-1.jpg";
 import aboutImage2 from "@/assets/project-2.jpg";
 import avatar from "@/assets/testimonials/user-icon.jpg";
 import thumbsUp from "@/assets/testimonials/thumbs-up.png";
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -33,6 +35,29 @@ export const Route = createFileRoute("/")({
       },
     ],
   }),
+  loader: async () => {
+    const { data, error } = await supabase
+      .from("projects")
+      .select("*")
+      .eq("is_published", true)
+      .eq("status", "Ongoing")
+      .order("sort_order", { ascending: true });
+
+    if (error) {
+      console.error("[HomeLoader] Failed to fetch ongoing projects:", error);
+
+      return {
+        ongoingProjects: [],
+      };
+    }
+
+    const ongoingProjects = (data ?? []).map(mapSupabaseToProject);
+
+    return {
+      ongoingProjects,
+    };
+  },
+
   component: Index,
 });
 
@@ -72,7 +97,9 @@ const accolades = [
 
 function Index() {
   const featured = testimonials[0];
-  const ongoingProjects = projects.filter((p) => p.status === "Ongoing");
+  const { ongoingProjects } = Route.useLoaderData();
+
+
 
   return (
     <>
@@ -209,7 +236,7 @@ function Index() {
 
       {/* ── Featured projects ── */}
       <section
-        className="relative overflow-hidden py-32"
+        className="relative overflow-hidden py-24 sm:py-28 lg:py-32"
         style={{
           background:
             "linear-gradient(180deg, var(--color-secondary) 0%, var(--color-background) 100%)",
@@ -225,47 +252,74 @@ function Index() {
           }}
         />
 
-        <div className="relative mx-auto max-w-7xl px-6">
-          <Reveal className="mb-16 flex flex-col items-baseline justify-between gap-6 sm:flex-row">
-            <div>
-              <p className="section-label text-gold">Portfolio</p>
-              <h2 className="mt-4 font-display text-5xl font-bold text-foreground sm:text-6xl">
-                Curated Spaces
-              </h2>
-              <p className="mt-3 text-sm font-medium text-muted-foreground">
-                Exquisite residences in prime locations
-              </p>
+        <div className="relative mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+          {/* Header */}
+          <Reveal>
+            <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+              <div>
+                <p className="section-label text-gold">Portfolio</p>
+
+                <h2 className="mt-4 font-display text-4xl font-bold leading-tight text-foreground sm:text-5xl lg:text-6xl">
+                  Ongoing Projects
+                </h2>
+
+                <p className="mt-3 max-w-xl text-sm leading-relaxed text-muted-foreground sm:text-base">
+                  Explore our current developments across Vijayawada and the Amaravati region.
+                </p>
+              </div>
+
+              <Link
+                to="/projects"
+                search={{ status: undefined }}
+                className="group inline-flex w-fit items-center gap-2 rounded-full border border-gold/30 px-5 py-2.5 text-sm font-bold text-foreground transition-all duration-300 hover:border-gold hover:bg-gradient-gold hover:text-gold-foreground"
+              >
+                View All Projects
+                <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+              </Link>
             </div>
-            <Link
-              to="/projects"
-              search={{ status: undefined }}
-              className="group flex items-center gap-2 rounded-full border border-gold/30 px-5 py-2.5 text-sm font-bold text-foreground transition-all duration-300 hover:border-gold hover:bg-gradient-gold hover:text-gold-foreground"
-            >
-              View All Projects
-              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-            </Link>
           </Reveal>
 
-          <Carousel
-            opts={{
-              align: "start",
-            }}
-            className="w-full"
-          >
-            <CarouselContent>
-              {ongoingProjects.map((p, i) => (
-                <CarouselItem key={p.id} className="md:basis-1/2 lg:basis-1/3">
-                  <Reveal delay={i * 100}>
-                    <PropertyCard project={p} />
-                  </Reveal>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <div className="hidden md:block">
-              <CarouselPrevious className="-left-4 lg:-left-6 border-gold/30 text-gold hover:border-gold hover:bg-gold hover:text-gold-foreground bg-background/80 backdrop-blur-sm" />
-              <CarouselNext className="-right-4 lg:-right-6 border-gold/30 text-gold hover:border-gold hover:bg-gold hover:text-gold-foreground bg-background/80 backdrop-blur-sm" />
+          {ongoingProjects.length > 0 ? (
+            <Carousel
+              opts={{
+                align: "start",
+              }}
+              className="w-full"
+            >
+              <CarouselContent>
+                {ongoingProjects.map((p, i) => (
+                  <CarouselItem key={p.id} className="md:basis-1/2 lg:basis-1/3">
+                    <Reveal delay={i * 100}>
+                      <PropertyCard project={p} />
+                    </Reveal>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <div className="hidden md:block">
+                <CarouselPrevious className="-left-4 lg:-left-6 border-gold/30 text-gold hover:border-gold hover:bg-gold hover:text-gold-foreground bg-background/80 backdrop-blur-sm" />
+                <CarouselNext className="-right-4 lg:-right-6 border-gold/30 text-gold hover:border-gold hover:bg-gold hover:text-gold-foreground bg-background/80 backdrop-blur-sm" />
+              </div>
+            </Carousel>
+          ) : (
+            <div className="rounded-3xl border border-border bg-card px-6 py-16 text-center">
+              <p className="font-display text-2xl font-semibold text-foreground">
+                No ongoing projects at the moment.
+              </p>
+
+              <p className="mx-auto mt-3 max-w-lg text-sm text-muted-foreground">
+                Please check back soon for our latest developments.
+              </p>
+
+              <Link
+                to="/projects"
+                search={{ status: undefined }}
+                className="mt-6 inline-flex items-center gap-2 rounded-xl bg-gradient-gold px-5 py-3 text-sm font-semibold text-gold-foreground"
+              >
+                Explore All Projects
+                <ArrowRight className="h-4 w-4" />
+              </Link>
             </div>
-          </Carousel>
+          )}
         </div>
       </section>
 
