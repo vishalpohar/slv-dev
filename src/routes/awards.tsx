@@ -24,6 +24,10 @@ import { cn } from "@/lib/utils";
 // Replace these later with images uploaded from your Admin Panel / Supabase.
 // -----------------------------------------------------------------------------
 import heroAwardImage from "@/assets/awardsection.png";
+import awardImage1 from "@/assets/award1.jpeg";
+import awardImage2 from "@/assets/award2.jpeg";
+import awardImage3 from "@/assets/award3.jpeg";
+import awardImage4 from "@/assets/award4.jpeg";
 import leadershipImage from "@/assets/penmetsa_srinivasa_raju.png";
 
 // -----------------------------------------------------------------------------
