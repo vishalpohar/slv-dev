@@ -254,7 +254,7 @@ export async function exportRegistrationsToPDF(registrations: Registration[]) {
           /*
            * Create clickable PDF links.
            */
-          didDrawCell: (data) => {
+          didDrawCell: (data: any) => {
             if (data.section !== "body" || data.column.index !== 2) {
               return;
             }
