@@ -1,22 +1,16 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Quote, Crown, Award, Shield, TrendingUp, Star } from "lucide-react";
+import { useEffect, useState } from "react";
+import { ArrowRight, ArrowLeft, Quote, Crown, Award, Shield, TrendingUp, Star } from "lucide-react";
 import { HeroSection } from "@/components/home/HeroSection";
 import { PropertyCard } from "@/components/PropertyCard";
 import { Reveal } from "@/components/Reveal";
 import { testimonials, mapSupabaseToProject } from "@/data/projects";
 import { supabase } from "@/integrations/supabase/client";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
 import aboutImage from "@/assets/project-1.jpg";
 import aboutImage2 from "@/assets/project-2.jpg";
 import avatar from "@/assets/testimonials/user-icon.jpg";
 import thumbsUp from "@/assets/testimonials/thumbs-up.png";
-
+import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -99,7 +93,51 @@ function Index() {
   const featured = testimonials[0];
   const { ongoingProjects } = Route.useLoaderData();
 
+  const [itemsPerPage, setItemsPerPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(0);
 
+  useEffect(() => {
+    const updateItemsPerPage = () => {
+      const width = window.innerWidth;
+
+      if (width < 640) {
+        setItemsPerPage(1);
+      } else if (width < 1024) {
+        setItemsPerPage(2);
+      } else if (width < 1280) {
+        setItemsPerPage(3);
+      } else {
+        setItemsPerPage(4);
+      }
+    };
+
+    updateItemsPerPage();
+    window.addEventListener("resize", updateItemsPerPage);
+
+    return () => {
+      window.removeEventListener("resize", updateItemsPerPage);
+    };
+  }, []);
+
+  // Reset page whenever the number of visible cards changes
+  useEffect(() => {
+    setCurrentPage(0);
+  }, [itemsPerPage]);
+
+  const totalPages = Math.ceil(ongoingProjects.length / itemsPerPage);
+
+  const visibleProjects = ongoingProjects.slice(
+    currentPage * itemsPerPage,
+    currentPage * itemsPerPage + itemsPerPage,
+  );
+
+  const nextPage = () => {
+    setCurrentPage((page) => (page < totalPages - 1 ? page + 1 : 0));
+  };
+
+  const previousPage = () => {
+    setCurrentPage((page) => (page > 0 ? page - 1 : totalPages - 1));
+  };
 
   return (
     <>
@@ -279,47 +317,116 @@ function Index() {
             </div>
           </Reveal>
 
-          {ongoingProjects.length > 0 ? (
-            <Carousel
-              opts={{
-                align: "start",
-              }}
-              className="w-full"
-            >
-              <CarouselContent>
-                {ongoingProjects.map((p, i) => (
-                  <CarouselItem key={p.id} className="md:basis-1/2 lg:basis-1/3">
-                    <Reveal delay={i * 100}>
-                      <PropertyCard project={p} />
-                    </Reveal>
-                  </CarouselItem>
-                ))}
-              </CarouselContent>
-              <div className="hidden md:block">
-                <CarouselPrevious className="-left-4 lg:-left-6 border-gold/30 text-gold hover:border-gold hover:bg-gold hover:text-gold-foreground bg-background/80 backdrop-blur-sm" />
-                <CarouselNext className="-right-4 lg:-right-6 border-gold/30 text-gold hover:border-gold hover:bg-gold hover:text-gold-foreground bg-background/80 backdrop-blur-sm" />
+          {/* Carousel */}
+          <Reveal delay={100}>
+            <div className="relative mt-10 sm:mt-14">
+              {/* Projects */}
+              <div className="mx-auto w-full">
+                {ongoingProjects.length > 0 ? (
+                  <div
+                    key={`${currentPage}-${itemsPerPage}`}
+                    className={cn(
+                      "grid gap-5 sm:gap-6",
+                      itemsPerPage === 1 && "grid-cols-1",
+                      itemsPerPage === 2 && "grid-cols-2",
+                      itemsPerPage === 3 && "grid-cols-3",
+                      itemsPerPage === 4 && "grid-cols-4",
+                    )}
+                  >
+                    {visibleProjects.map((project, index) => (
+                      <Reveal key={project.id} delay={index * 80}>
+                        <PropertyCard project={project} />
+                      </Reveal>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="rounded-3xl border border-border bg-card px-6 py-16 text-center">
+                    <p className="font-display text-2xl font-semibold text-foreground">
+                      No ongoing projects at the moment.
+                    </p>
+
+                    <p className="mx-auto mt-3 max-w-lg text-sm text-muted-foreground">
+                      Please check back soon for our latest developments.
+                    </p>
+
+                    <Link
+                      to="/projects"
+                      search={{ status: undefined }}
+                      className="mt-6 inline-flex items-center gap-2 rounded-xl bg-gradient-gold px-5 py-3 text-sm font-semibold text-gold-foreground"
+                    >
+                      Explore All Projects
+                      <ArrowRight className="h-4 w-4" />
+                    </Link>
+                  </div>
+                )}
               </div>
-            </Carousel>
-          ) : (
-            <div className="rounded-3xl border border-border bg-card px-6 py-16 text-center">
-              <p className="font-display text-2xl font-semibold text-foreground">
-                No ongoing projects at the moment.
-              </p>
 
-              <p className="mx-auto mt-3 max-w-lg text-sm text-muted-foreground">
-                Please check back soon for our latest developments.
-              </p>
+              {/* Navigation */}
+              {ongoingProjects.length > itemsPerPage && (
+                <div className="mt-8 flex items-center justify-between gap-4">
+                  {/* Previous */}
+                  <button
+                    type="button"
+                    onClick={previousPage}
+                    aria-label="Previous projects"
+                    className="
+            flex h-10 w-10 shrink-0 items-center justify-center
+            rounded-full border border-border bg-card
+            text-foreground shadow-sm
+            transition-all duration-300
+            hover:border-gold hover:bg-gold hover:text-gold-foreground
+            sm:h-11 sm:w-11
+          "
+                  >
+                    <ArrowLeft className="h-4 w-4 sm:h-5 sm:w-5" />
+                  </button>
 
-              <Link
-                to="/projects"
-                search={{ status: undefined }}
-                className="mt-6 inline-flex items-center gap-2 rounded-xl bg-gradient-gold px-5 py-3 text-sm font-semibold text-gold-foreground"
-              >
-                Explore All Projects
-                <ArrowRight className="h-4 w-4" />
-              </Link>
+                  {/* Counter */}
+                  <div className="flex min-w-0 flex-1 items-center justify-center gap-4">
+                    <div className="font-mono text-[10px] font-semibold tracking-[0.2em] text-muted-foreground sm:text-xs">
+                      <span className="text-gold">{String(currentPage + 1).padStart(2, "0")}</span>
+                      <span className="mx-1.5">/</span>
+                      <span>{String(totalPages).padStart(2, "0")}</span>
+                    </div>
+
+                    <div className="flex items-center gap-1.5">
+                      {Array.from({ length: totalPages }).map((_, index) => (
+                        <button
+                          key={index}
+                          type="button"
+                          onClick={() => setCurrentPage(index)}
+                          aria-label={`Go to project page ${index + 1}`}
+                          className="h-1.5 rounded-full transition-all duration-300"
+                          style={{
+                            width: index === currentPage ? "28px" : "8px",
+                            background:
+                              index === currentPage ? "var(--color-gold)" : "rgba(127,127,127,0.3)",
+                          }}
+                        />
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Next */}
+                  <button
+                    type="button"
+                    onClick={nextPage}
+                    aria-label="Next projects"
+                    className="
+            flex h-10 w-10 shrink-0 items-center justify-center
+            rounded-full border border-border bg-card
+            text-foreground shadow-sm
+            transition-all duration-300
+            hover:border-gold hover:bg-gold hover:text-gold-foreground
+            sm:h-11 sm:w-11
+          "
+                  >
+                    <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5" />
+                  </button>
+                </div>
+              )}
             </div>
-          )}
+          </Reveal>
         </div>
       </section>
 
