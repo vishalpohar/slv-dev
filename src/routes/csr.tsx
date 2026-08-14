@@ -21,10 +21,10 @@ import { cn } from "@/lib/utils";
 // Replace these with Supabase Storage URLs later.
 // -----------------------------------------------------------------------------
 import heroImage from "@/assets/about_slv.jpg";
+import annaCanteenImage from "@/assets/csr/anna-canteen-donation.png"
 import csrImage1 from "@/assets/project-1.jpg";
-import csrImage2 from "@/assets/project-2.jpg";
-import csrImage3 from "@/assets/project-3.jpg";
-import csrImage4 from "@/assets/amaravathi.png";
+import communityImage from "@/assets/csr/community.jpg";
+import csrImage3 from "@/assets/SLV Green Meadow1.jpeg";
 import { useState } from "react";
 
 // -----------------------------------------------------------------------------
@@ -65,13 +65,14 @@ export const Route = createFileRoute("/csr")({
 // Keep this shape when moving the data to Supabase later.
 // -----------------------------------------------------------------------------
 
-type CSRCategory = "Education" | "Community" | "Healthcare" | "Food & Relief" | "Environment";
+type CSRCategory =
+  "Community" | "Healthcare & Accessibility" | "Education" | "Environment" | "Food & Relief";
 
 type CSRInitiative = {
   id: string;
   title: string;
   category: CSRCategory;
-  year: number;
+  year: number | null;
   date?: string;
   location?: string;
   shortDescription: string;
@@ -88,82 +89,66 @@ type CSRInitiative = {
 
 const initiatives: CSRInitiative[] = [
   {
-    id: "education-support",
-    title: "Supporting Education",
-    category: "Education",
-    year: 2025,
-    date: "2025",
-    location: "Andhra Pradesh",
-    shortDescription:
-      "Supporting students and educational initiatives to help create better opportunities for the next generation.",
-    description:
-      "SLV believes that access to education can create long-term change. Our initiatives support students, educational institutions and learning-focused community programs.",
-    image: csrImage1,
-    impact: "Education Support",
-    beneficiaries: "Students & Young Learners",
-    featured: true,
-  },
-  {
-    id: "community-support",
-    title: "Community Welfare",
-    category: "Community",
-    year: 2025,
-    date: "2025",
-    location: "Vijayawada Region",
-    shortDescription:
-      "Contributing to community welfare programs and initiatives that support families and local communities.",
-    description:
-      "Our community-focused activities are designed to provide meaningful support where it is needed most, while strengthening the communities around us.",
-    image: csrImage2,
-    impact: "Community Welfare",
-    beneficiaries: "Local Communities",
-    featured: true,
-  },
-  {
-    id: "food-relief",
-    title: "Food & Relief Support",
+    id: "anna-canteen-donation-2024",
+    title: "₹1 Crore Donation to Anna Canteens",
     category: "Food & Relief",
     year: 2024,
-    date: "2024",
+    date: "August 2024",
     location: "Andhra Pradesh",
     shortDescription:
-      "Providing food and essential support to people and families facing difficult circumstances.",
+      "Supporting the Anna Canteen initiative to help provide affordable meals to people in need.",
     description:
-      "Through donations and relief-oriented initiatives, SLV contributes towards food security and immediate assistance for communities in need.",
-    image: csrImage3,
-    impact: "Relief Support",
-    beneficiaries: "Families in Need",
+      "Srinivasa Raju of SLV Group contributed ₹1 crore to the Anna Canteen scheme in Andhra Pradesh. The contribution was intended to form part of the charitable trust's corpus fund supporting the canteens.",
+    image: annaCanteenImage,
+    impact: "₹1 Crore Contribution",
+    beneficiaries: "People & Families in Need",
     featured: true,
   },
   {
-    id: "healthcare-support",
-    title: "Healthcare & Wellbeing",
-    category: "Healthcare",
+    id: "wheelchair-support-2024",
+    title: "Mobility Support for Muscular Dystrophy Patients",
+    category: "Healthcare & Accessibility",
     year: 2024,
-    date: "2024",
+    date: "Engineers' Day 2024",
     location: "Andhra Pradesh",
     shortDescription:
-      "Supporting health and wellbeing initiatives that aim to improve access to essential care.",
+      "Supporting muscular dystrophy patients through the donation of electric wheelchairs.",
     description:
-      "SLV supports initiatives focused on health awareness, wellbeing and assistance for people who may need additional support.",
-    image: csrImage4,
-    impact: "Health & Wellbeing",
-    beneficiaries: "Community Members",
+      "Sri Penmetsa Srinivasa Raju of SLV Groups donated electric wheelchairs to muscular dystrophy patients, supporting greater mobility and independence.",
+    image: csrImage1,
+    impact: "Mobility & Accessibility",
+    beneficiaries: "Muscular Dystrophy Patients",
+    featured: true,
   },
   {
-    id: "environment",
-    title: "A Greener Tomorrow",
-    category: "Environment",
-    year: 2024,
-    date: "2024",
-    location: "Vijayawada",
+    id: "community-development",
+    title: "Community Development",
+    category: "Community",
+    year: null,
+    location: "Andhra Pradesh",
     shortDescription:
-      "Encouraging environmentally responsible initiatives and greener community spaces.",
+      "Supporting initiatives that contribute to the welfare of communities around us.",
     description:
-      "Sustainable thinking extends beyond our projects. Our environmental initiatives encourage responsible practices and greener surroundings.",
-    image: heroImage,
-    impact: "Environmental Responsibility",
-    beneficiaries: "Communities & Future Generations",
+      "SLV states that it participates in community development initiatives and contributes to the overall welfare of its surroundings.",
+    image: communityImage,
+    impact: "Community Welfare",
+    beneficiaries: "Local Communities",
+    featured: false,
+  },
+  {
+    id: "responsible-growth",
+    title: "Responsible Growth",
+    category: "Community",
+    year: null,
+    location: "Andhra Pradesh",
+    shortDescription:
+      "Extending SLV's commitment beyond construction to the people and communities it serves.",
+    description:
+      "SLV's broader philosophy emphasises quality, sustainability and responsible development as it grows across Andhra Pradesh.",
+    image: csrImage3,
+    impact: "Responsible Development",
+    beneficiaries: "Communities & Stakeholders",
+    featured: false,
   },
 ];
 
@@ -175,7 +160,7 @@ const filters: Array<"All" | CSRCategory> = [
   "All",
   "Education",
   "Community",
-  "Healthcare",
+  "Healthcare & Accessibility",
   "Food & Relief",
   "Environment",
 ];
@@ -192,7 +177,7 @@ function CategoryIcon({ category }: { category: CSRCategory }) {
     case "Community":
       return <Users className="h-5 w-5" />;
 
-    case "Healthcare":
+    case "Healthcare & Accessibility":
       return <ShieldCheck className="h-5 w-5" />;
 
     case "Food & Relief":

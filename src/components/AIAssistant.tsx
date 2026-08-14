@@ -82,9 +82,9 @@ export function AIAssistant() {
       <button
         onClick={() => setOpen(true)}
         aria-label="Ask the AI Property Assistant"
-        className="group fixed bottom-28 right-4 z-40 flex h-14 w-14 items-center justify-center rounded-full border-2 border-gold bg-transparent backdrop-blur-lg text-gold-foreground shadow-lg transition-transform hover:scale-110 sm:bottom-24 sm:right-6 cursor-pointer"
+        className="group fixed bottom-16 right-4 z-40 flex h-12 w-12 md:h-14 md:w-14 items-center justify-center rounded-full border-2 border-gold bg-transparent backdrop-blur-lg text-gold-foreground shadow-lg transition-transform hover:scale-110 sm:bottom-24 sm:right-6 cursor-pointer"
       >
-        <Sparkles className="h-7 w-7 text-gold" strokeWidth={2} />
+        <Sparkles className="h-6 w-6 md:h-7 md:w-7 text-gold" strokeWidth={2} />
         <span className="absolute -top-1 -right-1 flex h-3.5 w-3.5">
           <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-gold/70" />
           <span className="relative inline-flex h-3.5 w-3.5 rounded-full bg-gold" />

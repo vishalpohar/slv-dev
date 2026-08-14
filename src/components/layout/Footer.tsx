@@ -4,9 +4,16 @@ import slvLogo from "@/assets/slv-logo.png";
 
 const ourStory = [
   { label: "About Us", to: "/about" },
-  // { label: "Management", to: "/about" },
+  { label: "Leadership & Management", to: "/management" },
+  { label: "Awards", to: "/awards" },
+  { label: "CSR", to: "/csr" },
   { label: "Gallery", to: "/projects" },
-  { label: "Buyer's Guide", to: "/buyers-guide" },
+];
+
+const projectLinks = [
+  { label: "Ongoing Projects", to: "/projects", search: { status: "ongoing" } },
+  { label: "Upcoming Projects", to: "/projects", search: { status: "upcoming" } },
+  { label: "Completed Projects", to: "/projects", search: { status: "completed" } },
 ] as const;
 
 const workWithUs = [
@@ -18,11 +25,10 @@ const workWithUs = [
   { label: "Work Shop", to: "/workshop" },
 ] as const;
 
-const projectLinks = [
-  { label: "Ongoing Projects", to: "/projects", search: { status: "ongoing" } },
-  { label: "Upcoming Projects", to: "/projects", search: { status: "upcoming" } },
-  { label: "Completed Projects", to: "/projects", search: { status: "completed" } },
-] as const;
+const buyersGuide = [
+  { label: "EMI Calculator", to: "/emi-calculator" },
+  { label: "FAQ'S", to: "/faq" },
+];
 
 const message = encodeURIComponent(
   `Hello SLV Builders & Developers,
@@ -118,7 +124,7 @@ export function Footer() {
             className="mt-2 h-px w-8 opacity-40"
             style={{ background: "var(--gradient-gold)" }}
           />
-          <ul className="mt-6 space-y-3.5">
+          <ul className="mt-4 space-y-3.5">
             {ourStory.map((l) => (
               <li key={l.label}>
                 <Link
@@ -132,6 +138,26 @@ export function Footer() {
               </li>
             ))}
           </ul>
+          <h4 className="section-label mt-10 text-gold tracking-[0.28em]">Projects</h4>
+          <div
+            className="mt-2 h-px w-8 opacity-40"
+            style={{ background: "var(--gradient-gold)" }}
+          />
+          <ul className="mt-4 space-y-3.5">
+            {projectLinks.map((l) => (
+              <li key={l.label}>
+                <Link
+                  to={l.to}
+                  onClick={() => scrollToTopIfSamePage(l.to)}
+                  search={l.search}
+                  className="group inline-flex items-center gap-1.5 text-sm text-white/55 transition-all duration-300 hover:text-gold"
+                >
+                  <span>{l.label}</span>
+                  <ArrowUpRight className="h-3.5 w-3.5 opacity-0 transition-all duration-300 group-hover:opacity-100" />
+                </Link>
+              </li>
+            ))}
+          </ul>
         </div>
 
         {/* Work With Us + Projects */}
@@ -141,7 +167,7 @@ export function Footer() {
             className="mt-2 h-px w-8 opacity-40"
             style={{ background: "var(--gradient-gold)" }}
           />
-          <ul className="mt-6 space-y-3.5">
+          <ul className="mt-4 space-y-3.5">
             {workWithUs.map((l) => (
               <li key={l.label}>
                 <Link
@@ -155,18 +181,17 @@ export function Footer() {
               </li>
             ))}
           </ul>
-          <h4 className="section-label mt-10 text-gold tracking-[0.28em]">Projects</h4>
+          <h4 className="section-label mt-10 text-gold tracking-[0.28em]">Buyer's Guide</h4>
           <div
             className="mt-2 h-px w-8 opacity-40"
             style={{ background: "var(--gradient-gold)" }}
           />
-          <ul className="mt-6 space-y-3.5">
-            {projectLinks.map((l) => (
+          <ul className="mt-4 space-y-3.5">
+            {buyersGuide.map((l) => (
               <li key={l.label}>
                 <Link
                   to={l.to}
                   onClick={() => scrollToTopIfSamePage(l.to)}
-                  search={l.search}
                   className="group inline-flex items-center gap-1.5 text-sm text-white/55 transition-all duration-300 hover:text-gold"
                 >
                   <span>{l.label}</span>
@@ -218,7 +243,9 @@ export function Footer() {
             </li>
             <li>
               <a
-                href="mailto:slv.bvrm@gmail.com"
+                href="https://mail.google.com/mail/?view=cm&fs=1&to=slv.bvrm@gmail.com"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="group flex items-center gap-3 transition-all duration-300 hover:text-gold"
               >
                 <span
@@ -236,6 +263,8 @@ export function Footer() {
             <li>
               <a
                 href={`https://wa.me/919859595939?text=${message}`}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="group flex items-center gap-3 transition-all duration-300 hover:text-gold"
               >
                 <span

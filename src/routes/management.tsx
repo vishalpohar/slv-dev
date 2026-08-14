@@ -17,7 +17,7 @@ import { cn } from "@/lib/utils";
 
 import heroImage from "@/assets/about_slv.jpg";
 import leadershipImage from "@/assets/penmetsa_srinivasa_raju.png";
-import visionImage from "@/assets/project-2.jpg";
+import visionImage from "@/assets/concept-to-completion.jpg";
 
 export const Route = createFileRoute("/management")({
   head: () => ({
