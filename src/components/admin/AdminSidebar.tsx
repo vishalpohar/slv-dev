@@ -7,12 +7,14 @@ import {
   MessageSquare,
   Inbox,
   Image,
+  Award as AwardIcon,
   LogOut,
   ChevronLeft,
   ChevronRight,
 } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
+import slvIcon from "@/assets/slv-icon.png";
 import slvLogo from "@/assets/slv-logo.png";
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
@@ -20,6 +22,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 const navItems = [
   { to: "/admin", label: "Dashboard", icon: LayoutDashboard, exact: true },
   { to: "/admin/projects", label: "Projects", icon: Building2 },
+  { to: "/admin/awards", label: "Awards", icon: AwardIcon },
   { to: "/admin/enquiries", label: "Enquiries", icon: MessageSquare },
   { to: "/admin/messages", label: "Messages", icon: Inbox },
   { to: "/admin/media", label: "Media", icon: Image },
@@ -70,12 +73,14 @@ export function AdminSidebar({ userEmail, userRole, onSignOut }: AdminSidebarPro
             collapsed && "justify-center px-2",
           )}
         >
-            <div className={cn(
+          <div
+            className={cn(
               "flex-shrink-0 overflow-hidden",
               collapsed ? "h-8 w-auto" : "h-12 w-auto",
-            )}>
-              <img src={slvLogo} alt="SLV" className="h-full object-contain" />
-            </div>
+            )}
+          >
+            <img src={collapsed ? slvIcon : slvLogo} alt="SLV" className="h-full object-contain" />
+          </div>
           {!collapsed && (
             <div className="animate-fade-in">
               <p className="text-xs font-bold tracking-widest text-gold uppercase">SLV</p>

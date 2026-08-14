@@ -37,6 +37,7 @@ import { Route as AdminMessagesRouteImport } from './routes/admin/messages'
 import { Route as AdminMediaRouteImport } from './routes/admin/media'
 import { Route as AdminLoginRouteImport } from './routes/admin/login'
 import { Route as AdminEnquiriesRouteImport } from './routes/admin/enquiries'
+import { Route as AdminAwardsRouteImport } from './routes/admin/awards'
 
 const WorkshopRoute = WorkshopRouteImport.update({
   id: '/workshop',
@@ -180,6 +181,11 @@ const AdminEnquiriesRoute = AdminEnquiriesRouteImport.update({
   path: '/enquiries',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminAwardsRoute = AdminAwardsRouteImport.update({
+  id: '/awards',
+  path: '/awards',
+  getParentRoute: () => AdminRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -200,6 +206,7 @@ export interface FileRoutesByFullPath {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/vendors-suppliers-registration': typeof VendorsSuppliersRegistrationRoute
   '/workshop': typeof WorkshopRoute
+  '/admin/awards': typeof AdminAwardsRoute
   '/admin/enquiries': typeof AdminEnquiriesRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/media': typeof AdminMediaRoute
@@ -229,6 +236,7 @@ export interface FileRoutesByTo {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/vendors-suppliers-registration': typeof VendorsSuppliersRegistrationRoute
   '/workshop': typeof WorkshopRoute
+  '/admin/awards': typeof AdminAwardsRoute
   '/admin/enquiries': typeof AdminEnquiriesRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/media': typeof AdminMediaRoute
@@ -260,6 +268,7 @@ export interface FileRoutesById {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/vendors-suppliers-registration': typeof VendorsSuppliersRegistrationRoute
   '/workshop': typeof WorkshopRoute
+  '/admin/awards': typeof AdminAwardsRoute
   '/admin/enquiries': typeof AdminEnquiriesRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/media': typeof AdminMediaRoute
@@ -292,6 +301,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/vendors-suppliers-registration'
     | '/workshop'
+    | '/admin/awards'
     | '/admin/enquiries'
     | '/admin/login'
     | '/admin/media'
@@ -321,6 +331,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/vendors-suppliers-registration'
     | '/workshop'
+    | '/admin/awards'
     | '/admin/enquiries'
     | '/admin/login'
     | '/admin/media'
@@ -351,6 +362,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/vendors-suppliers-registration'
     | '/workshop'
+    | '/admin/awards'
     | '/admin/enquiries'
     | '/admin/login'
     | '/admin/media'
@@ -585,10 +597,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminEnquiriesRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/awards': {
+      id: '/admin/awards'
+      path: '/awards'
+      fullPath: '/admin/awards'
+      preLoaderRoute: typeof AdminAwardsRouteImport
+      parentRoute: typeof AdminRoute
+    }
   }
 }
 
 interface AdminRouteChildren {
+  AdminAwardsRoute: typeof AdminAwardsRoute
   AdminEnquiriesRoute: typeof AdminEnquiriesRoute
   AdminLoginRoute: typeof AdminLoginRoute
   AdminMediaRoute: typeof AdminMediaRoute
@@ -599,6 +619,7 @@ interface AdminRouteChildren {
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
+  AdminAwardsRoute: AdminAwardsRoute,
   AdminEnquiriesRoute: AdminEnquiriesRoute,
   AdminLoginRoute: AdminLoginRoute,
   AdminMediaRoute: AdminMediaRoute,

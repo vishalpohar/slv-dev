@@ -13,6 +13,9 @@ import {
   UserRound,
 } from "lucide-react";
 import { useMemo, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
+import type { Tables } from "@/integrations/supabase/types";
 import { Reveal } from "@/components/Reveal";
 import { cn } from "@/lib/utils";
 
@@ -22,10 +25,6 @@ import { cn } from "@/lib/utils";
 // -----------------------------------------------------------------------------
 import heroAwardImage from "@/assets/awardsection.png";
 import leadershipImage from "@/assets/penmetsa_srinivasa_raju.png";
-import awardImage1 from "@/assets/award1.png";
-import awardImage2 from "@/assets/project-2.jpg";
-import awardImage3 from "@/assets/award3.png";
-import awardImage4 from "@/assets/award4.png";
 
 // -----------------------------------------------------------------------------
 // ROUTE
@@ -64,104 +63,9 @@ export const Route = createFileRoute("/awards")({
 // This structure is intentionally admin-panel friendly.
 // Later replace this local array with Supabase data without changing the UI.
 // -----------------------------------------------------------------------------
+
+type Award = Tables<"awards">;
 type AwardCategory = "Leadership" | "Developer" | "Project" | "Lifetime Achievement";
-
-type AwardItem = {
-  id: string;
-  year?: number;
-  category: AwardCategory;
-  title: string;
-  subtitle?: string;
-  recipient: string;
-  organization?: string;
-  issuer: string;
-  location?: string;
-  description: string;
-  image: string;
-  featured?: boolean;
-};
-
-// -----------------------------------------------------------------------------
-// DATA FROM THE PROVIDED PDF
-// -----------------------------------------------------------------------------
-const awards: AwardItem[] = [
-  {
-    id: "legendary-personality-real-estate-2025",
-    year: 2025,
-    category: "Leadership",
-    title: "Legendary Personality",
-    subtitle: "in Real Estate",
-    recipient: "Penmesta Srinivasa Raju",
-    organization: "Chairman and Managing Director — SLV Group",
-    issuer: "Times Business Awards",
-    location: "Andhra Pradesh",
-    description:
-      "Recognised as a Legendary Personality in Real Estate at The Times Business Awards 2025.",
-    image: awardImage1,
-    featured: true,
-  },
-
-  {
-    id: "trusted-developer-2025",
-    year: 2025,
-    category: "Developer",
-    title: "Trusted Developer",
-    subtitle: "of the Year",
-    recipient: "SLV Builders",
-    organization: "SLV Builders",
-    issuer: "Times Business Awards",
-    location: "Andhra Pradesh",
-    description:
-      "SLV Builders was recognised as Trusted Developer of the Year at The Times Business Awards 2025.",
-    image: awardImage2,
-    featured: true,
-  },
-
-  {
-    id: "affordable-housing-project-2025",
-    year: 2025,
-    category: "Project",
-    title: "Affordable Housing Project",
-    subtitle: "in emerging Capital",
-    recipient: "SLV Amaravti Pride",
-    organization: "SLV Developers",
-    issuer: "Times Business Awards",
-    location: "Mangalagiri, Andhra Pradesh",
-    description:
-      "SLV Amaravti Pride was recognised in the category Affordable Housing Project in emerging Capital.",
-    image: awardImage3,
-    featured: true,
-  },
-
-  {
-    id: "emerging-project-2024",
-    year: 2024,
-    category: "Project",
-    title: "Certificate of Excellence",
-    subtitle: "Emerging Project",
-    recipient: "SLV Amaravati Grand III",
-    organization: "SLV Builders",
-    issuer: "Times Business Awards AP",
-    location: "Gunadala, Vijayawada",
-    description:
-      "SLV Amaravati Grand III received a Certificate of Excellence in the category of Emerging Project at the Times Business Awards AP 2024.",
-    image: awardImage4,
-    featured: false,
-  },
-
-  {
-    id: "lifetime-achievement",
-    category: "Lifetime Achievement",
-    title: "Lifetime Achievement Award",
-    recipient: "Penmetsa Srinivasa Raju",
-    organization: "SLV Group",
-    issuer: "Times of India",
-    description:
-      "The leadership feature in the provided publication notes a Times of India Lifetime Achievement Award recognising his journey from humble beginnings to building an enduring business legacy.",
-    image: heroAwardImage,
-    featured: false,
-  },
-];
 
 // -----------------------------------------------------------------------------
 // FILTERS
@@ -204,7 +108,8 @@ function CategoryIcon({ category }: { category: AwardCategory }) {
   return <Medal className="h-5 w-5" />;
 }
 
-function AwardCard({ award, index }: { award: AwardItem; index: number }) {
+function AwardCard({ award, index }: { award: Award; index: number }) {
+  const category = award.category as AwardCategory;
   return (
     <Reveal delay={index * 70}>
       <article
@@ -222,7 +127,7 @@ function AwardCard({ award, index }: { award: AwardItem; index: number }) {
         {/* Image */}
         <div className="relative aspect-[4/3] overflow-hidden bg-black">
           <img
-            src={award.image}
+            src={award.image_url}
             alt={`${award.title} — ${award.recipient}`}
             loading="lazy"
             className="
@@ -256,7 +161,7 @@ function AwardCard({ award, index }: { award: AwardItem; index: number }) {
           <div className="absolute bottom-4 left-4 right-4 z-20 flex items-end justify-between gap-3">
             <div>
               <p className="text-[8px] font-bold uppercase tracking-[0.22em] text-gold">
-                {award.category}
+                {category}
               </p>
 
               <p className="mt-1 text-[10px] uppercase tracking-[0.18em] text-white/55">
@@ -265,7 +170,7 @@ function AwardCard({ award, index }: { award: AwardItem; index: number }) {
             </div>
 
             <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-gold/30 bg-black/40 text-gold backdrop-blur-md">
-              <CategoryIcon category={award.category} />
+              <CategoryIcon category={category} />
             </div>
           </div>
         </div>
@@ -329,13 +234,37 @@ function AwardCard({ award, index }: { award: AwardItem; index: number }) {
 function AwardsPage() {
   const [activeFilter, setActiveFilter] = useState<"All" | AwardCategory>("All");
 
+  const {
+    data: awards = [],
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["public-awards"],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("awards")
+        .select("*")
+        .eq("is_published", true)
+        .order("sort_order", { ascending: true })
+        .order("year", { ascending: false });
+
+      if (error) {
+        throw error;
+      }
+
+      return (data ?? []).filter((award): award is Award & { category: AwardCategory } =>
+        ["Leadership", "Developer", "Project", "Lifetime Achievement"].includes(award.category),
+      );
+    },
+  });
+
   const filteredAwards = useMemo(() => {
     if (activeFilter === "All") {
       return awards;
     }
 
     return awards.filter((award) => award.category === activeFilter);
-  }, [activeFilter]);
+  }, [awards, activeFilter]);
 
   return (
     <main className="overflow-hidden bg-background">
@@ -678,11 +607,34 @@ function AwardsPage() {
           </Reveal>
 
           {/* Award cards */}
-          <div className="mt-12 grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
-            {filteredAwards.map((award, index) => (
-              <AwardCard key={award.id} award={award} index={index} />
-            ))}
-          </div>
+          {isLoading ? (
+            <main className="bg-background">
+              <section className="mx-auto max-w-7xl px-4 py-32 sm:px-6 lg:px-8">
+                <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
+                  {Array.from({ length: 6 }).map((_, index) => (
+                    <div
+                      key={index}
+                      className="overflow-hidden rounded-[2rem] border border-border bg-card"
+                    >
+                      <div className="aspect-[4/3] animate-pulse bg-muted" />
+                      <div className="space-y-3 p-6">
+                        <div className="h-4 w-24 animate-pulse rounded bg-muted" />
+                        <div className="h-8 w-3/4 animate-pulse rounded bg-muted" />
+                        <div className="h-4 w-full animate-pulse rounded bg-muted" />
+                        <div className="h-4 w-5/6 animate-pulse rounded bg-muted" />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </section>
+            </main>
+          ) : (
+            <div className="mt-12 grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
+              {filteredAwards.map((award, index) => (
+                <AwardCard key={award.id} award={award} index={index} />
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
