@@ -12,7 +12,9 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as WorkshopRouteImport } from './routes/workshop'
 import { Route as VendorsSuppliersRegistrationRouteImport } from './routes/vendors-suppliers-registration'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as SiteVisitRouteImport } from './routes/site-visit'
 import { Route as SeedRouteImport } from './routes/seed'
+import { Route as NriCornerRouteImport } from './routes/nri-corner'
 import { Route as ManagementRouteImport } from './routes/management'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as EmiCalculatorRouteImport } from './routes/emi-calculator'
@@ -54,9 +56,19 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SiteVisitRoute = SiteVisitRouteImport.update({
+  id: '/site-visit',
+  path: '/site-visit',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SeedRoute = SeedRouteImport.update({
   id: '/seed',
   path: '/seed',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NriCornerRoute = NriCornerRouteImport.update({
+  id: '/nri-corner',
+  path: '/nri-corner',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ManagementRoute = ManagementRouteImport.update({
@@ -196,7 +208,9 @@ export interface FileRoutesByFullPath {
   '/emi-calculator': typeof EmiCalculatorRoute
   '/faq': typeof FaqRoute
   '/management': typeof ManagementRoute
+  '/nri-corner': typeof NriCornerRoute
   '/seed': typeof SeedRoute
+  '/site-visit': typeof SiteVisitRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/vendors-suppliers-registration': typeof VendorsSuppliersRegistrationRoute
   '/workshop': typeof WorkshopRoute
@@ -225,7 +239,9 @@ export interface FileRoutesByTo {
   '/emi-calculator': typeof EmiCalculatorRoute
   '/faq': typeof FaqRoute
   '/management': typeof ManagementRoute
+  '/nri-corner': typeof NriCornerRoute
   '/seed': typeof SeedRoute
+  '/site-visit': typeof SiteVisitRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/vendors-suppliers-registration': typeof VendorsSuppliersRegistrationRoute
   '/workshop': typeof WorkshopRoute
@@ -256,7 +272,9 @@ export interface FileRoutesById {
   '/emi-calculator': typeof EmiCalculatorRoute
   '/faq': typeof FaqRoute
   '/management': typeof ManagementRoute
+  '/nri-corner': typeof NriCornerRoute
   '/seed': typeof SeedRoute
+  '/site-visit': typeof SiteVisitRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/vendors-suppliers-registration': typeof VendorsSuppliersRegistrationRoute
   '/workshop': typeof WorkshopRoute
@@ -288,7 +306,9 @@ export interface FileRouteTypes {
     | '/emi-calculator'
     | '/faq'
     | '/management'
+    | '/nri-corner'
     | '/seed'
+    | '/site-visit'
     | '/sitemap.xml'
     | '/vendors-suppliers-registration'
     | '/workshop'
@@ -317,7 +337,9 @@ export interface FileRouteTypes {
     | '/emi-calculator'
     | '/faq'
     | '/management'
+    | '/nri-corner'
     | '/seed'
+    | '/site-visit'
     | '/sitemap.xml'
     | '/vendors-suppliers-registration'
     | '/workshop'
@@ -347,7 +369,9 @@ export interface FileRouteTypes {
     | '/emi-calculator'
     | '/faq'
     | '/management'
+    | '/nri-corner'
     | '/seed'
+    | '/site-visit'
     | '/sitemap.xml'
     | '/vendors-suppliers-registration'
     | '/workshop'
@@ -378,7 +402,9 @@ export interface RootRouteChildren {
   EmiCalculatorRoute: typeof EmiCalculatorRoute
   FaqRoute: typeof FaqRoute
   ManagementRoute: typeof ManagementRoute
+  NriCornerRoute: typeof NriCornerRoute
   SeedRoute: typeof SeedRoute
+  SiteVisitRoute: typeof SiteVisitRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   VendorsSuppliersRegistrationRoute: typeof VendorsSuppliersRegistrationRoute
   WorkshopRoute: typeof WorkshopRoute
@@ -410,11 +436,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/site-visit': {
+      id: '/site-visit'
+      path: '/site-visit'
+      fullPath: '/site-visit'
+      preLoaderRoute: typeof SiteVisitRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/seed': {
       id: '/seed'
       path: '/seed'
       fullPath: '/seed'
       preLoaderRoute: typeof SeedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/nri-corner': {
+      id: '/nri-corner'
+      path: '/nri-corner'
+      fullPath: '/nri-corner'
+      preLoaderRoute: typeof NriCornerRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/management': {
@@ -625,7 +665,9 @@ const rootRouteChildren: RootRouteChildren = {
   EmiCalculatorRoute: EmiCalculatorRoute,
   FaqRoute: FaqRoute,
   ManagementRoute: ManagementRoute,
+  NriCornerRoute: NriCornerRoute,
   SeedRoute: SeedRoute,
+  SiteVisitRoute: SiteVisitRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   VendorsSuppliersRegistrationRoute: VendorsSuppliersRegistrationRoute,
   WorkshopRoute: WorkshopRoute,

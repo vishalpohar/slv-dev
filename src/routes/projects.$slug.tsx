@@ -19,6 +19,8 @@ import {
 import { formatPrice, projects as staticProjects } from "@/data/projects";
 import { supabase } from "@/integrations/supabase/client";
 import { mapSupabaseToProject } from "@/data/projects";
+import { ImageDialog } from "@/components/ImageDialog";
+import { SiteVisitModal } from "@/components/SiteVisitModal";
 import { useStore } from "@/store/useStore";
 import { cn } from "@/lib/utils";
 
@@ -491,6 +493,16 @@ function ProjectDetails() {
                 >
                   Enquire Now
                 </Link>
+
+                <SiteVisitModal 
+                  projectId={project.id}
+                  projectName={project.name}
+                  trigger={
+                    <button className="mt-4 flex w-full items-center justify-center gap-2 rounded-xl bg-background/10 py-3.5 text-sm font-bold text-gold hover:bg-background/20 transition-all border border-gold/40 shadow-[0_0_15px_rgba(212,175,55,0.15)] cursor-pointer">
+                      <MapPin className="h-4 w-4" /> Book Site Visit
+                    </button>
+                  }
+                />
               </aside>
             </div>
           )}
