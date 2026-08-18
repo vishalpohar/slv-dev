@@ -1,6 +1,6 @@
 import { useEffect, useState, Fragment } from "react";
 import { Link, useRouterState } from "@tanstack/react-router";
-import { Menu, X, Phone, Crown, ChevronDown, ArrowUpRight } from "lucide-react";
+import { Menu, X, Phone, Crown, ChevronDown, ArrowUpRight, MapPin } from "lucide-react";
 import { cn } from "@/lib/utils";
 import slvLogo from "@/assets/slv-logo.png";
 
@@ -283,6 +283,24 @@ export function Navbar() {
 
           
 
+          {/* NRI Corner */}
+          <Link
+            to="/nri-corner"
+            onClick={() => scrollToTopIfSamePage("/nri-corner")}
+            className={cn(
+              "rounded-lg px-3 py-2 text-[0.82rem] font-medium transition-all duration-300",
+              pathname === "/nri-corner"
+                ? scrolled
+                  ? "text-foreground"
+                  : "text-white"
+                : scrolled
+                  ? "text-black/50 hover:text-foreground"
+                  : "text-white/70 hover:text-white",
+            )}
+          >
+            NRI Corner
+          </Link>
+
           {/* Contact */}
           <Link
             to="/contact"
@@ -302,16 +320,16 @@ export function Navbar() {
           </Link>
         </div>
 
-        {/* CTA + Mobile toggle */}
         <div className="flex items-center gap-2">
-          <a
-            href="tel:+919859595939"
+          <Link
+            to="/site-visit"
+            onClick={() => scrollToTopIfSamePage("/site-visit")}
             className="group hidden items-center gap-2 overflow-hidden rounded-xl px-4 py-2.5 text-sm font-semibold text-gold-foreground shadow-lg transition-all duration-300 hover:scale-[1.04] hover:shadow-xl lg:flex"
             style={{ background: "var(--gradient-gold)" }}
           >
-            <Phone className="h-3.5 w-3.5 transition-transform duration-300 group-hover:rotate-12" />
-            <span>Enquire Now</span>
-          </a>
+            <MapPin className="h-4 w-4 transition-transform duration-300 group-hover:-translate-y-0.5" />
+            <span>Site-Visit Booking</span>
+          </Link>
           <button
             onClick={() => setOpen((o) => !o)}
             aria-label="Toggle menu"
@@ -443,6 +461,13 @@ export function Navbar() {
                 </Link>
               ))}
 
+            <Link
+              to="/nri-corner"
+              onClick={() => scrollToTopIfSamePage("/nri-corner")}
+              className="rounded-xl px-4 py-3 text-gold"
+            >
+              NRI Corner
+            </Link>
             <Link
               to="/contact"
               onClick={() => scrollToTopIfSamePage("/contact")}
