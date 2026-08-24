@@ -111,7 +111,7 @@ function CategoryIcon({ category }: { category: AwardCategory }) {
 function AwardCard({ award, index }: { award: Award; index: number }) {
   const category = award.category as AwardCategory;
   return (
-    <Reveal delay={index * 70}>
+    <Reveal delay={index * 20}>
       <article
         className="
           group relative flex h-full flex-col overflow-hidden

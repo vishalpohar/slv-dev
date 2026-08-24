@@ -33,9 +33,9 @@ import {
 import { Reveal } from "@/components/Reveal";
 import { cn } from "@/lib/utils";
 import heroImage from "@/assets/about_slv.jpg";
-import amaravathi from "@/assets/amaravathi.png";
-import journey2 from "@/assets/project-2.jpg";
-import journey3 from "@/assets/project-3.jpg";
+import amaravathi from "@/assets/about/amaravathi.png";
+import journey2 from "@/assets/about/slv-anjani-heights.jpg";
+import journey3 from "@/assets/slv-image.png";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -133,44 +133,45 @@ const journey: {
     desc: "With 20 residential projects, 2 commercial projects, and an educational institute, SLV is a proud member of CREDAI–Vijayawada, IGBC, and NAREDCO — every project RERA approved.",
   },
 ];
-const awards = [
-  {
-    icon: Trophy,
-    year: "2023",
-    title: "Developer of the Year — Andhra Pradesh",
-    body: "Recognised by the Real Estate Excellence Council for consistent on-time delivery across residential portfolios.",
-  },
-  {
-    icon: Award,
-    year: "2022",
-    title: "Best Gated Community Project",
-    body: "Awarded to SLV Anjani Heights for design innovation, green cover, and community-first amenities.",
-  },
-  {
-    icon: ShieldCheck,
-    year: "2021",
-    title: "RERA Compliance Excellence",
-    body: "100% RERA-approved portfolio recognised for transparent titles, disclosures, and buyer protection.",
-  },
-  {
-    icon: Medal,
-    year: "2020",
-    title: "CREDAI Quality Construction Award",
-    body: "Honoured by CREDAI–Vijayawada for engineering standards and structural quality benchmarks.",
-  },
-  {
-    icon: Star,
-    year: "2019",
-    title: "Customer Trust Award",
-    body: "Voted among the most trusted builders in the Amaravati region by homeowner surveys.",
-  },
-  {
-    icon: Sparkles,
-    year: "2018",
-    title: "IGBC Green Building Recognition",
-    body: "Acknowledged by the Indian Green Building Council for sustainable design and material choices.",
-  },
-];
+
+// const awards = [
+//   {
+//     icon: Trophy,
+//     year: "2023",
+//     title: "Developer of the Year — Andhra Pradesh",
+//     body: "Recognised by the Real Estate Excellence Council for consistent on-time delivery across residential portfolios.",
+//   },
+//   {
+//     icon: Award,
+//     year: "2022",
+//     title: "Best Gated Community Project",
+//     body: "Awarded to SLV Anjani Heights for design innovation, green cover, and community-first amenities.",
+//   },
+//   {
+//     icon: ShieldCheck,
+//     year: "2021",
+//     title: "RERA Compliance Excellence",
+//     body: "100% RERA-approved portfolio recognised for transparent titles, disclosures, and buyer protection.",
+//   },
+//   {
+//     icon: Medal,
+//     year: "2020",
+//     title: "CREDAI Quality Construction Award",
+//     body: "Honoured by CREDAI–Vijayawada for engineering standards and structural quality benchmarks.",
+//   },
+//   {
+//     icon: Star,
+//     year: "2019",
+//     title: "Customer Trust Award",
+//     body: "Voted among the most trusted builders in the Amaravati region by homeowner surveys.",
+//   },
+//   {
+//     icon: Sparkles,
+//     year: "2018",
+//     title: "IGBC Green Building Recognition",
+//     body: "Acknowledged by the Indian Green Building Council for sustainable design and material choices.",
+//   },
+// ];
 
 const workWithUs = [
   {
@@ -1120,7 +1121,7 @@ function AboutPage() {
       </section>
 
       {/* ---------- Awards & Recognition ---------- */}
-      <section className="mx-auto mt-28 max-w-7xl px-6">
+      {/* <section className="mx-auto mt-28 max-w-7xl px-6">
         <Reveal>
           <div className="text-center">
             <p className="section-label text-gold">Recognition</p>
@@ -1156,7 +1157,7 @@ function AboutPage() {
             );
           })}
         </div>
-      </section>
+      </section> */}
 
       {/* ---------- Founder quote ---------- */}
       <section className="mx-auto mt-28 max-w-4xl px-6">

@@ -534,7 +534,7 @@ function ManagementPage() {
                     From Concept to Completion
                   </p>
 
-                  <p className="mt-2 max-w-lg font-display text-2xl font-semibold text-white sm:text-3xl">
+                  <p className="mt-2 max-w-lg font-display text-sm font-semibold text-white sm:text-xl">
                     Leadership is reflected in every stage of the journey.
                   </p>
                 </div>

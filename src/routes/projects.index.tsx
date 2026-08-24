@@ -34,7 +34,7 @@ export const Route = createFileRoute("/projects/")({
       .eq("is_published", true)
       .order("sort_order", { ascending: true });
 
-    console.log("[ProjectsLoader] DB fetch result:", { count: data?.length, error, firstRow: data?.[0] });
+    // console.log("[ProjectsLoader] DB fetch result:", { count: data?.length, error, firstRow: data?.[0] });
 
     if (data && data.length > 0) {
       const dbProjects = data.map(mapSupabaseToProject);
@@ -44,13 +44,13 @@ export const Route = createFileRoute("/projects/")({
         if (idx >= 0) {
           allProjects[idx] = dbP; // override static with DB version
         } else {
-          console.log("[ProjectsLoader] Appending new DB project:", dbP.slug, dbP.name);
+          // console.log("[ProjectsLoader] Appending new DB project:", dbP.slug, dbP.name);
           allProjects.push(dbP); // append new admin-added project
         }
       }
     }
 
-    console.log("[ProjectsLoader] Total projects:", allProjects.length);
+    // console.log("[ProjectsLoader] Total projects:", allProjects.length);
     return { projects: allProjects };
   },
   component: ProjectsPage,
