@@ -7,7 +7,6 @@ import {
   HeartHandshake,
   HandHeart,
   GraduationCap,
-  Image as ImageIcon,
   MapPin,
   ShieldCheck,
   Users,
@@ -173,8 +172,7 @@ const defaultInitiatives: CSRInitiative[] = [
     category: "Food & Relief",
     year: 2024,
     location: "All SLV Group working sites",
-    shortDescription:
-      "Providing nutritious meals to site workers four days a week.",
+    shortDescription: "Providing nutritious meals to site workers four days a week.",
     description:
       "Nutritious meals are provided four days a week during afternoon hours at all SLV Group working sites through the Akshaya Patra Foundation, supporting the well-being of workers.",
     image: csrPhoto3,
@@ -188,8 +186,7 @@ const defaultInitiatives: CSRInitiative[] = [
     category: "Community",
     year: 2024,
     location: "Vijayawada",
-    shortDescription:
-      "Contribution towards CCTV camera infrastructure for public safety.",
+    shortDescription: "Contribution towards CCTV camera infrastructure for public safety.",
     description:
       "Contribution of approximately ₹25 Lakhs towards CCTV camera infrastructure for the Vijayawada Police Commissionerate, supporting public safety and security.",
     image: csrPhoto4,
@@ -203,8 +200,7 @@ const defaultInitiatives: CSRInitiative[] = [
     category: "Healthcare & Accessibility",
     year: 2024,
     location: "Andhra Pradesh",
-    shortDescription:
-      "Supporting empowerment and welfare of disadvantaged children.",
+    shortDescription: "Supporting empowerment and welfare of disadvantaged children.",
     description:
       "Association with the HEAL Foundation, supporting the empowerment and welfare of disadvantaged children, including orphans and visually and physically challenged individuals. SLV Group also supports beneficiaries through the donation of electric wheelchairs.",
     image: communityImage,
@@ -218,15 +214,14 @@ const defaultInitiatives: CSRInitiative[] = [
     category: "Community",
     year: 2024,
     location: "Bhimavaram",
-    shortDescription:
-      "Contributions towards temple development and religious activities.",
+    shortDescription: "Contributions towards temple development and religious activities.",
     description:
       "Contributions and donations towards temple development and religious activities, including support for the Bhimavaram Temple.",
     image: communityImage,
     impact: "Temple Development",
     beneficiaries: "Spiritual Welfare",
     featured: false,
-  }
+  },
 ];
 
 // -----------------------------------------------------------------------------

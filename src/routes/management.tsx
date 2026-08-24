@@ -16,7 +16,9 @@ import { Reveal } from "@/components/Reveal";
 import { cn } from "@/lib/utils";
 
 import heroImage from "@/assets/about_slv.jpg";
-import leadershipImage from "@/assets/penmetsa_srinivasa_raju.png";
+import chairmanImage from "@/assets/penmetsa_srinivasa_raju.png";
+import executiveImage from "@/assets/management/srinivasa-raju-portrait.png";
+import managementImage from "@/assets/management/srinivasa-raju-office.png";
 import visionImage from "@/assets/concept-to-completion.jpg";
 
 export const Route = createFileRoute("/management")({
@@ -28,7 +30,7 @@ export const Route = createFileRoute("/management")({
       {
         name: "description",
         content:
-          "Meet the leadership philosophy behind SLV Builders & Developers and discover the values that have guided the group since 2007.",
+          "Discover the leadership vision, management philosophy and people behind SLV Builders & Developers.",
       },
       {
         property: "og:title",
@@ -113,6 +115,59 @@ const leadershipJourney = [
   },
 ];
 
+/*
+ * IMPORTANT:
+ * The official SLV Management page gives verified information about
+ * Sri Penmetsa Srinivasa Raju.
+ *
+ * The other two people in the supplied photographs are not identified
+ * on the official Management page. Their names/designations are therefore
+ * intentionally left as placeholders instead of inventing information.
+ */
+const leadershipTeam = [
+  {
+    name: "Sri Penmetsa Srinivasa Raju",
+    designation: "Chairman & Managing Director",
+    role: "Founder Leadership",
+    image: chairmanImage,
+    imagePosition: "object-center",
+    description:
+      "The driving force behind SLV Group, Sri Penmetsa Srinivasa Raju began his professional journey in the dairy industry in Bhimavaram before entering the construction industry in 2007. His leadership philosophy centres on customer trust, uncompromising quality, hard work, efficient time management and creating excellent living environments.",
+    highlights: [
+      "Founded SLV's construction journey in 2007",
+      "Customer trust and uncompromising quality",
+      "Focus on excellent living environments",
+    ],
+    verified: true,
+  },
+  {
+    name: "Executive Leadership",
+    designation: "Leadership Team",
+    role: "Executive Leadership",
+    image: executiveImage,
+    imagePosition: "object-center",
+    description:
+      "A member of the SLV leadership team contributing to the organisation's continued growth, execution standards and customer-focused approach. This profile is currently presented as sample content until the official name and designation are provided.",
+    highlights: [
+      "Strategic execution",
+      "Customer-focused operations",
+      "Supporting organisational growth",
+    ],
+    verified: false,
+  },
+  {
+    name: "Management Leadership",
+    designation: "Management Team",
+    role: "Management Leadership",
+    image: managementImage,
+    imagePosition: "object-center",
+    description:
+      "A member of the wider SLV management team supporting the organisation's operational discipline, project coordination and commitment to quality. This profile uses temporary content until the official person's details are provided.",
+    highlights: ["Operational coordination", "Project execution", "Quality-focused management"],
+    verified: false,
+  },
+];
+
 function CornerMarks() {
   return (
     <div aria-hidden className="pointer-events-none absolute inset-0 z-10">
@@ -124,6 +179,158 @@ function CornerMarks() {
   );
 }
 
+/* -------------------------------------------------------------------------- */
+/* LEADERSHIP PROFILE CARD                                                     */
+/* -------------------------------------------------------------------------- */
+
+function LeadershipProfile({
+  member,
+  reverse = false,
+}: {
+  member: (typeof leadershipTeam)[number];
+  reverse?: boolean;
+}) {
+  return (
+    <section className="relative overflow-hidden py-24 sm:py-28 lg:py-32">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div
+          className={cn(
+            "grid items-center gap-12 lg:grid-cols-2 lg:gap-20",
+            reverse && "lg:[&>div:first-child]:order-2",
+            reverse && "lg:[&>div:last-child]:order-1",
+          )}
+        >
+          {/* IMAGE */}
+          <Reveal>
+            <div className="relative mx-auto w-full max-w-lg">
+              <div
+                aria-hidden
+                className={cn(
+                  "absolute h-32 w-32 border-gold/40",
+                  reverse
+                    ? "-right-5 -top-5 border-r-2 border-t-2 sm:-right-7 sm:-top-7"
+                    : "-left-5 -top-5 border-l-2 border-t-2 sm:-left-7 sm:-top-7",
+                )}
+              />
+
+              <div className="group relative overflow-hidden rounded-[2rem] border border-border bg-card shadow-[0_25px_90px_rgba(0,0,0,0.12)] sm:rounded-[2.5rem]">
+                <div className="relative aspect-[4/5] w-full overflow-hidden sm:aspect-[3/4]">
+                  <img
+                    src={member.image}
+                    alt={member.name}
+                    loading="lazy"
+                    className={cn(
+                      "h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.025]",
+                      member.imagePosition,
+                    )}
+                  />
+
+                  <div
+                    aria-hidden
+                    className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"
+                  />
+
+                  <CornerMarks />
+
+                  <div className="absolute inset-x-0 bottom-0 p-6 sm:p-8">
+                    <p className="text-[9px] font-bold uppercase tracking-[0.28em] text-gold">
+                      {member.role}
+                    </p>
+
+                    <h3 className="mt-2 font-display text-2xl font-semibold leading-tight text-white sm:text-3xl">
+                      {member.name}
+                    </h3>
+
+                    <p className="mt-1 text-xs text-white/55 sm:text-sm">{member.designation}</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Image number */}
+              <div className="absolute -bottom-5 right-4 z-20 rounded-2xl border border-white/10 bg-gradient-obsidian px-5 py-3 text-white shadow-2xl sm:-bottom-6 sm:right-7 sm:px-6 sm:py-4">
+                <p className="text-[7px] font-bold uppercase tracking-[0.24em] text-white/40">
+                  SLV Leadership
+                </p>
+
+                <p className="mt-1 font-display text-base font-bold text-gold sm:text-lg">
+                  {member.role}
+                </p>
+              </div>
+            </div>
+          </Reveal>
+
+          {/* CONTENT */}
+          <Reveal delay={120}>
+            <div className="max-w-3xl">
+              <p className="section-label text-gold">{member.role}</p>
+
+              <h2 className="mt-5 font-display text-4xl font-bold leading-tight text-foreground sm:text-5xl lg:text-6xl">
+                Leadership
+                <br />
+                <span className="italic font-normal text-gradient-gold">in action.</span>
+              </h2>
+
+              <p className="mt-6 text-base leading-relaxed text-muted-foreground sm:text-lg">
+                {member.description}
+              </p>
+
+              {/* Chairman's Vision */}
+              {member.verified && (
+                <div className="mt-8 rounded-[2rem] border border-gold/15 bg-gold/5 p-6 sm:p-8">
+                  <div className="flex gap-4">
+                    <div className="mt-1 h-10 w-1 shrink-0 rounded-full bg-gradient-gold" />
+
+                    <div>
+                      <p className="font-display text-xl italic leading-relaxed text-foreground sm:text-2xl">
+                        "Delivering Beautiful Homes & Bringing Happiness To My Clients…That's My
+                        Vision"
+                      </p>
+
+                      <p className="mt-4 text-[9px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
+                        Chairman's Vision
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              <div className="mt-8 space-y-3">
+                {member.highlights.map((highlight) => (
+                  <div
+                    key={highlight}
+                    className="flex items-start gap-3 rounded-xl border border-border/70 bg-card/70 p-4"
+                  >
+                    <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-gold/10 text-gold">
+                      <Check className="h-3 w-3" />
+                    </span>
+
+                    <p className="text-sm leading-relaxed text-muted-foreground sm:text-base">
+                      {highlight}
+                    </p>
+                  </div>
+                ))}
+              </div>
+
+              {!member.verified && (
+                <div className="mt-7 rounded-2xl border border-amber-500/20 bg-amber-500/5 p-5">
+                  <p className="text-[9px] font-bold uppercase tracking-[0.18em] text-amber-600">
+                    Temporary Profile
+                  </p>
+
+                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                    Name, designation and biography should be replaced with the official details
+                    supplied by SLV before publishing.
+                  </p>
+                </div>
+              )}
+            </div>
+          </Reveal>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function ManagementPage() {
   return (
     <main className="overflow-hidden bg-background">
@@ -131,7 +338,6 @@ function ManagementPage() {
           HERO
       ========================================================== */}
       <section className="relative isolate overflow-hidden">
-        {/* Background */}
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0 -z-20 bg-gradient-to-b from-secondary/80 via-background to-background"
@@ -147,7 +353,6 @@ function ManagementPage() {
           className="pointer-events-none absolute -left-48 bottom-0 -z-10 h-[360px] w-[360px] rounded-full bg-gold/5 blur-[130px]"
         />
 
-        {/* Blueprint grid */}
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0 -z-10 opacity-[0.035]"
@@ -224,7 +429,6 @@ function ManagementPage() {
             {/* RIGHT */}
             <Reveal delay={120}>
               <div className="relative mx-auto w-full max-w-2xl">
-                {/* Architectural marks */}
                 <div
                   aria-hidden
                   className="pointer-events-none absolute -right-5 -top-5 h-28 w-28 border-r border-t border-gold/40 sm:-right-7 sm:-top-7 sm:h-40 sm:w-40"
@@ -263,7 +467,6 @@ function ManagementPage() {
                   </div>
                 </div>
 
-                {/* Floating year card */}
                 <div className="absolute -bottom-6 right-4 z-20 rounded-2xl border border-white/10 bg-black/85 px-5 py-4 text-white shadow-2xl backdrop-blur-xl sm:-bottom-7 sm:right-7 sm:px-7 sm:py-5">
                   <p className="text-[6px] font-bold uppercase tracking-[0.24em] text-white/40">
                     Entered Construction
@@ -278,101 +481,28 @@ function ManagementPage() {
       </section>
 
       {/* =========================================================
-          CHAIRMAN SPOTLIGHT
+          CHAIRMAN
       ========================================================== */}
-      <section id="chairman" className="relative overflow-hidden py-24 sm:py-28 lg:py-32">
+      <div id="chairman">
+        <LeadershipProfile member={leadershipTeam[0]} />
+      </div>
+
+      {/* =========================================================
+          EXECUTIVE LEADERSHIP
+      ========================================================== */}
+      <section className="relative overflow-hidden bg-secondary/35">
         <div
           aria-hidden
-          className="pointer-events-none absolute -left-32 top-20 h-72 w-72 rounded-full bg-gold/5 blur-[120px]"
+          className="pointer-events-none absolute -right-40 top-20 h-[420px] w-[420px] rounded-full bg-gold/5 blur-[130px]"
         />
 
-        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid items-center gap-12 lg:grid-cols-[0.78fr_1.22fr] lg:gap-20">
-            {/* Image */}
-            <Reveal>
-              <div className="relative mx-auto w-full max-w-md">
-                <div
-                  aria-hidden
-                  className="absolute -left-5 -top-5 h-28 w-28 border-l border-t border-gold/40 sm:-left-7 sm:-top-7 sm:h-36 sm:w-36"
-                />
-
-                <div className="group relative overflow-hidden rounded-[2rem] border border-border bg-card shadow-[0_25px_90px_rgba(0,0,0,0.12)]">
-                  <img
-                    src={leadershipImage}
-                    alt="Sri Penmetsa Srinivasa Raju and SLV"
-                    loading="lazy"
-                    className="aspect-[4/5] w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
-
-                  <div
-                    aria-hidden
-                    className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"
-                  />
-
-                  <CornerMarks />
-
-                  <div className="absolute inset-x-0 bottom-0 p-6 sm:p-7">
-                    <p className="text-[9px] font-bold uppercase tracking-[0.25em] text-gold">
-                      Founder Leadership
-                    </p>
-
-                    <h3 className="mt-2 font-display text-2xl font-semibold text-white sm:text-3xl">
-                      Sri Penmetsa Srinivasa Raju
-                    </h3>
-
-                    <p className="mt-1 text-xs text-white/50">
-                      Chairman & Managing Director — SLV Group
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </Reveal>
-
-            {/* Content */}
-            <Reveal delay={120}>
-              <div className="max-w-3xl">
-                <p className="section-label text-gold">Chairman's Leadership</p>
-
-                <h2 className="mt-5 font-display text-4xl font-bold leading-tight text-foreground sm:text-5xl lg:text-6xl">
-                  A vision that began
-                  <br />
-                  <span className="italic font-normal text-gradient-gold">with a home.</span>
-                </h2>
-
-                <p className="mt-6 text-base leading-relaxed text-muted-foreground sm:text-lg">
-                  Sri Penmetsa Srinivasa Raju is the driving force behind the SLV Group. His
-                  professional journey began in the dairy industry in Bhimavaram, before his desire
-                  to create better residential experiences led him into construction in 2007.
-                </p>
-
-                <p className="mt-5 text-base leading-relaxed text-muted-foreground sm:text-lg">
-                  Over the years, that original purpose has remained central to the organisation —
-                  creating high-quality living spaces while maintaining strong relationships with
-                  customers, employees, vendors, contractors, partners and associates.
-                </p>
-
-                {/* Quote */}
-                <div className="mt-8 rounded-[2rem] border border-gold/15 bg-gold/5 p-6 sm:p-8">
-                  <div className="flex gap-4">
-                    <div className="mt-1 h-10 w-1 shrink-0 rounded-full bg-gradient-gold" />
-
-                    <div>
-                      <p className="font-display text-xl italic leading-relaxed text-foreground sm:text-2xl">
-                        "Delivering Beautiful Homes & Bringing Happiness To My Clients…That's My
-                        Vision"
-                      </p>
-
-                      <p className="mt-4 text-[9px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
-                        Chairman's Vision
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </Reveal>
-          </div>
-        </div>
+        <LeadershipProfile member={leadershipTeam[1]} reverse />
       </section>
+
+      {/* =========================================================
+          MANAGEMENT LEADERSHIP
+      ========================================================== */}
+      <LeadershipProfile member={leadershipTeam[2]} />
 
       {/* =========================================================
           PHILOSOPHY
@@ -405,7 +535,8 @@ function ManagementPage() {
               <p className="mt-6 max-w-2xl text-base leading-relaxed text-white/60 sm:text-lg">
                 The SLV approach is grounded in the values that have shaped its journey from the
                 beginning — integrity, commitment, hard work, efficient time management, customer
-                trust and uncompromising quality.
+                trust and uncompromising quality. These principles are consistent with the
+                company&apos;s official management philosophy.
               </p>
             </div>
           </Reveal>
@@ -462,7 +593,6 @@ function ManagementPage() {
           </Reveal>
 
           <div className="relative mt-14">
-            {/* Desktop rail */}
             <div
               aria-hidden
               className="absolute left-[8.333%] right-[8.333%] top-8 hidden h-px bg-gradient-to-r from-transparent via-gold/30 to-transparent lg:block"
@@ -529,7 +659,7 @@ function ManagementPage() {
 
                 <CornerMarks />
 
-                <div className="absolute bottom-0 inset-x-0 p-6 sm:p-8">
+                <div className="absolute inset-x-0 bottom-0 p-6 sm:p-8">
                   <p className="text-[9px] font-bold uppercase tracking-[0.25em] text-gold">
                     From Concept to Completion
                   </p>
@@ -554,8 +684,8 @@ function ManagementPage() {
                 </h2>
 
                 <p className="mt-6 text-base leading-relaxed text-muted-foreground sm:text-lg">
-                  SLV's management philosophy extends across the complete lifecycle of a project —
-                  from conceptualisation and planning through construction, operations and prompt
+                  SLV describes its approach as covering the complete lifecycle of a project — from
+                  conceptualisation and on-time construction through effective operations and prompt
                   maintenance.
                 </p>
 
@@ -618,10 +748,9 @@ function ManagementPage() {
                 </p>
 
                 <p className="mt-6 text-base leading-relaxed text-white/55">
-                  The Chairman's message reflects a leadership approach focused on creating
-                  excellent living environments, embracing technology and infrastructure,
-                  maintaining high standards of service excellence and continuously setting new
-                  benchmarks in residential construction.
+                  The Chairman's official message describes a leadership philosophy centred on
+                  excellent living environments, latest technology and infrastructure, service
+                  excellence and setting new benchmarks in residential construction.
                 </p>
 
                 <div className="mt-8 flex items-center gap-4">
@@ -666,7 +795,7 @@ function ManagementPage() {
             </p>
 
             <a
-              href="/#"
+              href="/"
               className={cn(
                 "relative mt-8 inline-flex items-center gap-2 rounded-xl",
                 "bg-gradient-gold px-6 py-3.5 text-[10px] font-bold",
