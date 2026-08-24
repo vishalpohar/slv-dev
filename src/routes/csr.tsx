@@ -17,17 +17,48 @@ import { Reveal } from "@/components/Reveal";
 import { cn } from "@/lib/utils";
 
 // -----------------------------------------------------------------------------
-// TEMPORARY IMAGES
-// Replace these with Supabase Storage URLs later.
+// IMAGES
+// Static assets imported via Vite. The resolveImageUrl() helper maps
+// database paths (old /src/assets/… or new /assets/…) and full Supabase
+// Storage URLs to the correct runtime src.
 // -----------------------------------------------------------------------------
 import heroImage from "@/assets/about_slv.jpg";
-import annaCanteenImage from "@/assets/csr/anna-canteen-donation.png"
-import csrImage1 from "@/assets/project-1.jpg";
+import annaCanteenImage from "@/assets/csr/anna-canteen-donation.png";
 import communityImage from "@/assets/csr/community.jpg";
-import csrImage3 from "@/assets/SLV Green Meadow1.jpeg";
+import csrPhoto1 from "@/assets/csr/photo_2026-08-23_23-01-15.jpg";
+import csrPhoto2 from "@/assets/csr/photo_2026-08-23_23-01-19.jpg";
+import csrPhoto3 from "@/assets/csr/photo_2026-08-23_23-01-22.jpg";
+import csrPhoto4 from "@/assets/csr/photo_2026-08-23_23-01-26.jpg";
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
+
+// Map every known DB path variant → its Vite-imported asset
+const imageMap: Record<string, string> = {
+  "/src/assets/csr/anna-canteen-donation.png": annaCanteenImage,
+  "/assets/csr/anna-canteen-donation.png": annaCanteenImage,
+  "/src/assets/csr/community.jpg": communityImage,
+  "/assets/csr/community.jpg": communityImage,
+  "/src/assets/csr/photo_2026-08-23_23-01-15.jpg": csrPhoto1,
+  "/assets/csr/photo_2026-08-23_23-01-15.jpg": csrPhoto1,
+  "/src/assets/csr/photo_2026-08-23_23-01-19.jpg": csrPhoto2,
+  "/assets/csr/photo_2026-08-23_23-01-19.jpg": csrPhoto2,
+  "/src/assets/csr/photo_2026-08-23_23-01-22.jpg": csrPhoto3,
+  "/assets/csr/photo_2026-08-23_23-01-22.jpg": csrPhoto3,
+  "/src/assets/csr/photo_2026-08-23_23-01-26.jpg": csrPhoto4,
+  "/assets/csr/photo_2026-08-23_23-01-26.jpg": csrPhoto4,
+};
+
+/** Resolve a DB image_url to a real browser-loadable src */
+function resolveImageUrl(url: string | null | undefined): string {
+  if (!url) return communityImage;
+  // Known local path → imported asset
+  if (imageMap[url]) return imageMap[url];
+  // Full URL (Supabase Storage or any CDN) → use directly
+  if (url.startsWith("http")) return url;
+  // Fallback
+  return communityImage;
+}
 
 // -----------------------------------------------------------------------------
 // ROUTE
@@ -116,7 +147,7 @@ const defaultInitiatives: CSRInitiative[] = [
       "Adopted Abdul Kalam Nagar Colony for comprehensive infrastructure development.",
     description:
       "Under the P4 Programme, SLV Group has adopted Abdul Kalam Nagar Colony for comprehensive infrastructure development, including CC roads, drainage systems, and household water connections, with an approximate investment of ₹1 Crore.",
-    image: communityImage,
+    image: csrPhoto1,
     impact: "₹1 Crore Investment",
     beneficiaries: "Local Communities",
     featured: false,
@@ -131,7 +162,7 @@ const defaultInitiatives: CSRInitiative[] = [
       "Contribution to the Hare Krishna Movement towards temple development and community welfare.",
     description:
       "Contribution of ₹1 Crore to the Hare Krishna Movement of India, Kolanukonda, towards temple development & social and community welfare activities.",
-    image: communityImage,
+    image: csrPhoto2,
     impact: "₹1 Crore Contribution",
     beneficiaries: "Society & Communities",
     featured: false,
@@ -146,7 +177,7 @@ const defaultInitiatives: CSRInitiative[] = [
       "Providing nutritious meals to site workers four days a week.",
     description:
       "Nutritious meals are provided four days a week during afternoon hours at all SLV Group working sites through the Akshaya Patra Foundation, supporting the well-being of workers.",
-    image: annaCanteenImage,
+    image: csrPhoto3,
     impact: "Worker Welfare",
     beneficiaries: "Site Workers",
     featured: false,
@@ -161,7 +192,7 @@ const defaultInitiatives: CSRInitiative[] = [
       "Contribution towards CCTV camera infrastructure for public safety.",
     description:
       "Contribution of approximately ₹25 Lakhs towards CCTV camera infrastructure for the Vijayawada Police Commissionerate, supporting public safety and security.",
-    image: communityImage,
+    image: csrPhoto4,
     impact: "₹25 Lakhs Contribution",
     beneficiaries: "Public Safety",
     featured: false,
@@ -411,7 +442,7 @@ function CSRPage() {
         location: item.location || undefined,
         shortDescription: item.short_description,
         description: item.description,
-        image: item.image_url,
+        image: resolveImageUrl(item.image_url),
         impact: item.impact || undefined,
         beneficiaries: item.beneficiaries || undefined,
         featured: item.featured,

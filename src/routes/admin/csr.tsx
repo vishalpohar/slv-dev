@@ -19,6 +19,36 @@ import type { Tables } from "@/integrations/supabase/types";
 import { uploadCSRImage, deleteCSRImage } from "@/lib/csr";
 import { cn } from "@/lib/utils";
 
+// Static CSR images for resolving old DB paths
+import annaCanteenImg from "@/assets/csr/anna-canteen-donation.png";
+import communityImg from "@/assets/csr/community.jpg";
+import csrP1 from "@/assets/csr/photo_2026-08-23_23-01-15.jpg";
+import csrP2 from "@/assets/csr/photo_2026-08-23_23-01-19.jpg";
+import csrP3 from "@/assets/csr/photo_2026-08-23_23-01-22.jpg";
+import csrP4 from "@/assets/csr/photo_2026-08-23_23-01-26.jpg";
+
+const csrImageMap: Record<string, string> = {
+  "/src/assets/csr/anna-canteen-donation.png": annaCanteenImg,
+  "/assets/csr/anna-canteen-donation.png": annaCanteenImg,
+  "/src/assets/csr/community.jpg": communityImg,
+  "/assets/csr/community.jpg": communityImg,
+  "/src/assets/csr/photo_2026-08-23_23-01-15.jpg": csrP1,
+  "/assets/csr/photo_2026-08-23_23-01-15.jpg": csrP1,
+  "/src/assets/csr/photo_2026-08-23_23-01-19.jpg": csrP2,
+  "/assets/csr/photo_2026-08-23_23-01-19.jpg": csrP2,
+  "/src/assets/csr/photo_2026-08-23_23-01-22.jpg": csrP3,
+  "/assets/csr/photo_2026-08-23_23-01-22.jpg": csrP3,
+  "/src/assets/csr/photo_2026-08-23_23-01-26.jpg": csrP4,
+  "/assets/csr/photo_2026-08-23_23-01-26.jpg": csrP4,
+};
+
+function resolveCSRImageUrl(url: string | null | undefined): string {
+  if (!url) return "";
+  if (csrImageMap[url]) return csrImageMap[url];
+  if (url.startsWith("http")) return url;
+  return communityImg;
+}
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -307,7 +337,7 @@ function CSRManagement() {
               <div className="w-full sm:w-48 aspect-video bg-muted rounded-xl overflow-hidden shrink-0 border border-border/50">
                 {activity.image_url ? (
                   <img
-                    src={activity.image_url}
+                    src={resolveCSRImageUrl(activity.image_url)}
                     alt={activity.title}
                     className="w-full h-full object-cover"
                   />
@@ -399,7 +429,7 @@ function CSRManagement() {
                 <div className="relative w-48 aspect-video rounded-xl border border-border overflow-hidden bg-muted flex items-center justify-center shrink-0">
                   {form.image_url ? (
                     <>
-                      <img src={form.image_url} alt="Preview" className="w-full h-full object-cover" />
+                      <img src={resolveCSRImageUrl(form.image_url)} alt="Preview" className="w-full h-full object-cover" />
                       <button
                         type="button"
                         onClick={handleImageRemove}
