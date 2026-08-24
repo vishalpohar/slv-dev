@@ -11,6 +11,7 @@ import {
   LogOut,
   ChevronLeft,
   ChevronRight,
+  HeartHandshake,
 } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
@@ -26,6 +27,7 @@ const navItems = [
   { to: "/admin/enquiries", label: "Enquiries", icon: MessageSquare },
   { to: "/admin/messages", label: "Messages", icon: Inbox },
   { to: "/admin/media", label: "Media", icon: Image },
+  { to: "/admin/csr", label: "CSR Activities", icon: HeartHandshake },
 ];
 
 interface AdminSidebarProps {

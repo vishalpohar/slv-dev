@@ -39,6 +39,7 @@ import { Route as AdminMessagesRouteImport } from './routes/admin/messages'
 import { Route as AdminMediaRouteImport } from './routes/admin/media'
 import { Route as AdminLoginRouteImport } from './routes/admin/login'
 import { Route as AdminEnquiriesRouteImport } from './routes/admin/enquiries'
+import { Route as AdminCsrRouteImport } from './routes/admin/csr'
 import { Route as AdminAwardsRouteImport } from './routes/admin/awards'
 
 const WorkshopRoute = WorkshopRouteImport.update({
@@ -193,6 +194,11 @@ const AdminEnquiriesRoute = AdminEnquiriesRouteImport.update({
   path: '/enquiries',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminCsrRoute = AdminCsrRouteImport.update({
+  id: '/csr',
+  path: '/csr',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminAwardsRoute = AdminAwardsRouteImport.update({
   id: '/awards',
   path: '/awards',
@@ -221,6 +227,7 @@ export interface FileRoutesByFullPath {
   '/vendors-suppliers-registration': typeof VendorsSuppliersRegistrationRoute
   '/workshop': typeof WorkshopRoute
   '/admin/awards': typeof AdminAwardsRoute
+  '/admin/csr': typeof AdminCsrRoute
   '/admin/enquiries': typeof AdminEnquiriesRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/media': typeof AdminMediaRoute
@@ -253,6 +260,7 @@ export interface FileRoutesByTo {
   '/vendors-suppliers-registration': typeof VendorsSuppliersRegistrationRoute
   '/workshop': typeof WorkshopRoute
   '/admin/awards': typeof AdminAwardsRoute
+  '/admin/csr': typeof AdminCsrRoute
   '/admin/enquiries': typeof AdminEnquiriesRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/media': typeof AdminMediaRoute
@@ -287,6 +295,7 @@ export interface FileRoutesById {
   '/vendors-suppliers-registration': typeof VendorsSuppliersRegistrationRoute
   '/workshop': typeof WorkshopRoute
   '/admin/awards': typeof AdminAwardsRoute
+  '/admin/csr': typeof AdminCsrRoute
   '/admin/enquiries': typeof AdminEnquiriesRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/media': typeof AdminMediaRoute
@@ -322,6 +331,7 @@ export interface FileRouteTypes {
     | '/vendors-suppliers-registration'
     | '/workshop'
     | '/admin/awards'
+    | '/admin/csr'
     | '/admin/enquiries'
     | '/admin/login'
     | '/admin/media'
@@ -354,6 +364,7 @@ export interface FileRouteTypes {
     | '/vendors-suppliers-registration'
     | '/workshop'
     | '/admin/awards'
+    | '/admin/csr'
     | '/admin/enquiries'
     | '/admin/login'
     | '/admin/media'
@@ -387,6 +398,7 @@ export interface FileRouteTypes {
     | '/vendors-suppliers-registration'
     | '/workshop'
     | '/admin/awards'
+    | '/admin/csr'
     | '/admin/enquiries'
     | '/admin/login'
     | '/admin/media'
@@ -637,6 +649,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminEnquiriesRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/csr': {
+      id: '/admin/csr'
+      path: '/csr'
+      fullPath: '/admin/csr'
+      preLoaderRoute: typeof AdminCsrRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/awards': {
       id: '/admin/awards'
       path: '/awards'
@@ -649,6 +668,7 @@ declare module '@tanstack/react-router' {
 
 interface AdminRouteChildren {
   AdminAwardsRoute: typeof AdminAwardsRoute
+  AdminCsrRoute: typeof AdminCsrRoute
   AdminEnquiriesRoute: typeof AdminEnquiriesRoute
   AdminLoginRoute: typeof AdminLoginRoute
   AdminMediaRoute: typeof AdminMediaRoute
@@ -660,6 +680,7 @@ interface AdminRouteChildren {
 
 const AdminRouteChildren: AdminRouteChildren = {
   AdminAwardsRoute: AdminAwardsRoute,
+  AdminCsrRoute: AdminCsrRoute,
   AdminEnquiriesRoute: AdminEnquiriesRoute,
   AdminLoginRoute: AdminLoginRoute,
   AdminMediaRoute: AdminMediaRoute,

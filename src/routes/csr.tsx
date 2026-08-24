@@ -26,6 +26,8 @@ import csrImage1 from "@/assets/project-1.jpg";
 import communityImage from "@/assets/csr/community.jpg";
 import csrImage3 from "@/assets/SLV Green Meadow1.jpeg";
 import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
 
 // -----------------------------------------------------------------------------
 // ROUTE
@@ -87,7 +89,7 @@ type CSRInitiative = {
 // SAMPLE DATA
 // -----------------------------------------------------------------------------
 
-const initiatives: CSRInitiative[] = [
+const defaultInitiatives: CSRInitiative[] = [
   {
     id: "anna-canteen-donation-2024",
     title: "₹1 Crore Donation to Anna Canteens",
@@ -98,58 +100,102 @@ const initiatives: CSRInitiative[] = [
     shortDescription:
       "Supporting the Anna Canteen initiative to help provide affordable meals to people in need.",
     description:
-      "Srinivasa Raju of SLV Group contributed ₹1 crore to the Anna Canteen scheme in Andhra Pradesh. The contribution was intended to form part of the charitable trust's corpus fund supporting the canteens.",
+      "Contribution of ₹1 Crore every year towards Anna Canteen initiatives to support affordable food and community welfare.",
     image: annaCanteenImage,
     impact: "₹1 Crore Contribution",
     beneficiaries: "People & Families in Need",
     featured: true,
   },
   {
-    id: "wheelchair-support-2024",
-    title: "Mobility Support for Muscular Dystrophy Patients",
-    category: "Healthcare & Accessibility",
-    year: 2024,
-    date: "Engineers' Day 2024",
-    location: "Andhra Pradesh",
-    shortDescription:
-      "Supporting muscular dystrophy patients through the donation of electric wheelchairs.",
-    description:
-      "Sri Penmetsa Srinivasa Raju of SLV Groups donated electric wheelchairs to muscular dystrophy patients, supporting greater mobility and independence.",
-    image: csrImage1,
-    impact: "Mobility & Accessibility",
-    beneficiaries: "Muscular Dystrophy Patients",
-    featured: true,
-  },
-  {
-    id: "community-development",
-    title: "Community Development",
+    id: "abdul-kalam-nagar",
+    title: "P4 Programme – Abdul Kalam Nagar Development",
     category: "Community",
-    year: null,
+    year: 2024,
     location: "Andhra Pradesh",
     shortDescription:
-      "Supporting initiatives that contribute to the welfare of communities around us.",
+      "Adopted Abdul Kalam Nagar Colony for comprehensive infrastructure development.",
     description:
-      "SLV states that it participates in community development initiatives and contributes to the overall welfare of its surroundings.",
+      "Under the P4 Programme, SLV Group has adopted Abdul Kalam Nagar Colony for comprehensive infrastructure development, including CC roads, drainage systems, and household water connections, with an approximate investment of ₹1 Crore.",
     image: communityImage,
-    impact: "Community Welfare",
+    impact: "₹1 Crore Investment",
     beneficiaries: "Local Communities",
     featured: false,
   },
   {
-    id: "responsible-growth",
-    title: "Responsible Growth",
+    id: "hare-krishna-movement",
+    title: "Hare Krishna Movement of India",
     category: "Community",
-    year: null,
-    location: "Andhra Pradesh",
+    year: 2024,
+    location: "Kolanukonda",
     shortDescription:
-      "Extending SLV's commitment beyond construction to the people and communities it serves.",
+      "Contribution to the Hare Krishna Movement towards temple development and community welfare.",
     description:
-      "SLV's broader philosophy emphasises quality, sustainability and responsible development as it grows across Andhra Pradesh.",
-    image: csrImage3,
-    impact: "Responsible Development",
-    beneficiaries: "Communities & Stakeholders",
+      "Contribution of ₹1 Crore to the Hare Krishna Movement of India, Kolanukonda, towards temple development & social and community welfare activities.",
+    image: communityImage,
+    impact: "₹1 Crore Contribution",
+    beneficiaries: "Society & Communities",
     featured: false,
   },
+  {
+    id: "site-workers-meals",
+    title: "Nutritious Meals for Site Workers",
+    category: "Food & Relief",
+    year: 2024,
+    location: "All SLV Group working sites",
+    shortDescription:
+      "Providing nutritious meals to site workers four days a week.",
+    description:
+      "Nutritious meals are provided four days a week during afternoon hours at all SLV Group working sites through the Akshaya Patra Foundation, supporting the well-being of workers.",
+    image: annaCanteenImage,
+    impact: "Worker Welfare",
+    beneficiaries: "Site Workers",
+    featured: false,
+  },
+  {
+    id: "cctv-infrastructure",
+    title: "Vijayawada Police Commissionerate – CCTV Infrastructure",
+    category: "Community",
+    year: 2024,
+    location: "Vijayawada",
+    shortDescription:
+      "Contribution towards CCTV camera infrastructure for public safety.",
+    description:
+      "Contribution of approximately ₹25 Lakhs towards CCTV camera infrastructure for the Vijayawada Police Commissionerate, supporting public safety and security.",
+    image: communityImage,
+    impact: "₹25 Lakhs Contribution",
+    beneficiaries: "Public Safety",
+    featured: false,
+  },
+  {
+    id: "heal-foundation",
+    title: "HEAL Foundation",
+    category: "Healthcare & Accessibility",
+    year: 2024,
+    location: "Andhra Pradesh",
+    shortDescription:
+      "Supporting empowerment and welfare of disadvantaged children.",
+    description:
+      "Association with the HEAL Foundation, supporting the empowerment and welfare of disadvantaged children, including orphans and visually and physically challenged individuals. SLV Group also supports beneficiaries through the donation of electric wheelchairs.",
+    image: communityImage,
+    impact: "Empowerment",
+    beneficiaries: "Disadvantaged Children",
+    featured: false,
+  },
+  {
+    id: "temple-spiritual",
+    title: "Temple & Spiritual Activities",
+    category: "Community",
+    year: 2024,
+    location: "Bhimavaram",
+    shortDescription:
+      "Contributions towards temple development and religious activities.",
+    description:
+      "Contributions and donations towards temple development and religious activities, including support for the Bhimavaram Temple.",
+    image: communityImage,
+    impact: "Temple Development",
+    beneficiaries: "Spiritual Welfare",
+    featured: false,
+  }
 ];
 
 // -----------------------------------------------------------------------------
@@ -336,6 +382,44 @@ function InitiativeCard({ initiative, index }: { initiative: CSRInitiative; inde
 
 function CSRPage() {
   const [activeFilter, setActiveFilter] = useState<"All" | CSRCategory>("All");
+
+  const { data: dbInitiatives, isLoading } = useQuery({
+    queryKey: ["csr-activities"],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("csr_activities")
+        .select("*")
+        .eq("is_published", true)
+        .order("sort_order", { ascending: true })
+        .order("year", { ascending: false });
+
+      if (error) {
+        console.error("Error fetching CSR activities:", error);
+        return defaultInitiatives;
+      }
+
+      if (!data || data.length === 0) {
+        return defaultInitiatives;
+      }
+
+      return data.map((item) => ({
+        id: item.id,
+        title: item.title,
+        category: item.category as CSRCategory,
+        year: item.year,
+        date: item.date || undefined,
+        location: item.location || undefined,
+        shortDescription: item.short_description,
+        description: item.description,
+        image: item.image_url,
+        impact: item.impact || undefined,
+        beneficiaries: item.beneficiaries || undefined,
+        featured: item.featured,
+      }));
+    },
+  });
+
+  const initiatives = dbInitiatives || defaultInitiatives;
 
   const filteredInitiatives =
     activeFilter === "All"
