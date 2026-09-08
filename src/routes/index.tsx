@@ -8,8 +8,6 @@ import { testimonials, mapSupabaseToProject } from "@/data/projects";
 import { supabase } from "@/integrations/supabase/client";
 import aboutImage from "@/assets/project-1.jpg";
 import aboutImage2 from "@/assets/project-2.jpg";
-import avatar from "@/assets/testimonials/user-icon.jpg";
-import thumbsUp from "@/assets/testimonials/thumbs-up.png";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/")({
@@ -247,9 +245,9 @@ function Index() {
           {/* Stats row */}
           <div className="mt-8 grid grid-cols-3 gap-4">
             {[
-              ["20+", "Projects"],
+              ["20+", "Years"],
               ["5000+", "Families"],
-              ["2", "Commercial"],
+              ["30+", "Projects"],
             ].map(([n, l]) => (
               <div key={l} className="rounded-2xl bg-secondary/60 p-4 text-center">
                 <p className="font-display text-2xl font-bold text-gradient-gold">{n}</p>
@@ -548,84 +546,6 @@ function Index() {
         </Reveal>
       </section>
 
-      {/* ── Testimonial — optional ── */}
-      <section className="relative overflow-hidden pb-32 pt-16 sm:pb-40 sm:pt-20 lg:pb-[250px]">
-        {/* Background glow */}
-        <div className="pointer-events-none absolute inset-0 overflow-hidden">
-          <div className="absolute left-1/2 top-[65%] h-[250px] w-[250px] -translate-x-1/2 rounded-full bg-lime-400/20 blur-[90px] sm:h-[350px] sm:w-[350px] lg:h-[400px] lg:w-[400px] lg:blur-[120px]" />
-          <div className="absolute left-[35%] top-[15%] h-[180px] w-[180px] rounded-full bg-blue-500/15 blur-[70px] sm:h-[230px] sm:w-[230px] lg:left-[45%] lg:h-[260px] lg:w-[260px] lg:blur-[100px]" />
-        </div>
-
-        <div className="relative mx-auto w-full max-w-4xl px-4 sm:px-6 lg:px-8">
-          {/* Main card */}
-          <div className="relative mt-14 overflow-visible rounded-[24px] border border-white/15 bg-[#1f1f1f]/80 px-5 pb-24 pt-20 shadow-[0_20px_70px_rgba(0,0,0,0.45)] backdrop-blur-xl sm:mt-20 sm:rounded-[30px] sm:px-10 sm:pb-28 sm:pt-24 lg:mt-24 lg:rounded-[36px] lg:px-16 lg:py-24 lg:pb-28 lg:shadow-[0_30px_100px_rgba(0,0,0,0.55)]">
-            {/* Holographic reflections */}
-            <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-[24px] sm:rounded-[30px] lg:rounded-[36px]">
-              <div className="absolute left-[10%] top-[10%] h-24 w-24 rounded-full bg-blue-500/10 blur-[60px] sm:h-32 sm:w-32 sm:blur-[80px]" />
-              <div className="absolute right-[10%] top-[25%] h-28 w-28 rounded-full bg-purple-500/10 blur-[60px] sm:h-40 sm:w-40 sm:blur-[80px]" />
-              <div className="absolute bottom-[10%] left-[30%] h-28 w-28 rounded-full bg-lime-400/10 blur-[70px] sm:h-40 sm:w-40 sm:blur-[90px]" />
-            </div>
-
-            {/* Avatar */}
-            <div className="absolute -top-12 left-5 z-30 sm:-top-14 sm:left-10 lg:-top-16 lg:left-16">
-              <div className="h-24 w-24 overflow-hidden rounded-full border-4 border-white/20 bg-[#e5e4e0] shadow-2xl sm:h-28 sm:w-28 lg:h-32 lg:w-32 lg:border-[5px]">
-                <img src={avatar} alt="Customer" className="h-full w-full object-cover" />
-              </div>
-            </div>
-
-            {/* Rating pill */}
-            <div className="absolute right-4 top-5 z-30 sm:right-8 sm:top-7 lg:right-16 lg:top-8">
-              <div className="flex items-center gap-0.5 rounded-full border border-white/15 bg-[#353535]/90 px-3 py-2 shadow-2xl backdrop-blur-xl sm:gap-1 sm:px-5 sm:py-2.5 lg:px-8 lg:py-3">
-                {[...Array(5)].map((_, i) => (
-                  <Star
-                    key={i}
-                    className="h-3.5 w-3.5 fill-yellow-400 text-yellow-400 sm:h-4 sm:w-4 lg:h-5 lg:w-5"
-                  />
-                ))}
-              </div>
-            </div>
-
-            {/* Content */}
-            <div className="relative z-10">
-              {/* Title */}
-              <h2
-                className="mt-3 text-center text-3xl font-bold leading-tight sm:mt-4 sm:text-4xl md:text-5xl lg:text-6xl"
-                style={{
-                  color: "#C8FF28",
-                  textShadow: "0 0 30px rgba(200,255,40,0.35)",
-                }}
-              >
-                A Dream Come True!
-              </h2>
-
-              {/* Quote */}
-              <p className="mx-auto mt-6 max-w-3xl text-center text-base leading-relaxed text-white/90 sm:mt-8 sm:text-xl md:text-2xl lg:mt-10 lg:text-3xl">
-                I had a truly wonderful experience! I'm absolutely thrilled with the outstanding
-                outcome of the project. Everything exceeded my expectations!
-              </p>
-
-              {/* Customer */}
-              <div className="mt-8 text-center sm:mt-10 lg:mt-12">
-                <p className="text-xs font-bold uppercase tracking-[0.2em] text-white sm:text-sm sm:tracking-[0.35em]">
-                  Arjun
-                </p>
-
-                <p className="mt-2 text-[10px] uppercase tracking-[0.15em] text-white/50 sm:text-xs sm:tracking-[0.25em]">
-                  House Owner
-                </p>
-              </div>
-            </div>
-
-            {/* Chrome thumbs */}
-            <img
-              src={thumbsUp}
-              alt="Thumbs Up"
-              className="pointer-events-none absolute -bottom-8 right-0 z-20 w-[115px] drop-shadow-[0_15px_30px_rgba(0,0,0,0.65)] sm:-bottom-10 sm:w-[160px] md:w-[190px] lg:w-[230px]"
-            />
-          </div>
-        </div>
-      </section>
-
       {/* ── Final CTA — split royal ── */}
       <section className="px-6 pb-24">
         <Reveal
@@ -672,12 +592,41 @@ function Index() {
           <div className="relative z-10 flex flex-col gap-4 sm:flex-row">
             <Link
               to="/contact"
-              className="group flex items-center gap-3 rounded-2xl px-10 py-5 text-xs font-bold uppercase tracking-[0.2em] text-gold-foreground shadow-2xl transition-all duration-300 hover:scale-[1.04] hover:shadow-gold/20"
-              style={{ background: "var(--gradient-gold)" }}
+              className="
+      group
+      flex items-center gap-3
+      rounded-2xl
+      border border-white/20
+      px-10 py-5
+      text-xs
+      font-bold
+      uppercase
+      tracking-[0.2em]
+      text-white
+      shadow-2xl
+      transition-all
+      duration-300
+      hover:scale-[1.04]
+      hover:text-gold-foreground
+      hover:shadow-gold/20
+    "
+              style={
+                {
+                  // default background stays transparent
+                }
+              }
             >
-              Contact Consultant
-              <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
+              <span
+                className="absolute inset-0 -z-10 rounded-2xl opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                style={{ background: "var(--gradient-gold)" }}
+              />
+
+              <span className="relative z-10 flex items-center gap-3">
+                Contact Consultant
+                <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
+              </span>
             </Link>
+
             <Link
               to="/projects"
               search={{ status: undefined }}

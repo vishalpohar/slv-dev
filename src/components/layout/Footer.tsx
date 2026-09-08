@@ -81,9 +81,7 @@ export function Footer() {
       <div className="relative border-b border-white/6 px-6 py-8">
         <div className="mx-auto flex max-w-7xl items-center justify-center gap-4">
           <div className="h-px w-24 opacity-20" style={{ background: "var(--gradient-gold)" }} />
-          <Crown className="h-5 w-5 text-gold opacity-70" />
           <p className="section-label text-gold/70 tracking-[0.35em]">Excellence In Every Detail</p>
-          <Crown className="h-5 w-5 text-gold opacity-70" />
           <div className="h-px w-24 opacity-20" style={{ background: "var(--gradient-gold)" }} />
         </div>
       </div>

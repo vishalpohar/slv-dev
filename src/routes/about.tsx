@@ -33,7 +33,7 @@ import {
 import { Reveal } from "@/components/Reveal";
 import { cn } from "@/lib/utils";
 import heroImage from "@/assets/about_slv.jpg";
-import amaravathi from "@/assets/about/amaravathi.png";
+import amaravathi from "@/assets/about/where-it-began.jpg";
 import journey2 from "@/assets/about/slv-anjani-heights.jpg";
 import journey3 from "@/assets/slv-image.png";
 
@@ -60,18 +60,18 @@ export const Route = createFileRoute("/about")({
 const stats = [
   {
     value: "20+",
-    label: "Residential Projects",
-    note: "Homes & communities",
+    label: "Years",
+    note: "Building with trust",
   },
   {
-    value: "02",
-    label: "Commercial Projects",
-    note: "Business destinations",
+    value: "30+",
+    label: "Projects",
+    note: "Residential & Commercial",
   },
   {
-    value: "5K+",
+    value: "5000+",
     label: "Happy Families",
-    note: "Lives touched",
+    note: "Homes & communities",
   },
   {
     value: "100%",
@@ -616,9 +616,7 @@ function AboutPage() {
                 </p>
 
                 <div className="mt-1 flex items-baseline gap-2">
-                  <span className="font-display text-sm font-bold text-gold sm:text-3xl">
-                    2007
-                  </span>
+                  <span className="font-display text-sm font-bold text-gold sm:text-3xl">2007</span>
 
                   <span className="text-[6px] text-white/45 sm:text-[10px]">Bhimavaram</span>
                 </div>
@@ -771,7 +769,7 @@ function AboutPage() {
 
                       {/* Number */}
                       <div className="mt-7 text-center">
-                        <p className="font-display text-[clamp(2.5rem,5vw,4.5rem)] font-semibold leading-none text-gradient-gold">
+                        <p className="font-display text-[clamp(2.5rem,4vw,4rem)] font-semibold leading-none text-gradient-gold">
                           {item.value}
                         </p>
 
@@ -805,55 +803,6 @@ function AboutPage() {
                 />
               </div>
             </div>
-          </div>
-        </Reveal>
-      </section>
-
-      {/* ---------- Growth Chart ---------- */}
-      <section className="mx-auto mt-20 max-w-5xl px-6">
-        <Reveal>
-          <div className="rounded-[2rem] bg-card p-8 neu">
-            <div className="text-center mb-8">
-              <p className="text-sm uppercase tracking-[0.3em] text-gold">Our Journey</p>
-              <h3 className="mt-4 font-display text-5xl font-bold text-foreground">Growth</h3>
-              <p className="mt-2 text-muted-foreground">
-                Building digital experiences that create impact.
-              </p>
-            </div>
-
-            <ResponsiveContainer width="100%" height={350}>
-              <LineChart data={growthData}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="year" />
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                <Line
-                  type="monotone"
-                  dataKey="clients"
-                  stroke="#d4af37"
-                  strokeWidth={3}
-                  dot={{ r: 5 }}
-                  name="Clients"
-                />
-                <Line
-                  type="monotone"
-                  dataKey="projects"
-                  stroke="#8884d8"
-                  strokeWidth={3}
-                  dot={{ r: 5 }}
-                  name="Projects"
-                />
-                <Line
-                  type="monotone"
-                  dataKey="completed"
-                  stroke="#82ca9d"
-                  strokeWidth={3}
-                  dot={{ r: 5 }}
-                  name="Completed Projects"
-                />
-              </LineChart>
-            </ResponsiveContainer>
           </div>
         </Reveal>
       </section>
@@ -1212,6 +1161,55 @@ function AboutPage() {
             );
           })}
         </div>
+      </section>
+
+      {/* ---------- Growth Chart ---------- */}
+      <section className="mx-auto mt-20 max-w-5xl px-6">
+        <Reveal>
+          <div className="rounded-[2rem] bg-card p-8 neu">
+            <div className="text-center mb-8">
+              <p className="text-sm uppercase tracking-[0.3em] text-gold">Our Journey</p>
+              <h3 className="mt-4 font-display text-5xl font-bold text-foreground">Growth</h3>
+              <p className="mt-2 text-muted-foreground">
+                Building digital experiences that create impact.
+              </p>
+            </div>
+
+            <ResponsiveContainer width="100%" height={350}>
+              <LineChart data={growthData}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="year" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Line
+                  type="monotone"
+                  dataKey="clients"
+                  stroke="#d4af37"
+                  strokeWidth={3}
+                  dot={{ r: 5 }}
+                  name="Clients"
+                />
+                <Line
+                  type="monotone"
+                  dataKey="projects"
+                  stroke="#8884d8"
+                  strokeWidth={3}
+                  dot={{ r: 5 }}
+                  name="Projects"
+                />
+                <Line
+                  type="monotone"
+                  dataKey="completed"
+                  stroke="#82ca9d"
+                  strokeWidth={3}
+                  dot={{ r: 5 }}
+                  name="Completed Projects"
+                />
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
+        </Reveal>
       </section>
 
       {/* ---------- CTA ---------- */}

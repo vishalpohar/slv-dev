@@ -63,6 +63,7 @@ function ContactPage() {
         .from("projects")
         .select("id, name")
         .eq("is_published", true)
+        .eq("status", "Ongoing")
         .order("sort_order", { ascending: true });
       if (error) throw error;
       return data;

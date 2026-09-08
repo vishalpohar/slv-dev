@@ -241,7 +241,7 @@ function EMICalculator() {
         <div className="mt-12 overflow-hidden rounded-3xl bg-background neu">
           {/* Header */}
           <div className="border-b border-border p-6">
-            <h2 className="font-display text-2xl font-bold">Amortization Schedule</h2>
+            <h2 className="font-display text-2xl font-bold">Repayment Schedule</h2>
 
             <p className="mt-2 text-sm text-muted-foreground">
               Breakdown of principal and interest payments over time.

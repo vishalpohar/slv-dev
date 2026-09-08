@@ -17,8 +17,8 @@ import { cn } from "@/lib/utils";
 
 import heroImage from "@/assets/about_slv.jpg";
 import chairmanImage from "@/assets/penmetsa_srinivasa_raju.png";
-import executiveImage from "@/assets/management/srinivasa-raju-portrait.png";
-import managementImage from "@/assets/management/srinivasa-raju-office.png";
+import executiveImage from "@/assets/management/srinivasa-raju-office.png";
+import managementImage from "@/assets/management/srinivasa-raju-portrait.png";
 import visionImage from "@/assets/concept-to-completion.jpg";
 
 export const Route = createFileRoute("/management")({
@@ -273,26 +273,6 @@ function LeadershipProfile({
               <p className="mt-6 text-base leading-relaxed text-muted-foreground sm:text-lg">
                 {member.description}
               </p>
-
-              {/* Chairman's Vision */}
-              {member.verified && (
-                <div className="mt-8 rounded-[2rem] border border-gold/15 bg-gold/5 p-6 sm:p-8">
-                  <div className="flex gap-4">
-                    <div className="mt-1 h-10 w-1 shrink-0 rounded-full bg-gradient-gold" />
-
-                    <div>
-                      <p className="font-display text-xl italic leading-relaxed text-foreground sm:text-2xl">
-                        "Delivering Beautiful Homes & Bringing Happiness To My Clients…That's My
-                        Vision"
-                      </p>
-
-                      <p className="mt-4 text-[9px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
-                        Chairman's Vision
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              )}
 
               <div className="mt-8 space-y-3">
                 {member.highlights.map((highlight) => (

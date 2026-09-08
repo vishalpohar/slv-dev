@@ -19,7 +19,6 @@ import {
 import { formatPrice, projects as staticProjects } from "@/data/projects";
 import { supabase } from "@/integrations/supabase/client";
 import { mapSupabaseToProject } from "@/data/projects";
-import { ImageDialog } from "@/components/ImageDialog";
 import { SiteVisitModal } from "@/components/SiteVisitModal";
 import { useStore } from "@/store/useStore";
 import { cn } from "@/lib/utils";

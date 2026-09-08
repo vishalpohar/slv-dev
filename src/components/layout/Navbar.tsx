@@ -328,7 +328,7 @@ export function Navbar() {
             style={{ background: "var(--gradient-gold)" }}
           >
             <MapPin className="h-4 w-4 transition-transform duration-300 group-hover:-translate-y-0.5" />
-            <span>Site-Visit Booking</span>
+            <span>Book Your Site</span>
           </Link>
           <button
             onClick={() => setOpen((o) => !o)}
