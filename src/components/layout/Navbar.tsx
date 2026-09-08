@@ -42,7 +42,7 @@ const workLinks = [
   },
   {
     label: "Land Proposals",
-    to: "/contact",
+    to: "/land-proposals",
   },
   {
     label: "Workshop",

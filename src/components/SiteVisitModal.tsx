@@ -42,7 +42,6 @@ export function SiteVisitModal({
         message: detailedMessage,
         source: "site_visit",
         status: "new",
-        notes: "Site Visit Booking",
       });
 
       if (error) throw error;

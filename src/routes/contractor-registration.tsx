@@ -18,29 +18,6 @@ const sections: SectionConfig[] = [
         required: true,
       },
       {
-        name: "registration_type",
-        label: "Registration Type",
-        type: "select",
-        required: true,
-        options: ["Proprietorship", "Partnership", "LLP", "Private Limited"],
-      },
-      {
-        name: "gst_number",
-        label: "GST Number",
-        required: true,
-      },
-      {
-        name: "pan_number",
-        label: "PAN Number",
-        required: true,
-      },
-    ],
-  },
-
-  {
-    title: "Contact Information",
-    fields: [
-      {
         name: "contact_person",
         label: "Contact Person",
         required: true,
@@ -107,32 +84,16 @@ const sections: SectionConfig[] = [
 
   {
     title: "Document Uploads",
+    description:
+      "Upload your COA certificate, PAN/Aadhaar ID proof, and portfolio (optional). Multiple PDF, JPG, or PNG files are supported.",
     fields: [
       {
-        name: "gst_certificate",
-        label: "GST Certificate",
+        name: "documents",
+        label: "Upload Documents",
         type: "file",
-        accept: ".pdf,image/*",
+        accept: ".pdf,.jpg,.jpeg,.png,image/jpeg,image/png,application/pdf",
         required: true,
-      },
-      {
-        name: "pan_card",
-        label: "PAN Card",
-        type: "file",
-        accept: ".pdf,image/*",
-        required: true,
-      },
-      {
-        name: "msme_certificate",
-        label: "MSME Certificate (Optional)",
-        type: "file",
-        accept: ".pdf,image/*",
-      },
-      {
-        name: "work_samples",
-        label: "Work Samples (Photos/PDF)",
-        type: "file",
-        accept: ".pdf,image/*",
+        multiple: true,
       },
     ],
   },

@@ -43,7 +43,14 @@ export const Route = createFileRoute("/")({
       };
     }
 
-    const ongoingProjects = (data ?? []).map(mapSupabaseToProject);
+    let ongoingProjects = (data ?? []).map(mapSupabaseToProject);
+
+    // Hoist SLV Green Grandeur to the beginning
+    ongoingProjects.sort((a, b) => {
+      if (a.name === "SLV Green Grandeur") return -1;
+      if (b.name === "SLV Green Grandeur") return 1;
+      return 0;
+    });
 
     return {
       ongoingProjects,

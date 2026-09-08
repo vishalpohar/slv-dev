@@ -21,7 +21,7 @@ const workWithUs = [
   { label: "Architect & Consultant", to: "/careers" },
   { label: "Contractor Registration", to: "/careers" },
   { label: "Vendors & Suppliers", to: "/careers" },
-  { label: "Land Proposals", to: "/contact" },
+  { label: "Land Proposals", to: "/land-proposals" },
   { label: "Work Shop", to: "/workshop" },
 ] as const;
 
