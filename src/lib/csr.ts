@@ -1,9 +1,9 @@
 import { supabase } from "@/integrations/supabase/client";
 import type { Tables, TablesInsert, TablesUpdate } from "@/integrations/supabase/types";
 
-export type CSR = Tables<"csr">;
-export type CSRInsert = TablesInsert<"csr">;
-export type CSRUpdate = TablesUpdate<"csr">;
+export type CSR = Tables<"csr_activities">;
+export type CSRInsert = TablesInsert<"csr_activities">;
+export type CSRUpdate = TablesUpdate<"csr_activities">;
 
 export async function uploadCSRImage(file: File, year?: number | null): Promise<string> {
   const extension = file.name.split(".").pop()?.toLowerCase() || "jpg";

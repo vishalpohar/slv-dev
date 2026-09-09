@@ -220,6 +220,19 @@ function CSRManagement() {
 
     try {
       setUploadingImage(true);
+
+      const {
+        data: { user },
+        error: authError,
+      } = await supabase.auth.getUser();
+
+      console.log("Current Supabase user:", user);
+      console.log("Auth error:", authError);
+
+      if (!user) {
+        throw new Error("You are not authenticated. Please log in again.");
+      }
+
       const url = await uploadCSRImage(file);
       setForm({ ...form, image_url: url });
       toast.success("Image uploaded successfully");
