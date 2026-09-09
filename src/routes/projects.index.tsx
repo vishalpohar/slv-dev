@@ -50,6 +50,13 @@ export const Route = createFileRoute("/projects/")({
       }
     }
 
+    // Hoist SLV Green Grandeur to the beginning
+    allProjects.sort((a, b) => {
+      if (a.name === "SLV Green Grandeur") return -1;
+      if (b.name === "SLV Green Grandeur") return 1;
+      return 0;
+    });
+
     // console.log("[ProjectsLoader] Total projects:", allProjects.length);
     return { projects: allProjects };
   },

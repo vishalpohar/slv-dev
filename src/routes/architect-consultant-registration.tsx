@@ -104,25 +104,15 @@ const sections: SectionConfig[] = [
 
   {
     title: "Document Uploads",
+    description: "Upload your COA certificate, PAN/Aadhaar ID proof, and portfolio (optional). Multiple PDF, JPG, or PNG files are supported.",
     fields: [
       {
-        name: "coa_certificate",
-        label: "COA Certificate (PDF/Image)",
+        name: "documents",
+        label: "Documents",
         type: "file",
         accept: ".pdf,image/*",
-      },
-      {
-        name: "id_proof",
-        label: "ID Proof (PAN/Aadhaar)",
-        type: "file",
-        accept: ".pdf,image/*",
+        multiple: true,
         required: true,
-      },
-      {
-        name: "portfolio",
-        label: "Portfolio (Optional)",
-        type: "file",
-        accept: ".pdf,image/*",
       },
     ],
   },

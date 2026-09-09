@@ -18,31 +18,46 @@ const sections: SectionConfig[] = [
         required: true,
       },
       {
-        name: "year_established",
-        label: "Year Established",
-        type: "number",
+        name: "contact_person",
+        label: "Contact Person",
         required: true,
       },
       {
-        name: "legal_entity_type",
-        label: "Legal Entity Type",
-        type: "select",
-        required: true,
-        options: ["Proprietorship", "Partnership", "LLP", "Private Limited", "Public Limited"],
-      },
-      {
-        name: "gstin",
-        label: "GSTIN",
+        name: "designation",
+        label: "Designation",
         required: true,
       },
       {
-        name: "pan_number",
-        label: "PAN Number",
+        name: "mobile_number",
+        label: "Mobile Number",
+        type: "tel",
         required: true,
       },
       {
-        name: "msme_registration",
-        label: "MSME / Udyam Registration (Optional)",
+        name: "email",
+        label: "Email",
+        type: "email",
+        required: true,
+      },
+      {
+        name: "registered_address",
+        label: "Registered Office Address",
+        required: true,
+      },
+      {
+        name: "city",
+        label: "City",
+        required: true,
+      },
+      {
+        name: "state",
+        label: "State",
+        required: true,
+      },
+      {
+        name: "pin_code",
+        label: "PIN Code",
+        required: true,
       },
     ],
   },
@@ -90,87 +105,17 @@ const sections: SectionConfig[] = [
   },
 
   {
-    title: "Contact Details",
+    title: "Document Uploads",
+    description:
+      "Upload your GST Certificate, PAN Card, MSME Certificate, Product Catalog (PDF), and Latest Price List (Optional). Multiple PDF, JPG, or PNG files are supported.",
     fields: [
       {
-        name: "contact_person",
-        label: "Contact Person",
-        required: true,
-      },
-      {
-        name: "designation",
-        label: "Designation",
-        required: true,
-      },
-      {
-        name: "mobile_number",
-        label: "Mobile Number",
-        type: "tel",
-        required: true,
-      },
-      {
-        name: "email",
-        label: "Email",
-        type: "email",
-        required: true,
-      },
-      {
-        name: "registered_address",
-        label: "Registered Office Address",
-        required: true,
-      },
-      {
-        name: "city",
-        label: "City",
-        required: true,
-      },
-      {
-        name: "state",
-        label: "State",
-        required: true,
-      },
-      {
-        name: "pin_code",
-        label: "PIN Code",
-        required: true,
-      },
-    ],
-  },
-
-  {
-    title: "Required Documents",
-    fields: [
-      {
-        name: "gst_certificate",
-        label: "GST Certificate",
+        name: "documents",
+        label: "Upload Documents",
         type: "file",
-        accept: ".pdf,image/*",
+        accept: ".pdf,.jpg,.jpeg,.png,image/*",
+        multiple: true,
         required: true,
-      },
-      {
-        name: "pan_card",
-        label: "PAN Card",
-        type: "file",
-        accept: ".pdf,image/*",
-        required: true,
-      },
-      {
-        name: "msme_certificate",
-        label: "MSME Certificate",
-        type: "file",
-        accept: ".pdf,image/*",
-      },
-      {
-        name: "product_catalog",
-        label: "Product Catalog (PDF)",
-        type: "file",
-        accept: ".pdf",
-      },
-      {
-        name: "price_list",
-        label: "Latest Price List (Optional)",
-        type: "file",
-        accept: ".pdf",
       },
     ],
   },

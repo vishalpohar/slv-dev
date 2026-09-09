@@ -16,6 +16,7 @@ import { Route as SiteVisitRouteImport } from './routes/site-visit'
 import { Route as SeedRouteImport } from './routes/seed'
 import { Route as NriCornerRouteImport } from './routes/nri-corner'
 import { Route as ManagementRouteImport } from './routes/management'
+import { Route as LandProposalsRouteImport } from './routes/land-proposals'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as EmiCalculatorRouteImport } from './routes/emi-calculator'
 import { Route as CsrRouteImport } from './routes/csr'
@@ -76,6 +77,11 @@ const NriCornerRoute = NriCornerRouteImport.update({
 const ManagementRoute = ManagementRouteImport.update({
   id: '/management',
   path: '/management',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LandProposalsRoute = LandProposalsRouteImport.update({
+  id: '/land-proposals',
+  path: '/land-proposals',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FaqRoute = FaqRouteImport.update({
@@ -219,6 +225,7 @@ export interface FileRoutesByFullPath {
   '/csr': typeof CsrRoute
   '/emi-calculator': typeof EmiCalculatorRoute
   '/faq': typeof FaqRoute
+  '/land-proposals': typeof LandProposalsRoute
   '/management': typeof ManagementRoute
   '/nri-corner': typeof NriCornerRoute
   '/seed': typeof SeedRoute
@@ -252,6 +259,7 @@ export interface FileRoutesByTo {
   '/csr': typeof CsrRoute
   '/emi-calculator': typeof EmiCalculatorRoute
   '/faq': typeof FaqRoute
+  '/land-proposals': typeof LandProposalsRoute
   '/management': typeof ManagementRoute
   '/nri-corner': typeof NriCornerRoute
   '/seed': typeof SeedRoute
@@ -287,6 +295,7 @@ export interface FileRoutesById {
   '/csr': typeof CsrRoute
   '/emi-calculator': typeof EmiCalculatorRoute
   '/faq': typeof FaqRoute
+  '/land-proposals': typeof LandProposalsRoute
   '/management': typeof ManagementRoute
   '/nri-corner': typeof NriCornerRoute
   '/seed': typeof SeedRoute
@@ -323,6 +332,7 @@ export interface FileRouteTypes {
     | '/csr'
     | '/emi-calculator'
     | '/faq'
+    | '/land-proposals'
     | '/management'
     | '/nri-corner'
     | '/seed'
@@ -356,6 +366,7 @@ export interface FileRouteTypes {
     | '/csr'
     | '/emi-calculator'
     | '/faq'
+    | '/land-proposals'
     | '/management'
     | '/nri-corner'
     | '/seed'
@@ -390,6 +401,7 @@ export interface FileRouteTypes {
     | '/csr'
     | '/emi-calculator'
     | '/faq'
+    | '/land-proposals'
     | '/management'
     | '/nri-corner'
     | '/seed'
@@ -425,6 +437,7 @@ export interface RootRouteChildren {
   CsrRoute: typeof CsrRoute
   EmiCalculatorRoute: typeof EmiCalculatorRoute
   FaqRoute: typeof FaqRoute
+  LandProposalsRoute: typeof LandProposalsRoute
   ManagementRoute: typeof ManagementRoute
   NriCornerRoute: typeof NriCornerRoute
   SeedRoute: typeof SeedRoute
@@ -486,6 +499,13 @@ declare module '@tanstack/react-router' {
       path: '/management'
       fullPath: '/management'
       preLoaderRoute: typeof ManagementRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/land-proposals': {
+      id: '/land-proposals'
+      path: '/land-proposals'
+      fullPath: '/land-proposals'
+      preLoaderRoute: typeof LandProposalsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/faq': {
@@ -706,6 +726,7 @@ const rootRouteChildren: RootRouteChildren = {
   CsrRoute: CsrRoute,
   EmiCalculatorRoute: EmiCalculatorRoute,
   FaqRoute: FaqRoute,
+  LandProposalsRoute: LandProposalsRoute,
   ManagementRoute: ManagementRoute,
   NriCornerRoute: NriCornerRoute,
   SeedRoute: SeedRoute,

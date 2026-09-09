@@ -17,10 +17,12 @@ export type FieldConfig = {
   placeholder?: string;
   options?: string[];
   accept?: string;
+  multiple?: boolean;
 };
 
 export type SectionConfig = {
   title: string;
+  description?: string;
   fields: FieldConfig[];
 };
 
@@ -40,7 +42,7 @@ export function WorkRegistrationForm({
   submitLabel,
 }: Props) {
   const [formData, setFormData] = useState<Record<string, string>>({});
-  const [files, setFiles] = useState<Record<string, File | null>>({});
+  const [files, setFiles] = useState<Record<string, File | File[] | null>>({});
   const [agree, setAgree] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -75,7 +77,8 @@ export function WorkRegistrationForm({
         if (!field.required) continue;
 
         if (field.type === "file") {
-          if (!files[field.name]) {
+          const fieldFiles = files[field.name];
+          if (!fieldFiles || (Array.isArray(fieldFiles) && fieldFiles.length === 0)) {
             toast.error(`${field.label} is required.`);
             scrollToField(field.name);
             return false;
@@ -99,12 +102,24 @@ export function WorkRegistrationForm({
       for (const field of section.fields) {
         if (field.type !== "file") continue;
 
-        const file = files[field.name];
-
-        if (file && file.size > MAX_FILE_SIZE) {
-          toast.error(`${field.label} must be smaller than 10 MB.`);
-          scrollToField(field.name);
-          return false;
+        const fileData = files[field.name];
+        
+        if (fileData) {
+          if (Array.isArray(fileData)) {
+            for (const file of fileData) {
+              if (file.size > MAX_FILE_SIZE) {
+                toast.error(`${field.label} contains a file larger than 10 MB.`);
+                scrollToField(field.name);
+                return false;
+              }
+            }
+          } else {
+            if (fileData.size > MAX_FILE_SIZE) {
+              toast.error(`${field.label} must be smaller than 10 MB.`);
+              scrollToField(field.name);
+              return false;
+            }
+          }
         }
       }
     }
@@ -125,46 +140,67 @@ export function WorkRegistrationForm({
 
   const handleFileChange = (
     field: FieldConfig,
-    file: File | undefined,
+    fileList: FileList | null,
     input: HTMLInputElement,
   ) => {
-    if (!file) {
+    if (!fileList || fileList.length === 0) {
       setFiles((prev) => ({
         ...prev,
-        [field.name]: null,
+        [field.name]: field.multiple ? [] : null,
       }));
 
       return;
     }
 
-    if (file.size > MAX_FILE_SIZE) {
-      toast.error(`${field.label} exceeds the 10 MB maximum file size.`);
-
-      input.value = "";
-
+    if (field.multiple) {
+      const newFiles = Array.from(fileList);
+      for (const file of newFiles) {
+        if (file.size > MAX_FILE_SIZE) {
+          toast.error(`${file.name} exceeds the 10 MB maximum file size.`);
+          input.value = "";
+          return;
+        }
+      }
       setFiles((prev) => ({
         ...prev,
-        [field.name]: null,
+        [field.name]: [...(Array.isArray(prev[field.name]) ? (prev[field.name] as File[]) : []), ...newFiles],
       }));
-
-      return;
+    } else {
+      const file = fileList[0];
+      if (file.size > MAX_FILE_SIZE) {
+        toast.error(`${field.label} exceeds the 10 MB maximum file size.`);
+        input.value = "";
+        setFiles((prev) => ({
+          ...prev,
+          [field.name]: null,
+        }));
+        return;
+      }
+      setFiles((prev) => ({
+        ...prev,
+        [field.name]: file,
+      }));
     }
-
-    setFiles((prev) => ({
-      ...prev,
-      [field.name]: file,
-    }));
   };
 
-  const removeFile = (fieldName: string) => {
-    setFiles((prev) => ({
-      ...prev,
-      [fieldName]: null,
-    }));
+  const removeFile = (fieldName: string, indexToRemove?: number) => {
+    setFiles((prev) => {
+      const current = prev[fieldName];
+      if (Array.isArray(current) && indexToRemove !== undefined) {
+        return {
+          ...prev,
+          [fieldName]: current.filter((_, i) => i !== indexToRemove),
+        };
+      }
+      return {
+        ...prev,
+        [fieldName]: null,
+      };
+    });
 
     const input = document.getElementById(`file-${fieldName}`) as HTMLInputElement | null;
 
-    if (input) {
+    if (input && indexToRemove === undefined) {
       input.value = "";
     }
   };
@@ -182,38 +218,64 @@ export function WorkRegistrationForm({
     setLoading(true);
 
     try {
-      const documentPaths: Record<string, string> = {};
+      const documentPaths: Record<string, string | string[]> = {};
 
       /*
        * Upload documents only after all validation has passed.
        */
-      for (const [fieldName, file] of Object.entries(files)) {
-        if (!file) continue;
+      for (const [fieldName, fileData] of Object.entries(files)) {
+        if (!fileData) continue;
+        
+        if (Array.isArray(fileData)) {
+          if (fileData.length === 0) continue;
+          const paths: string[] = [];
+          for (const file of fileData) {
+            if (file.size > MAX_FILE_SIZE) {
+              throw new Error(`${file.name} exceeds the 10 MB upload limit.`);
+            }
 
-        if (file.size > MAX_FILE_SIZE) {
-          throw new Error(`${file.name} exceeds the 10 MB upload limit.`);
+            const extension = file.name.split(".").pop()?.toLowerCase() || "file";
+            const uniqueName = `${crypto.randomUUID()}.${extension}`;
+            const path = `${registrationType}/${uniqueName}`;
+
+            const { error: uploadError } = await supabase.storage
+              .from("registration-documents")
+              .upload(path, file, {
+                cacheControl: "3600",
+                upsert: false,
+              });
+
+            if (uploadError) {
+              console.error(`[WorkRegistration] Failed uploading ${fieldName}:`, uploadError);
+              throw new Error(`Failed to upload "${file.name}": ${uploadError.message}`);
+            }
+            paths.push(path);
+          }
+          documentPaths[fieldName] = paths;
+        } else {
+          const file = fileData;
+          if (file.size > MAX_FILE_SIZE) {
+            throw new Error(`${file.name} exceeds the 10 MB upload limit.`);
+          }
+
+          const extension = file.name.split(".").pop()?.toLowerCase() || "file";
+          const uniqueName = `${crypto.randomUUID()}.${extension}`;
+          const path = `${registrationType}/${uniqueName}`;
+
+          const { error: uploadError } = await supabase.storage
+            .from("registration-documents")
+            .upload(path, file, {
+              cacheControl: "3600",
+              upsert: false,
+            });
+
+          if (uploadError) {
+            console.error(`[WorkRegistration] Failed uploading ${fieldName}:`, uploadError);
+            throw new Error(`Failed to upload "${file.name}": ${uploadError.message}`);
+          }
+
+          documentPaths[fieldName] = path;
         }
-
-        const extension = file.name.split(".").pop()?.toLowerCase() || "file";
-
-        const uniqueName = `${crypto.randomUUID()}.${extension}`;
-
-        const path = `${registrationType}/${uniqueName}`;
-
-        const { error: uploadError } = await supabase.storage
-          .from("registration-documents")
-          .upload(path, file, {
-            cacheControl: "3600",
-            upsert: false,
-          });
-
-        if (uploadError) {
-          console.error(`[WorkRegistration] Failed uploading ${fieldName}:`, uploadError);
-
-          throw new Error(`Failed to upload "${file.name}": ${uploadError.message}`);
-        }
-
-        documentPaths[fieldName] = path;
       }
 
       /*
@@ -313,6 +375,9 @@ export function WorkRegistrationForm({
                 <h2 className="font-display text-xl font-semibold text-foreground">
                   {section.title}
                 </h2>
+                {section.description && (
+                  <p className="mt-2 text-sm text-muted-foreground">{section.description}</p>
+                )}
 
                 <div className="mt-3 h-px w-full bg-border/60" />
               </div>
@@ -382,82 +447,116 @@ export function WorkRegistrationForm({
                    * File upload
                    */
                   if (field.type === "file") {
-                    const selectedFile = files[field.name];
+                    const selectedFiles = files[field.name];
+                    const isMultiple = field.multiple;
+                    const hasFiles = isMultiple 
+                      ? Array.isArray(selectedFiles) && selectedFiles.length > 0
+                      : !!selectedFiles;
 
                     return (
-                      <div key={field.name} id={`field-${field.name}`} className="space-y-2">
+                      <div key={field.name} id={`field-${field.name}`} className={`space-y-2 ${isMultiple ? "md:col-span-2" : ""}`}>
                         <Label>
                           {field.label}
 
                           {field.required && <span className="ml-1 text-red-500">*</span>}
                         </Label>
 
-                        {!selectedFile ? (
-                          <label
-                            htmlFor={`file-${field.name}`}
-                            className="group flex min-h-28 cursor-pointer flex-col items-center justify-center gap-2 rounded-xl border border-dashed border-gold/40 bg-gold/[0.03] px-4 text-center transition-all hover:border-gold hover:bg-gold/[0.06]"
-                          >
-                            <div className="flex h-9 w-9 items-center justify-center rounded-full bg-gold/10 transition group-hover:bg-gold/15">
-                              <Upload className="h-4 w-4 text-gold" />
-                            </div>
-
-                            <span className="text-sm font-medium text-foreground">Choose file</span>
-
-                            <span className="text-xs text-muted-foreground">
-                              PDF, JPG or PNG • Maximum 10 MB
-                            </span>
-
-                            <input
-                              id={`file-${field.name}`}
-                              name={field.name}
-                              type="file"
-                              hidden
-                              accept={field.accept}
-                              onChange={(e) =>
-                                handleFileChange(field, e.target.files?.[0], e.target)
-                              }
-                            />
-                          </label>
-                        ) : (
-                          <div className="flex min-h-24 items-center justify-between gap-3 rounded-xl border border-gold/30 bg-gold/[0.04] p-4">
-                            <div className="flex min-w-0 items-center gap-3">
-                              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-gold/10">
-                                <FileText className="h-5 w-5 text-gold" />
-                              </div>
-
-                              <div className="min-w-0">
-                                <p className="truncate text-sm font-medium text-foreground">
-                                  {selectedFile.name}
-                                </p>
-
-                                <p className="mt-0.5 text-xs text-muted-foreground">
-                                  {(selectedFile.size / (1024 * 1024)).toFixed(2)} MB
-                                </p>
-                              </div>
-                            </div>
-
-                            <button
-                              type="button"
-                              onClick={() => removeFile(field.name)}
-                              className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-muted-foreground transition hover:bg-destructive/10 hover:text-destructive"
-                              aria-label={`Remove ${selectedFile.name}`}
+                        <div className="space-y-3">
+                          {(!hasFiles || isMultiple) && (
+                            <label
+                              htmlFor={`file-${field.name}`}
+                              className="group flex min-h-28 cursor-pointer flex-col items-center justify-center gap-2 rounded-xl border border-dashed border-gold/40 bg-gold/[0.03] px-4 py-6 text-center transition-all hover:border-gold hover:bg-gold/[0.06]"
                             >
-                              <X className="h-4 w-4" />
-                            </button>
+                              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-gold/10 transition group-hover:bg-gold/15">
+                                <Upload className="h-4 w-4 text-gold" />
+                              </div>
 
-                            {/* Keep file input mounted */}
-                            <input
-                              id={`file-${field.name}`}
-                              name={field.name}
-                              type="file"
-                              hidden
-                              accept={field.accept}
-                              onChange={(e) =>
-                                handleFileChange(field, e.target.files?.[0], e.target)
-                              }
-                            />
-                          </div>
-                        )}
+                              <span className="text-sm font-medium text-foreground">
+                                {isMultiple && hasFiles ? "Add more files" : "Choose file"}
+                              </span>
+
+                              <span className="text-xs text-muted-foreground">
+                                PDF, JPG or PNG • Maximum 10 MB {isMultiple && "per file"}
+                              </span>
+
+                              <input
+                                id={`file-${field.name}`}
+                                name={field.name}
+                                type="file"
+                                hidden
+                                accept={field.accept}
+                                multiple={isMultiple}
+                                onChange={(e) =>
+                                  handleFileChange(field, e.target.files, e.target)
+                                }
+                              />
+                            </label>
+                          )}
+
+                          {hasFiles && (
+                            <div className="space-y-2">
+                              {isMultiple && Array.isArray(selectedFiles) ? (
+                                selectedFiles.map((file, idx) => (
+                                  <div key={idx} className="flex min-h-24 items-center justify-between gap-3 rounded-xl border border-gold/30 bg-gold/[0.04] p-4">
+                                    <div className="flex min-w-0 items-center gap-3">
+                                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-gold/10">
+                                        <FileText className="h-5 w-5 text-gold" />
+                                      </div>
+
+                                      <div className="min-w-0">
+                                        <p className="truncate text-sm font-medium text-foreground">
+                                          {file.name}
+                                        </p>
+
+                                        <p className="mt-0.5 text-xs text-muted-foreground">
+                                          {(file.size / (1024 * 1024)).toFixed(2)} MB
+                                        </p>
+                                      </div>
+                                    </div>
+
+                                    <button
+                                      type="button"
+                                      onClick={() => removeFile(field.name, idx)}
+                                      className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-muted-foreground transition hover:bg-destructive/10 hover:text-destructive"
+                                      aria-label={`Remove ${file.name}`}
+                                    >
+                                      <X className="h-4 w-4" />
+                                    </button>
+                                  </div>
+                                ))
+                              ) : (
+                                !Array.isArray(selectedFiles) && selectedFiles && (
+                                  <div className="flex min-h-24 items-center justify-between gap-3 rounded-xl border border-gold/30 bg-gold/[0.04] p-4">
+                                    <div className="flex min-w-0 items-center gap-3">
+                                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-gold/10">
+                                        <FileText className="h-5 w-5 text-gold" />
+                                      </div>
+
+                                      <div className="min-w-0">
+                                        <p className="truncate text-sm font-medium text-foreground">
+                                          {selectedFiles.name}
+                                        </p>
+
+                                        <p className="mt-0.5 text-xs text-muted-foreground">
+                                          {(selectedFiles.size / (1024 * 1024)).toFixed(2)} MB
+                                        </p>
+                                      </div>
+                                    </div>
+
+                                    <button
+                                      type="button"
+                                      onClick={() => removeFile(field.name)}
+                                      className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-muted-foreground transition hover:bg-destructive/10 hover:text-destructive"
+                                      aria-label={`Remove ${selectedFiles.name}`}
+                                    >
+                                      <X className="h-4 w-4" />
+                                    </button>
+                                  </div>
+                                )
+                              )}
+                            </div>
+                          )}
+                        </div>
                       </div>
                     );
                   }
