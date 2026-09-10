@@ -103,7 +103,7 @@ function ContractorRegistration() {
   return (
     <WorkRegistrationForm
       title="Contractor Registration"
-      subtitle="Partner with SLV Builders for premium construction projects."
+      subtitle="Partner with SLV Groups for premium construction projects."
       registrationType="contractor"
       sections={sections}
       submitLabel="Apply as Contractor"

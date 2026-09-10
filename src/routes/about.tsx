@@ -40,13 +40,13 @@ import journey3 from "@/assets/slv-image.png";
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
-      { title: "About Us — SLV Builders & Developers" },
+      { title: "About Us — SLV Groups" },
       {
         name: "description",
         content:
-          "Since 2007, SLV Builders & Developers has crafted trusted homes across Bhimavaram, Vijayawada, and the Amaravati region — built on the 4 Ts: Trust, Teamwork, Timely Delivery, and Transparency.",
+          "Since 2007, SLV Groups has crafted trusted homes across Bhimavaram, Vijayawada, and the Amaravati region — built on the 4 Ts: Trust, Teamwork, Timely Delivery, and Transparency.",
       },
-      { property: "og:title", content: "About SLV Builders & Developers" },
+      { property: "og:title", content: "About SLV Groups" },
       {
         property: "og:description",
         content: "20 years of building trusted homes across Andhra Pradesh.",
@@ -644,7 +644,7 @@ function AboutPage() {
               >
                 <span className="flex items-center gap-2 text-[8px] font-bold uppercase tracking-[0.2em] text-white/85 sm:text-[9px]">
                   <span className="h-1.5 w-1.5 rounded-full bg-gold shadow-[0_0_8px_rgba(212,175,55,0.8)]" />
-                  SLV Builders & Developers
+                  SLV Groups
                 </span>
               </div>
             </div>

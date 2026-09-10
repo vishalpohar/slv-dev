@@ -25,21 +25,21 @@ export const Route = createFileRoute("/management")({
   head: () => ({
     meta: [
       {
-        title: "Leadership & Management — SLV Builders & Developers",
+        title: "Leadership & Management — SLV Groups",
       },
       {
         name: "description",
         content:
-          "Discover the leadership vision, management philosophy and people behind SLV Builders & Developers.",
+          "Discover the leadership vision, management philosophy and people behind SLV Groups.",
       },
       {
         property: "og:title",
-        content: "Leadership & Management — SLV Builders & Developers",
+        content: "Leadership & Management — SLV Groups",
       },
       {
         property: "og:description",
         content:
-          "Discover the leadership vision, management philosophy and values behind SLV Builders & Developers.",
+          "Discover the leadership vision, management philosophy and values behind SLV Groups.",
       },
       {
         property: "og:image",
@@ -422,7 +422,7 @@ function ManagementPage() {
                 <div className="group relative overflow-hidden rounded-[2rem] border border-gold/15 bg-gradient-obsidian shadow-[0_35px_120px_rgba(0,0,0,0.28)] sm:rounded-[2.5rem]">
                   <img
                     src={heroImage}
-                    alt="SLV Builders and Developers"
+                    alt="SLV Groups"
                     loading="eager"
                     className="block aspect-[4/3] w-full object-cover transition-transform duration-1000 group-hover:scale-[1.025] sm:aspect-[5/4] lg:aspect-[4/3]"
                   />

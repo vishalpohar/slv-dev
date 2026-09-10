@@ -85,14 +85,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "SLV Builders & Developers" },
+      { title: "SLV Groups" },
       {
         name: "description",
         content:
           "A premium real estate platform with RBAC for secure, department-specific access and advanced user features.",
       },
-      { name: "author", content: "SLV Builders & Developers" },
-      { property: "og:title", content: "SLV Builders & Developers" },
+      { name: "author", content: "SLV Groups" },
+      { property: "og:title", content: "SLV Groups" },
       {
         property: "og:description",
         content:
@@ -100,8 +100,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@slvbuilders" },
-      { name: "twitter:title", content: "SLV Builders & Developers" },
+      { name: "twitter:site", content: "@slvgroups" },
+      { name: "twitter:title", content: "SLV Groups" },
       {
         name: "twitter:description",
         content:

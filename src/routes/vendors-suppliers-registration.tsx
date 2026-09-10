@@ -125,7 +125,7 @@ function VendorSupplierRegistration() {
   return (
     <WorkRegistrationForm
       title="Vendor & Supplier Registration"
-      subtitle="Join SLV Builders' trusted network of material suppliers."
+      subtitle="Join SLV Groups' trusted network of material suppliers."
       registrationType="vendor_supplier"
       sections={sections}
       submitLabel="Submit Application"

@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 
-const message = encodeURIComponent(`Hello SLV Builders & Developers,
+const message = encodeURIComponent(`Hello SLV Groups,
 
 I am interested in your projects and would like more information regarding available properties, pricing, and site visits.              
 Please share the details.
@@ -15,13 +15,13 @@ Thank you.`);
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
-      { title: "Contact Us — SLV Builders & Developers" },
+      { title: "Contact Us — SLV Groups" },
       {
         name: "description",
         content:
-          "Get in touch with SLV Builders & Developers. Book a site visit, call us, or message us on WhatsApp. Office in Vijayawada, Andhra Pradesh.",
+          "Get in touch with SLV Groups. Book a site visit, call us, or message us on WhatsApp. Office in Vijayawada, Andhra Pradesh.",
       },
-      { property: "og:title", content: "Contact SLV Builders & Developers" },
+      { property: "og:title", content: "Contact SLV Groups" },
       {
         property: "og:description",
         content: "Book a private viewing or reach our relationship team.",
@@ -117,7 +117,7 @@ function ContactPage() {
             </a>
             <div className="overflow-hidden rounded-3xl neu-sm">
               <iframe
-                title="SLV Builders Office Location"
+                title="SLV Groups Office Location"
                 src="https://www.google.com/maps?q=Ramavarappadu,Vijayawada&output=embed"
                 className="h-64 w-full border-0"
                 loading="lazy"

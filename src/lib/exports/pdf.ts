@@ -58,7 +58,7 @@ export async function exportRegistrationsToPDF(registrations: Registration[]) {
     pdf.setFont("helvetica", "bold");
     pdf.setTextColor(0, 0, 0);
 
-    pdf.text("SLV Builders & Developers", 14, 16);
+    pdf.text("SLV Groups", 14, 16);
 
     pdf.setFontSize(13);
     pdf.setFont("helvetica", "normal");

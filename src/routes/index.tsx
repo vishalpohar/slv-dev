@@ -13,13 +13,13 @@ import { cn } from "@/lib/utils";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "SLV Builders & Developers — Premium Homes in Vijayawada & Amaravati" },
+      { title: "SLV Groups — Premium Homes in Vijayawada & Amaravati" },
       {
         name: "description",
         content:
-          "Discover premium villas, penthouses, and residences by SLV Builders & Developers. Crafted architecture, world-class amenities, and a seamless buying journey.",
+          "Discover premium villas, penthouses, and residences by SLV Groups. Crafted architecture, world-class amenities, and a seamless buying journey.",
       },
-      { property: "og:title", content: "SLV Builders & Developers — Luxury Real Estate" },
+      { property: "og:title", content: "SLV Groups — Luxury Real Estate" },
       {
         property: "og:description",
         content:
@@ -83,7 +83,7 @@ const philosophy = [
     no: "04",
     icon: Crown,
     title: "20 Years of Trusted Legacy",
-    desc: "For over two decades, SLV Builders has delivered premium communities built on trust, quality, and customer satisfaction.",
+    desc: "For over two decades, SLV Groups has delivered premium communities built on trust, quality, and customer satisfaction.",
   },
 ];
 
@@ -191,7 +191,7 @@ function Index() {
               <div className="w-2/3 overflow-hidden rounded-md md:rounded-2xl shadow-2xl">
                 <img
                   src={aboutImage}
-                  alt="An SLV Builders gated community in the Vijayawada–Amaravati region"
+                  alt="An SLV Groups gated community in the Vijayawada–Amaravati region"
                   loading="lazy"
                   className="aspect-[3/4] w-full object-cover transition-transform duration-700 hover:scale-105"
                 />
@@ -239,7 +239,7 @@ function Index() {
           </div>
 
           <p className="mt-6 text-lg font-light leading-relaxed text-muted-foreground">
-            At SLV Builders &amp; Developers Pvt Ltd, we don't just build structures — we curate
+            At SLV Groups Pvt Ltd, we don't just build structures — we curate
             lifestyles. Beginning in Bhimavaram in 2007 and entering Vijayawada in 2015 with SLV
             Anjani Heights, we have redefined the skyline of the Amaravati capital region with
             architectural brilliance and structural integrity.

@@ -33,20 +33,19 @@ export const Route = createFileRoute("/awards")({
   head: () => ({
     meta: [
       {
-        title: "Awards & Recognition — SLV Builders & Developers",
+        title: "Awards & Recognition — SLV Groups",
       },
       {
         name: "description",
-        content:
-          "Explore the awards and recognition earned by SLV Builders & Developers and its leadership.",
+        content: "Explore the awards and recognition earned by  & Developers and its leadership.",
       },
       {
         property: "og:title",
-        content: "Awards & Recognition — SLV Builders & Developers",
+        content: "Awards & Recognition — SLV Groups",
       },
       {
         property: "og:description",
-        content: "Recognition earned by SLV Builders & Developers and its leadership.",
+        content: "Recognition earned by SLV Groups and its leadership.",
       },
       {
         property: "og:image",
@@ -477,7 +476,7 @@ function AwardsPage() {
 
                   <div className="absolute inset-x-0 bottom-0 p-5 sm:p-7 lg:p-9">
                     <p className="text-[7px] font-bold uppercase tracking-[0.28em] text-gold sm:text-[9px] lg:text-[10px]">
-                      SLV Builders & Developers
+                      SLV Groups
                     </p>
 
                     <p className="mt-2 max-w-md font-display text-sm font-semibold leading-tight text-white sm:text-xl lg:text-2xl">

@@ -66,16 +66,16 @@ export const Route = createFileRoute("/csr")({
   head: () => ({
     meta: [
       {
-        title: "CSR & Community Initiatives — SLV Builders & Developers",
+        title: "CSR & Community Initiatives — SLV Groups",
       },
       {
         name: "description",
         content:
-          "Discover SLV Builders & Developers' community initiatives, charitable activities, donations and social-impact programs.",
+          "Discover SLV Groups' community initiatives, charitable activities, donations and social-impact programs.",
       },
       {
         property: "og:title",
-        content: "CSR & Community Initiatives — SLV Builders & Developers",
+        content: "CSR & Community Initiatives — SLV Groups",
       },
       {
         property: "og:description",

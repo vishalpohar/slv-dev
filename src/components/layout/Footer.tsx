@@ -31,7 +31,7 @@ const buyersGuide = [
 ];
 
 const message = encodeURIComponent(
-  `Hello SLV Builders & Developers,
+  `Hello SLV Groups,
 
 I came across your website and I'm interested in learning more about your projects.
 
@@ -90,7 +90,7 @@ export function Footer() {
         {/* Brand column */}
         <div>
           <span className="inline-flex rounded-2xl px-4 py-3 shadow-lg">
-            <img src={slvLogo} alt="SLV Builders & Developers" className="h-10 w-auto" />
+            <img src={slvLogo} alt="SLV Groups" className="h-10 w-auto" />
           </span>
           <p className="mt-6 max-w-sm text-sm leading-relaxed text-white/55">
             SLV strives to develop high-quality properties in prime locations at an affordable
@@ -284,9 +284,7 @@ export function Footer() {
       {/* Bottom strip */}
       <div style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-6 py-6 text-xs text-white/35 sm:flex-row">
-          <p>
-            © {new Date().getFullYear()} SLV Builders & Developers Pvt Ltd. All rights reserved.
-          </p>
+          <p>© {new Date().getFullYear()} SLV Groups Pvt Ltd. All rights reserved.</p>
           <div className="flex items-center gap-3">
             <div className="h-px w-4 opacity-30" style={{ background: "var(--color-gold)" }} />
             <p>RERA Registered · Crafted for discerning homeowners.</p>

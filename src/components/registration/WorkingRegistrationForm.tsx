@@ -29,7 +29,7 @@ export type SectionConfig = {
 type Props = {
   title: string;
   subtitle: string;
-  registrationType: "architect_consultant" | "contractor" | "vendor_supplier";
+  registrationType: "architect_consultant" | "contractor" | "vendor_supplier" | "land_proposal" | "workshop";
   sections: SectionConfig[];
   submitLabel: string;
 };
@@ -598,8 +598,7 @@ export function WorkRegistrationForm({
               />
 
               <span className="text-sm leading-relaxed text-muted-foreground">
-                I confirm that the information provided above is accurate and agree to SLV Builders
-                & Developers&apos; terms and conditions.
+                I confirm that the information provided above is accurate and agree to SLV Groups&apos; terms and conditions.
                 <span className="ml-1 text-red-500">*</span>
               </span>
             </label>
