@@ -1,13 +1,12 @@
 import { Link } from "@tanstack/react-router";
 import { MoveRight } from "lucide-react";
 import slvPoster from "@/assets/slv-poster.png";
-import slvHero from "@/assets/videos/slv-hero.mp4";
+import slvHero from "@/assets/videos/slv-green-1.mp4";
 
 /* ── Hero Section ────────────────────────────────────────── */
 export function HeroSection() {
   return (
-    <section className="relative flex min-h-[100svh] items-center justify-center overflow-hidden">
-      {/* Background — cinematic scale-down */}
+    <section className="group relative flex min-h-[100svh] items-center justify-center overflow-hidden">
       <video
         autoPlay
         muted
@@ -20,8 +19,8 @@ export function HeroSection() {
         <source src={slvHero} type="video/mp4" />
       </video>
 
-      {/* Multi-layer gradient overlay for depth */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/75 via-black/35 to-black/80" />
+
       <div
         className="absolute inset-0"
         style={{
@@ -30,7 +29,6 @@ export function HeroSection() {
         }}
       />
 
-      {/* Subtle animated particle lines */}
       <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
         <div
           className="absolute left-[10%] top-[15%] h-px w-48 opacity-20"
@@ -42,17 +40,45 @@ export function HeroSection() {
         />
         <div
           className="absolute left-[55%] top-[8%] h-24 w-px opacity-15"
-          style={{ background: "linear-gradient(to bottom, var(--color-gold), transparent)" }}
+          style={{
+            background: "linear-gradient(to bottom, var(--color-gold), transparent)",
+          }}
         />
       </div>
 
-      {/* Main content */}
       <div className="relative z-10 mx-auto w-full max-w-6xl px-6 pt-28 pb-4 text-center text-white">
-        {/* Headline with word-by-word reveal and shimmer gold */}
-        <Link to="/projects" search={{ status: undefined }}>
-          <button className="inline-flex items-center gap-2 animate-fade-up stagger-7 mx-auto rounded-full bg-gradient-gold px-8 py-4 text-sm font-bold text-black hover:shadow-lg hover:shadow-gold/30">
-            <p>Explore Our Projects</p> <MoveRight />
-          </button>
+        <Link
+          to="/projects"
+          search={{ status: undefined }}
+          className="
+        inline-flex
+        items-center
+        gap-2
+        rounded-full
+        border
+        border-black/20
+        backdrop-blur-xl
+        px-8
+        py-4
+        text-sm
+        font-bold
+        text-black
+        opacity-0
+        translate-y-3
+        pointer-events-none
+        transition-all
+        duration-500
+        ease-out
+        group-hover:opacity-100
+        group-hover:translate-y-0
+        group-hover:pointer-events-auto
+        hover:bg-gradient-gold
+        hover:shadow-lg
+        hover:shadow-gold/30
+      "
+        >
+          <span>Explore Our Projects</span>
+          <MoveRight className="transition-transform duration-300 group-hover:translate-x-1" />
         </Link>
       </div>
     </section>
