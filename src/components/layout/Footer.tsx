@@ -100,7 +100,7 @@ export function Footer() {
 
           {/* Certification badges */}
           <div className="mt-7 flex flex-wrap gap-2">
-            {["RERA", "CREDAI", "IGBC", "NAREDCO"].map((b) => (
+            {["RERA", "CREDAI", "IGBC", "NAREDCO", "AP CHAMBERS", "BAI"].map((b) => (
               <span
                 key={b}
                 className="rounded-lg px-3 py-1.5 text-[0.62rem] font-bold uppercase tracking-widest text-white/60 transition-all duration-300 hover:text-gold"
@@ -284,7 +284,7 @@ export function Footer() {
       {/* Bottom strip */}
       <div style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-6 py-6 text-xs text-white/35 sm:flex-row">
-          <p>© {new Date().getFullYear()} SLV Groups Pvt Ltd. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} SLV Group. All rights reserved.</p>
           <div className="flex items-center gap-3">
             <div className="h-px w-4 opacity-30" style={{ background: "var(--color-gold)" }} />
             <p>RERA Registered · Crafted for discerning homeowners.</p>
