@@ -245,8 +245,8 @@ function Index() {
             architectural brilliance and structural integrity.
           </p>
           <p className="mt-4 leading-relaxed text-muted-foreground">
-            Guided by founder Sri Penmetsa Srinivasa Raju, SLV has delivered 20 residential
-            projects, 2 commercial projects, and an educational institute — all built on trust.
+            Guided by founder Sri Penmetsa Srinivasa Raju, SLV has delivered 30+ residential
+            projects, 4+ commercial projects, and an educational institute — all built on trust.
           </p>
 
           {/* Stats row */}
@@ -254,7 +254,7 @@ function Index() {
             {[
               ["20+", "Years"],
               ["5000+", "Families"],
-              ["30+", "Projects"],
+              ["35+", "Projects"],
             ].map(([n, l]) => (
               <div key={l} className="rounded-2xl bg-secondary/60 p-4 text-center">
                 <p className="font-display text-2xl font-bold text-gradient-gold">{n}</p>
@@ -637,8 +637,10 @@ function Index() {
             <Link
               to="/projects"
               search={{ status: undefined }}
-              className="flex items-center gap-3 rounded-2xl border border-white/20 px-10 py-5 text-xs font-bold uppercase tracking-[0.2em] text-white transition-all duration-300 hover:bg-white/10 hover:border-white/40"
-            >
+              className="group flex items-center gap-3 rounded-2xl border border-white/20 px-10 py-5 text-xs font-bold uppercase tracking-[0.2em] text-white transition-all duration-300 hover:bg-gradient-gold hover:text-gold-foreground hover:border-gold"
+              hover:bg-gradient-gold
+              hover:text-gold-foreground
+              hover:border-gold>
               Explore Projects
             </Link>
           </div>
