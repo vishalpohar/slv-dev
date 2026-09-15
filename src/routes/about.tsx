@@ -64,7 +64,7 @@ const stats = [
     note: "Building with trust",
   },
   {
-    value: "30+",
+    value: "35+",
     label: "Projects",
     note: "Residential & Commercial",
   },
