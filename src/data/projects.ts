@@ -1509,7 +1509,7 @@ export const projects: Project[] = [
     slug: "slv-green-grandeur",
     name: "SLV Green Grandeur",
     tagline: "Grand green living redefined at Nidamanuru",
-    category: "Apartment",
+    category: "Villa",
     status: "Ongoing",
     location: "Nidamanuru",
     city: "Vijayawada",
