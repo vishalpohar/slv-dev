@@ -128,6 +128,7 @@ function NriCornerPage() {
       const { data, error } = await supabase
         .from("projects")
         .select("id, name")
+        .eq("status", "Ongoing")
         .eq("is_published", true)
         .order("sort_order", { ascending: true });
       if (error) throw error;
