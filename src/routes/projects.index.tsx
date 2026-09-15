@@ -51,11 +51,17 @@ export const Route = createFileRoute("/projects/")({
     }
 
     // Hoist SLV Green Grandeur to the beginning
-    allProjects.sort((a, b) => {
-      if (a.name === "SLV Green Grandeur") return -1;
-      if (b.name === "SLV Green Grandeur") return 1;
-      return 0;
-    });
+    // Sort projects in the required sequence:
+// Ongoing → Upcoming → Completed
+const statusOrder: Record<ProjectStatus, number> = {
+  Ongoing: 1,
+  Upcoming: 2,
+  Completed: 3,
+};
+
+allProjects.sort((a, b) => {
+  return statusOrder[a.status] - statusOrder[b.status];
+});
 
     // console.log("[ProjectsLoader] Total projects:", allProjects.length);
     return { projects: allProjects };
@@ -63,7 +69,7 @@ export const Route = createFileRoute("/projects/")({
   component: ProjectsPage,
 });
 
-const statusFilters: (ProjectStatus | "All")[] = ["All", "Ongoing", "Completed", "Upcoming"];
+const statusFilters: (ProjectStatus | "All")[] = ["All", "Ongoing", "Upcoming", "Completed"];
 const categoryFilters: (ProjectCategory | "All")[] = [
   "All",
   "Apartment",
