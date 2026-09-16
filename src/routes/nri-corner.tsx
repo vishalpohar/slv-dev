@@ -10,10 +10,10 @@ import nriHeroImage from "@/assets/nri/nri-hero.jpg";
 export const Route = createFileRoute("/nri-corner")({
   head: () => ({
     meta: [
-      { title: "NRI Corner — SLV Groups" },
+      { title: "NRI Corner — SLV Group" },
       {
         name: "description",
-        content: "Invest in India. Build Your Future with SLV Groups. Dedicated support and premium properties for Non-Resident Indians.",
+        content: "Invest in India. Build Your Future with SLV Group. Dedicated support and premium properties for Non-Resident Indians.",
       },
     ],
   }),
@@ -237,7 +237,7 @@ ${formData.message}
 
               <span className="mt-2 block text-gradient-gold">Build Your Future</span>
 
-              <span className="mt-2 block text-white">with SLV Groups.</span>
+              <span className="mt-2 block text-white">with SLV Group.</span>
             </h1>
 
             {/* Supporting text */}

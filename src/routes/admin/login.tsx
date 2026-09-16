@@ -91,7 +91,7 @@ function AdminLogin() {
           <div className="flex flex-col items-center mb-8">
             <img
               src={logo}
-              alt="SLV Groups"
+              alt="SLV Group"
               className="mb-3 h-auto w-[120px] object-contain sm:w-[145px] md:w-[160px]"
             />
             <h1 className="text-xl font-bold text-white font-display sm:text-2xl">SLV Admin</h1>

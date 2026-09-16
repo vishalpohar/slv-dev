@@ -66,8 +66,8 @@ export const Route = createFileRoute("/projects/$slug")({
     const p = loaderData?.project;
     return {
       meta: [
-        { title: p ? `${p.name} — SLV Groups` : "Project — SLV Groups" },
-        { name: "description", content: p?.tagline ?? "Luxury residence by SLV Groups." },
+        { title: p ? `${p.name} — SLV Group` : "Project — SLV Group" },
+        { name: "description", content: p?.tagline ?? "Luxury residence by SLV Group." },
         { property: "og:title", content: p?.name ?? "Project" },
         { property: "og:description", content: p?.tagline ?? "" },
         { property: "og:image", content: p?.image ?? "" },

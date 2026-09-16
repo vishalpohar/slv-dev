@@ -25,13 +25,13 @@ import {
 export const Route = createFileRoute("/workshop")({
   head: () => ({
     meta: [
-      { title: "Workshop — SLV Groups" },
+      { title: "Workshop — SLV Group" },
       {
         name: "description",
         content:
-          "Hands-on workshops from SLV Groups — site walkthroughs, design sessions, and industry masterclasses for architects, engineers, and partners.",
+          "Hands-on workshops from SLV Group — site walkthroughs, design sessions, and industry masterclasses for architects, engineers, and partners.",
       },
-      { property: "og:title", content: "Workshop — SLV Groups" },
+      { property: "og:title", content: "Workshop — SLV Group" },
       {
         property: "og:description",
         content:

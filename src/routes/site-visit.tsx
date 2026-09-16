@@ -8,7 +8,7 @@ import { SiteVisitModal } from "@/components/SiteVisitModal";
 export const Route = createFileRoute("/site-visit")({
   head: () => ({
     meta: [
-      { title: "Book a Site Visit — SLV Groups" },
+      { title: "Book a Site Visit — SLV Group" },
       {
         name: "description",
         content: "Schedule a private viewing of our ongoing luxury residential and commercial projects.",

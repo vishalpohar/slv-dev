@@ -145,7 +145,7 @@ function LandProposals() {
   return (
     <WorkRegistrationForm
       title="Land Proposals"
-      subtitle="Submit your land proposal to SLV Groups for potential development opportunities."
+      subtitle="Submit your land proposal to SLV Group for potential development opportunities."
       registrationType="land_proposal"
       sections={sections}
       submitLabel="Submit Proposal"

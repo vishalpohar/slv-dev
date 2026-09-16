@@ -31,7 +31,7 @@ const buyersGuide = [
 ];
 
 const message = encodeURIComponent(
-  `Hello SLV Groups,
+  `Hello SLV Group,
 
 I came across your website and I'm interested in learning more about your projects.
 
@@ -90,7 +90,7 @@ export function Footer() {
         {/* Brand column */}
         <div>
           <span className="inline-flex rounded-2xl px-4 py-3 shadow-lg">
-            <img src={slvLogo} alt="SLV Groups" className="h-10 w-auto" />
+            <img src={slvLogo} alt="SLV Group" className="h-10 w-auto" />
           </span>
           <p className="mt-6 max-w-sm text-sm leading-relaxed text-white/55">
             SLV strives to develop high-quality properties in prime locations at an affordable
@@ -210,7 +210,7 @@ export function Footer() {
           <p className="mt-6 flex gap-3 text-sm leading-relaxed text-white/55">
             <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-gold" />
             <span>
-              <span className="block font-semibold text-white/80">SLV Developers</span>
+              <span className="block font-semibold text-white/80">SLV Group</span>
               8-56-68/5, Beside Tenali Flyover, Sri Saila Nagar, Ward No. 5, Mangalagiri, Guntur,
               Andhra Pradesh.
             </span>

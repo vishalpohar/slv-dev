@@ -6,13 +6,13 @@ import { formatCurrency } from "@/data/projects";
 export const Route = createFileRoute("/emi-calculator")({
   head: () => ({
     meta: [
-      { title: "EMI Calculator — SLV Groups" },
+      { title: "EMI Calculator — SLV Group" },
       {
         name: "description",
         content:
           "Plan your home loan with our interactive EMI calculator. Estimate monthly EMI, total interest, and total payable instantly.",
       },
-      { property: "og:title", content: "Home Loan EMI Calculator — SLV Groups" },
+      { property: "og:title", content: "Home Loan EMI Calculator — SLV Group" },
       {
         property: "og:description",
         content: "Estimate your monthly EMI, interest, and total amount in seconds.",

@@ -129,7 +129,7 @@ export function Navbar() {
           >
             <img
               src={slvLogo}
-              alt="SLV Groups"
+              alt="SLV Group"
               className="h-8 w-auto sm:h-9 transition-transform duration-300 group-hover:scale-105"
             />
           </span>

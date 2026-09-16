@@ -1,7 +1,7 @@
 import whatsappIcon from "@/assets/icons/whatsapp-icon.png";
 
 const message = encodeURIComponent(
-  `Hello SLV Groups,
+  `Hello SLV Group,
 
 I came across your website and I'm interested in learning more about your projects.
 

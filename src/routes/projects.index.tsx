@@ -10,13 +10,13 @@ import { Search } from "lucide-react";
 export const Route = createFileRoute("/projects/")({
   head: () => ({
     meta: [
-      { title: "Projects — SLV Groups" },
+      { title: "Projects — SLV Group" },
       {
         name: "description",
         content:
-          "Explore ongoing, completed, and upcoming luxury villas, penthouses, and apartments by SLV Groups.",
+          "Explore ongoing, completed, and upcoming luxury villas, penthouses, and apartments by SLV Group.",
       },
-      { property: "og:title", content: "Projects — SLV Groups" },
+      { property: "og:title", content: "Projects — SLV Group" },
       { property: "og:description", content: "Browse our curated portfolio of luxury residences." },
     ],
   }),

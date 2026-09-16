@@ -214,7 +214,7 @@ export function generateResponse(userMessage: string): string {
 
   switch (intent.type) {
     case "greeting":
-      return "Namaste! 🙏 Welcome to SLV Groups.\n\nI can help you find the perfect property. Tell me:\n- Your **budget** (e.g. under ₹80 Lakh)\n- **Area** preference (e.g. Gunadala, Gannavaram)\n- **Type** (apartment, villa, plot)\n\nOr just ask me anything about our projects!";
+      return "Namaste! 🙏 Welcome to SLV Group.\n\nI can help you find the perfect property. Tell me:\n- Your **budget** (e.g. under ₹80 Lakh)\n- **Area** preference (e.g. Gunadala, Gannavaram)\n- **Type** (apartment, villa, plot)\n\nOr just ask me anything about our projects!";
 
     case "emi": {
       const projects = searchProjects(userMessage);
@@ -244,9 +244,9 @@ export function generateResponse(userMessage: string): string {
 
     case "about":
       return (
-        "**SLV Groups Pvt Ltd** has been a trusted name in Vijayawada real estate since **2007**.\n\n" +
-        "🏗️ **19+ years** of experience\n" +
-        "🏢 **20+ residential projects** delivered\n" +
+        "**SLV Group Pvt Ltd** has been a trusted name in Vijayawada real estate since **2007**.\n\n" +
+        "🏗️ **20+ years** of experience\n" +
+        "🏢 **35+ residential projects** delivered\n" +
         "👨‍👩‍👧‍👦 **5,000+ happy families**\n" +
         "📍 Operating across **Vijayawada & Amaravati capital region**\n\n" +
         "From premium apartments and luxurious villas to investment-ready plots, we craft quality homes with modern amenities.\n\n" +

@@ -63,18 +63,21 @@ export function HeroSection() {
         text-sm
         font-bold
         text-black
-        opacity-0
+        bg-gradient-gold
+        shadow-lg
+        shadow-gold/30
+        lg:opacity-0
         translate-y-3
         pointer-events-none
         transition-all
         duration-500
         ease-out
-        group-hover:opacity-100
-        group-hover:translate-y-0
-        group-hover:pointer-events-auto
-        hover:bg-gradient-gold
-        hover:shadow-lg
-        hover:shadow-gold/30
+        lg:group-hover:opacity-100
+        lg:group-hover:translate-y-0
+        lg:group-hover:pointer-events-auto
+        lg:hover:bg-gradient-gold
+        lg:hover:shadow-lg
+        lg:hover:shadow-gold/30
       "
         >
           <span>Explore Our Projects</span>

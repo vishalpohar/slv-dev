@@ -6,13 +6,13 @@ import { cn } from "@/lib/utils";
 export const Route = createFileRoute("/buyers-guide")({
   head: () => ({
     meta: [
-      { title: "Buyer's Guide & FAQs — SLV Groups" },
+      { title: "Buyer's Guide & FAQs — SLV Group" },
       {
         name: "description",
         content:
           "Everything you need to know before buying a luxury home — from RERA and home loans to registration, due diligence, and possession. Plus 15 frequently asked questions answered.",
       },
-      { property: "og:title", content: "Buyer's Guide & FAQs — SLV Groups" },
+      { property: "og:title", content: "Buyer's Guide & FAQs — SLV Group" },
       {
         property: "og:description",
         content: "A step-by-step guide to buying your luxury home with confidence.",
@@ -51,77 +51,77 @@ const steps = [
 
 const faqs = [
   {
-    q: "What does SLV Groups specialize in?",
+    q: "What does SLV Group specialize in?",
     a: "SLV specializes in developing high-quality properties in prime locations, offering luxurious urban living at affordable prices.",
     category: "About SLV",
   },
   {
-    q: "What kind of properties does SLV Groups build?",
+    q: "What kind of properties does SLV Group build?",
     a: "SLV builds residential properties that feature cutting-edge functional and architectural designs, using high-quality materials.",
     category: "Properties",
   },
   {
-    q: "Where are SLV Groups' properties located?",
+    q: "Where are SLV Group' properties located?",
     a: "SLV properties are strategically located in prime areas, ensuring convenience and accessibility to urban amenities.",
     category: "Location",
   },
   {
-    q: "What makes SLV Groups different from other developers?",
+    q: "What makes SLV Group different from other developers?",
     a: "SLV stands out for its focus on quality, innovative design, and affordability, making urban luxury accessible to a wider audience.",
     category: "About SLV",
   },
   {
-    q: "What are the key features of SLV Groups' properties?",
+    q: "What are the key features of SLV Group' properties?",
     a: "SLV properties are equipped with state-of-the-art facilities, ensuring modern comforts and a sophisticated living experience.",
     category: "Properties",
   },
   {
-    q: "How does SLV Groups ensure quality in its projects?",
+    q: "How does SLV Group ensure quality in its projects?",
     a: "SLV maintains high standards by using top-notch materials and engaging in meticulous craftsmanship throughout the construction process.",
     category: "Quality",
   },
   {
-    q: "Does SLV Groups offer customization options for properties?",
+    q: "Does SLV Group offer customization options for properties?",
     a: "Yes, SLV provides customization options to meet individual preferences and ensure personalized living spaces.",
     category: "Properties",
   },
   {
-    q: "What are the amenities available in SLV Groups' properties?",
+    q: "What are the amenities available in SLV Group' properties?",
     a: "SLV properties include amenities such as swimming pools, fitness centers, landscaped gardens, and community spaces.",
     category: "Amenities",
   },
   {
-    q: "Does SLV Groups offer after-sales support?",
+    q: "Does SLV Group offer after-sales support?",
     a: "Yes, SLV provides comprehensive after-sales support to address any maintenance or service needs post-purchase.",
     category: "Support",
   },
   {
-    q: "Are SLV Groups' properties environmentally friendly?",
+    q: "Are SLV Group' properties environmentally friendly?",
     a: "SLV integrates sustainable practices into its projects, promoting energy efficiency and environmental responsibility.",
     category: "Sustainability",
   },
   {
-    q: "Can investors purchase properties from SLV Groups?",
+    q: "Can investors purchase properties from SLV Group?",
     a: "Yes, SLV offers investment opportunities in its properties, catering to both homeowners and investors alike.",
     category: "Investment",
   },
   {
-    q: "Does SLV Groups have a transparent pricing policy?",
+    q: "Does SLV Group have a transparent pricing policy?",
     a: "Yes, SLV adheres to a transparent pricing policy, ensuring clarity and trust in all financial transactions.",
     category: "Pricing",
   },
   {
-    q: "How can I contact SLV Groups for more information?",
+    q: "How can I contact SLV Group for more information?",
     a: "You can contact SLV through their website, email, or phone for detailed inquiries and consultation.",
     category: "Contact",
   },
   {
-    q: "Does SLV Groups have any ongoing projects?",
+    q: "Does SLV Group have any ongoing projects?",
     a: "Yes, SLV continually launches new projects in sought-after locations, providing diverse options for homebuyers.",
     category: "Projects",
   },
   {
-    q: "Is SLV Groups involved in community initiatives?",
+    q: "Is SLV Group involved in community initiatives?",
     a: "Yes, SLV actively participates in community development initiatives, contributing to the overall welfare of its surroundings.",
     category: "Community",
   },
@@ -199,7 +199,7 @@ function BuyersGuide() {
             Got Questions?
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
-            Find answers about SLV Groups' projects, policies, and processes —
+            Find answers about SLV Group' projects, policies, and processes —
             directly from the source.
           </p>
         </div>

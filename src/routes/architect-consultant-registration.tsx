@@ -122,7 +122,7 @@ function ArchitectConsultantRegistration() {
   return (
     <WorkRegistrationForm
       title="Architect & Consultant Registration"
-      subtitle="Partner with SLV Groups to showcase your expertise."
+      subtitle="Partner with SLV Group to showcase your expertise."
       registrationType="architect_consultant"
       sections={sections}
       submitLabel="Register Now"

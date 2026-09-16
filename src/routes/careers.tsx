@@ -8,13 +8,13 @@ import { toast } from "sonner";
 export const Route = createFileRoute("/careers")({
   head: () => ({
     meta: [
-      { title: "Careers — SLV Groups" },
+      { title: "Careers — SLV Group" },
       {
         name: "description",
         content:
-          "Join SLV Groups. Explore open roles in sales, design, and marketing, and submit your application online.",
+          "Join SLV Group. Explore open roles in sales, design, and marketing, and submit your application online.",
       },
-      { property: "og:title", content: "Careers — SLV Groups" },
+      { property: "og:title", content: "Careers — SLV Group" },
       {
         property: "og:description",
         content: "Build your career with India's luxury real estate leader.",

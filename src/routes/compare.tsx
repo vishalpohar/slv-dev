@@ -6,7 +6,7 @@ import { projects, formatPrice } from "@/data/projects";
 export const Route = createFileRoute("/compare")({
   head: () => ({
     meta: [
-      { title: "Compare Residences — SLV Groups" },
+      { title: "Compare Residences — SLV Group" },
       {
         name: "description",
         content:
