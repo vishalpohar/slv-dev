@@ -19,6 +19,7 @@ import { ComparisonBar } from "@/components/ComparisonBar";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { AIAssistant } from "@/components/AIAssistant";
 import { Toaster } from "@/components/ui/sonner";
+import { ContactPopup } from "@/components/ContactPopup";
 
 function NotFoundComponent() {
   return (
@@ -171,6 +172,7 @@ function RootComponent() {
         {!isAdminRoute && <ComparisonBar />}
         {!isAdminRoute && <WhatsAppButton />}
         {!isAdminRoute && <AIAssistant />}
+        {!isAdminRoute && <ContactPopup />}
         <Toaster position="top-center" richColors />
       </StoreProvider>
     </QueryClientProvider>

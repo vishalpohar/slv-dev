@@ -637,10 +637,7 @@ function Index() {
             <Link
               to="/projects"
               search={{ status: undefined }}
-              className="group flex items-center gap-3 rounded-2xl border border-white/20 px-10 py-5 text-xs font-bold uppercase tracking-[0.2em] text-white transition-all duration-300 hover:bg-gradient-gold hover:text-gold-foreground hover:border-gold"
-              hover:bg-gradient-gold
-              hover:text-gold-foreground
-              hover:border-gold>
+              className="group flex items-center gap-3 rounded-2xl border border-white/20 px-10 py-5 text-xs font-bold uppercase tracking-[0.2em] text-white transition-all duration-300 hover:bg-gradient-gold hover:text-gold-foreground hover:border-gold">
               Explore Projects
             </Link>
           </div>
