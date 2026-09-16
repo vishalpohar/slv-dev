@@ -67,8 +67,8 @@ export function HeroSection() {
         shadow-lg
         shadow-gold/30
         lg:opacity-0
-        translate-y-3
-        pointer-events-none
+        lg:translate-y-3
+        lg:pointer-events-none
         transition-all
         duration-500
         ease-out
