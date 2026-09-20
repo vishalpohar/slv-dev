@@ -629,7 +629,7 @@ function Index() {
               />
 
               <span className="relative z-10 flex items-center gap-3">
-                Contact Consultant
+                Contact Us
                 <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
               </span>
             </Link>

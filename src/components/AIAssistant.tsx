@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import { Link } from "@tanstack/react-router";
 import ReactMarkdown from "react-markdown";
-import { Sparkles, X, Send, Bot } from "lucide-react";
+import { X, Send, Bot } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { generateResponse } from "@/lib/slv-assistant";
+import chatIcon from "@/assets/icons/chat-icon.png";
 
 const suggestions = [
   "3 BHK ready-to-move flat under ₹80L in Vijayawada",
@@ -82,10 +83,10 @@ export function AIAssistant() {
       <button
         onClick={() => setOpen(true)}
         aria-label="Ask the AI Property Assistant"
-        className="group fixed bottom-16 right-4 z-40 flex h-12 w-12 md:h-14 md:w-14 items-center justify-center rounded-full border-2 border-gold bg-transparent backdrop-blur-lg text-gold-foreground shadow-lg transition-transform hover:scale-110 sm:bottom-24 sm:right-6 cursor-pointer"
+        className="group fixed bottom-16 right-4 z-40 flex h-12 w-12 md:h-14 md:w-14 items-center justify-center rounded-full border-2 border-gold bg-black backdrop-blur-lg text-gold-foreground shadow-lg transition-transform hover:scale-110 sm:bottom-24 sm:right-6 cursor-pointer"
       >
-        <Sparkles className="h-6 w-6 md:h-7 md:w-7 text-gold" strokeWidth={2} />
-        <span className="absolute -top-1 -right-1 flex h-3.5 w-3.5">
+        <img src={chatIcon} alt="Chat" className="h-7 w-7 md:h-8 md:w-8" />
+        <span className="absolute top-0 right-0 flex h-3.5 w-3.5">
           <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-gold/70" />
           <span className="relative inline-flex h-3.5 w-3.5 rounded-full bg-gold" />
         </span>
@@ -102,9 +103,7 @@ export function AIAssistant() {
           {/* Header */}
           <div className="flex items-center justify-between border-b border-white/10 p-5">
             <div className="flex items-center gap-2.5">
-              <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-gold text-gold-foreground">
-                <Sparkles className="h-4.5 w-4.5" />
-              </span>
+              <img src={chatIcon} alt="Chat" className="h-8 w-8" />
               <div className="leading-tight">
                 <p className="font-display text-lg font-semibold">SLV Property Assistant</p>
                 <p className="text-[0.65rem] uppercase tracking-wider text-gold">

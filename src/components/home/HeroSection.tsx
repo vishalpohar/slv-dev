@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { MoveRight } from "lucide-react";
 import slvPoster from "@/assets/slv-poster.png";
-import slvHero from "@/assets/videos/slv-green-1.mp4";
+import slvHero from "@/assets/videos/slv_green_4k.mp4";
 
 /* ── Hero Section ────────────────────────────────────────── */
 export function HeroSection() {
