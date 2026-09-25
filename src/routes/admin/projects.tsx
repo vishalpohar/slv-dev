@@ -124,7 +124,7 @@ const defaultForm: ProjectFormData = {
   nearby: [],
   floor_plans: [],
   is_featured: false,
-  is_published: false,
+  is_published: true,
   sort_order: "0",
 };
 
@@ -571,9 +571,23 @@ function ProjectsManagement() {
       toast.error("Project name is required");
       return;
     }
-    if (editingProject) {
+
+    // Defensive logging – helps us confirm the edit flow in the console
+    console.log("🛠️ Submitting project form", {
+      editingProject,
+      form,
+    });
+
+    if (editingProject && editingProject.id) {
+      // Update existing project
       updateMutation.mutate({ id: editingProject.id, data: form });
     } else {
+      // If editingProject exists but lacks id, warn and fall back to create
+      if (editingProject && !editingProject.id) {
+        toast.warning(
+          "Editing project is missing an ID; creating a new project instead."
+        );
+      }
       createMutation.mutate(form);
     }
   };
