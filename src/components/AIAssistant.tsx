@@ -4,7 +4,7 @@ import ReactMarkdown from "react-markdown";
 import { X, Send, Bot } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { generateResponse } from "@/lib/slv-assistant";
-import chatIcon from "@/assets/icons/chat-icon.png";
+import chatIcon from "@/assets/icons/chat-icon.jpg";
 
 const suggestions = [
   "3 BHK ready-to-move flat under ₹80L in Vijayawada",

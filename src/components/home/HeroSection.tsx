@@ -1,7 +1,8 @@
 import { Link } from "@tanstack/react-router";
 import { MoveRight } from "lucide-react";
 import slvPoster from "@/assets/slv-poster.png";
-import slvHero from "@/assets/videos/slv_green_4k.mp4";
+import slvHeroMobile from "@/assets/videos/slv_green_4k_mobile.mp4";
+import slvHeroDesktop from "@/assets/videos/slv_green_4k_desktop.mp4";
 
 /* ── Hero Section ────────────────────────────────────────── */
 export function HeroSection() {
@@ -14,9 +15,14 @@ export function HeroSection() {
         playsInline
         preload="metadata"
         poster={slvPoster}
-        className="absolute inset-0 h-full w-full object-fill"
+        className="absolute inset-0 h-full w-full object-cover"
       >
-        <source src={slvHero} type="video/mp4" />
+
+        {/* Mobile / small screens */}
+        <source src={slvHeroMobile} type="video/mp4" media="(max-width: 767px)" />
+
+        {/* Desktop / tablets */}
+        <source src={slvHeroDesktop} type="video/mp4" media="(min-width: 768px)" />
       </video>
 
       <div className="absolute inset-0 bg-gradient-to-b from-black/75 via-black/35 to-black/80" />

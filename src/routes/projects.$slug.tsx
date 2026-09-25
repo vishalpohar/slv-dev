@@ -26,11 +26,7 @@ import { cn } from "@/lib/utils";
 export const Route = createFileRoute("/projects/$slug")({
   loader: async ({ params }) => {
     // First try Supabase
-    const { data } = await supabase
-      .from("projects")
-      .select("*")
-      .eq("slug", params.slug)
-      .single();
+    const { data } = await supabase.from("projects").select("*").eq("slug", params.slug).single();
 
     let project;
     if (data) {
@@ -55,9 +51,7 @@ export const Route = createFileRoute("/projects/$slug")({
       moreProjects = moreData.map(mapSupabaseToProject);
     } else {
       // Fallback to static related projects
-      moreProjects = staticProjects
-        .filter((p) => p.slug !== params.slug)
-        .slice(0, 3);
+      moreProjects = staticProjects.filter((p) => p.slug !== params.slug).slice(0, 3);
     }
 
     return { project, moreProjects };
@@ -138,6 +132,9 @@ function ProjectDetails() {
                 key={i}
                 src={g}
                 alt={`${project.name} view ${i + 1}`}
+                loading={i === 0 ? "eager" : "lazy"}
+                decoding="async"
+                fetchPriority={i === 0 ? "high" : "low"}
                 className={cn(
                   "absolute inset-0 h-full w-full object-cover bg-black",
                   "transition-[opacity,transform] duration-700 ease-in-out",
@@ -493,7 +490,7 @@ function ProjectDetails() {
                   Enquire Now
                 </Link>
 
-                <SiteVisitModal 
+                <SiteVisitModal
                   projectId={project.id}
                   projectName={project.name}
                   trigger={
@@ -600,25 +597,25 @@ function ProjectDetails() {
         <h2 className="font-display text-2xl font-semibold text-foreground">More Residences</h2>
         <div className="mt-6 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6">
           {moreProjects.map((p) => (
-              <Link
-                key={p.id}
-                to="/projects/$slug"
-                params={{ slug: p.slug }}
-                className="group overflow-hidden rounded-2xl bg-card neu-sm"
-              >
-                <div className="aspect-[16/10] overflow-hidden">
-                  <img
-                    src={p.image}
-                    alt={p.name}
-                    className="h-full w-full object-cover transition-transform group-hover:scale-105"
-                  />
-                </div>
-                <div className="p-4">
-                  <p className="font-display text-lg font-semibold text-foreground">{p.name}</p>
-                  <p className="text-sm text-muted-foreground">{p.location}</p>
-                </div>
-              </Link>
-            ))}
+            <Link
+              key={p.id}
+              to="/projects/$slug"
+              params={{ slug: p.slug }}
+              className="group overflow-hidden rounded-2xl bg-card neu-sm"
+            >
+              <div className="aspect-[16/10] overflow-hidden">
+                <img
+                  src={p.image}
+                  alt={p.name}
+                  className="h-full w-full object-cover transition-transform group-hover:scale-105"
+                />
+              </div>
+              <div className="p-4">
+                <p className="font-display text-lg font-semibold text-foreground">{p.name}</p>
+                <p className="text-sm text-muted-foreground">{p.location}</p>
+              </div>
+            </Link>
+          ))}
         </div>
       </section>
 

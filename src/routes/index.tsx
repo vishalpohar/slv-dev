@@ -193,6 +193,8 @@ function Index() {
                   src={aboutImage}
                   alt="An SLV Group gated community in the Vijayawada–Amaravati region"
                   loading="lazy"
+                  decoding="async"
+                  fetchPriority="low"
                   className="aspect-[3/4] w-full object-cover transition-transform duration-700 hover:scale-105"
                 />
               </div>
@@ -201,6 +203,8 @@ function Index() {
                   src={aboutImage2}
                   alt="Interior detail of an SLV residence"
                   loading="lazy"
+                  decoding="async"
+                  fetchPriority="low"
                   className="aspect-[3/5] w-full object-cover transition-transform duration-700 hover:scale-105"
                 />
               </div>
@@ -239,10 +243,10 @@ function Index() {
           </div>
 
           <p className="mt-6 text-lg font-light leading-relaxed text-muted-foreground">
-            At SLV Group Pvt Ltd, we don't just build structures — we curate
-            lifestyles. Beginning in Bhimavaram in 2007 and entering Vijayawada in 2015 with SLV
-            Anjani Heights, we have redefined the skyline of the Amaravati capital region with
-            architectural brilliance and structural integrity.
+            At SLV Group Pvt Ltd, we don't just build structures — we curate lifestyles. Beginning
+            in Bhimavaram in 2007 and entering Vijayawada in 2015 with SLV Anjani Heights, we have
+            redefined the skyline of the Amaravati capital region with architectural brilliance and
+            structural integrity.
           </p>
           <p className="mt-4 leading-relaxed text-muted-foreground">
             Guided by founder Sri Penmetsa Srinivasa Raju, SLV has delivered 30+ residential
@@ -637,7 +641,8 @@ function Index() {
             <Link
               to="/projects"
               search={{ status: undefined }}
-              className="group flex items-center gap-3 rounded-2xl border border-white/20 px-10 py-5 text-xs font-bold uppercase tracking-[0.2em] text-white transition-all duration-300 hover:bg-gradient-gold hover:text-gold-foreground hover:border-gold">
+              className="group flex items-center gap-3 rounded-2xl border border-white/20 px-10 py-5 text-xs font-bold uppercase tracking-[0.2em] text-white transition-all duration-300 hover:bg-gradient-gold hover:text-gold-foreground hover:border-gold"
+            >
               Explore Projects
             </Link>
           </div>

@@ -129,6 +129,8 @@ function AwardCard({ award, index }: { award: Award; index: number }) {
             src={award.image_url}
             alt={`${award.title} — ${award.recipient}`}
             loading="lazy"
+            decoding="async"
+            fetchPriority="low"
             className="
               h-full w-full object-cover
               transition-transform duration-700
@@ -443,7 +445,9 @@ function AwardsPage() {
                   <img
                     src={heroAwardImage}
                     alt="SLV Developers entrance"
-                    loading="eager"
+                    loading="lazy"
+                    decoding="async"
+                    fetchPriority="low"
                     className="
       block
       w-full
@@ -664,6 +668,8 @@ function AwardsPage() {
                     alt="Penmetsa Srinivasa Raju"
                     className="aspect-[4/5] w-full object-cover"
                     loading="lazy"
+                    decoding="async"
+                    fetchPriority="low"
                   />
 
                   <div
