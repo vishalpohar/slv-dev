@@ -243,7 +243,7 @@ function Index() {
           </div>
 
           <p className="mt-6 text-lg font-light leading-relaxed text-muted-foreground">
-            At SLV Group Pvt Ltd, we don't just build structures — we curate lifestyles. Beginning
+            At SLV Group, we don't just build structures — we curate lifestyles. Beginning
             in Bhimavaram in 2007 and entering Vijayawada in 2015 with SLV Anjani Heights, we have
             redefined the skyline of the Amaravati capital region with architectural brilliance and
             structural integrity.
