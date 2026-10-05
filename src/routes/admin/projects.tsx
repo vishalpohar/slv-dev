@@ -73,6 +73,7 @@ type NearbyItem = { label: string; distance: string };
 type FloorPlanItem = { type: string; sqft: string; image: string };
 
 type ProjectFormData = {
+  _editingId: string | null; // non-null when editing — prevents edit-creates-new bug
   name: string;
   slug: string;
   tagline: string;
@@ -101,6 +102,7 @@ type ProjectFormData = {
 };
 
 const defaultForm: ProjectFormData = {
+  _editingId: null,
   name: "",
   slug: "",
   tagline: "",
@@ -247,9 +249,9 @@ function ProjectsManagement() {
     city: data.city || null,
     location: data.location || null,
     bedrooms: data.bedrooms || null,
-    price_from: data.price_from ? Number(data.price_from) : null,
-    sqft_from: data.sqft_from ? Number(data.sqft_from) : null,
-    sqft_to: data.sqft_to ? Number(data.sqft_to) : null,
+    price_from: data.price_from ? Number(data.price_from.toString().replace(/,/g, "")) : null,
+    sqft_from: data.sqft_from ? Number(data.sqft_from.toString().replace(/,/g, "")) : null,
+    sqft_to: data.sqft_to ? Number(data.sqft_to.toString().replace(/,/g, "")) : null,
     launch_date: data.launch_date || null,
     rera_number: data.rera_number || null,
     cover_image: data.cover_image || null,
@@ -261,7 +263,7 @@ function ProjectsManagement() {
     nearby: data.nearby,
     floor_plans: data.floor_plans.map((fp) => ({
       type: fp.type,
-      sqft: fp.sqft ? Number(fp.sqft) : 0,
+      sqft: fp.sqft ? Number(fp.sqft.toString().replace(/,/g, "")) : 0,
       image: fp.image,
     })),
     is_featured: data.is_featured,
@@ -390,15 +392,20 @@ function ProjectsManagement() {
       toast.success("Project created successfully");
       closeForm();
     },
-    onError: (err: Error) => toast.error(err.message),
+    onError: (err: any) => {
+      console.error("Create Project Error:", err);
+      toast.error(`Create failed: ${err.message || "Unknown error"}`);
+    },
   });
 
   // Update project
   const updateMutation = useMutation({
     mutationFn: async ({ id, data }: { id: string; data: ProjectFormData }) => {
+      const payload = buildPayload(data);
+      console.log("Updating project payload:", payload);
       const { error } = await supabase
         .from("projects")
-        .update(buildPayload(data))
+        .update(payload)
         .eq("id", id);
       if (error) throw error;
     },
@@ -407,7 +414,10 @@ function ProjectsManagement() {
       toast.success("Project updated successfully");
       closeForm();
     },
-    onError: (err: Error) => toast.error(err.message),
+    onError: (err: any) => {
+      console.error("Update Project Error:", err);
+      toast.error(`Update failed: ${err.message || "Unknown error"}`);
+    },
   });
 
   // Delete project
@@ -520,6 +530,7 @@ function ProjectsManagement() {
     setEditingProject(p);
     const raw = p as Record<string, unknown>;
     setForm({
+      _editingId: p.id, // ← embed the ID so we never lose track during edits
       name: p.name,
       slug: p.slug,
       tagline: p.tagline ?? "",
@@ -572,22 +583,20 @@ function ProjectsManagement() {
       return;
     }
 
-    // Defensive logging – helps us confirm the edit flow in the console
+    // Use _editingId from the form itself as primary signal (cannot desync)
+    const editId = form._editingId || editingProject?.id;
+
     console.log("🛠️ Submitting project form", {
-      editingProject,
-      form,
+      editId,
+      editingProject: editingProject?.id,
+      formEditingId: form._editingId,
     });
 
-    if (editingProject && editingProject.id) {
+    if (editId) {
       // Update existing project
-      updateMutation.mutate({ id: editingProject.id, data: form });
+      updateMutation.mutate({ id: editId, data: form });
     } else {
-      // If editingProject exists but lacks id, warn and fall back to create
-      if (editingProject && !editingProject.id) {
-        toast.warning(
-          "Editing project is missing an ID; creating a new project instead."
-        );
-      }
+      // Create new project
       createMutation.mutate(form);
     }
   };
@@ -827,7 +836,7 @@ function ProjectsManagement() {
         <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle className="text-xl font-bold">
-              {editingProject ? "Edit Project" : "New Project"}
+              {form._editingId ? "Edit Project" : "New Project"}
             </DialogTitle>
           </DialogHeader>
 
@@ -1717,7 +1726,7 @@ function ProjectsManagement() {
                 className="bg-gradient-gold text-obsidian font-semibold hover:opacity-90 gap-2"
               >
                 {isSaving && <Loader2 className="w-4 h-4 animate-spin" />}
-                {editingProject ? "Save Changes" : "Create Project"}
+                {form._editingId ? "Save Changes" : "Create Project"}
               </Button>
             </DialogFooter>
           </form>
