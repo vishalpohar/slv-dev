@@ -14,10 +14,10 @@ function SeedPage() {
   const handleSeed = async () => {
     setLoading(true);
     setResult("Seeding...");
-    
+
     try {
       let successCount = 0;
-      
+
       for (const project of projects) {
         const payload = {
           slug: project.slug,
@@ -44,17 +44,15 @@ function SeedPage() {
           sort_order: parseInt(project.id) || 0,
         };
 
-        const { error } = await supabase
-          .from("projects")
-          .upsert(payload, { onConflict: "slug" });
-        
+        const { error } = await supabase.from("projects").upsert(payload, { onConflict: "slug" });
+
         if (error) {
           console.error("Error inserting", project.name, error);
         } else {
           successCount++;
         }
       }
-      
+
       setResult(`Successfully seeded ${successCount} projects to the database!`);
     } catch (err: any) {
       setResult("Error: " + err.message);
@@ -67,17 +65,18 @@ function SeedPage() {
     <div className="pt-32 px-6 max-w-xl mx-auto flex flex-col gap-6">
       <h1 className="text-3xl font-bold">Seed Database</h1>
       <p className="text-muted-foreground">
-        Click the button below to migrate all {projects.length} static projects from <code>projects.ts</code> into your live Supabase database.
+        Click the button below to migrate all {projects.length} static projects from{" "}
+        <code>projects.ts</code> into your live Supabase database.
       </p>
-      
-      <button 
+
+      <button
         onClick={handleSeed}
         disabled={loading}
         className="bg-gold text-white px-4 py-3 rounded-xl font-bold hover:bg-gold/80 disabled:opacity-50"
       >
         {loading ? "Seeding Data..." : "Seed All Static Projects"}
       </button>
-      
+
       {result && <p className="font-mono text-sm bg-muted p-4 rounded-lg">{result}</p>}
     </div>
   );

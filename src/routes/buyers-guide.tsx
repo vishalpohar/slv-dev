@@ -199,8 +199,8 @@ function BuyersGuide() {
             Got Questions?
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
-            Find answers about SLV Group' projects, policies, and processes —
-            directly from the source.
+            Find answers about SLV Group' projects, policies, and processes — directly from the
+            source.
           </p>
         </div>
 

@@ -4,7 +4,17 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import type { Tables, Enums } from "@/integrations/supabase/types";
-import { Search, MessageSquare, Eye, Clock, Phone, Mail, StickyNote, Loader2, Download } from "lucide-react";
+import {
+  Search,
+  MessageSquare,
+  Eye,
+  Clock,
+  Phone,
+  Mail,
+  StickyNote,
+  Loader2,
+  Download,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -65,9 +75,7 @@ function EnquiriesManagement() {
   const { data: projectsList = [] } = useQuery({
     queryKey: ["admin-projects-lookup"],
     queryFn: async () => {
-      const { data, error } = await supabase
-        .from("projects")
-        .select("id, name");
+      const { data, error } = await supabase.from("projects").select("id, name");
       if (error) throw error;
       return data;
     },
@@ -93,14 +101,14 @@ function EnquiriesManagement() {
       "Status",
       "Date Created",
       "Message",
-      "Notes"
+      "Notes",
     ];
 
     const csvRows = [
       headers.join(","),
       ...filtered.map((lead) => {
         const projectName = lead.project_id
-          ? (projectMap.get(lead.project_id) || "Unknown Project")
+          ? projectMap.get(lead.project_id) || "Unknown Project"
           : "General Enquiry";
         const dateStr = new Date(lead.created_at).toLocaleDateString("en-IN", {
           day: "2-digit",
@@ -262,7 +270,7 @@ function EnquiriesManagement() {
             ))}
           </SelectContent>
         </Select>
-        
+
         <Button
           onClick={downloadExcel}
           variant="outline"
@@ -486,7 +494,7 @@ function EnquiriesManagement() {
                 <p className="text-xs text-muted-foreground mb-1">Interested Project</p>
                 <p className="text-sm font-semibold text-foreground">
                   {viewingLead.project_id
-                    ? (projectMap.get(viewingLead.project_id) || "Unknown Project")
+                    ? projectMap.get(viewingLead.project_id) || "Unknown Project"
                     : "General Enquiry"}
                 </p>
               </div>

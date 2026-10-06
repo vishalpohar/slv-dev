@@ -153,8 +153,8 @@ function FaqPage() {
             Frequently Asked Questions
           </h1>
           <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
-            Clear, transparent answers about SLV Group' luxury residences, layout
-            projects, quality standards, and policies.
+            Clear, transparent answers about SLV Group' luxury residences, layout projects, quality
+            standards, and policies.
           </p>
         </div>
 

@@ -11,7 +11,8 @@ export const Route = createFileRoute("/site-visit")({
       { title: "Book a Site Visit — SLV Group" },
       {
         name: "description",
-        content: "Schedule a private viewing of our ongoing luxury residential and commercial projects.",
+        content:
+          "Schedule a private viewing of our ongoing luxury residential and commercial projects.",
       },
     ],
   }),
@@ -37,7 +38,9 @@ export const Route = createFileRoute("/site-visit")({
     }
 
     // Filter to only ongoing projects for this page
-    const ongoingProjects = allProjects.filter(p => p.status === "Ongoing" || p.status === "Upcoming");
+    const ongoingProjects = allProjects.filter(
+      (p) => p.status === "Ongoing" || p.status === "Upcoming",
+    );
     return { projects: ongoingProjects };
   },
   component: SiteVisitPage,
@@ -59,7 +62,8 @@ function SiteVisitPage() {
             Book a Site Visit
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-lg text-muted-foreground sm:text-xl">
-            Choose from our exclusive ongoing projects below and schedule a private viewing at your convenience.
+            Choose from our exclusive ongoing projects below and schedule a private viewing at your
+            convenience.
           </p>
         </div>
       </section>

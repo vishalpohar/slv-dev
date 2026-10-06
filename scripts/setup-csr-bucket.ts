@@ -27,7 +27,8 @@ for (const line of envContent.split("\n")) {
 }
 
 const SUPABASE_URL = process.env.VITE_SUPABASE_URL || process.env.SUPABASE_URL;
-const SUPABASE_KEY = process.env.VITE_SUPABASE_PUBLISHABLE_KEY || process.env.SUPABASE_PUBLISHABLE_KEY;
+const SUPABASE_KEY =
+  process.env.VITE_SUPABASE_PUBLISHABLE_KEY || process.env.SUPABASE_PUBLISHABLE_KEY;
 
 if (!SUPABASE_URL || !SUPABASE_KEY) {
   console.error("❌ Missing SUPABASE_URL or SUPABASE_PUBLISHABLE_KEY in .env");
@@ -41,11 +42,14 @@ async function main() {
 
   // 1. Try to create the CSR-media bucket
   console.log("1️⃣  Creating CSR-media bucket...");
-  const { data: bucketData, error: bucketError } = await supabase.storage.createBucket("CSR-media", {
-    public: true,
-    fileSizeLimit: 52428800, // 50 MB
-    allowedMimeTypes: ["image/jpeg", "image/jpg", "image/png", "image/webp", "image/gif"],
-  });
+  const { data: bucketData, error: bucketError } = await supabase.storage.createBucket(
+    "CSR-media",
+    {
+      public: true,
+      fileSizeLimit: 52428800, // 50 MB
+      allowedMimeTypes: ["image/jpeg", "image/jpg", "image/png", "image/webp", "image/gif"],
+    },
+  );
 
   if (bucketError) {
     if (bucketError.message?.includes("already exists")) {

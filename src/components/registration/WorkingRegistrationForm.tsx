@@ -29,7 +29,8 @@ export type SectionConfig = {
 type Props = {
   title: string;
   subtitle: string;
-  registrationType: "architect_consultant" | "contractor" | "vendor_supplier" | "land_proposal" | "workshop";
+  registrationType:
+    "architect_consultant" | "contractor" | "vendor_supplier" | "land_proposal" | "workshop";
   sections: SectionConfig[];
   submitLabel: string;
 };
@@ -103,7 +104,7 @@ export function WorkRegistrationForm({
         if (field.type !== "file") continue;
 
         const fileData = files[field.name];
-        
+
         if (fileData) {
           if (Array.isArray(fileData)) {
             for (const file of fileData) {
@@ -163,7 +164,10 @@ export function WorkRegistrationForm({
       }
       setFiles((prev) => ({
         ...prev,
-        [field.name]: [...(Array.isArray(prev[field.name]) ? (prev[field.name] as File[]) : []), ...newFiles],
+        [field.name]: [
+          ...(Array.isArray(prev[field.name]) ? (prev[field.name] as File[]) : []),
+          ...newFiles,
+        ],
       }));
     } else {
       const file = fileList[0];
@@ -225,7 +229,7 @@ export function WorkRegistrationForm({
        */
       for (const [fieldName, fileData] of Object.entries(files)) {
         if (!fileData) continue;
-        
+
         if (Array.isArray(fileData)) {
           if (fileData.length === 0) continue;
           const paths: string[] = [];
@@ -449,12 +453,16 @@ export function WorkRegistrationForm({
                   if (field.type === "file") {
                     const selectedFiles = files[field.name];
                     const isMultiple = field.multiple;
-                    const hasFiles = isMultiple 
+                    const hasFiles = isMultiple
                       ? Array.isArray(selectedFiles) && selectedFiles.length > 0
                       : !!selectedFiles;
 
                     return (
-                      <div key={field.name} id={`field-${field.name}`} className={`space-y-2 ${isMultiple ? "md:col-span-2" : ""}`}>
+                      <div
+                        key={field.name}
+                        id={`field-${field.name}`}
+                        className={`space-y-2 ${isMultiple ? "md:col-span-2" : ""}`}
+                      >
                         <Label>
                           {field.label}
 
@@ -486,74 +494,74 @@ export function WorkRegistrationForm({
                                 hidden
                                 accept={field.accept}
                                 multiple={isMultiple}
-                                onChange={(e) =>
-                                  handleFileChange(field, e.target.files, e.target)
-                                }
+                                onChange={(e) => handleFileChange(field, e.target.files, e.target)}
                               />
                             </label>
                           )}
 
                           {hasFiles && (
                             <div className="space-y-2">
-                              {isMultiple && Array.isArray(selectedFiles) ? (
-                                selectedFiles.map((file, idx) => (
-                                  <div key={idx} className="flex min-h-24 items-center justify-between gap-3 rounded-xl border border-gold/30 bg-gold/[0.04] p-4">
-                                    <div className="flex min-w-0 items-center gap-3">
-                                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-gold/10">
-                                        <FileText className="h-5 w-5 text-gold" />
-                                      </div>
-
-                                      <div className="min-w-0">
-                                        <p className="truncate text-sm font-medium text-foreground">
-                                          {file.name}
-                                        </p>
-
-                                        <p className="mt-0.5 text-xs text-muted-foreground">
-                                          {(file.size / (1024 * 1024)).toFixed(2)} MB
-                                        </p>
-                                      </div>
-                                    </div>
-
-                                    <button
-                                      type="button"
-                                      onClick={() => removeFile(field.name, idx)}
-                                      className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-muted-foreground transition hover:bg-destructive/10 hover:text-destructive"
-                                      aria-label={`Remove ${file.name}`}
+                              {isMultiple && Array.isArray(selectedFiles)
+                                ? selectedFiles.map((file, idx) => (
+                                    <div
+                                      key={idx}
+                                      className="flex min-h-24 items-center justify-between gap-3 rounded-xl border border-gold/30 bg-gold/[0.04] p-4"
                                     >
-                                      <X className="h-4 w-4" />
-                                    </button>
-                                  </div>
-                                ))
-                              ) : (
-                                !Array.isArray(selectedFiles) && selectedFiles && (
-                                  <div className="flex min-h-24 items-center justify-between gap-3 rounded-xl border border-gold/30 bg-gold/[0.04] p-4">
-                                    <div className="flex min-w-0 items-center gap-3">
-                                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-gold/10">
-                                        <FileText className="h-5 w-5 text-gold" />
+                                      <div className="flex min-w-0 items-center gap-3">
+                                        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-gold/10">
+                                          <FileText className="h-5 w-5 text-gold" />
+                                        </div>
+
+                                        <div className="min-w-0">
+                                          <p className="truncate text-sm font-medium text-foreground">
+                                            {file.name}
+                                          </p>
+
+                                          <p className="mt-0.5 text-xs text-muted-foreground">
+                                            {(file.size / (1024 * 1024)).toFixed(2)} MB
+                                          </p>
+                                        </div>
                                       </div>
 
-                                      <div className="min-w-0">
-                                        <p className="truncate text-sm font-medium text-foreground">
-                                          {selectedFiles.name}
-                                        </p>
-
-                                        <p className="mt-0.5 text-xs text-muted-foreground">
-                                          {(selectedFiles.size / (1024 * 1024)).toFixed(2)} MB
-                                        </p>
-                                      </div>
+                                      <button
+                                        type="button"
+                                        onClick={() => removeFile(field.name, idx)}
+                                        className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-muted-foreground transition hover:bg-destructive/10 hover:text-destructive"
+                                        aria-label={`Remove ${file.name}`}
+                                      >
+                                        <X className="h-4 w-4" />
+                                      </button>
                                     </div>
+                                  ))
+                                : !Array.isArray(selectedFiles) &&
+                                  selectedFiles && (
+                                    <div className="flex min-h-24 items-center justify-between gap-3 rounded-xl border border-gold/30 bg-gold/[0.04] p-4">
+                                      <div className="flex min-w-0 items-center gap-3">
+                                        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-gold/10">
+                                          <FileText className="h-5 w-5 text-gold" />
+                                        </div>
 
-                                    <button
-                                      type="button"
-                                      onClick={() => removeFile(field.name)}
-                                      className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-muted-foreground transition hover:bg-destructive/10 hover:text-destructive"
-                                      aria-label={`Remove ${selectedFiles.name}`}
-                                    >
-                                      <X className="h-4 w-4" />
-                                    </button>
-                                  </div>
-                                )
-                              )}
+                                        <div className="min-w-0">
+                                          <p className="truncate text-sm font-medium text-foreground">
+                                            {selectedFiles.name}
+                                          </p>
+
+                                          <p className="mt-0.5 text-xs text-muted-foreground">
+                                            {(selectedFiles.size / (1024 * 1024)).toFixed(2)} MB
+                                          </p>
+                                        </div>
+                                      </div>
+
+                                      <button
+                                        type="button"
+                                        onClick={() => removeFile(field.name)}
+                                        className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-muted-foreground transition hover:bg-destructive/10 hover:text-destructive"
+                                        aria-label={`Remove ${selectedFiles.name}`}
+                                      >
+                                        <X className="h-4 w-4" />
+                                      </button>
+                                    </div>
+                                  )}
                             </div>
                           )}
                         </div>
@@ -598,7 +606,8 @@ export function WorkRegistrationForm({
               />
 
               <span className="text-sm leading-relaxed text-muted-foreground">
-                I confirm that the information provided above is accurate and agree to SLV Group&apos; terms and conditions.
+                I confirm that the information provided above is accurate and agree to SLV
+                Group&apos; terms and conditions.
                 <span className="ml-1 text-red-500">*</span>
               </span>
             </label>

@@ -193,11 +193,7 @@ function exportProjectsCSV(projects: Project[]) {
 }
 
 // ── Upload helper ──
-async function uploadToStorage(
-  bucket: string,
-  folder: string,
-  file: File,
-): Promise<string> {
+async function uploadToStorage(bucket: string, folder: string, file: File): Promise<string> {
   const ext = file.name.split(".").pop();
   const path = `${folder}/${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
   const { error } = await supabase.storage.from(bucket).upload(path, file, { upsert: true });
@@ -274,7 +270,7 @@ function ProjectsManagement() {
   const handleSeedStaticProjects = async () => {
     setIsSeeding(true);
     toast.loading("Migrating projects & images to Supabase... this may take a minute.");
-    
+
     try {
       let successCount = 0;
       for (const p of staticProjects) {
@@ -327,7 +323,7 @@ function ProjectsManagement() {
         const floorPlans = [];
         if (p.floorPlans && p.floorPlans.length > 0) {
           for (let i = 0; i < p.floorPlans.length; i++) {
-            let fp = { ...p.floorPlans[i] };
+            const fp = { ...p.floorPlans[i] };
             if (fp.image && fp.image.startsWith("/")) {
               try {
                 const res = await fetch(fp.image);
@@ -371,7 +367,9 @@ function ProjectsManagement() {
         if (!error) successCount++;
       }
       toast.dismiss();
-      toast.success(`Successfully migrated ${successCount} projects and uploaded all their images!`);
+      toast.success(
+        `Successfully migrated ${successCount} projects and uploaded all their images!`,
+      );
       queryClient.invalidateQueries({ queryKey: ["admin-projects"] });
     } catch (err: any) {
       toast.dismiss();
@@ -403,10 +401,7 @@ function ProjectsManagement() {
     mutationFn: async ({ id, data }: { id: string; data: ProjectFormData }) => {
       const payload = buildPayload(data);
       console.log("Updating project payload:", payload);
-      const { error } = await supabase
-        .from("projects")
-        .update(payload)
-        .eq("id", id);
+      const { error } = await supabase.from("projects").update(payload).eq("id", id);
       if (error) throw error;
     },
     onSuccess: () => {
@@ -550,9 +545,7 @@ function ProjectsManagement() {
       map_embed: p.map_embed ?? "",
       amenities: Array.isArray(p.amenities) ? (p.amenities as string[]) : [],
       gallery: Array.isArray(p.gallery) ? (p.gallery as string[]) : [],
-      specifications: Array.isArray(p.specifications)
-        ? (p.specifications as SpecItem[])
-        : [],
+      specifications: Array.isArray(p.specifications) ? (p.specifications as SpecItem[]) : [],
       nearby: Array.isArray(p.nearby) ? (p.nearby as NearbyItem[]) : [],
       floor_plans: Array.isArray(p.floor_plans)
         ? (p.floor_plans as { type: string; sqft: number; image: string }[]).map((fp) => ({
@@ -658,7 +651,7 @@ function ProjectsManagement() {
           onClick={handleSeedStaticProjects}
           disabled={isSeeding}
         >
-          {isSeeding ? <Loader2 size={16} className="animate-spin" /> : <Upload size={16} />} 
+          {isSeeding ? <Loader2 size={16} className="animate-spin" /> : <Upload size={16} />}
           {isSeeding ? "Migrating..." : "Migrate Static Projects"}
         </Button>
       </div>
@@ -843,11 +836,21 @@ function ProjectsManagement() {
           <form onSubmit={handleSubmit} className="space-y-0">
             <Tabs defaultValue="basic" className="w-full">
               <TabsList className="grid w-full grid-cols-5 mb-6">
-                <TabsTrigger value="basic" className="text-xs sm:text-sm">Basic Info</TabsTrigger>
-                <TabsTrigger value="details" className="text-xs sm:text-sm">Details</TabsTrigger>
-                <TabsTrigger value="media" className="text-xs sm:text-sm">Media</TabsTrigger>
-                <TabsTrigger value="amenities" className="text-xs sm:text-sm">Amenities & Specs</TabsTrigger>
-                <TabsTrigger value="location" className="text-xs sm:text-sm">Location & Plans</TabsTrigger>
+                <TabsTrigger value="basic" className="text-xs sm:text-sm">
+                  Basic Info
+                </TabsTrigger>
+                <TabsTrigger value="details" className="text-xs sm:text-sm">
+                  Details
+                </TabsTrigger>
+                <TabsTrigger value="media" className="text-xs sm:text-sm">
+                  Media
+                </TabsTrigger>
+                <TabsTrigger value="amenities" className="text-xs sm:text-sm">
+                  Amenities & Specs
+                </TabsTrigger>
+                <TabsTrigger value="location" className="text-xs sm:text-sm">
+                  Location & Plans
+                </TabsTrigger>
               </TabsList>
 
               {/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -928,7 +931,9 @@ function ProjectsManagement() {
                     <Label htmlFor="category">Category</Label>
                     <Select
                       value={form.category || "__none"}
-                      onValueChange={(v) => setForm((f) => ({ ...f, category: v === "__none" ? "" : v }))}
+                      onValueChange={(v) =>
+                        setForm((f) => ({ ...f, category: v === "__none" ? "" : v }))
+                      }
                     >
                       <SelectTrigger id="category">
                         <SelectValue placeholder="Select category" />
@@ -1306,7 +1311,9 @@ function ProjectsManagement() {
                 <div className="space-y-3">
                   <div className="flex items-center gap-2">
                     <ListChecks className="w-4 h-4 text-gold" />
-                    <Label className="text-base font-semibold">Amenities ({form.amenities.length})</Label>
+                    <Label className="text-base font-semibold">
+                      Amenities ({form.amenities.length})
+                    </Label>
                   </div>
                   <div className="flex gap-2">
                     <Input
@@ -1318,7 +1325,10 @@ function ProjectsManagement() {
                         if (e.key === "Enter") {
                           e.preventDefault();
                           if (newAmenity.trim()) {
-                            setForm((f) => ({ ...f, amenities: [...f.amenities, newAmenity.trim()] }));
+                            setForm((f) => ({
+                              ...f,
+                              amenities: [...f.amenities, newAmenity.trim()],
+                            }));
                             setNewAmenity("");
                           }
                         }
@@ -1330,7 +1340,10 @@ function ProjectsManagement() {
                       size="sm"
                       onClick={() => {
                         if (newAmenity.trim()) {
-                          setForm((f) => ({ ...f, amenities: [...f.amenities, newAmenity.trim()] }));
+                          setForm((f) => ({
+                            ...f,
+                            amenities: [...f.amenities, newAmenity.trim()],
+                          }));
                           setNewAmenity("");
                         }
                       }}
@@ -1372,7 +1385,9 @@ function ProjectsManagement() {
                 <div className="space-y-3">
                   <div className="flex items-center gap-2">
                     <GripVertical className="w-4 h-4 text-gold" />
-                    <Label className="text-base font-semibold">Specifications ({form.specifications.length})</Label>
+                    <Label className="text-base font-semibold">
+                      Specifications ({form.specifications.length})
+                    </Label>
                   </div>
                   <div className="flex gap-2">
                     <Input
@@ -1463,7 +1478,9 @@ function ProjectsManagement() {
                 <div className="space-y-3">
                   <div className="flex items-center gap-2">
                     <MapPin className="w-4 h-4 text-gold" />
-                    <Label className="text-base font-semibold">Geo-Spatial Insights ({form.nearby.length})</Label>
+                    <Label className="text-base font-semibold">
+                      Geo-Spatial Insights ({form.nearby.length})
+                    </Label>
                   </div>
                   <div className="flex gap-2">
                     <Input
@@ -1485,7 +1502,10 @@ function ProjectsManagement() {
                               ...f,
                               nearby: [
                                 ...f.nearby,
-                                { label: newNearby.label.trim(), distance: newNearby.distance.trim() },
+                                {
+                                  label: newNearby.label.trim(),
+                                  distance: newNearby.distance.trim(),
+                                },
                               ],
                             }));
                             setNewNearby({ label: "", distance: "" });
@@ -1503,7 +1523,10 @@ function ProjectsManagement() {
                             ...f,
                             nearby: [
                               ...f.nearby,
-                              { label: newNearby.label.trim(), distance: newNearby.distance.trim() },
+                              {
+                                label: newNearby.label.trim(),
+                                distance: newNearby.distance.trim(),
+                              },
                             ],
                           }));
                           setNewNearby({ label: "", distance: "" });
@@ -1565,7 +1588,9 @@ function ProjectsManagement() {
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
                       <ImageIcon className="w-4 h-4 text-gold" />
-                      <Label className="text-base font-semibold">Floor Plans ({form.floor_plans.length})</Label>
+                      <Label className="text-base font-semibold">
+                        Floor Plans ({form.floor_plans.length})
+                      </Label>
                     </div>
                     <Button
                       type="button"
