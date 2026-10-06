@@ -134,7 +134,8 @@ function ContactPage() {
                 e.preventDefault();
                 setSubmitting(true);
                 try {
-                  const projectId = selectedProject && selectedProject !== "general" ? selectedProject : null;
+                  const projectId =
+                    selectedProject && selectedProject !== "general" ? selectedProject : null;
                   const { error } = await supabase.from("leads").insert({
                     name: fullName,
                     phone: phoneNumber,
@@ -153,7 +154,11 @@ function ContactPage() {
                   setSelectedProject("");
                   setMessageText("");
                 } catch (err) {
-                  toast.error(err instanceof Error ? err.message : "Failed to submit enquiry. Please try again.");
+                  toast.error(
+                    err instanceof Error
+                      ? err.message
+                      : "Failed to submit enquiry. Please try again.",
+                  );
                 } finally {
                   setSubmitting(false);
                 }
@@ -194,7 +199,9 @@ function ContactPage() {
                     {p.name}
                   </option>
                 ))}
-                <option value="general" className="text-foreground bg-background">General Enquiry</option>
+                <option value="general" className="text-foreground bg-background">
+                  General Enquiry
+                </option>
               </select>
               <textarea
                 rows={5}

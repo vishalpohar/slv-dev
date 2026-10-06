@@ -43,7 +43,7 @@ export const Route = createFileRoute("/")({
       };
     }
 
-    let ongoingProjects = (data ?? []).map(mapSupabaseToProject);
+    const ongoingProjects = (data ?? []).map(mapSupabaseToProject);
 
     // Hoist SLV Green Grandeur to the beginning
     ongoingProjects.sort((a, b) => {
@@ -239,10 +239,10 @@ function Index() {
           </div>
 
           <p className="mt-6 text-lg font-light leading-relaxed text-muted-foreground">
-            At SLV Group Pvt Ltd, we don't just build structures — we curate
-            lifestyles. Beginning in Bhimavaram in 2007 and entering Vijayawada in 2015 with SLV
-            Anjani Heights, we have redefined the skyline of the Amaravati capital region with
-            architectural brilliance and structural integrity.
+            At SLV Group Pvt Ltd, we don't just build structures — we curate lifestyles. Beginning
+            in Bhimavaram in 2007 and entering Vijayawada in 2015 with SLV Anjani Heights, we have
+            redefined the skyline of the Amaravati capital region with architectural brilliance and
+            structural integrity.
           </p>
           <p className="mt-4 leading-relaxed text-muted-foreground">
             Guided by founder Sri Penmetsa Srinivasa Raju, SLV has delivered 30+ residential
@@ -637,7 +637,8 @@ function Index() {
             <Link
               to="/projects"
               search={{ status: undefined }}
-              className="group flex items-center gap-3 rounded-2xl border border-white/20 px-10 py-5 text-xs font-bold uppercase tracking-[0.2em] text-white transition-all duration-300 hover:bg-gradient-gold hover:text-gold-foreground hover:border-gold">
+              className="group flex items-center gap-3 rounded-2xl border border-white/20 px-10 py-5 text-xs font-bold uppercase tracking-[0.2em] text-white transition-all duration-300 hover:bg-gradient-gold hover:text-gold-foreground hover:border-gold"
+            >
               Explore Projects
             </Link>
           </div>

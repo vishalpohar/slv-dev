@@ -31,9 +31,7 @@ async function seed() {
       sort_order: parseInt(project.id) || 0,
     };
 
-    const { error } = await supabase
-      .from("projects")
-      .upsert(payload, { onConflict: "slug" });
+    const { error } = await supabase.from("projects").upsert(payload, { onConflict: "slug" });
 
     if (error) {
       console.error("Failed to insert:", project.name, error);

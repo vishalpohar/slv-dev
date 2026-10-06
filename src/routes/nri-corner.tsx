@@ -1,6 +1,22 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { ArrowDown, Globe, ShieldCheck, Home, CheckCircle, Loader2, FileText, Search, Headphones, MapPin as MapPinIcon, FileSignature, Handshake, PhoneCall, MessageCircle, Crown } from "lucide-react";
+import {
+  ArrowDown,
+  Globe,
+  ShieldCheck,
+  Home,
+  CheckCircle,
+  Loader2,
+  FileText,
+  Search,
+  Headphones,
+  MapPin as MapPinIcon,
+  FileSignature,
+  Handshake,
+  PhoneCall,
+  MessageCircle,
+  Crown,
+} from "lucide-react";
 import { toast } from "sonner";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
@@ -13,7 +29,8 @@ export const Route = createFileRoute("/nri-corner")({
       { title: "NRI Corner — SLV Group" },
       {
         name: "description",
-        content: "Invest in India. Build Your Future with SLV Group. Dedicated support and premium properties for Non-Resident Indians.",
+        content:
+          "Invest in India. Build Your Future with SLV Group. Dedicated support and premium properties for Non-Resident Indians.",
       },
     ],
   }),
@@ -102,7 +119,7 @@ const faqs = [
   {
     q: "Do I need to be present in India to complete the purchase?",
     a: "No, you can execute a Power of Attorney (PoA) favoring a trusted relative or friend in India to complete the property registration process on your behalf.",
-  }
+  },
 ];
 
 function NriCornerPage() {
@@ -136,7 +153,9 @@ function NriCornerPage() {
     },
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>,
+  ) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
@@ -182,7 +201,9 @@ ${formData.message}
         message: "",
       });
     } catch (err) {
-      toast.error(err instanceof Error ? err.message : "Failed to submit enquiry. Please try again.");
+      toast.error(
+        err instanceof Error ? err.message : "Failed to submit enquiry. Please try again.",
+      );
     } finally {
       setSubmitting(false);
     }

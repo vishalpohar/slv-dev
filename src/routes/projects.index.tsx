@@ -1,7 +1,11 @@
 import { useMemo, useState, useEffect } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { PropertyCard } from "@/components/PropertyCard";
-import { type ProjectCategory, type ProjectStatus, projects as staticProjects } from "@/data/projects";
+import {
+  type ProjectCategory,
+  type ProjectStatus,
+  projects as staticProjects,
+} from "@/data/projects";
 import { supabase } from "@/integrations/supabase/client";
 import { mapSupabaseToProject } from "@/data/projects";
 import { cn } from "@/lib/utils";
@@ -52,16 +56,16 @@ export const Route = createFileRoute("/projects/")({
 
     // Hoist SLV Green Grandeur to the beginning
     // Sort projects in the required sequence:
-// Ongoing → Upcoming → Completed
-const statusOrder: Record<ProjectStatus, number> = {
-  Ongoing: 1,
-  Upcoming: 2,
-  Completed: 3,
-};
+    // Ongoing → Upcoming → Completed
+    const statusOrder: Record<ProjectStatus, number> = {
+      Ongoing: 1,
+      Upcoming: 2,
+      Completed: 3,
+    };
 
-allProjects.sort((a, b) => {
-  return statusOrder[a.status] - statusOrder[b.status];
-});
+    allProjects.sort((a, b) => {
+      return statusOrder[a.status] - statusOrder[b.status];
+    });
 
     // console.log("[ProjectsLoader] Total projects:", allProjects.length);
     return { projects: allProjects };

@@ -38,6 +38,7 @@ const registrationLabels: Record<string, string> = {
   architect_consultant: "Architect & Consultant",
   contractor: "Contractor",
   vendor_supplier: "Vendor & Supplier",
+  land_proposal: "Land Proposal",
 };
 
 const statusLabels: Record<string, string> = {

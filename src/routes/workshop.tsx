@@ -105,8 +105,8 @@ function WorkshopPage() {
           Build With <span className="text-gradient-gold">SLV</span>
         </h1>
         <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
-          Hands-on sessions for architects, consultants, contractors, and vendors — held at our
-          head office and live project sites across Andhra Pradesh.
+          Hands-on sessions for architects, consultants, contractors, and vendors — held at our head
+          office and live project sites across Andhra Pradesh.
         </p>
       </div>
 
@@ -126,9 +126,7 @@ function WorkshopPage() {
               <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-gold text-gold-foreground">
                 <t.icon className="h-6 w-6" />
               </div>
-              <h3 className="mt-5 font-display text-xl font-semibold text-foreground">
-                {t.title}
-              </h3>
+              <h3 className="mt-5 font-display text-xl font-semibold text-foreground">{t.title}</h3>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{t.desc}</p>
             </div>
           ))}
@@ -181,8 +179,8 @@ function WorkshopPage() {
               More than a classroom
             </h2>
             <p className="mt-4 max-w-md text-sm leading-relaxed text-background/70">
-              Every workshop is anchored on a live SLV project, taught by the same team that
-              designs and delivers our developments.
+              Every workshop is anchored on a live SLV project, taught by the same team that designs
+              and delivers our developments.
             </p>
           </div>
           <ul className="space-y-3">

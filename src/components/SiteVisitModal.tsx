@@ -2,18 +2,25 @@ import { useState } from "react";
 import { Calendar, Clock, User, Phone, Loader2, MapPin } from "lucide-react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Calendar as CalendarUI } from "@/components/ui/calendar";
 import { format, addHours, startOfHour } from "date-fns";
 import { cn } from "@/lib/utils";
 
-export function SiteVisitModal({ 
-  projectId, 
-  projectName, 
-  trigger 
-}: { 
-  projectId?: string; 
+export function SiteVisitModal({
+  projectId,
+  projectName,
+  trigger,
+}: {
+  projectId?: string;
   projectName?: string;
   trigger: React.ReactNode;
 }) {
@@ -49,7 +56,9 @@ export function SiteVisitModal({
       setOpen(false);
       setFormData({ name: "", phone: "", date: nextHour, time: format(nextHour, "HH:mm") });
     } catch (err) {
-      toast.error(err instanceof Error ? err.message : "Failed to book site visit. Please try again.");
+      toast.error(
+        err instanceof Error ? err.message : "Failed to book site visit. Please try again.",
+      );
     } finally {
       setSubmitting(false);
     }
@@ -57,9 +66,7 @@ export function SiteVisitModal({
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
-        {trigger}
-      </DialogTrigger>
+      <DialogTrigger asChild>{trigger}</DialogTrigger>
       <DialogContent className="sm:max-w-[425px] rounded-3xl bg-card border-gold/20 shadow-2xl p-0 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-gold/5 to-transparent pointer-events-none" />
         <div className="p-6 relative z-10">
@@ -71,7 +78,9 @@ export function SiteVisitModal({
               Book a Site Visit
             </DialogTitle>
             <DialogDescription className="text-center text-muted-foreground mt-2">
-              {projectName ? `Schedule a private viewing for ${projectName}.` : "Schedule a private viewing of our properties."}
+              {projectName
+                ? `Schedule a private viewing for ${projectName}.`
+                : "Schedule a private viewing of our properties."}
             </DialogDescription>
           </DialogHeader>
 
@@ -110,13 +119,16 @@ export function SiteVisitModal({
                         type="button"
                         className={cn(
                           "w-full flex items-center justify-start rounded-xl bg-background pl-11 pr-4 py-3.5 text-sm neu-pressed focus:outline-none focus:ring-1 focus:ring-gold/50 text-foreground transition-all",
-                          !formData.date && "text-muted-foreground"
+                          !formData.date && "text-muted-foreground",
                         )}
                       >
                         {formData.date ? format(formData.date, "PPP") : <span>Pick a date</span>}
                       </button>
                     </PopoverTrigger>
-                    <PopoverContent className="w-auto p-0 border-border bg-card rounded-xl" align="start">
+                    <PopoverContent
+                      className="w-auto p-0 border-border bg-card rounded-xl"
+                      align="start"
+                    >
                       <CalendarUI
                         mode="single"
                         selected={formData.date}

@@ -47,7 +47,7 @@ const workLinks = [
   {
     label: "Workshop",
     to: "/workshop",
-  }
+  },
 ];
 
 export function Navbar() {
@@ -250,7 +250,6 @@ export function Navbar() {
             </div>
           </div>
 
-          
           {/* Buyer's Guide */}
           <div className="relative group">
             <button
@@ -280,8 +279,6 @@ export function Navbar() {
               </ul>
             </div>
           </div>
-
-          
 
           {/* NRI Corner */}
           <Link

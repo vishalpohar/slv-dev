@@ -81,7 +81,8 @@ export const Route = createFileRoute("/admin/csr")({
 
 type CSRActivity = Tables<"csr_activities">;
 
-type CSRCategory = "Community" | "Healthcare & Accessibility" | "Education" | "Environment" | "Food & Relief";
+type CSRCategory =
+  "Community" | "Healthcare & Accessibility" | "Education" | "Environment" | "Food & Relief";
 
 type CSRFormData = {
   title: string;
@@ -379,7 +380,10 @@ function CSRManagement() {
                     </Badge>
                   )}
                   {!activity.is_published && (
-                    <Badge variant="outline" className="rounded-md border-muted text-muted-foreground">
+                    <Badge
+                      variant="outline"
+                      className="rounded-md border-muted text-muted-foreground"
+                    >
                       Draft
                     </Badge>
                   )}
@@ -442,7 +446,11 @@ function CSRManagement() {
                 <div className="relative w-48 aspect-video rounded-xl border border-border overflow-hidden bg-muted flex items-center justify-center shrink-0">
                   {form.image_url ? (
                     <>
-                      <img src={resolveCSRImageUrl(form.image_url)} alt="Preview" className="w-full h-full object-cover" />
+                      <img
+                        src={resolveCSRImageUrl(form.image_url)}
+                        alt="Preview"
+                        className="w-full h-full object-cover"
+                      />
                       <button
                         type="button"
                         onClick={handleImageRemove}
@@ -535,7 +543,7 @@ function CSRManagement() {
                   placeholder="e.g. Andhra Pradesh"
                 />
               </div>
-              
+
               <div className="space-y-2">
                 <Label>Impact</Label>
                 <Input
@@ -544,7 +552,7 @@ function CSRManagement() {
                   placeholder="e.g. ₹1 Crore Contribution"
                 />
               </div>
-              
+
               <div className="space-y-2">
                 <Label>Beneficiaries</Label>
                 <Input
@@ -642,11 +650,7 @@ function CSRManagement() {
               onClick={() => deletingId && deleteMutation.mutate(deletingId)}
               className="bg-destructive hover:bg-destructive/90 text-destructive-foreground"
             >
-              {deleteMutation.isPending ? (
-                <Loader2 className="w-4 h-4 animate-spin" />
-              ) : (
-                "Delete"
-              )}
+              {deleteMutation.isPending ? <Loader2 className="w-4 h-4 animate-spin" /> : "Delete"}
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
