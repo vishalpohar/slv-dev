@@ -17,7 +17,7 @@ export const Route = createFileRoute("/site-visit")({
     ],
   }),
   loader: async () => {
-    const allProjects = [...staticProjects];
+    let allProjects = [...staticProjects];
     const { data } = await supabase
       .from("projects")
       .select("*")
@@ -27,14 +27,13 @@ export const Route = createFileRoute("/site-visit")({
 
     if (data && data.length > 0) {
       const dbProjects = data.map(mapSupabaseToProject);
-      for (const dbP of dbProjects) {
-        const idx = allProjects.findIndex((s) => s.slug === dbP.slug);
-        if (idx >= 0) {
-          allProjects[idx] = dbP;
-        } else {
-          allProjects.push(dbP);
-        }
-      }
+      const dbSlugs = new Set(dbProjects.map((p) => p.slug));
+      const dbNames = new Set(dbProjects.map((p) => p.name.toLowerCase().trim()));
+
+      allProjects = staticProjects.filter(
+        (s) => !dbSlugs.has(s.slug) && !dbNames.has(s.name.toLowerCase().trim()),
+      );
+      allProjects.push(...dbProjects);
     }
 
     // Filter to only ongoing projects for this page

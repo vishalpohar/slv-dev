@@ -1768,51 +1768,8 @@ export const projects: Project[] = [
       { type: "3 BHK", sqft: 1800, image: img(3) },
     ],
   },
-  // ── 33 ──────────────────────────────────────────────
-  {
-    id: "33",
-    slug: "slv-aerocity-1",
-    name: "SLV Aerocity-1",
-    tagline: "Premium plots at the gateway to Gannavaram Airport",
-    category: "Plots",
-    status: "Ongoing",
-    location: "Purushothapatnam, Gannavaram",
-    city: "Gannavaram",
-    priceFrom: 4000000,
-    bedrooms: "Villa Plots",
-    sqftFrom: 1800,
-    sqftTo: 5000,
-    launchDate: "Ongoing",
-    image: img(3),
-    gallery: gallery(3),
-    description:
-      "SLV Aerocity-1 — premium plotted layout at Purushothapatnam, Gannavaram, positioned at the gateway to the new airport city. Currently under development, Aerocity-1 is ideally located for those looking to invest in the Gannavaram aviation-driven growth corridor.",
-    amenities: [
-      "Gated Entrance",
-      "Wide Roads",
-      "Underground Drainage",
-      "Street Lighting",
-      "Avenue Plantation",
-      "Clear Titles",
-    ],
-    specifications: [
-      { label: "Type", value: "Plotted Layout" },
-      { label: "Location", value: "Purushothapatnam, Gannavaram" },
-      { label: "Commencement", value: "Feb 2026" },
-      { label: "Completion", value: "Ongoing" },
-    ],
-    proximity: [
-      { label: "Gannavaram Airport", distance: "5 km" },
-      { label: "NH-16 Highway", distance: "3 km" },
-      { label: "Vijayawada City Centre", distance: "12 km" },
-      { label: "Schools", distance: "3 km" },
-    ],
-    floorPlans: [
-      { type: "Villa Plot", sqft: 1800, image: img(3) },
-      { type: "Premium Plot", sqft: 5000, image: img(1) },
-    ],
-  },
   // ── 34 ──────────────────────────────────────────────
+
   {
     id: "34",
     slug: "slv-aerocity-2",

@@ -28,35 +28,31 @@ export const Route = createFileRoute("/projects/")({
     status: search.status as string | undefined,
   }),
   loader: async () => {
-    // Always start with the 34 static projects
-    const allProjects = [...staticProjects];
-
     // Try to fetch any DB projects (admin-added)
-    const { data, error } = await supabase
+    const { data } = await supabase
       .from("projects")
       .select("*")
       .eq("is_published", true)
       .order("sort_order", { ascending: true });
 
-    // console.log("[ProjectsLoader] DB fetch result:", { count: data?.length, error, firstRow: data?.[0] });
+    let allProjects = [...staticProjects];
 
     if (data && data.length > 0) {
       const dbProjects = data.map(mapSupabaseToProject);
-      // Merge: DB projects override static ones by slug, new DB-only projects are appended
-      for (const dbP of dbProjects) {
-        const idx = allProjects.findIndex((s) => s.slug === dbP.slug);
-        if (idx >= 0) {
-          allProjects[idx] = dbP; // override static with DB version
-        } else {
-          // console.log("[ProjectsLoader] Appending new DB project:", dbP.slug, dbP.name);
-          allProjects.push(dbP); // append new admin-added project
-        }
-      }
+      // Build Sets of DB slugs and normalized names for fast lookup
+      const dbSlugs = new Set(dbProjects.map((p) => p.slug));
+      const dbNames = new Set(dbProjects.map((p) => p.name.toLowerCase().trim()));
+
+      // Keep only static projects that DON'T have a DB counterpart (by slug OR name)
+      allProjects = staticProjects.filter(
+        (s) => !dbSlugs.has(s.slug) && !dbNames.has(s.name.toLowerCase().trim()),
+      );
+
+      // Append all DB projects (they take priority)
+      allProjects.push(...dbProjects);
     }
 
-    // Hoist SLV Green Grandeur to the beginning
-    // Sort projects in the required sequence:
-    // Ongoing → Upcoming → Completed
+    // Sort projects: Ongoing → Upcoming → Completed
     const statusOrder: Record<ProjectStatus, number> = {
       Ongoing: 1,
       Upcoming: 2,
@@ -67,8 +63,8 @@ export const Route = createFileRoute("/projects/")({
       return statusOrder[a.status] - statusOrder[b.status];
     });
 
-    // console.log("[ProjectsLoader] Total projects:", allProjects.length);
     return { projects: allProjects };
+
   },
   component: ProjectsPage,
 });

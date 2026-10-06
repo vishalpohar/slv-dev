@@ -1,6 +1,5 @@
-import { Bell, Search } from "lucide-react";
+import { Bell } from "lucide-react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
 interface AdminHeaderProps {
@@ -21,15 +20,6 @@ export function AdminHeader({ title, subtitle, userEmail }: AdminHeaderProps) {
       <div className="flex-1 min-w-0">
         <h1 className="text-xl font-bold text-foreground truncate">{title}</h1>
         {subtitle && <p className="text-xs text-muted-foreground mt-0.5 truncate">{subtitle}</p>}
-      </div>
-
-      {/* Search bar */}
-      <div className="relative hidden md:block w-56">
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-        <Input
-          placeholder="Search..."
-          className="pl-9 h-9 bg-muted/50 border-border/60 text-sm focus-visible:ring-gold"
-        />
       </div>
 
       {/* Notification bell */}
