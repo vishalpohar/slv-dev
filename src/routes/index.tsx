@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { ArrowRight, ArrowLeft, Quote, Crown, Award, Shield, TrendingUp, Star } from "lucide-react";
+import { ArrowRight, ArrowLeft, Quote, Crown, Award, Shield, TrendingUp, Star, MapPin } from "lucide-react";
 import { HeroSection } from "@/components/home/HeroSection";
 import { PropertyCard } from "@/components/PropertyCard";
 import { Reveal } from "@/components/Reveal";
@@ -173,8 +173,48 @@ function Index() {
         </div>
       </section>
 
+      {/* ── Locations strip ── */}
+      <section className="relative overflow-hidden border-b border-border/50 bg-background/80">
+        <div className="mx-auto flex max-w-7xl flex-col items-center justify-center gap-4 px-6 py-5 sm:flex-row sm:gap-6">
+          {/* Label */}
+          <div className="flex shrink-0 items-center gap-2">
+            <span className="flex h-8 w-8 items-center justify-center rounded-full border border-gold/25 bg-gold/5">
+              <MapPin className="h-4 w-4 text-gold" />
+            </span>
+
+            <span className="text-[0.65rem] font-bold uppercase tracking-[0.25em] text-muted-foreground">
+              Our Locations
+            </span>
+          </div>
+
+          {/* Divider */}
+          <div className="hidden h-5 w-px bg-border sm:block" />
+
+          {/* Locations */}
+          <div className="flex flex-wrap items-center justify-center gap-2.5">
+            {["Vijayawada", "Gannavaram", "Gunthapalli", "Amaravathi", "Bhimavaram"].map(
+              (location) => (
+                <span
+                  key={location}
+                  className="rounded-full border border-border/70 bg-card px-4 py-1.5 text-xs font-medium text-muted-foreground transition-all duration-300 hover:border-gold/40 hover:bg-gold/5 hover:text-foreground"
+                >
+                  {location}
+                </span>
+              ),
+            )}
+          </div>
+        </div>
+
+        {/* Gold accent */}
+        <div
+          aria-hidden
+          className="absolute inset-x-0 bottom-0 h-px opacity-50"
+          style={{ background: "var(--gradient-gold)" }}
+        />
+      </section>
+
       {/* ── About SLV — staggered images ── */}
-      <section className="mx-auto grid max-w-7xl items-center gap-16 px-6 py-32 lg:grid-cols-2 lg:gap-24">
+      <section className="mx-auto grid max-w-7xl items-center gap-16 px-6 py-10 lg:grid-cols-2 lg:gap-24">
         <Reveal>
           <div className="relative flex gap-5">
             {/* Ornamental frame lines */}
@@ -193,6 +233,8 @@ function Index() {
                   src={aboutImage}
                   alt="An SLV Group gated community in the Vijayawada–Amaravati region"
                   loading="lazy"
+                  decoding="async"
+                  fetchPriority="low"
                   className="aspect-[3/4] w-full object-cover transition-transform duration-700 hover:scale-105"
                 />
               </div>
@@ -201,6 +243,8 @@ function Index() {
                   src={aboutImage2}
                   alt="Interior detail of an SLV residence"
                   loading="lazy"
+                  decoding="async"
+                  fetchPriority="low"
                   className="aspect-[3/5] w-full object-cover transition-transform duration-700 hover:scale-105"
                 />
               </div>
@@ -239,8 +283,8 @@ function Index() {
           </div>
 
           <p className="mt-6 text-lg font-light leading-relaxed text-muted-foreground">
-            At SLV Group Pvt Ltd, we don't just build structures — we curate lifestyles. Beginning
-            in Bhimavaram in 2007 and entering Vijayawada in 2015 with SLV Anjani Heights, we have
+            At SLV Group, we don't just build structures — we curate lifestyles. Beginning in
+            Bhimavaram in 2007 and entering Vijayawada in 2015 with SLV Anjani Heights, we have
             redefined the skyline of the Amaravati capital region with architectural brilliance and
             structural integrity.
           </p>

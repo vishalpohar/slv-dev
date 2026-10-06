@@ -105,16 +105,18 @@ export function PropertyCard({ project }: { project: Project }) {
         </p>
 
         {/* Specs */}
-        <div className="mt-4 grid grid-cols-2 gap-3">
-          <div className="flex items-center gap-2 rounded-xl bg-secondary/50 px-3 py-2.5 text-xs text-muted-foreground">
-            <BedDouble className="h-3.5 w-3.5 shrink-0" style={{ color: "var(--color-gold)" }} />
-            <span className="font-medium">{project.bedrooms}</span>
+        {project.status === "Ongoing" && (
+          <div className="mt-4 grid grid-cols-2 gap-3">
+            <div className="flex items-center gap-2 rounded-xl bg-secondary/50 px-3 py-2.5 text-xs text-muted-foreground">
+              <BedDouble className="h-3.5 w-3.5 shrink-0" style={{ color: "var(--color-gold)" }} />
+              <span className="font-medium">{project.bedrooms}</span>
+            </div>
+            <div className="flex items-center gap-2 rounded-xl bg-secondary/50 px-3 py-2.5 text-xs text-muted-foreground">
+              <Maximize className="h-3.5 w-3.5 shrink-0" style={{ color: "var(--color-gold)" }} />
+              <span className="font-medium">{project.sqftFrom.toLocaleString()}+ sqft</span>
+            </div>
           </div>
-          <div className="flex items-center gap-2 rounded-xl bg-secondary/50 px-3 py-2.5 text-xs text-muted-foreground">
-            <Maximize className="h-3.5 w-3.5 shrink-0" style={{ color: "var(--color-gold)" }} />
-            <span className="font-medium">{project.sqftFrom.toLocaleString()}+ sqft</span>
-          </div>
-        </div>
+        )}
 
         {/* Actions */}
         <div className="mt-4 flex gap-2">

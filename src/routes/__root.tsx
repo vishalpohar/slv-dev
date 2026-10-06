@@ -7,8 +7,9 @@ import {
   useRouterState,
   HeadContent,
   Scripts,
+  type ErrorComponentProps,
 } from "@tanstack/react-router";
-import { useEffect, type ReactNode } from "react";
+import { lazy, Suspense, useEffect, useState, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
@@ -17,9 +18,59 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { ComparisonBar } from "@/components/ComparisonBar";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
-import { AIAssistant } from "@/components/AIAssistant";
 import { Toaster } from "@/components/ui/sonner";
-import { ContactPopup } from "@/components/ContactPopup";
+
+const AIAssistant = lazy(() =>
+  import("@/components/AIAssistant").then((module) => ({
+    default: module.AIAssistant,
+  })),
+);
+
+const ContactPopup = lazy(() =>
+  import("@/components/ContactPopup").then((module) => ({
+    default: module.ContactPopup,
+  })),
+);
+
+function DeferredAIAssistant() {
+  const [show, setShow] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShow(true);
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (!show) return null;
+
+  return (
+    <Suspense fallback={null}>
+      <AIAssistant />
+    </Suspense>
+  );
+}
+
+function DeferredContactPopup() {
+  const [show, setShow] = useState(false);
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => {
+      setShow(true);
+    }, 700);
+
+    return () => window.clearTimeout(timer);
+  }, []);
+
+  if (!show) return null;
+
+  return (
+    <Suspense fallback={null}>
+      <ContactPopup />
+    </Suspense>
+  );
+}
 
 function NotFoundComponent() {
   return (
@@ -43,7 +94,7 @@ function NotFoundComponent() {
   );
 }
 
-function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
+function ErrorComponent({ error, reset }: ErrorComponentProps) {
   console.error(error);
   const router = useRouter();
   useEffect(() => {
@@ -171,8 +222,8 @@ function RootComponent() {
         {!isAdminRoute && <Footer />}
         {!isAdminRoute && <ComparisonBar />}
         {!isAdminRoute && <WhatsAppButton />}
-        {!isAdminRoute && <AIAssistant />}
-        {!isAdminRoute && <ContactPopup />}
+        {!isAdminRoute && <DeferredAIAssistant />}
+        {!isAdminRoute && <DeferredContactPopup />}
         <Toaster position="top-center" richColors />
       </StoreProvider>
     </QueryClientProvider>
