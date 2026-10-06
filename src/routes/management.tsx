@@ -219,6 +219,8 @@ function LeadershipProfile({
                     src={member.image}
                     alt={member.name}
                     loading="lazy"
+                    decoding="async"
+                    fetchPriority="low"
                     className={cn(
                       "h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.025]",
                       member.imagePosition,
@@ -423,7 +425,9 @@ function ManagementPage() {
                   <img
                     src={heroImage}
                     alt="SLV Group"
-                    loading="eager"
+                    loading="lazy"
+                    decoding="async"
+                    fetchPriority="low"
                     className="block aspect-[4/3] w-full object-cover transition-transform duration-1000 group-hover:scale-[1.025] sm:aspect-[5/4] lg:aspect-[4/3]"
                   />
 
@@ -629,6 +633,8 @@ function ManagementPage() {
                   src={visionImage}
                   alt="SLV development"
                   loading="lazy"
+                  decoding="async"
+                  fetchPriority="low"
                   className="aspect-[4/3] w-full object-cover"
                 />
 

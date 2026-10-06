@@ -132,6 +132,9 @@ function ProjectDetails() {
                 key={i}
                 src={g}
                 alt={`${project.name} view ${i + 1}`}
+                loading={i === 0 ? "eager" : "lazy"}
+                decoding="async"
+                fetchPriority={i === 0 ? "high" : "low"}
                 className={cn(
                   "absolute inset-0 h-full w-full object-cover bg-black",
                   "transition-[opacity,transform] duration-700 ease-in-out",

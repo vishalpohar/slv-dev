@@ -547,6 +547,8 @@ function AboutPage() {
               lg:aspect-[1]
             "
                   loading="lazy"
+                  decoding="async"
+                  fetchPriority="low"
                 />
 
                 {/* Cinematic overlays */}
@@ -962,15 +964,17 @@ function AboutPage() {
                         src={j.img}
                         alt={j.title}
                         loading="lazy"
+                        decoding="async"
+                        fetchPriority="low"
                         className="
-                  aspect-[16/10]
-                  w-full
-                  object-cover
-                  transition-transform
-                  duration-700
-                  group-hover:scale-105
-                  sm:aspect-[16/9]
-                "
+                        aspect-[16/10]
+                        w-full
+                        object-cover
+                        transition-transform
+                        duration-700
+                        group-hover:scale-105
+                        sm:aspect-[16/9]
+                      "
                       />
 
                       {/* Bottom gradient */}
@@ -1020,6 +1024,8 @@ function AboutPage() {
                         alt={j.title}
                         className="aspect-[16/10] w-full object-cover transition-transform duration-700 hover:scale-105"
                         loading="lazy"
+                        decoding="async"
+                        fetchPriority="low"
                       />
 
                       <CornerMarks />

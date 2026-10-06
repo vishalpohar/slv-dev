@@ -214,13 +214,15 @@ ${formData.message}
       {/* Hero Section */}
       <section className="relative isolate min-h-[620px] overflow-hidden sm:min-h-[680px] lg:min-h-[760px]">
         {/* Hero background image */}
-        <div
-          aria-hidden
-          className="absolute inset-0 -z-20 bg-cover bg-center bg-no-repeat"
-          style={{
-            backgroundImage: `url(${nriHeroImage})`,
-            backgroundPosition: "center 42%",
-          }}
+        <img
+          src={nriHeroImage}
+          alt=""
+          aria-hidden="true"
+          fetchPriority="high"
+          loading="eager"
+          decoding="async"
+          className="absolute inset-0 -z-20 h-full w-full object-cover"
+          style={{ objectPosition: "center 42%" }}
         />
 
         {/* Dark cinematic overlay */}

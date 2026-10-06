@@ -299,6 +299,8 @@ function InitiativeCard({ initiative, index }: { initiative: CSRInitiative; inde
             src={initiative.image}
             alt={initiative.title}
             loading="lazy"
+            decoding="async"
+            fetchPriority="low"
             className="
               h-full w-full object-cover
               transition-transform duration-700
@@ -568,6 +570,9 @@ function CSRPage() {
                     src={heroImage}
                     alt="SLV community initiative"
                     className="aspect-[4/3] w-full object-cover sm:aspect-[5/4] lg:aspect-[4/3]"
+                    loading="lazy"
+                    decoding="async"
+                    fetchPriority="low"
                   />
 
                   <div
@@ -676,6 +681,9 @@ function CSRPage() {
                   src={featured.image}
                   alt={featured.title}
                   className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 hover:scale-105"
+                  loading="lazy"
+                  decoding="async"
+                  fetchPriority="low"
                 />
 
                 <div
